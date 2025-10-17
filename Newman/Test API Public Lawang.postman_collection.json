@@ -1,0 +1,340 @@
+{
+	"info": {
+		"_postman_id": "40601ee0-2d44-4b46-ba42-14c8d622e7d7",
+		"name": "Test API Public Lawang",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37383269"
+	},
+	"item": [
+		{
+			"name": "Graphql",
+			"item": [
+				{
+					"name": "GraphQL - Public",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  launchesPast {\r\n    mission_name\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://202.72.206.162:2727/space",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"space"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HTTP",
+			"item": [
+				{
+					"name": "HTTP - Get Public",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://202.72.206.162:2727/http/ability/2",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"http",
+								"ability",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Javascript",
+			"item": [
+				{
+					"name": "JS - Public",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://202.72.206.162:2727/js/mock/user",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"js",
+								"mock",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Load Balancer",
+			"item": [
+				{
+					"name": "Balancer - Get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://202.72.206.162:2727/lb/api/character",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"lb",
+								"api",
+								"character"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Database",
+			"item": [
+				{
+					"name": "DB - Lawang",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://202.72.206.162:2727/db/lawang",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"db",
+								"lawang"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Proxy",
+			"item": [
+				{
+					"name": "Test Proxy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://202.72.206.162:2727/proxy/get-networks",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"proxy",
+								"get-networks"
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2000",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Asynchronous",
+			"item": [
+				{
+					"name": "Async - Webhook",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  launchesPast {\r\n    mission_name\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://202.72.206.162:2727/async/get-webhook",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"async",
+								"get-webhook"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "File",
+			"item": [
+				{
+					"name": "File - SFTP",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "7a062f7475a2f226f",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "907353adb",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://202.72.206.162:2727/162-sftp/data/anjay.txt",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"162-sftp",
+								"data",
+								"anjay.txt"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://202.72.206.85:3737",
+			"type": "default"
+		}
+	]
+}
