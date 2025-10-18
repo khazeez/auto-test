@@ -94,6 +94,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "HTTP - Negative Case",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -133,6 +141,69 @@
 								"user"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "JS - Encrypt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://202.72.206.162:2727/js/encrypt",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"js",
+								"encrypt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "JS - Decrypt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"encrypted\": \"ZYiUQ1+W2BYhK/FmdShcswD8x3v7whEGx7+81gXWFpacPQ\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://202.72.206.162:2727/js/decrypt",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"js",
+								"decrypt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "JS - Negative Case",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
@@ -176,6 +247,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "LB - Negative Case",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -202,6 +281,14 @@
 								"lawang"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "DB - Negative Case",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
@@ -252,11 +339,40 @@
 			"item": [
 				{
 					"name": "Async - Webhook",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"Name\": \"Lawang\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://202.72.206.162:2727/async/get-webhook",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"async",
+								"get-webhook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Async - Negative case",
+					"request": {
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "graphql",
