@@ -1,31 +1,51 @@
 import http from 'k6/http';
-import { sleep } from 'k6';
-import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
+import { check, group, sleep } from 'k6';
+import { htmlReport } from 'https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js';
 
 export const options = {
-    insecureSkipTLSVerify: true,
-    vus: 250,
-    iterations: 10000,
-    duration: '1m',
+  insecureSkipTLSVerify: true,
+  vus: 250,
+  duration: '1m',
 };
 
+const baseUrl = 'http://202.72.206.162:2727';
+
 export default function () {
-    http.get('http://202.72.206.162:2727/http/ability/2');
-    sleep(1);
-    http.get('http://202.72.206.162:2727/db/lawang');
-    sleep(1);
-    http.get('http://202.72.206.162:2727/js/mock/user');
-    sleep(1);
-    http.get('http://202.72.206.162:2727/lb/api/character');
-    sleep(1);
-    http.get('http://202.72.206.162:2727/proxy/get-networks');
-    sleep(1);
-    http.get('http://202.72.206.162:2727/async/get-webhook');
-    sleep(1);
-}   
+  //untuk checking grup GET
+  group('GET endpoints', function () {
+    const getEndpoints = [
+      '/http/ability/2',
+      '/db/lawang',
+      '/js/mock/user',
+      '/lb/api/character',
+      '/proxy/get-networks',
+      '/async/get-webhook',
+    ];
+
+    for (const path of getEndpoints) {
+      const res = http.get(`${baseUrl}${path}`);
+      check(res, { [`${path} status 200`]: (r) => r.status === 200 });
+      sleep(1);
+    }
+  });
+
+  //untuk checking grup POST
+  group('POST endpoints', function () {
+    const postEndpoints = [
+      { path: '/js/encrypt', payload: { text: 'Lawang' } },
+      { path: '/js/decrypt', payload: { encrypted: '2+P+BC6yZ9NzYg8Rbfv0szKTKFxr3oYoCMx8yHO+9KhEEQ' } },
+    ];
+
+    for (const { path, payload } of postEndpoints) {
+      const res = http.post(`${baseUrl}${path}`, JSON.stringify(payload), {
+        headers: { 'Content-Type': 'application/json' },
+      });
+      check(res, { [`${path} status 200`]: (r) => r.status === 200 });
+      sleep(1);
+    }
+  });
+}
 
 export function handleSummary(data) {
-    return {
-        "report.html": htmlReport(data),
-    };
+  return { 'report.html': htmlReport(data) };
 }
