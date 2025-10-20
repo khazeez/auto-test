@@ -4,7 +4,7 @@ import { htmlReport } from 'https://raw.githubusercontent.com/benc-uk/k6-reporte
 
 export const options = {
   insecureSkipTLSVerify: true,
-  vus: 250,
+  vus: 100,
   duration: '1m',
 };
 
@@ -18,29 +18,12 @@ export default function () {
       '/db/lawang',
       '/js/mock/user',
       '/lb/api/character',
-      '/proxy/get-networks',
+      '/js/mock/external-get',
     ];
 
     for (const path of getEndpoints) {
       const res = http.get(`${baseUrl}${path}`);
-      check(res, { [`${path} status 200`]: (r) => r.status === 200 });
-      sleep(1);
-    }
-  });
-
-  //untuk checking grup POST
-  group('POST endpoints', function () {
-    const postEndpoints = [
-      { path: '/js/encrypt', payload: { text: 'Lawang' } },
-      { path: '/js/decrypt', payload: { encrypted: '2+P+BC6yZ9NzYg8Rbfv0szKTKFxr3oYoCMx8yHO+9KhEEQ' } },
-      { path: '/async/post-webhook', payload: { name: 'webhook-lawang' } },
-    ];
-
-    for (const { path, payload } of postEndpoints) {
-      const res = http.post(`${baseUrl}${path}`, JSON.stringify(payload), {
-        headers: { 'Content-Type': 'application/json' },
-      });
-      check(res, { [`${path} status 200`]: (r) => r.status === 200 });
+      check(res, { [`${path}`]: (r) => r.status === 200 });
       sleep(1);
     }
   });

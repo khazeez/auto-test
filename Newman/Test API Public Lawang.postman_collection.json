@@ -206,6 +206,38 @@
 						"header": []
 					},
 					"response": []
+				},
+				{
+					"name": "JS - [POST - Webhook]",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Lawang\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://202.72.206.162:2727/js/post-webhook",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"js",
+								"post-webhook"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -303,7 +335,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://202.72.206.162:2727/proxy/get-networks",
+							"raw": "http://202.72.206.162:2727/proxy/poke-api",
 							"protocol": "http",
 							"host": [
 								"202",
@@ -314,7 +346,7 @@
 							"port": "2727",
 							"path": [
 								"proxy",
-								"get-networks"
+								"poke-api"
 							],
 							"query": [
 								{
