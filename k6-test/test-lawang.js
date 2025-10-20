@@ -19,7 +19,6 @@ export default function () {
       '/js/mock/user',
       '/lb/api/character',
       '/proxy/get-networks',
-      '/async/get-webhook',
     ];
 
     for (const path of getEndpoints) {
@@ -34,6 +33,7 @@ export default function () {
     const postEndpoints = [
       { path: '/js/encrypt', payload: { text: 'Lawang' } },
       { path: '/js/decrypt', payload: { encrypted: '2+P+BC6yZ9NzYg8Rbfv0szKTKFxr3oYoCMx8yHO+9KhEEQ' } },
+      { path: '/async/post-webhook', payload: { name: 'webhook-lawang' } },
     ];
 
     for (const { path, payload } of postEndpoints) {
