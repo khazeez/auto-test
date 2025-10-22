@@ -223,12 +223,15 @@
 				},
 				{
 					"name": "JS - Decrypt",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"encrypted\": \"ZYiUQ1+W2BYhK/FmdShcswD8x3v7whEGx7+81gXWFpacPQ\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
