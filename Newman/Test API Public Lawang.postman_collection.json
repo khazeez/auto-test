@@ -98,8 +98,62 @@
 				{
 					"name": "HTTP - Negative Case",
 					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://202.72.206.162:2727/http/ability/20",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"http",
+								"ability",
+								"20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HTTP - Get Private",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "cee4056a4",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "e10b69fbd180e0562",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://202.72.206.162:2727/http/data-bible",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"http",
+								"data-bible"
+							]
+						}
 					},
 					"response": []
 				}
@@ -202,8 +256,23 @@
 				{
 					"name": "JS - Negative Case",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://202.72.206.162:2727/js/decrypt",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"js",
+								"decrypt"
+							]
+						}
 					},
 					"response": []
 				},
@@ -283,8 +352,28 @@
 				{
 					"name": "LB - Negative Case",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://202.72.206.162:2727/lb/api/character",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"lb",
+								"api",
+								"character"
+							]
+						}
 					},
 					"response": []
 				}
@@ -320,22 +409,9 @@
 					"name": "DB - Negative Case",
 					"request": {
 						"method": "GET",
-						"header": []
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Proxy",
-			"item": [
-				{
-					"name": "Test Proxy",
-					"request": {
-						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://202.72.206.162:2727/proxy/poke-api",
+							"raw": "http://202.72.206.162:2727/db/lawangtest",
 							"protocol": "http",
 							"host": [
 								"202",
@@ -345,20 +421,8 @@
 							],
 							"port": "2727",
 							"path": [
-								"proxy",
-								"poke-api"
-							],
-							"query": [
-								{
-									"key": "skip",
-									"value": "0",
-									"disabled": true
-								},
-								{
-									"key": "limit",
-									"value": "2000",
-									"disabled": true
-								}
+								"db",
+								"lawangtest"
 							]
 						}
 					},
@@ -426,50 +490,6 @@
 							"path": [
 								"async",
 								"get-webhook"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "File",
-			"item": [
-				{
-					"name": "File - SFTP",
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "7a062f7475a2f226f",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "907353adb",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://202.72.206.162:2727/162-sftp/data/anjay.txt",
-							"protocol": "http",
-							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
-							],
-							"port": "2727",
-							"path": [
-								"162-sftp",
-								"data",
-								"anjay.txt"
 							]
 						}
 					},
