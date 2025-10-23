@@ -19,6 +19,8 @@ export default function () {
       '/js/mock/user',
       '/lb/api/character',
       '/js/mock/external-get',
+      '/js/decrypt',
+      '/proxy/get-networks/velib'
     ];
 
     for (const path of getEndpoints) {

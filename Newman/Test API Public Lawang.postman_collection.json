@@ -7,40 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "Graphql",
-			"item": [
-				{
-					"name": "GraphQL - Public",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "query {\r\n  launchesPast {\r\n    mission_name\r\n  }\r\n}",
-								"variables": ""
-							}
-						},
-						"url": {
-							"raw": "http://202.72.206.162:2727/space",
-							"protocol": "http",
-							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
-							],
-							"port": "2727",
-							"path": [
-								"space"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "HTTP",
 			"item": [
 				{
@@ -203,8 +169,17 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\":\"Lawang\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/js/encrypt",
+							"raw": "http://202.72.206.162:2727/js/save-encrypt",
 							"protocol": "http",
 							"host": [
 								"202",
@@ -215,7 +190,7 @@
 							"port": "2727",
 							"path": [
 								"js",
-								"encrypt"
+								"save-encrypt"
 							]
 						}
 					},
@@ -430,6 +405,29 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "DB - RAG",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://202.72.206.162:2727/db/rag",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"db",
+								"rag"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -443,7 +441,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"Name\": \"Lawang\"\r\n}",
+							"raw": "{\r\n  \"Name\": \"webhook-lawang\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -451,7 +449,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/async/get-webhook",
+							"raw": "http://202.72.206.162:2727/async/post-webhook",
 							"protocol": "http",
 							"host": [
 								"202",
@@ -462,7 +460,7 @@
 							"port": "2727",
 							"path": [
 								"async",
-								"get-webhook"
+								"post-webhook"
 							]
 						}
 					},
@@ -474,14 +472,16 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "query {\r\n  launchesPast {\r\n    mission_name\r\n  }\r\n}",
-								"variables": ""
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"False\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
 							}
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/async/get-webhook",
+							"raw": "http://202.72.206.162:2727/async/get-webhook/negative",
 							"protocol": "http",
 							"host": [
 								"202",
@@ -492,7 +492,83 @@
 							"port": "2727",
 							"path": [
 								"async",
-								"get-webhook"
+								"get-webhook",
+								"negative"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Proxy",
+			"item": [
+				{
+					"name": "Proxy - Private",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "cee4056a4",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "e10b69fbd180e0562",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://202.72.206.162:2727/proxy/poke-api/berry",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"proxy",
+								"poke-api",
+								"berry"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Proxy - Public",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://202.72.206.162:2727/proxy/get-networks/velib",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"proxy",
+								"get-networks",
+								"velib"
 							]
 						}
 					},
