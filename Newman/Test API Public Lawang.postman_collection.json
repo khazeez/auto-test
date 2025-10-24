@@ -84,44 +84,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "HTTP - Get Private",
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "username",
-									"value": "cee4056a4",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "e10b69fbd180e0562",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://202.72.206.162:2727/http/data-bible",
-							"protocol": "http",
-							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
-							],
-							"port": "2727",
-							"path": [
-								"http",
-								"data-bible"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -165,7 +127,7 @@
 					"response": []
 				},
 				{
-					"name": "JS - Encrypt",
+					"name": "JS - Encrypt Save DB",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -197,7 +159,7 @@
 					"response": []
 				},
 				{
-					"name": "JS - Decrypt",
+					"name": "JS - Get From Decrypt",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -281,6 +243,53 @@
 							"path": [
 								"js",
 								"post-webhook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "JS - Private",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "7a062f7475a2f226f",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "907353adb",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Lawang\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://202.72.206.162:2727/js/encrypt",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"js",
+								"encrypt"
 							]
 						}
 					},
@@ -551,12 +560,12 @@
 					"response": []
 				},
 				{
-					"name": "Proxy - Public",
+					"name": "Proxy - Negative Case",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://202.72.206.162:2727/proxy/get-networks/velib",
+							"raw": "http://202.72.206.162:2727/proxy/get-networks",
 							"protocol": "http",
 							"host": [
 								"202",
@@ -567,8 +576,7 @@
 							"port": "2727",
 							"path": [
 								"proxy",
-								"get-networks",
-								"velib"
+								"get-networks"
 							]
 						}
 					},
