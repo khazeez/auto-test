@@ -454,6 +454,108 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "LB - Get Private",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "e10b69fbd180e0562",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cee4056a4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://202.72.206.162:2727/lb/api/location",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"lb",
+								"api",
+								"location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LB - Get User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "e10b69fbd180e0562",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cee4056a4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://202.72.206.162:2727/lb/api/episode",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"lb",
+								"api",
+								"episode"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -781,10 +883,6 @@
 					"response": []
 				}
 			]
-		},
-		{
-			"name": "GraphQL",
-			"item": []
 		}
 	],
 	"variable": [
