@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "40601ee0-2d44-4b46-ba42-14c8d622e7d7",
-		"name": "Test API Public Lawang",
+		"name": "Test API Lawang",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "37383269"
 	},
@@ -125,6 +125,52 @@
 							"path": [
 								"http",
 								"bible-jhn"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HTTP - Get Private",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "b3f3cb9a0b67c5c6b",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "ce27d1a74",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://202.72.206.162:2727/http/generation/2",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"http",
+								"generation",
+								"2"
 							]
 						}
 					},
@@ -466,12 +512,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "e10b69fbd180e0562",
+									"value": "bb28d1823e423f129",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "cee4056a4",
+									"value": "00a344e45",
 									"type": "string"
 								}
 							]
@@ -517,12 +563,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "e10b69fbd180e0562",
+									"value": "bb28d1823e423f129",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "cee4056a4",
+									"value": "00a344e45",
 									"type": "string"
 								}
 							]
@@ -877,6 +923,85 @@
 							"path": [
 								"proxy",
 								"get-networks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Proxy - Public",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "bb28d1823e423f129",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "00a344e45",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://202.72.206.162:2727/proxy/get-networks",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"proxy",
+								"get-networks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GraphQL",
+			"item": [
+				{
+					"name": "GraphQL - Public",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  launchesPast {\r\n    mission_name\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://202.72.206.162:2727/space",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"space"
 							]
 						}
 					},
