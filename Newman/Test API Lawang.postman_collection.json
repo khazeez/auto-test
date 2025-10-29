@@ -43,8 +43,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/http/ability/2",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/http/ability/2",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -67,8 +67,8 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://202.72.206.162:2727/http/ability/20",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/http/ability/20",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -113,8 +113,8 @@
 							"raw": "{\r\n    \"text\": \"Lawang\"\r\n}"
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/http/bible-jhn",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/http/bible-jhn",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -158,8 +158,8 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/http/generation/2",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/http/generation/2",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -194,8 +194,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/http/anything/modified-data",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/http/anything/modified-data",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -235,8 +235,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/js/mock/user",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/js/mock/user",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -268,8 +268,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/js/save-encrypt",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/js/save-encrypt",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -303,8 +303,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/js/decrypt",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/js/decrypt",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -326,8 +326,8 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://202.72.206.162:2727/js/decrypt",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/js/decrypt",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -358,8 +358,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/js/post-webhook",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/js/post-webhook",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -405,8 +405,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/js/encrypt",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/js/encrypt",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -450,8 +450,8 @@
 							"raw": "{\r\n    \"text\": \"Lawang\"\r\n}"
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/js/mock/external-get",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/js/mock/external-get",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -491,8 +491,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/lb/api/character",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/lb/api/character",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -519,8 +519,8 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/lb/api/character",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/lb/api/character",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -570,8 +570,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/lb/api/location",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/lb/api/location",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -621,8 +621,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/lb/api/episode",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/lb/api/episode",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -650,8 +650,8 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://202.72.206.162:2727/db/lawang",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/db/lawang",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -673,8 +673,8 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://202.72.206.162:2727/db/lawangtest",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/db/lawangtest",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -711,8 +711,8 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://202.72.206.162:2727/db/rag",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/db/rag",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -723,6 +723,51 @@
 							"path": [
 								"db",
 								"rag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RAG - User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "b3f3cb9a0b67c5c6b",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "ce27d1a74",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://202.72.206.162:2727/db/rag-user",
+							"protocol": "https",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"db",
+								"rag-user"
 							]
 						}
 					},
@@ -748,8 +793,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/async/post-webhook",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/async/post-webhook",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -780,8 +825,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/async/get-webhook/negative",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/async/get-webhook/negative",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -828,8 +873,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/async/webhook-site",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/async/webhook-site",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -873,8 +918,8 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/async/get-webhook",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/async/get-webhook",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -923,8 +968,8 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/proxy/poke-api/berry",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/proxy/poke-api/berry",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -947,8 +992,8 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://202.72.206.162:2727/proxy/get-networks",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/proxy/get-networks",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
@@ -980,8 +1025,8 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/proxy/httpbin/anything",
-							"protocol": "http",
+							"raw": "https://202.72.206.162:2727/proxy/httpbin/anything",
+							"protocol": "https",
 							"host": [
 								"202",
 								"72",
