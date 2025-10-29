@@ -286,7 +286,7 @@
 					"response": []
 				},
 				{
-					"name": "JS - Decrypt From Decrypt",
+					"name": "JS - Decrypt From DB",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -971,19 +971,7 @@
 					},
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "bb28d1823e423f129",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "00a344e45",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [],
