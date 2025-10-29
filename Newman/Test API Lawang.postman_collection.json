@@ -175,6 +175,42 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "HTTP - Modify Data",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lawang\": \"foo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://202.72.206.162:2727/http/anything/modified-data",
+							"protocol": "http",
+							"host": [
+								"202",
+								"72",
+								"206",
+								"162"
+							],
+							"port": "2727",
+							"path": [
+								"http",
+								"anything",
+								"modified-data"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -250,7 +286,7 @@
 					"response": []
 				},
 				{
-					"name": "JS - Get From Decrypt",
+					"name": "JS - Decrypt From Decrypt",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -956,7 +992,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://202.72.206.162:2727/proxy/get-networks",
+							"raw": "http://202.72.206.162:2727/proxy/httpbin/anything",
 							"protocol": "http",
 							"host": [
 								"202",
@@ -967,41 +1003,8 @@
 							"port": "2727",
 							"path": [
 								"proxy",
-								"get-networks"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "GraphQL",
-			"item": [
-				{
-					"name": "GraphQL - Public",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "query {\r\n  launchesPast {\r\n    mission_name\r\n  }\r\n}",
-								"variables": ""
-							}
-						},
-						"url": {
-							"raw": "http://202.72.206.162:2727/space",
-							"protocol": "http",
-							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
-							],
-							"port": "2727",
-							"path": [
-								"space"
+								"httpbin",
+								"anything"
 							]
 						}
 					},
