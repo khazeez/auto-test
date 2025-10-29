@@ -11,7 +11,7 @@ Repositori ini berisi otomatisasi pengujian API untuk sistem **Lawang**, menggun
 
 ### 📦 Persiapan
 
-Pastikan kamu sudah menginstal **Node.js** dan **Newman**:
+Pastikan sudah menginstal **Node.js** dan **Newman**:
 
 ```bash
 npm install -g newman
@@ -42,7 +42,7 @@ newman run "Test API Lawang.postman_collection.json" \
 ## ⚡ 2. Menjalankan Load Test dengan k6
 ### 📦 Persiapan
 
-Pastikan kamu sudah menginstal k6
+Pastikan sudah menginstal k6
 
 ```bash
 Masuk ke folder k6-test:
