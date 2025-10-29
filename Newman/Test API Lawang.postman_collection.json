@@ -43,15 +43,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/http/ability/2",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/http/ability/2",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"http",
 								"ability",
@@ -67,15 +62,10 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://202.72.206.162:2727/http/ability/20",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/http/ability/20",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"http",
 								"ability",
@@ -96,12 +86,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "e10b69fbd180e0562",
+									"value": "a06e25a6ba2483fd5",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "cee4056a4",
+									"value": "3c464586e",
 									"type": "string"
 								}
 							]
@@ -113,15 +103,10 @@
 							"raw": "{\r\n    \"text\": \"Lawang\"\r\n}"
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/http/bible-jhn",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/http/bible-jhn",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"http",
 								"bible-jhn"
@@ -141,12 +126,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "b3f3cb9a0b67c5c6b",
+									"value": "a06e25a6ba2483fd5",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "ce27d1a74",
+									"value": "3c464586e",
 									"type": "string"
 								}
 							]
@@ -158,15 +143,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/http/generation/2",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/http/generation/2",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"http",
 								"generation",
@@ -194,15 +174,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/http/anything/modified-data",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/http/anything/modified-data",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"http",
 								"anything",
@@ -235,15 +210,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/js/mock/user",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/js/mock/user",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"js",
 								"mock",
@@ -268,15 +238,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/js/save-encrypt",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/js/save-encrypt",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"js",
 								"save-encrypt"
@@ -303,15 +268,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/js/decrypt",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/js/decrypt",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"js",
 								"decrypt"
@@ -326,15 +286,10 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://202.72.206.162:2727/js/decrypt",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/js/decrypt",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"js",
 								"decrypt"
@@ -344,7 +299,7 @@
 					"response": []
 				},
 				{
-					"name": "JS - [POST - Webhook]",
+					"name": "JS - POST Webhook",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -358,15 +313,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/js/post-webhook",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/js/post-webhook",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"js",
 								"post-webhook"
@@ -383,12 +333,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "7a062f7475a2f226f",
+									"value": "a06e25a6ba2483fd5",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "907353adb",
+									"value": "3c464586e",
 									"type": "string"
 								}
 							]
@@ -405,15 +355,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/js/encrypt",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/js/encrypt",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"js",
 								"encrypt"
@@ -433,12 +378,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "e10b69fbd180e0562",
+									"value": "a06e25a6ba2483fd5",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "cee4056a4",
+									"value": "3c464586e",
 									"type": "string"
 								}
 							]
@@ -447,22 +392,52 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"text\": \"Lawang\"\r\n}"
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/js/mock/external-get",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/js/mock/external-get",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"js",
 								"mock",
 								"external-get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "JS - Save User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fullname\": \"Muhammad Arif Alifan Sultoni\",\r\n  \"address\": \"Pemalang\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/js/save-user",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"js",
+								"save-user"
 							]
 						}
 					},
@@ -491,15 +466,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/lb/api/character",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/lb/api/character",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"lb",
 								"api",
@@ -519,15 +489,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/lb/api/character",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/lb/api/character",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"lb",
 								"api",
@@ -548,12 +513,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "bb28d1823e423f129",
+									"value": "a06e25a6ba2483fd5",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "00a344e45",
+									"value": "3c464586e",
 									"type": "string"
 								}
 							]
@@ -570,15 +535,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/lb/api/location",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/lb/api/location",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"lb",
 								"api",
@@ -621,15 +581,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/lb/api/episode",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/lb/api/episode",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"lb",
 								"api",
@@ -650,15 +605,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://202.72.206.162:2727/db/lawang",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/db/lawang",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"db",
 								"lawang"
@@ -673,15 +623,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://202.72.206.162:2727/db/lawangtest",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/db/lawangtest",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"db",
 								"lawangtest"
@@ -698,12 +643,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "e10b69fbd180e0562",
+									"value": "a06e25a6ba2483fd5",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "cee4056a4",
+									"value": "3c464586e",
 									"type": "string"
 								}
 							]
@@ -711,15 +656,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://202.72.206.162:2727/db/rag",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/db/rag",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"db",
 								"rag"
@@ -739,12 +679,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "b3f3cb9a0b67c5c6b",
+									"value": "a06e25a6ba2483fd5",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "ce27d1a74",
+									"value": "3c464586e",
 									"type": "string"
 								}
 							]
@@ -756,15 +696,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/db/rag-user",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/db/rag-user",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"db",
 								"rag-user"
@@ -793,15 +728,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/async/post-webhook",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/async/post-webhook",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"async",
 								"post-webhook"
@@ -825,15 +755,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/async/get-webhook/negative",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/async/get-webhook/negative",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"async",
 								"get-webhook",
@@ -851,12 +776,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "e10b69fbd180e0562",
+									"value": "a06e25a6ba2483fd5",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "cee4056a4",
+									"value": "3c464586e",
 									"type": "string"
 								}
 							]
@@ -873,15 +798,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/async/webhook-site",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/async/webhook-site",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"async",
 								"webhook-site"
@@ -901,12 +821,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "e10b69fbd180e0562",
+									"value": "a06e25a6ba2483fd5",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "cee4056a4",
+									"value": "3c464586e",
 									"type": "string"
 								}
 							]
@@ -918,15 +838,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/async/get-webhook",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/async/get-webhook",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"async",
 								"get-webhook"
@@ -950,13 +865,13 @@
 							"type": "basic",
 							"basic": [
 								{
-									"key": "username",
-									"value": "cee4056a4",
+									"key": "password",
+									"value": "a06e25a6ba2483fd5",
 									"type": "string"
 								},
 								{
-									"key": "password",
-									"value": "e10b69fbd180e0562",
+									"key": "username",
+									"value": "3c464586e",
 									"type": "string"
 								}
 							]
@@ -968,15 +883,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/proxy/poke-api/berry",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/proxy/poke-api/berry",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"proxy",
 								"poke-api",
@@ -992,15 +902,10 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://202.72.206.162:2727/proxy/get-networks",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/proxy/get-networks",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"proxy",
 								"get-networks"
@@ -1025,15 +930,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://202.72.206.162:2727/proxy/httpbin/anything",
-							"protocol": "https",
+							"raw": "{{baseUrlCore}}/proxy/httpbin/anything",
 							"host": [
-								"202",
-								"72",
-								"206",
-								"162"
+								"{{baseUrlCore}}"
 							],
-							"port": "2727",
 							"path": [
 								"proxy",
 								"httpbin",
@@ -1049,7 +949,7 @@
 	"variable": [
 		{
 			"key": "baseURL",
-			"value": "http://202.72.206.85:3737",
+			"value": "https://202.72.206.85:3737",
 			"type": "default"
 		}
 	]
