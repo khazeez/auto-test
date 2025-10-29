@@ -423,7 +423,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"fullname\": \"Muhammad Arif Alifan Sultoni\",\r\n  \"address\": \"Pemalang\"\r\n}",
+							"raw": "{\r\n  \"fullname\": \"Ipan\",\r\n  \"address\": \"Pemalang Ikhlas\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -438,6 +438,48 @@
 							"path": [
 								"js",
 								"save-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "JS - Put User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "a06e25a6ba2483fd5",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "3c464586e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"a8a69c33-d07c-4789-84db-3e811a44a58c\",\r\n  \"fullname\": \"Ipan\",\r\n  \"address\": \"Pemalang\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/js/put-user",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"js",
+								"put-user"
 							]
 						}
 					},
@@ -949,7 +991,7 @@
 	"variable": [
 		{
 			"key": "baseURL",
-			"value": "https://202.72.206.85:3737",
+			"value": "http://202.72.206.85:3737",
 			"type": "default"
 		}
 	]
