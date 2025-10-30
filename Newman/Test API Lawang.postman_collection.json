@@ -378,12 +378,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "a06e25a6ba2483fd5",
+									"value": "10c7dd44b2d6585f2",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "3c464586e",
+									"value": "9d3095797",
 									"type": "string"
 								}
 							]
@@ -480,6 +480,33 @@
 							"path": [
 								"js",
 								"put-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "JS - Mask Data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fullname\": \"Lawang\",\r\n  \"address\": \"Jakarta Selatan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/js/mask-data",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"js",
+								"mask-data"
 							]
 						}
 					},
