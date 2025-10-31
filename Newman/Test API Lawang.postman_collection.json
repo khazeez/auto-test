@@ -283,16 +283,16 @@
 				{
 					"name": "JS - Negative Case",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/js/decrypt",
+							"raw": "{{baseUrlCore}}/js/negative",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
 								"js",
-								"decrypt"
+								"negative"
 							]
 						}
 					},
@@ -628,12 +628,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "bb28d1823e423f129",
+									"value": "10c7dd44b2d6585f2",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "00a344e45",
+									"value": "9d3095797",
 									"type": "string"
 								}
 							]
@@ -1013,12 +1013,259 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Event Driven",
+			"item": [
+				{
+					"name": "Event Driven - Private",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "10c7dd44b2d6585f2",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "9d3095797",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Program\": \"Public API\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/event_driven/program",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"event_driven",
+								"program"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event Driven - Public",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "10c7dd44b2d6585f2",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "9d3095797",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Program\": \"Public API\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/event_driven/lawang",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"event_driven",
+								"lawang"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event Driven - User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "10c7dd44b2d6585f2",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "9d3095797",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Program\": \"Public API\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/event_driven/management",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"event_driven",
+								"management"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event Driven - Negative case",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Negative\": \"true\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/event_driven/negative",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"event_driven",
+								"negative"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "File",
+			"item": [
+				{
+					"name": "File - Negative Case",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "10c7dd44b2d6585f2",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "9d3095797",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/162-sftp/data/case.txt",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"162-sftp",
+								"data",
+								"case.txt"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GraphQL",
+			"item": [
+				{
+					"name": "GraphQL - Public",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "10c7dd44b2d6585f2",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "9d3095797",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  launchesPast {\r\n    mission_name\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/space",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"space"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [
 		{
-			"key": "baseUrlCore",
-			"value": "https://202.72.206.162:2727",
+			"key": "baseURL",
+			"value": "http://202.72.206.85:3737",
 			"type": "default"
 		}
 	]
