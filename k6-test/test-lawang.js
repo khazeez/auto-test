@@ -8,7 +8,7 @@ export const options = {
   duration: '1m',
 };
 
-const baseUrl = 'http://202.72.206.162:2727';
+const baseUrl = 'https://202.72.206.162:2727';
 
 export default function () {
   //untuk checking grup GET
