@@ -50,5 +50,5 @@ Masuk ke folder k6-test:
 cd k6-test
 
 🚀 Jalankan Test
-k6 run test-script.js
+k6 run test-lawang.js
 ```
