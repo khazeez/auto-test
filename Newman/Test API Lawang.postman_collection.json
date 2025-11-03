@@ -59,17 +59,17 @@
 				{
 					"name": "HTTP - Negative Case",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/http/ability/20",
+							"raw": "{{baseUrlCore}}/http/ability/negative",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
 								"http",
 								"ability",
-								"20"
+								"negative"
 							]
 						}
 					},
@@ -559,22 +559,26 @@
 				},
 				{
 					"name": "LB - Negative Case",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "PUT",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/lb/api/character",
+							"raw": "{{baseUrlCore}}/lb/api/location/negative",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
 								"lb",
 								"api",
-								"character"
+								"location",
+								"negative"
 							]
 						}
 					},
@@ -701,13 +705,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/db/lawangtest",
+							"raw": "{{baseUrlCore}}/db/rag-db",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
 								"db",
-								"lawangtest"
+								"rag-db"
 							]
 						}
 					},
@@ -820,12 +824,15 @@
 				},
 				{
 					"name": "Async - Negative case",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Name\": \"False\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -977,16 +984,17 @@
 				{
 					"name": "Proxy - Negative Case",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/proxy/get-networks",
+							"raw": "{{baseUrlCore}}/proxy/get-networks/velib",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
 								"proxy",
-								"get-networks"
+								"get-networks",
+								"velib"
 							]
 						}
 					},
@@ -1159,13 +1167,25 @@
 					},
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "9d3095797",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Negative\": \"true\"\r\n}",
+							"raw": "{\r\n    \"dmefew0\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1287,6 +1307,45 @@
 							"mode": "graphql",
 							"graphql": {
 								"query": "query {\r\n  launchesPast {\r\n    mission_name\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/space",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"space"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GraphQL - Negative Case",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "10c7dd44b2d6585f2",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "9d3095797",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  launchesPast {\r\n    mission\r\n  }\r\n}",
 								"variables": ""
 							}
 						},
