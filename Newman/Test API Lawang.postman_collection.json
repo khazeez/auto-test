@@ -186,6 +186,57 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "HTTP - Response Transformation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/http/res-transformation",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"http",
+								"res-transformation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HTTP - Requst Validator",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Ifan\",\r\n  \"job\": \"Programmer\",\r\n  \"age\": 30\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/http/req-validator",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"http",
+								"req-validator"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1368,11 +1419,6 @@
 		{
 			"key": "baseURL",
 			"value": "http://202.72.206.85:3737",
-			"type": "default"
-		},
-		{
-			"key": "baseUrlCore",
-			"value": "https://202.72.206.162:2727",
 			"type": "default"
 		}
 	]
