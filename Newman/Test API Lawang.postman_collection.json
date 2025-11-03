@@ -283,8 +283,17 @@
 				{
 					"name": "JS - Negative Case",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Lawang\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{baseUrlCore}}/js/negative",
 							"host": [
@@ -1214,6 +1223,40 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "SFTP - Get Data",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "10c7dd44b2d6585f2",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "9d3095797",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/162-sftp/data/lawang.txt",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"162-sftp",
+								"data",
+								"lawang.txt"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1266,11 +1309,6 @@
 		{
 			"key": "baseURL",
 			"value": "http://202.72.206.85:3737",
-			"type": "default"
-		},
-		{
-			"key": "baseUrlCore",
-			"value": "https://202.72.206.162:2727",
 			"type": "default"
 		}
 	]
