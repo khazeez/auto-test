@@ -18,9 +18,9 @@ export default function () {
       '/db/lawang',
       '/js/mock/user',
       '/lb/api/character',
-      '/js/mock/external-get',
+      '/js/mock/user',
       '/js/decrypt',
-      '/proxy/get-networks/velib'
+      '/proxy/httpbin/anything',
     ];
 
     for (const path of getEndpoints) {
