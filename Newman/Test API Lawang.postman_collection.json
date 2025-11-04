@@ -57,7 +57,7 @@
 					"response": []
 				},
 				{
-					"name": "HTTP - Negative Case",
+					"name": "HTTP - Public Negative Case",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -237,6 +237,44 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "HTTP - Private Negative Case",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/http/generation/10",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"http",
+								"generation",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HTTP - User Negative Case",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/http/generation/9",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"http",
+								"generation",
+								"9"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -332,7 +370,7 @@
 					"response": []
 				},
 				{
-					"name": "JS - Negative Case",
+					"name": "JS - Public Negative Case",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -571,6 +609,43 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "JS - Private Negative Case",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/js/encrypt",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"js",
+								"encrypt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "JS - User Negative Case",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/js/mock/external-get",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"js",
+								"mock",
+								"external-get"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -609,7 +684,7 @@
 					"response": []
 				},
 				{
-					"name": "LB - Negative Case",
+					"name": "LB - Public Negative Case",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -726,6 +801,44 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "LB - Private Negative Case",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/lb/api/location",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"lb",
+								"api",
+								"location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LB - User Negative Case",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/lb/api/episode",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"lb",
+								"api",
+								"episode"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -751,7 +864,7 @@
 					"response": []
 				},
 				{
-					"name": "DB - Negative Case",
+					"name": "DB - Public Negative Case",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -829,13 +942,49 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/db/rag-user",
+							"raw": "{{baseUrlCore}}/db/rag",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
 								"db",
-								"rag-user"
+								"rag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DB - Private Negative Case",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/db/rag",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"db",
+								"rag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DB - User Negative Case",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/db/rag",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"db",
+								"rag"
 							]
 						}
 					},
@@ -874,7 +1023,7 @@
 					"response": []
 				},
 				{
-					"name": "Async - Negative case",
+					"name": "Async - Public Negative case",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -985,6 +1134,42 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Async - Private Negative Case",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/async/get-webhook",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"async",
+								"get-webhook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Async - User Negative Case",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/async/webhook-site",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"async",
+								"webhook-site"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1033,7 +1218,7 @@
 					"response": []
 				},
 				{
-					"name": "Proxy - Negative Case",
+					"name": "Proxy - Public Negative Case",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -1075,6 +1260,25 @@
 								"proxy",
 								"httpbin",
 								"anything"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Proxy - Private Negatve Case",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/proxy/poke-api/berry",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"proxy",
+								"poke-api",
+								"berry"
 							]
 						}
 					},
@@ -1199,20 +1403,20 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/event_driven/management",
+							"raw": "{{baseUrlCore}}/event_driven/program",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
 								"event_driven",
-								"management"
+								"program"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Event Driven - Negative case",
+					"name": "Event Driven - Public Negative case",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1251,6 +1455,42 @@
 							"path": [
 								"event_driven",
 								"negative"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event Driven - Private Negative Case",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/event_driven/program",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"event_driven",
+								"program"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event Driven - User Negative Case",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/event_driven/program",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"event_driven",
+								"program"
 							]
 						}
 					},
@@ -1419,6 +1659,11 @@
 		{
 			"key": "baseURL",
 			"value": "http://202.72.206.85:3737",
+			"type": "default"
+		},
+		{
+			"key": "Private",
+			"value": "",
 			"type": "default"
 		}
 	]
