@@ -76,6 +76,66 @@
 					"response": []
 				},
 				{
+					"name": "HTTP - Get Private",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "a06e25a6ba2483fd5",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "3c464586e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/http/generation/2",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"http",
+								"generation",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HTTP - Private Negative Case",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/http/generation/10",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"http",
+								"generation",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "HTTP - Get User",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -116,41 +176,19 @@
 					"response": []
 				},
 				{
-					"name": "HTTP - Get Private",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
+					"name": "HTTP - User Negative Case",
 					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "a06e25a6ba2483fd5",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "3c464586e",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
-							"raw": "{{baseUrlCore}}/http/generation/2",
+							"raw": "{{baseUrlCore}}/http/generation/9",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
 								"http",
 								"generation",
-								"2"
+								"9"
 							]
 						}
 					},
@@ -237,44 +275,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "HTTP - Private Negative Case",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrlCore}}/http/generation/10",
-							"host": [
-								"{{baseUrlCore}}"
-							],
-							"path": [
-								"http",
-								"generation",
-								"10"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "HTTP - User Negative Case",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrlCore}}/http/generation/9",
-							"host": [
-								"{{baseUrlCore}}"
-							],
-							"path": [
-								"http",
-								"generation",
-								"9"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -307,6 +307,158 @@
 								"js",
 								"mock",
 								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "JS - Public Negative Case",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Lawang\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/js/negative",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"js",
+								"negative"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "JS - Private",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "a06e25a6ba2483fd5",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "3c464586e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Lawang\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/js/encrypt",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"js",
+								"encrypt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "JS - Private Negative Case",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/js/encrypt",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"js",
+								"encrypt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "JS - User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "10c7dd44b2d6585f2",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "9d3095797",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/js/mock/external-get",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"js",
+								"mock",
+								"external-get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "JS - User Negative Case",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/js/mock/external-get",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"js",
+								"mock",
+								"external-get"
 							]
 						}
 					},
@@ -370,33 +522,6 @@
 					"response": []
 				},
 				{
-					"name": "JS - Public Negative Case",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"Name\": \"Lawang\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrlCore}}/js/negative",
-							"host": [
-								"{{baseUrlCore}}"
-							],
-							"path": [
-								"js",
-								"negative"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "JS - POST Webhook",
 					"request": {
 						"method": "POST",
@@ -418,94 +543,6 @@
 							"path": [
 								"js",
 								"post-httpbin"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "JS - Private",
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "a06e25a6ba2483fd5",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "3c464586e",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"text\": \"Lawang\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrlCore}}/js/encrypt",
-							"host": [
-								"{{baseUrlCore}}"
-							],
-							"path": [
-								"js",
-								"encrypt"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "JS - User",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "10c7dd44b2d6585f2",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "9d3095797",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrlCore}}/js/mock/external-get",
-							"host": [
-								"{{baseUrlCore}}"
-							],
-							"path": [
-								"js",
-								"mock",
-								"external-get"
 							]
 						}
 					},
@@ -605,43 +642,6 @@
 							"path": [
 								"js",
 								"mask-data"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "JS - Private Negative Case",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrlCore}}/js/encrypt",
-							"host": [
-								"{{baseUrlCore}}"
-							],
-							"path": [
-								"js",
-								"encrypt"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "JS - User Negative Case",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrlCore}}/js/mock/external-get",
-							"host": [
-								"{{baseUrlCore}}"
-							],
-							"path": [
-								"js",
-								"mock",
-								"external-get"
 							]
 						}
 					},
@@ -757,6 +757,25 @@
 					"response": []
 				},
 				{
+					"name": "LB - Private Negative Case",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/lb/api/location",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"lb",
+								"api",
+								"location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "LB - Get User",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -797,25 +816,6 @@
 								"lb",
 								"api",
 								"episode"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "LB - Private Negative Case",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrlCore}}/lb/api/location",
-							"host": [
-								"{{baseUrlCore}}"
-							],
-							"path": [
-								"lb",
-								"api",
-								"location"
 							]
 						}
 					},
@@ -915,6 +915,24 @@
 					"response": []
 				},
 				{
+					"name": "DB - Private Negative Case",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/db/rag",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"db",
+								"rag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "RAG - User",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -941,24 +959,6 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": {
-							"raw": "{{baseUrlCore}}/db/rag",
-							"host": [
-								"{{baseUrlCore}}"
-							],
-							"path": [
-								"db",
-								"rag"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "DB - Private Negative Case",
-					"request": {
-						"method": "GET",
-						"header": [],
 						"url": {
 							"raw": "{{baseUrlCore}}/db/rag",
 							"host": [
@@ -1054,48 +1054,6 @@
 					"response": []
 				},
 				{
-					"name": "Async - Post User",
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "a06e25a6ba2483fd5",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "3c464586e",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"Name\": \"Lawang\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrlCore}}/async/webhook-site",
-							"host": [
-								"{{baseUrlCore}}"
-							],
-							"path": [
-								"async",
-								"webhook-site"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Async - Get Private",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -1154,6 +1112,48 @@
 					"response": []
 				},
 				{
+					"name": "Async - Post User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "a06e25a6ba2483fd5",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "3c464586e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Lawang\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/async/webhook-site",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"async",
+								"webhook-site"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Async - User Negative Case",
 					"request": {
 						"method": "POST",
@@ -1176,6 +1176,54 @@
 		{
 			"name": "Proxy",
 			"item": [
+				{
+					"name": "Proxy - Public",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/proxy/httpbin/anything",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"proxy",
+								"httpbin",
+								"anything"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Proxy - Public Negative Case",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/proxy/get-networks/velib",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"proxy",
+								"get-networks",
+								"velib"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Proxy - Private",
 					"protocolProfileBehavior": {
@@ -1218,54 +1266,6 @@
 					"response": []
 				},
 				{
-					"name": "Proxy - Public Negative Case",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrlCore}}/proxy/get-networks/velib",
-							"host": [
-								"{{baseUrlCore}}"
-							],
-							"path": [
-								"proxy",
-								"get-networks",
-								"velib"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Proxy - Public",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{baseUrlCore}}/proxy/httpbin/anything",
-							"host": [
-								"{{baseUrlCore}}"
-							],
-							"path": [
-								"proxy",
-								"httpbin",
-								"anything"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Proxy - Private Negatve Case",
 					"request": {
 						"method": "GET",
@@ -1283,14 +1283,9 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Event Driven",
-			"item": [
+				},
 				{
-					"name": "Event Driven - Private",
+					"name": "Proxy - User",
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -1307,30 +1302,44 @@
 								}
 							]
 						},
-						"method": "POST",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"Program\": \"Public API\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "{{baseUrlCore}}/event_driven/program",
+							"raw": "{{baseUrlCore}}/get/anything",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
-								"event_driven",
-								"program"
+								"get",
+								"anything"
 							]
 						}
 					},
 					"response": []
 				},
+				{
+					"name": "Proxy - User Negative Case",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/get/anything",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"get",
+								"anything"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event Driven",
+			"item": [
 				{
 					"name": "Event Driven - Public",
 					"request": {
@@ -1368,48 +1377,6 @@
 							"path": [
 								"event_driven",
 								"lawang"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Event Driven - User",
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "10c7dd44b2d6585f2",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "9d3095797",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"Program\": \"Public API\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrlCore}}/event_driven/program",
-							"host": [
-								"{{baseUrlCore}}"
-							],
-							"path": [
-								"event_driven",
-								"program"
 							]
 						}
 					},
@@ -1461,10 +1428,94 @@
 					"response": []
 				},
 				{
+					"name": "Event Driven - Private",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "10c7dd44b2d6585f2",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "9d3095797",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Program\": \"Public API\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/event_driven/program",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"event_driven",
+								"program"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Event Driven - Private Negative Case",
 					"request": {
 						"method": "POST",
 						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/event_driven/program",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"event_driven",
+								"program"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event Driven - User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "10c7dd44b2d6585f2",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "9d3095797",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Program\": \"Public API\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{baseUrlCore}}/event_driven/program",
 							"host": [
@@ -1502,40 +1553,6 @@
 			"name": "File",
 			"item": [
 				{
-					"name": "File - Negative Case",
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "10c7dd44b2d6585f2",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "9d3095797",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrlCore}}/162-sftp/data/case.txt",
-							"host": [
-								"{{baseUrlCore}}"
-							],
-							"path": [
-								"162-sftp",
-								"data",
-								"case.txt"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "SFTP - Get Data",
 					"request": {
 						"auth": {
@@ -1564,6 +1581,40 @@
 								"162-sftp",
 								"data",
 								"lawang.txt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "File - Negative Case",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "10c7dd44b2d6585f2",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "9d3095797",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlCore}}/162-sftp/data/case.txt",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"162-sftp",
+								"data",
+								"case.txt"
 							]
 						}
 					},
@@ -1614,7 +1665,34 @@
 					"response": []
 				},
 				{
-					"name": "GraphQL - Negative Case",
+					"name": "GraphQL - Public Negative Case",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  launchesPast {\r\n    mission\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/space",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"space"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GraphQL - Private",
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -1636,17 +1714,110 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query {\r\n  launchesPast {\r\n    mission\r\n  }\r\n}",
+								"query": "query Query {\r\n  country(code: \"ID\") {\r\n    name\r\n    native\r\n    capital\r\n    emoji\r\n    currency\r\n    languages {\r\n      code\r\n      name\r\n    }\r\n  }\r\n}",
 								"variables": ""
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/space",
+							"raw": "{{baseUrlCore}}/graphql",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
-								"space"
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GraphQL - Private Negative Case",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query Query {\r\n  country(code: \"ID\") {\r\n    languages \r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/graphql",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GraphQL - User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "10c7dd44b2d6585f2",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "9d3095797",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{\r\n  Page {\r\n    media {\r\n      siteUrl\r\n      title {\r\n        english\r\n        native\r\n      }\r\n      description\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/anilist",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"anilist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GraphQL - User Negative Case",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{\r\n  Page {\r\n    media {\r\n      siteUrl\r\n      title {\r\n        english\r\n        native\r\n      }\r\n      description\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/anilist",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"anilist"
 							]
 						}
 					},
