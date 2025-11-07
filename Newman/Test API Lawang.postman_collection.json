@@ -58,9 +58,19 @@
 				},
 				{
 					"name": "HTTP - Public Negative Case",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "{{baseUrlCore}}/http/ability/negative",
 							"host": [
@@ -86,12 +96,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "a06e25a6ba2483fd5",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "3c464586e",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
@@ -146,12 +156,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "a06e25a6ba2483fd5",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "3c464586e",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
@@ -347,12 +357,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "a06e25a6ba2483fd5",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "3c464586e",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
@@ -410,12 +420,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "10c7dd44b2d6585f2",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "9d3095797",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
@@ -582,19 +592,7 @@
 					"name": "JS - Put User",
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "a06e25a6ba2483fd5",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "3c464586e",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "PUT",
 						"header": [],
@@ -721,12 +719,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "a06e25a6ba2483fd5",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "3c464586e",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
@@ -786,12 +784,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "10c7dd44b2d6585f2",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "9d3095797",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
@@ -889,12 +887,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "a06e25a6ba2483fd5",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "3c464586e",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
@@ -943,12 +941,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "a06e25a6ba2483fd5",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "3c464586e",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
@@ -1064,12 +1062,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "a06e25a6ba2483fd5",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "3c464586e",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
@@ -1119,12 +1117,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "a06e25a6ba2483fd5",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "3c464586e",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
@@ -1235,12 +1233,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "a06e25a6ba2483fd5",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "3c464586e",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
@@ -1292,12 +1290,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "10c7dd44b2d6585f2",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "9d3095797",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
@@ -1344,19 +1342,7 @@
 					"name": "Event Driven - Public",
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "10c7dd44b2d6585f2",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "9d3095797",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "POST",
 						"header": [],
@@ -1389,19 +1375,7 @@
 					},
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "9d3095797",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [],
@@ -1435,12 +1409,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "10c7dd44b2d6585f2",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "9d3095797",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
@@ -1495,12 +1469,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "10c7dd44b2d6585f2",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "9d3095797",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
@@ -1560,12 +1534,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "10c7dd44b2d6585f2",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "9d3095797",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
@@ -1594,12 +1568,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "10c7dd44b2d6585f2",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "9d3095797",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
@@ -1629,19 +1603,7 @@
 					"name": "GraphQL - Public",
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "10c7dd44b2d6585f2",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "9d3095797",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "POST",
 						"header": [],
@@ -1699,12 +1661,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "10c7dd44b2d6585f2",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "9d3095797",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
@@ -1765,12 +1727,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "10c7dd44b2d6585f2",
+									"value": "{{Password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "9d3095797",
+									"value": "{{Username}}",
 									"type": "string"
 								}
 							]
