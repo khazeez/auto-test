@@ -1788,16 +1788,45 @@
 			]
 		}
 	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					"if (!pm.info.requestName.toLowerCase().includes(\"negative\")) {\r",
+					"    pm.test(\"Status code should be 200\", function () {\r",
+					"        pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+					"    });\r",
+					"} else {\r",
+					"    console.log(\"Skipping status for negative case:\", pm.info.requestName);\r",
+					"}\r",
+					""
+				]
+			}
+		}
+	],
 	"variable": [
 		{
 			"key": "baseURL",
-			"value": "http://202.72.206.85:3737",
-			"type": "default"
+			"value": "http://202.72.206.85:3737"
 		},
 		{
 			"key": "Private",
-			"value": "",
-			"type": "default"
+			"value": ""
 		}
 	]
 }
