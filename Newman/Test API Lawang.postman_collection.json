@@ -57,11 +57,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/http/ability/2",
+							"raw": "{{baseUrlCore}}/v2.1/http/ability/2",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"http",
 								"ability",
 								"2"
@@ -90,8 +91,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -109,11 +114,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/http/ability/negative",
+							"raw": "{{baseUrlCore}}/v2.1/http/ability/negative",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"http",
 								"ability",
 								"negative"
@@ -142,8 +148,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -173,11 +183,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/http/generation/2",
+							"raw": "{{baseUrlCore}}/v2.1/http/generation/2",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"http",
 								"generation",
 								"2"
@@ -206,8 +217,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -215,11 +230,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/http/generation/10",
+							"raw": "{{baseUrlCore}}/v2.1/http/generation/10",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"http",
 								"generation",
 								"10"
@@ -283,11 +299,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/http/bible-jhn",
+							"raw": "{{baseUrlCore}}/v2.1/http/bible-jhn",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"http",
 								"bible-jhn"
 							]
@@ -315,8 +332,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -324,11 +345,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/http/generation/9",
+							"raw": "{{baseUrlCore}}/v2.1/http/generation/9",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"http",
 								"generation",
 								"9"
@@ -365,8 +387,12 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"exec": [],
-										"type": "text/javascript"
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -383,11 +409,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrlCore}}/js/mask-data",
+									"raw": "{{baseUrlCore}}/v2.1/js/mask-data",
 									"host": [
 										"{{baseUrlCore}}"
 									],
 									"path": [
+										"v2.1",
 										"js",
 										"mask-data"
 									]
@@ -420,8 +447,12 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"exec": [],
-										"type": "text/javascript"
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -438,11 +469,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrlCore}}/js/save-encrypt",
+									"raw": "{{baseUrlCore}}/v2.1/js/save-encrypt",
 									"host": [
 										"{{baseUrlCore}}"
 									],
 									"path": [
+										"v2.1",
 										"js",
 										"save-encrypt"
 									]
@@ -470,8 +502,12 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"exec": [],
-										"type": "text/javascript"
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -491,11 +527,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrlCore}}/js/decrypt",
+									"raw": "{{baseUrlCore}}/v2.1/js/decrypt",
 									"host": [
 										"{{baseUrlCore}}"
 									],
 									"path": [
+										"v2.1",
 										"js",
 										"decrypt"
 									]
@@ -524,8 +561,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -545,11 +586,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/js/mock/user",
+							"raw": "{{baseUrlCore}}/v2.1/js/mock/user",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"js",
 								"mock",
 								"user"
@@ -578,8 +620,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -665,11 +711,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/js/encrypt",
+							"raw": "{{baseUrlCore}}/v2.1/js/encrypt",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"js",
 								"encrypt"
 							]
@@ -697,8 +744,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -706,11 +757,12 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/js/encrypt",
+							"raw": "{{baseUrlCore}}/v2.1/js/encrypt",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"js",
 								"encrypt"
 							]
@@ -778,11 +830,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/js/mock/external-get",
+							"raw": "{{baseUrlCore}}/v2.1/js/mock/external-get",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"js",
 								"mock",
 								"external-get"
@@ -811,8 +864,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -820,11 +877,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/js/mock/external-get",
+							"raw": "{{baseUrlCore}}/v2.1/js/mock/external-get",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"js",
 								"mock",
 								"external-get"
@@ -853,8 +911,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -871,11 +933,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/js/post-httpbin",
+							"raw": "{{baseUrlCore}}/v2.1/js/post-httpbin",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"js",
 								"post-httpbin"
 							]
@@ -903,8 +966,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -924,11 +991,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/js/save-user",
+							"raw": "{{baseUrlCore}}/v2.1/js/save-user",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"js",
 								"save-user"
 							]
@@ -981,11 +1049,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/js/put-user",
+							"raw": "{{baseUrlCore}}/v2.1/js/put-user",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"js",
 								"put-user"
 							]
@@ -1043,11 +1112,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/lb/api/character",
+							"raw": "{{baseUrlCore}}/v2.1/lb/api/character",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"lb",
 								"api",
 								"character"
@@ -1076,8 +1146,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -1092,11 +1166,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/lb/api/location/negative",
+							"raw": "{{baseUrlCore}}/v2.1/lb/api/location/negative",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"lb",
 								"api",
 								"location",
@@ -1126,8 +1201,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -1162,11 +1241,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/lb/api/location",
+							"raw": "{{baseUrlCore}}/v2.1/lb/api/location",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"lb",
 								"api",
 								"location"
@@ -1195,8 +1275,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -1204,11 +1288,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/lb/api/location",
+							"raw": "{{baseUrlCore}}/v2.1/lb/api/location",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"lb",
 								"api",
 								"location"
@@ -1237,8 +1322,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -1273,11 +1362,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/lb/api/episode",
+							"raw": "{{baseUrlCore}}/v2.1/lb/api/episode",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"lb",
 								"api",
 								"episode"
@@ -1306,8 +1396,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -1315,11 +1409,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/lb/api/episode",
+							"raw": "{{baseUrlCore}}/v2.1/lb/api/episode",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"lb",
 								"api",
 								"episode"
@@ -1353,8 +1448,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -1362,11 +1461,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/db/lawang",
+							"raw": "{{baseUrlCore}}/v2.1/db/lawang",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"db",
 								"lawang"
 							]
@@ -1394,8 +1494,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -1610,8 +1714,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -1656,8 +1764,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -1674,11 +1786,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/async/post-webhook",
+							"raw": "{{baseUrlCore}}/v2.1/async/post-webhook",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"async",
 								"post-webhook"
 							]
@@ -1706,8 +1819,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -1727,11 +1844,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/async/get-webhook/negative",
+							"raw": "{{baseUrlCore}}/v2.1/async/get-webhook/negative",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"async",
 								"get-webhook",
 								"negative"
@@ -1760,8 +1878,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -1791,11 +1913,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/async/get-webhook",
+							"raw": "{{baseUrlCore}}/v2.1/async/get-webhook",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"async",
 								"get-webhook"
 							]
@@ -1823,8 +1946,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -1832,11 +1959,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/async/get-webhook",
+							"raw": "{{baseUrlCore}}/v2.1/async/get-webhook",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"async",
 								"get-webhook"
 							]
@@ -1864,8 +1992,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -1897,11 +2029,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/async/webhook-site",
+							"raw": "{{baseUrlCore}}/v2.1/async/webhook-site",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"async",
 								"webhook-site"
 							]
@@ -1929,8 +2062,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -1938,11 +2075,12 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/async/webhook-site",
+							"raw": "{{baseUrlCore}}/v2.1/async/webhook-site",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"async",
 								"webhook-site"
 							]
@@ -2031,8 +2169,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -2141,8 +2283,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -2183,8 +2329,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -2239,8 +2389,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -2285,8 +2439,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -2306,11 +2464,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/event_driven/lawang",
+							"raw": "{{baseUrlCore}}/v2.1/event_driven/lawang",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"event_driven",
 								"lawang"
 							]
@@ -2338,8 +2497,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -2362,11 +2525,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/event_driven/negative",
+							"raw": "{{baseUrlCore}}/v2.1/event_driven/negative",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"event_driven",
 								"negative"
 							]
@@ -2394,8 +2558,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -2427,11 +2595,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/event_driven/program",
+							"raw": "{{baseUrlCore}}/v2.1/event_driven/program",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"event_driven",
 								"program"
 							]
@@ -2459,8 +2628,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -2468,11 +2641,12 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/event_driven/program",
+							"raw": "{{baseUrlCore}}/v2.1/event_driven/program",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"event_driven",
 								"program"
 							]
@@ -2500,8 +2674,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -2533,11 +2711,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/event_driven/program",
+							"raw": "{{baseUrlCore}}/v2.1/event_driven/program",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"event_driven",
 								"program"
 							]
@@ -2565,8 +2744,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -2574,11 +2757,12 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/event_driven/program",
+							"raw": "{{baseUrlCore}}/v2.1/event_driven/program",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"event_driven",
 								"program"
 							]
@@ -2611,8 +2795,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -2668,8 +2856,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -2784,8 +2976,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -2834,8 +3030,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -2896,8 +3096,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -3012,8 +3216,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -3092,11 +3300,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/http/anything/modified-data",
+							"raw": "{{baseUrlCore}}/v2.1/http/anything/modified-data",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"http",
 								"anything",
 								"modified-data"
@@ -3139,11 +3348,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/http/res-transformation",
+							"raw": "{{baseUrlCore}}/v2.1/http/res-transformation",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"http",
 								"res-transformation"
 							]
@@ -3201,11 +3411,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/http/req-validator",
+							"raw": "{{baseUrlCore}}/v2.1/http/req-validator",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"http",
 								"req-validator"
 							]
