@@ -2,6 +2,7 @@
     "name": "lawang-test",
     "version": "1.0.0",
     "scripts": {
-        "test:lawang": "newman run \"Test API Lawang.postman_collection.json\" -e ./env/Lawang-Core.postman_environment.json --insecure"
+        "test:dev": "newman run \"Test API Lawang.postman_collection.json\" -e ./env/Lawang-Core.postman_environment.json --insecure",
+        "test:local": "newman run \"Test API Lawang.postman_collection.json\" -e ./env/Local.postman_environment.json --insecure"
     }
 }
