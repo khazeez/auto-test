@@ -642,11 +642,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/js/negative",
+							"raw": "{{baseUrlCore}}/v2.1/js/negative",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"js",
 								"negative"
 							]
@@ -1507,11 +1508,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/db/rag-db",
+							"raw": "{{baseUrlCore}}/v2.1/db/rag-db",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"db",
 								"rag-db"
 							]
@@ -1567,11 +1569,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/db/rag",
+							"raw": "{{baseUrlCore}}/v2.1/db/rag",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"db",
 								"rag"
 							]
@@ -1615,11 +1618,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/db/rag",
+							"raw": "{{baseUrlCore}}/v2.1/db/rag",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"db",
 								"rag"
 							]
@@ -1682,11 +1686,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{baseUrlCore}}/db/rag-user",
+							"raw": "{{baseUrlCore}}/v2.1/db/rag-user",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"db",
 								"rag-user"
 							]
@@ -1727,11 +1732,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrlCore}}/db/rag",
+							"raw": "{{baseUrlCore}}/v2.1/db/rag",
 							"host": [
 								"{{baseUrlCore}}"
 							],
 							"path": [
+								"v2.1",
 								"db",
 								"rag"
 							]
