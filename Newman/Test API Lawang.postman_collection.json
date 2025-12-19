@@ -1062,6 +1062,43 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "JS - Headers",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{Password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{Username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/js/jeaders",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"js",
+								"jeaders"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -2782,7 +2819,7 @@
 			"name": "File",
 			"item": [
 				{
-					"name": "SFTP - Get Data",
+					"name": "SFTP - Private Get Data",
 					"event": [
 						{
 							"listen": "test",
@@ -2843,7 +2880,7 @@
 					"response": []
 				},
 				{
-					"name": "File - Negative Case",
+					"name": "File - Private Negative Case",
 					"event": [
 						{
 							"listen": "test",
@@ -2898,6 +2935,49 @@
 								"162-sftp",
 								"data",
 								"case.txt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "S3 - Negative Case User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrlCore}}/minion/minio.txt",
+							"host": [
+								"{{baseUrlCore}}"
+							],
+							"path": [
+								"minion",
+								"minio.txt"
 							]
 						}
 					},
