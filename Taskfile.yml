@@ -1,0 +1,11 @@
+version: '3'
+tasks:
+  test-k6:
+    cmds:
+      - cd k6-test && k6 run test-lawang.js
+  test-dev:
+    cmds:
+      - cd Newman && npm run test:dev
+  test-local:
+    cmds:
+      - cd Newman && npm run test:local
