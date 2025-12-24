@@ -566,6 +566,13 @@
 										"packages": {},
 										"requests": {}
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
 								}
 							],
 							"request": {
@@ -607,6 +614,13 @@
 										"packages": {},
 										"requests": {}
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
 								}
 							],
 							"request": {
@@ -620,15 +634,62 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{baseUrlCore}}/v2.1/js/request/timeout",
+									"raw": "{{baseUrlCore}}/v2.1/js/request-timeout",
 									"host": [
 										"{{baseUrlCore}}"
 									],
 									"path": [
 										"v2.1",
 										"js",
-										"request",
-										"timeout"
+										"request-timeout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "JS - Request Headers",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrlCore}}/v2.1/js/request-headers",
+									"host": [
+										"{{baseUrlCore}}"
+									],
+									"path": [
+										"v2.1",
+										"js",
+										"request-headers"
 									]
 								}
 							},
@@ -710,6 +771,13 @@
 										"packages": {},
 										"requests": {}
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
 								}
 							],
 							"request": {
@@ -757,6 +825,13 @@
 										"packages": {},
 										"requests": {}
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
 								}
 							],
 							"protocolProfileBehavior": {
@@ -801,6 +876,13 @@
 										"packages": {},
 										"requests": {}
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
 								}
 							],
 							"request": {
@@ -842,6 +924,13 @@
 										"packages": {},
 										"requests": {}
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
 								}
 							],
 							"request": {
@@ -863,6 +952,219 @@
 										"v2.1",
 										"js",
 										"patch-httpbin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "JS - Get  Headers httpbin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrlCore}}/v2.1/js/get/headers-httpbin",
+									"host": [
+										"{{baseUrlCore}}"
+									],
+									"path": [
+										"v2.1",
+										"js",
+										"get",
+										"headers-httpbin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "JS - Post Timeout httpbin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(500);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrlCore}}/v2.1/js/post/timeout-httpbin",
+									"host": [
+										"{{baseUrlCore}}"
+									],
+									"path": [
+										"v2.1",
+										"js",
+										"post",
+										"timeout-httpbin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "JS - Put Headers httpbin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrlCore}}/v2.1/js/put/headers-httpbin",
+									"host": [
+										"{{baseUrlCore}}"
+									],
+									"path": [
+										"v2.1",
+										"js",
+										"put",
+										"headers-httpbin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "JS - Patch Timeout httpbin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(500);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrlCore}}/v2.1/js/patch/timeout-httpbin",
+									"host": [
+										"{{baseUrlCore}}"
+									],
+									"path": [
+										"v2.1",
+										"js",
+										"patch",
+										"timeout-httpbin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "JS - Delete Headers httpbin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrlCore}}/v2.1/js/delete/headers-httpbin",
+									"host": [
+										"{{baseUrlCore}}"
+									],
+									"path": [
+										"v2.1",
+										"js",
+										"delete",
+										"headers-httpbin"
 									]
 								}
 							},
