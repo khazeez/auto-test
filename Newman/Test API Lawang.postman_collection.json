@@ -607,7 +607,7 @@
 									"script": {
 										"exec": [
 											"pm.test(\"Status test\", function () {\r",
-											"    pm.response.to.have.status(500);\r",
+											"    pm.response.to.have.status(200);\r",
 											"});"
 										],
 										"type": "text/javascript",
@@ -618,8 +618,12 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"exec": [],
-										"type": "text/javascript"
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -972,6 +976,13 @@
 										"packages": {},
 										"requests": {}
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
 								}
 							],
 							"protocolProfileBehavior": {
@@ -1010,8 +1021,19 @@
 									"script": {
 										"exec": [
 											"pm.test(\"Status test\", function () {\r",
-											"    pm.response.to.have.status(500);\r",
+											"    pm.response.to.have.status(200);\r",
 											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
 										],
 										"type": "text/javascript",
 										"packages": {},
@@ -1059,6 +1081,13 @@
 										"packages": {},
 										"requests": {}
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
 								}
 							],
 							"request": {
@@ -1094,8 +1123,19 @@
 									"script": {
 										"exec": [
 											"pm.test(\"Status test\", function () {\r",
-											"    pm.response.to.have.status(500);\r",
+											"    pm.response.to.have.status(200);\r",
 											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
 										],
 										"type": "text/javascript",
 										"packages": {},
@@ -1142,6 +1182,13 @@
 										"type": "text/javascript",
 										"packages": {},
 										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1307,6 +1354,13 @@
 										"packages": {},
 										"requests": {}
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
 								}
 							],
 							"request": {
@@ -1354,6 +1408,13 @@
 										"packages": {},
 										"requests": {}
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
 								}
 							],
 							"protocolProfileBehavior": {
@@ -1399,6 +1460,13 @@
 										"packages": {},
 										"requests": {}
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
 								}
 							],
 							"request": {
@@ -1440,6 +1508,13 @@
 										"type": "text/javascript",
 										"packages": {},
 										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1487,6 +1562,13 @@
 										"type": "text/javascript",
 										"packages": {},
 										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1890,6 +1972,13 @@
 								"type": "text/javascript",
 								"packages": {},
 								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
 							}
 						}
 					],
