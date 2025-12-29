@@ -14,13 +14,14 @@ export default function () {
   //untuk checking grup GET
   group('GET endpoints', function () {
     const getEndpoints = [
-      '/http/ability/2',
-      '/db/lawang',
-      '/js/mock/user',
-      '/lb/api/character',
-      '/js/mock/user',
-      '/js/decrypt',
-      '/proxy/httpbin/anything',
+      '/v2.1/http/ability/2',
+      '/v2.1/db/lawang',
+      '/v2.1/js/mock/user',
+      '/v2.1/lb/api/character',
+      '/v2.1/js/mock/user',
+      '/v2.1/js/decrypt',
+      '/proxy/httpbin/get',
+      '/v2.1/js/decrypt'
     ];
 
     for (const path of getEndpoints) {
