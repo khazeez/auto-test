@@ -14,8 +14,11 @@ export const options = {
 
 const Public = [
   '/v2.1/http/ability/2',
+  '/v2.1/http/res-transformation',
   '/v2.1/db/lawang',
   '/v2.1/js/mock/user',
+  '/v2.1/js/get-httpbin',
+  '/v2.1/js/get/headers-httpbin',
   '/v2.1/lb/api/character',
   '/v2.1/js/decrypt',
   '/proxy/httpbin/get',
@@ -28,8 +31,17 @@ const Private = [
   '/proxy/poke-api/berry',
 ];
 
+const User = [
+  '/v2.1/js/mock/external-get',
+  '/v2.1/lb/api/episode',
+  '/v2.1/db/rag-user',
+  '/get/anything',
+  '/minion/minio.txt',
+  '/minion/minio.txt',
+];
+
 export default function () {
-  group('public', () => {
+  group('Public', () => {
     for (const path of Public) {
       const res = http.get(`${baseUrl}${path}`);
 
@@ -41,10 +53,28 @@ export default function () {
     }
   });
 
-  group('private', () => {
+  group('Private', () => {
     const auth = encoding.b64encode(`${username}:${password}`);
 
     for (const path of Private) {
+      const res = http.get(`${baseUrl}${path}`, {
+        headers: {
+          Authorization: `Basic ${auth}`,
+        },
+      });
+
+      check(res, {
+        [`${path}`]: r => r.status === 200,
+      });
+    }
+
+    sleep(1);
+  });
+
+  group('User', () => {
+    const auth = encoding.b64encode(`${username}:${password}`);
+
+    for (const path of User) {
       const res = http.get(`${baseUrl}${path}`, {
         headers: {
           Authorization: `Basic ${auth}`,
