@@ -4,5 +4,9 @@
     "scripts": {
         "test:dev": "newman run \"Test API Lawang.postman_collection.json\" -e ./env/Lawang-Core.postman_environment.json --insecure",
         "test:local": "newman run \"Test API Lawang.postman_collection.json\" -e ./env/Local.postman_environment.json --insecure"
+    },
+    "devDependencies": {
+        "newman": "^6.2.2",
+        "newman-reporter-htmlextra": "^1.23.1"
     }
 }
