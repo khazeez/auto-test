@@ -16,8 +16,3 @@ Thumbs.db
 
 *.log
 npm-debug.log*
-
-package-lock.json
-
-./Newman/package-lock.json
-./k6-test/package-lock.json
