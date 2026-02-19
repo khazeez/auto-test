@@ -1,9 +1,9 @@
 {
   "info": {
-    "_postman_id": "40601ee0-2d44-4b46-ba42-14c8d622e7d7",
+    "_postman_id": "4e5a1410-ee1a-412a-955a-6a3c2bf4f381",
     "name": "Test API Lawang",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "37383269"
+    "_exporter_id": "27427413"
   },
   "item": [
     {
@@ -1634,7 +1634,13 @@
           },
           "request": {
             "method": "GET",
-            "header": [],
+            "header": [
+              {
+                "key": "User-Application",
+                "value": "curl/8.0",
+                "type": "text"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "",
@@ -2010,6 +2016,52 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "DB - Lawang Public Copy",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status test\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlCore}}/v2.1/db/lawang",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "v2.1",
+                "db",
+                "lawang"
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
@@ -2248,6 +2300,14 @@
                 "location"
               ]
             }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Report today Copy",
+          "request": {
+            "method": "GET",
+            "header": []
           },
           "response": []
         },
@@ -4493,17 +4553,303 @@
       ]
     },
     {
-      "name": "Waf",
+      "name": "HTTBIN",
       "item": [
         {
-          "name": "WAF - Rules Url",
+          "name": "Upload - png",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status test\", function () {\r",
-                  "    pm.response.to.have.status(403);\r",
+                  "\r",
+                  "const responseJson = pm.response.json();\r",
+                  "const fileValue = responseJson.files && responseJson.files.file;\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Status code 200 ok\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file is exist\", function () {\r",
+                  "    pm.expect(responseJson).to.have.property(\"files\");\r",
+                  "    pm.expect(responseJson.files).to.have.property(\"file\");\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file not be emtpy\", function () {\r",
+                  "    pm.expect(fileValue).to.not.be.empty;\r",
+                  "    pm.expect(fileValue).to.not.be.null;\r",
+                  "    pm.expect(fileValue).to.not.be.undefined;\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"MIME type must be image/png\", function () {\r",
+                  "    pm.expect(fileValue).to.match(/^data:image\\/png/);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "68c4f534-7cad-4efc-92f7-87864c46813e",
+                  "src": "./test-file/httpbin/PNG.png"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/bintest",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "bintest"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload - jpg",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "const responseJson = pm.response.json();\r",
+                  "const fileValue = responseJson.files && responseJson.files.file;\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Status code 200 ok\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file is exist\", function () {\r",
+                  "    pm.expect(responseJson).to.have.property(\"files\");\r",
+                  "    pm.expect(responseJson.files).to.have.property(\"file\");\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file not be emtpy\", function () {\r",
+                  "    pm.expect(fileValue).to.not.be.empty;\r",
+                  "    pm.expect(fileValue).to.not.be.null;\r",
+                  "    pm.expect(fileValue).to.not.be.undefined;\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"MIME type must be image/jpeg\", function () {\r",
+                  "    pm.expect(fileValue).to.match(/^data:image\\/jpeg/);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "97bcf412-0cde-4cfd-90b4-b6ed40af4138",
+                  "src": "./test-file/httpbin/JPG.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/bintest",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "bintest"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload - gif",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "const responseJson = pm.response.json();\r",
+                  "const fileValue = responseJson.files && responseJson.files.file;\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Status code 200 ok\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file is exist\", function () {\r",
+                  "    pm.expect(responseJson).to.have.property(\"files\");\r",
+                  "    pm.expect(responseJson.files).to.have.property(\"file\");\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file not be emtpy\", function () {\r",
+                  "    pm.expect(fileValue).to.not.be.empty;\r",
+                  "    pm.expect(fileValue).to.not.be.null;\r",
+                  "    pm.expect(fileValue).to.not.be.undefined;\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"MIME type must be image/gif\", function () {\r",
+                  "    pm.expect(fileValue).to.match(/^data:image\\/gif/);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "06c413ef-7497-4767-88e2-2266beda98f3",
+                  "src": "./test-file/httpbin/GIF.gif"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/bintest",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "bintest"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload - webp",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "const responseJson = pm.response.json();\r",
+                  "const fileValue = responseJson.files && responseJson.files.file;\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Status code 200 ok\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file is exist\", function () {\r",
+                  "    pm.expect(responseJson).to.have.property(\"files\");\r",
+                  "    pm.expect(responseJson.files).to.have.property(\"file\");\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file not be emtpy\", function () {\r",
+                  "    pm.expect(fileValue).to.not.be.empty;\r",
+                  "    pm.expect(fileValue).to.not.be.null;\r",
+                  "    pm.expect(fileValue).to.not.be.undefined;\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"MIME type must be image/webp\", function () {\r",
+                  "    pm.expect(fileValue).to.match(/^data:image\\/webp/);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "2f1de640-626c-4d30-b60e-030bd1d4f248",
+                  "src": "./test-file/httpbin/WEBP.webp"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/bintest",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "bintest"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload - SVG",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "const responseJson = pm.response.json();\r",
+                  "const fileValue = responseJson.files && responseJson.files.file;\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Status code 200 ok\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file is exist\", function () {\r",
+                  "    pm.expect(responseJson).to.have.property(\"files\");\r",
+                  "    pm.expect(responseJson.files).to.have.property(\"file\");\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file not be emtpy\", function () {\r",
+                  "    pm.expect(fileValue).to.not.be.empty;\r",
+                  "    pm.expect(fileValue).to.not.be.null;\r",
+                  "    pm.expect(fileValue).to.not.be.undefined;\r",
                   "});\r",
                   ""
                 ],
@@ -4511,28 +4857,413 @@
                 "packages": {},
                 "requests": {}
               }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [],
-                "type": "text/javascript"
-              }
             }
           ],
           "request": {
-            "method": "GET",
+            "method": "POST",
             "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "95ef8de6-4621-4bb7-8492-0e46113e9387",
+                  "src": "./test-file/httpbin/SVG.svg"
+                }
+              ]
+            },
             "url": {
-              "raw": "{{baseUrlCore}}/v2.1/http/dev/get",
+              "raw": "{{baseUrlCore}}/bintest",
               "host": [
                 "{{baseUrlCore}}"
               ],
               "path": [
-                "v2.1",
-                "http",
-                "dev",
-                "get"
+                "bintest"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload - PDF",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "const responseJson = pm.response.json();\r",
+                  "const fileValue = responseJson.files && responseJson.files.file;\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Status code 200 ok\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file is exist\", function () {\r",
+                  "    pm.expect(responseJson).to.have.property(\"files\");\r",
+                  "    pm.expect(responseJson.files).to.have.property(\"file\");\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file not be emtpy\", function () {\r",
+                  "    pm.expect(fileValue).to.not.be.empty;\r",
+                  "    pm.expect(fileValue).to.not.be.null;\r",
+                  "    pm.expect(fileValue).to.not.be.undefined;\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"MIME type must be application/pdf\", function () {\r",
+                  "    pm.expect(fileValue).to.match(/^data:application\\/pdf/);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "8cbef0d0-70c2-4100-bef7-3ed715587b72",
+                  "src": "./test-file/httpbin/PDF.pdf"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/bintest",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "bintest"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload - xlsx",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "const responseJson = pm.response.json();\r",
+                  "const fileValue = responseJson.files && responseJson.files.file;\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Status code 200 ok\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file is exist\", function () {\r",
+                  "    pm.expect(responseJson).to.have.property(\"files\");\r",
+                  "    pm.expect(responseJson.files).to.have.property(\"file\");\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file not be emtpy\", function () {\r",
+                  "    pm.expect(fileValue).to.not.be.empty;\r",
+                  "    pm.expect(fileValue).to.not.be.null;\r",
+                  "    pm.expect(fileValue).to.not.be.undefined;\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"MIME type must be application/xlsx\", function () {\r",
+                  "    pm.expect(fileValue).to.match(/^data:application\\/vnd.openxmlformats-officedocument.spreadsheetml.sheet/);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "e5f2622b-4344-4508-af1d-1d127b560cdb",
+                  "src": "./test-file/httpbin/XLSX.xlsx"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/bintest",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "bintest"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload - Docs",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "const responseJson = pm.response.json();\r",
+                  "const fileValue = responseJson.files && responseJson.files.file;\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Status code 200 ok\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file is exist\", function () {\r",
+                  "    pm.expect(responseJson).to.have.property(\"files\");\r",
+                  "    pm.expect(responseJson.files).to.have.property(\"file\");\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file not be emtpy\", function () {\r",
+                  "    pm.expect(fileValue).to.not.be.empty;\r",
+                  "    pm.expect(fileValue).to.not.be.null;\r",
+                  "    pm.expect(fileValue).to.not.be.undefined;\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"MIME type must be application/docs\", function () {\r",
+                  "    pm.expect(fileValue).to.match(/^data:application\\/vnd.openxmlformats-officedocument.wordprocessingml.document/);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "41281b9c-245d-451b-8dd9-d8baebd2c208",
+                  "src": "./test-file/httpbin/DOCX.docx"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/bintest",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "bintest"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload - If Not Exist - Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "const responseJson = pm.response.json();\r",
+                  "const fileValue = responseJson.files && responseJson.files;\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Status code 200 ok\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file is exist\", function () {\r",
+                  "    pm.expect(responseJson).to.have.property(\"files\");\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files harus kosong\", function () {\r",
+                  "    pm.expect(fileValue).to.be.empty;\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/bintest",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "bintest"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload - PDF, Docs, xlsx",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "const responseJson = pm.response.json();\r",
+                  "const fileValue = responseJson.files && responseJson.files.file;\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Status code 200 ok\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file is exist\", function () {\r",
+                  "    pm.expect(responseJson).to.have.property(\"files\");\r",
+                  "    pm.expect(responseJson.files).to.have.property(\"file\");\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file not be emtpy\", function () {\r",
+                  "    pm.expect(fileValue).to.not.be.empty;\r",
+                  "    pm.expect(fileValue).to.not.be.null;\r",
+                  "    pm.expect(fileValue).to.not.be.undefined;\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "f42695ff-6a0e-45eb-a838-5527d8a9193d",
+                  "src": [
+                    "./test-file/httpbin/DOCX.docx",
+                    "./test-file/httpbin/PDF.pdf",
+                    "./test-file/httpbin/XLSX.xlsx"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/bintest",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "bintest"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload - png, jpg, webp",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "const responseJson = pm.response.json();\r",
+                  "const fileValue = responseJson.files && responseJson.files.file;\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Status code 200 ok\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file is exist\", function () {\r",
+                  "    pm.expect(responseJson).to.have.property(\"files\");\r",
+                  "    pm.expect(responseJson.files).to.have.property(\"file\");\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Field files.file not be emtpy\", function () {\r",
+                  "    pm.expect(fileValue).to.not.be.empty;\r",
+                  "    pm.expect(fileValue).to.not.be.null;\r",
+                  "    pm.expect(fileValue).to.not.be.undefined;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "6a89e59e-0094-4fc5-8d5f-e8d336faee3c",
+                  "src": [
+                    "./test-file/httpbin/PNG.png",
+                    "./test-file/httpbin/WEBP.webp",
+                    "./test-file/httpbin/JPG.jpg"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/bintest",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "bintest"
               ]
             }
           },
@@ -4567,8 +5298,16 @@
   ],
   "variable": [
     {
-      "key": "baseURL",
-      "value": "http://202.72.206.85:3737"
+      "key": "baseUrlCore",
+      "value": ""
+    },
+    {
+      "key": "Username",
+      "value": ""
+    },
+    {
+      "key": "Password",
+      "value": ""
     }
   ]
 }
