@@ -5255,19 +5255,5 @@
         "exec": [""]
       }
     }
-  ],
-  "variable": [
-    {
-      "key": "baseUrlCore",
-      "value": "https://202.72.206.162:2727"
-    },
-    {
-      "key": "Username",
-      "value": "lawang-cred-162"
-    },
-    {
-      "key": "Password",
-      "value": "admin123!"
-    }
   ]
 }
