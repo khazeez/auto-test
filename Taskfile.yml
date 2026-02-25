@@ -3,6 +3,9 @@ tasks:
   test-k6:
     cmds:
       - cd k6-test && k6 run test-lawang.js
+  test:
+    cmds:
+      - cd Newman && npm test
   test-dev:
     cmds:
       - cd Newman && npm run test:dev
