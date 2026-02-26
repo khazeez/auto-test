@@ -16,6 +16,7 @@ const bgBlue = '\x1b[44m';
 const bgGreen = '\x1b[42m';
 const bgRed = '\x1b[41m';
 const bgYellow = '\x1b[43m';
+const bgMagenta = '\x1b[45m';
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -25,7 +26,8 @@ const rl = readline.createInterface({
 const collections = [
     { name: 'Test Normal Flow', file: 'Test API Lawang.postman_collection.json', color: green, bg: bgGreen },
     { name: 'Test Blacklist IP', file: 'Test Blacklist IP.postman_collection.json', color: red, bg: bgRed },
-    { name: 'Test Security Header', file: 'Test Security Header.postman_collection.json', color: blue, bg: bgYellow }
+    { name: 'Test Security Header', file: 'Test Security Header.postman_collection.json', color: blue, bg: bgYellow },
+    { name: 'Test CORS', file: 'Test CORS.postman_collection.json', color: magenta, bg: bgMagenta }
 ];
 
 const collectionsDir = path.join(__dirname, 'collections');
