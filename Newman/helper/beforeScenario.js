@@ -1,0 +1,3 @@
+class BeforeScenario {
+  async enableCors() {}
+}
