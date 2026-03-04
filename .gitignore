@@ -6,8 +6,9 @@ node_modules/
 
 
 ./Newman/report/
-./Newman/.env
+.env
 report/
+./Newman/test.js
 
 
 

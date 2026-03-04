@@ -1,5 +1,5 @@
-const knex = require('knex');
-const config = require('./knex');
+import knex from 'knex'
+import config from './knex'
 
 
 const db = knex(config);

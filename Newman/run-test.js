@@ -1,7 +1,12 @@
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
-const readline = require('readline');
+import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import readline from 'readline';
+import { fileURLToPath } from 'url';
+
+// Pengganti __dirname di ES Module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const cyan = '\x1b[36m';
 const green = '\x1b[32m';
@@ -90,7 +95,9 @@ function printEnvMenu() {
   });
 
   console.log('\n' + '─'.repeat(60));
-  console.log(`${dim}  Pilih environment variable sebelum melanjutkan testing${reset}`);
+  console.log(
+    `${dim}  Pilih environment variable sebelum melanjutkan testing${reset}`
+  );
   console.log('─'.repeat(60) + '\n');
 }
 
@@ -110,13 +117,7 @@ function printCollectionMenu(envName, envColor) {
   console.log('─'.repeat(60) + '\n');
 }
 
-function printFolderMenu(
-  folders,
-  collectionName,
-  colBg,
-  envName,
-  envColor
-) {
+function printFolderMenu(folders, collectionName, colBg, envName, envColor) {
   console.log('\n' + '═'.repeat(60));
   console.log(`${colBg}${bold}  ${collectionName.padEnd(50)} ${reset}`);
   console.log('═'.repeat(60));
@@ -199,7 +200,6 @@ function showEnvMenu() {
     showCollectionMenu(selectedEnv);
   });
 }
-
 
 function showCollectionMenu(selectedEnv) {
   printHeader();

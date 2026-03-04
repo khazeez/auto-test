@@ -1,4 +1,4 @@
-const db = require('../config/db.js'); ;
+import db from '../config/db'
 
 class SettingModels {
   

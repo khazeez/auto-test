@@ -5,10 +5,10 @@ tasks:
       - cd k6-test && k6 run test-lawang.js
   test:
     cmds:
-      - cd Newman && npm test
+      - npm test
   test-dev:
     cmds:
-      - cd Newman && npm run test:dev
+      - npm run test:dev
   test-local:
     cmds:
-      - cd Newman && npm run test:local
+      - npm run test:local

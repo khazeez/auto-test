@@ -1,9 +1,10 @@
-const setting = require('../models/settingModel.js')
-require('dotenv').config();
+import setting from '../models/settingModel'
+import 'dotenv/config';
 
 class SettingService {
   async enableCors() {
     try {
+      console.log('Enabling CORS...');
       await setting.updateCors(true);
     } catch (error) {
       console.log(error);
@@ -12,6 +13,7 @@ class SettingService {
 
   async disableCors() {
     try {
+      console.log('Disabling CORS...');
       await setting.updateCors(false);
     } catch (error) {
       console.log(error);
@@ -20,6 +22,7 @@ class SettingService {
 
   async enableSecurityHeader() {
     try {
+      console.log('Enabling Security Header...');
       await setting.updateSecurityHeader(true);
     } catch (error) {
       console.log(error);
@@ -28,6 +31,8 @@ class SettingService {
 
   async disableSecurityHeader() {
     try {
+      console.log("Disabling Security Header...");
+      
       await setting.updateSecurityHeader(false);
     } catch (error) {
       console.log(error);
@@ -35,8 +40,9 @@ class SettingService {
   }
 
   async addIpBlackList() {
-    let ip = process.env.IP_ADDRESS;
+    let ip = await getPublicIP()
     try {
+      console.log('Add IP to Blacklist...');
       await setting.addBlacklistIp(ip, 'for testing');
     } catch (error) {
       console.log(error);
