@@ -1,5 +1,5 @@
 import axios from 'axios';
-import spinner from './spinner.js'
+import spinner from './spinnerService.js'
 
 
 export default async function RestartService() {

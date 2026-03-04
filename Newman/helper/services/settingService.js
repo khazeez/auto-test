@@ -1,4 +1,5 @@
 import setting from '../models/settingModel'
+import getPublicIP from './getPublicIpService';
 import 'dotenv/config';
 
 class SettingService {
