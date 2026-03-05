@@ -1,7 +1,6 @@
-import db from '../config/db'
+import db from '../config/db.js'
 
 class SettingModels {
-  
   async updateCors(value) {
     return await db('server_settings')
       .where({
@@ -22,15 +21,31 @@ class SettingModels {
       });
   }
 
-  async addBlacklistIp(ip, description) {
-  
+  async addBlacklistIp(value, description) {
     const row = await db('blacklists')
       .where({ id: 'f2000f75-d697-40ae-bbef-e78001021e55' })
       .first();
 
     const current = JSON.parse(row.value ?? '[]');
 
-    const updated = [...current, { ip, description }];
+    const updated = [...current, { value, description }];
+
+    const [result] = await db('blacklists')
+      .where({ id: 'f2000f75-d697-40ae-bbef-e78001021e55' })
+      .update({ value: JSON.stringify(updated) })
+      .returning('*');
+
+    return result;
+  }
+
+  async removeBlacklistIp(ip) {
+    const row = await db('blacklists')
+      .where({ id: 'f2000f75-d697-40ae-bbef-e78001021e55' })
+      .first();
+
+    const current = JSON.parse(row.value ?? '[]');
+
+    const updated = current.filter((entry) => entry.value !== ip);
 
     const [result] = await db('blacklists')
       .where({ id: 'f2000f75-d697-40ae-bbef-e78001021e55' })

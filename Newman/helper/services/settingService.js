@@ -1,12 +1,12 @@
-import setting from '../models/settingModel'
-import getPublicIP from './getPublicIpService';
+import settingModel from '../models/settingModel.js';
+import getPublicIP from './getPublicIpService.js';
 import 'dotenv/config';
 
 class SettingService {
   async enableCors() {
     try {
       console.log('Enabling CORS...');
-      await setting.updateCors(true);
+      await settingModel.updateCors(true);
     } catch (error) {
       console.log(error);
     }
@@ -15,7 +15,7 @@ class SettingService {
   async disableCors() {
     try {
       console.log('Disabling CORS...');
-      await setting.updateCors(false);
+      await settingModel.updateCors(false);
     } catch (error) {
       console.log(error);
     }
@@ -24,7 +24,7 @@ class SettingService {
   async enableSecurityHeader() {
     try {
       console.log('Enabling Security Header...');
-      await setting.updateSecurityHeader(true);
+      await settingModel.updateSecurityHeader(true);
     } catch (error) {
       console.log(error);
     }
@@ -32,23 +32,32 @@ class SettingService {
 
   async disableSecurityHeader() {
     try {
-      console.log("Disabling Security Header...");
-      
-      await setting.updateSecurityHeader(false);
+      console.log('Disabling Security Header...');
+
+      await settingModel.updateSecurityHeader(false);
     } catch (error) {
       console.log(error);
     }
   }
 
   async addIpBlackList() {
-    let ip = await getPublicIP()
+    let ip = await getPublicIP();
     try {
       console.log('Add IP to Blacklist...');
-      await setting.addBlacklistIp(ip, 'for testing');
+      await settingModel.addBlacklistIp(ip, 'for testing');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async removeIpBlackList() {
+    let ip = await getPublicIP();
+    try {
+      await settingModel.removeBlacklistIp(ip);
     } catch (error) {
       console.log(error);
     }
   }
 }
 
-export default SettingService();
+export default new SettingService();

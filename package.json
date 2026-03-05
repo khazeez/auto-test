@@ -8,12 +8,13 @@
     "test:local": "newman run ./Newman/collections/\"Test API Lawang.postman_collection.json\" -e ./Newman/env/Local.postman_environment.json --working-dir ./Newman --insecure"
   },
   "devDependencies": {
+    "axios": "^1.13.6",
     "newman": "^6.2.2",
-    "newman-reporter-htmlextra": "^1.23.1",
-    "axios": "^1.13.6"
+    "newman-reporter-htmlextra": "^1.23.1"
   },
   "dependencies": {
     "dotenv": "^17.3.1",
-    "knex": "^3.1.0"
+    "knex": "^3.1.0",
+    "pg": "^8.20.0"
   }
 }

@@ -1,28 +1,33 @@
-import settingService from "./services/settingService"
-import RestartService from "./services/restartServerService"
-
+import settingService from './services/settingService.js';
 
 class BeforeScenario {
-    async setIpBlock() {
-
+  async setIpBlock() {
+    try {
+      await settingService.addIpBlackList();
+    } catch (error) {
+      console.log(error);
     }
+  }
 
-    async setCorsOn() {
-
+  async setCorsOn() {
+    try {
+      await settingService.enableCors();
+    } catch (error) {
+      console.log(error);
     }
+  }
 
-    async setCorsOff() {
-        
+  
+
+  async setSecurityHeaderOn() {
+    try {
+      await settingService.enableSecurityHeader();
+    } catch (error) {
+      console.log(error);
     }
+  }
 
-    async setSecurityHeaderOn() {
-
-
-    }
-
-    async setSecurityHeaderOff() {
-
-    }
+ 
 }
 
-export default new BeforeScenario()
+export default new BeforeScenario();
