@@ -6,93 +6,67 @@ import { fileURLToPath } from 'url';
 import beforeScenario from './helper/beforeScenario.js';
 import afterScenario from './helper/afterScenario.js';
 import restartService from './helper/services/restartServerService.js';
-import settingService from './helper/services/settingService.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const cyan = '\x1b[36m';
-const green = '\x1b[32m';
-const yellow = '\x1b[33m';
-const magenta = '\x1b[35m';
-const red = '\x1b[31m';
-const blue = '\x1b[34m';
-const bold = '\x1b[1m';
-const reset = '\x1b[0m';
-const dim = '\x1b[2m';
-const bgBlue = '\x1b[44m';
-const bgGreen = '\x1b[42m';
-const bgRed = '\x1b[41m';
-const bgYellow = '\x1b[43m';
-const bgMagenta = '\x1b[45m';
-const bgCyan = '\x1b[46m';
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
 
-const collections = [
-  {
-    name: 'Test Normal Flow',
-    file: 'Test API Lawang.postman_collection.json',
-    color: green,
-    bg: bgGreen,
-  },
-  {
-    name: 'Test Blacklist IP',
-    file: 'Test Blacklist IP.postman_collection.json',
-    color: red,
-    bg: bgRed,
-  },
-  {
-    name: 'Test Security Header',
-    file: 'Test Security Header.postman_collection.json',
-    color: blue,
-    bg: bgYellow,
-  },
-  {
-    name: 'Test CORS',
-    file: 'Test CORS.postman_collection.json',
-    color: magenta,
-    bg: bgMagenta,
-  },
-];
+const C = {
+  cyan: '\x1b[36m',
+  green: '\x1b[32m',
+  yellow: '\x1b[33m',
+  magenta: '\x1b[35m',
+  red: '\x1b[31m',
+  blue: '\x1b[34m',
+  bold: '\x1b[1m',
+  reset: '\x1b[0m',
+  dim: '\x1b[2m',
+  bgBlue: '\x1b[44m',
+  bgGreen: '\x1b[42m',
+  bgRed: '\x1b[41m',
+  bgYellow: '\x1b[43m',
+  bgMagenta: '\x1b[45m',
+  bgCyan: '\x1b[46m',
+};
 
-const environments = [
+
+//Environment
+
+const ENVIRONMENTS = [
   {
     name: 'Local',
     file: 'Local.postman_environment.json',
-    color: green,
-    bg: bgGreen,
+    color: C.green,
     label: 'LOCAL',
   },
   {
     name: 'Dev',
     file: 'Lawang-Core.postman_environment.json',
-    color: cyan,
-    bg: bgCyan,
+    color: C.cyan,
     label: 'DEV',
   },
 ];
 
-const collectionsDir = path.join(__dirname, 'collections');
-const envDir = path.join(__dirname, 'env');
 
-// ─── Scenario Map per Collection ─────────────────────────────────────────────
+//collections
 
-const scenarioMap = {
-  'Test Normal Flow': {
+const COLLECTIONS = [
+  {
+    name: 'Test Normal Flow',
+    file: 'Test API Lawang.postman_collection.json',
+    color: C.green,
+    bg: C.bgGreen,
     before: async () => {},
     after: async () => {},
   },
-  'Test Blacklist IP': {
+  {
+    name: 'Test Blacklist IP',
+    file: 'Test Blacklist IP.postman_collection.json',
+    color: C.red,
+    bg: C.bgRed,
     before: async () => {
-      try {
-        await beforeScenario.setIpBlock();
-      } catch (err) {
-        throw new Error(`[setIpBlock] gagal: ${err.message}`);
-      }
+      await beforeScenario.setIpBlock();
       await restartService();
     },
     after: async () => {
@@ -100,13 +74,13 @@ const scenarioMap = {
       await restartService();
     },
   },
-  'Test Security Header': {
+  {
+    name: 'Test Security Header',
+    file: 'Test Security Header.postman_collection.json',
+    color: C.blue,
+    bg: C.bgYellow,
     before: async () => {
-      try {
-        await beforeScenario.setSecurityHeaderOn();
-      } catch (err) {
-        throw new Error(`[setSecurityHeaderOn] gagal: ${err.message}`);
-      }
+      await beforeScenario.setSecurityHeaderOn();
       await restartService();
     },
     after: async () => {
@@ -114,13 +88,13 @@ const scenarioMap = {
       await restartService();
     },
   },
-  'Test CORS': {
+  {
+    name: 'Test CORS',
+    file: 'Test CORS.postman_collection.json',
+    color: C.magenta,
+    bg: C.bgMagenta,
     before: async () => {
-      try {
-        await beforeScenario.setCorsOn();
-      } catch (err) {
-        throw new Error(`[setCorsOn] gagal: ${err.message}`);
-      }
+      await beforeScenario.setCorsOn();
       await restartService();
     },
     after: async () => {
@@ -128,254 +102,221 @@ const scenarioMap = {
       await restartService();
     },
   },
+];
+
+
+const DIR = {
+  collections: path.join(__dirname, 'collections'),
+  env: path.join(__dirname, 'env'),
 };
 
-// ─── Helpers UI ───────────────────────────────────────────────────────────────
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+const ask = (question) =>
+  new Promise((resolve) => rl.question(question, (ans) => resolve(ans.trim())));
+
 
 function printHeader() {
   console.log('\n' + '═'.repeat(60));
   console.log(
-    `${bgBlue}${bold}              NEWMAN API TEST RUNNER               ${reset}`
+    `${C.bgBlue}${C.bold}              NEWMAN API TEST RUNNER               ${C.reset}`
   );
   console.log('═'.repeat(60));
 }
 
-function printEnvMenu() {
-  console.log(`\n${bold}${cyan}PILIH ENVIRONMENT:${reset}\n`);
-  environments.forEach((env, index) => {
-    const num = `${env.color}${bold}${index + 1}${reset}`;
+function printMenu(title, items, noteBottom = '') {
+  console.log(`\n${C.bold}${C.cyan}${title}${C.reset}\n`);
+  items.forEach(({ label, color = C.reset, prefix = '' }) => {
     console.log(
-      `  ${num}  ${yellow}┃${reset}  ${env.color}${bold}[${env.label}]${reset}  ${env.name}`
+      `  ${color}${C.bold}${prefix}${C.reset}  ${C.yellow}┃${C.reset}  ${color}${label}${C.reset}`
     );
   });
   console.log('\n' + '─'.repeat(60));
-  console.log(
-    `${dim}  Pilih environment variable sebelum melanjutkan testing${reset}`
-  );
+  if (noteBottom) console.log(`${C.dim}  ${noteBottom}${C.reset}`);
   console.log('─'.repeat(60) + '\n');
 }
 
-function printCollectionMenu(envName, envColor) {
-  console.log(`\n${dim}  Environment: ${envColor}${bold}${envName}${reset}\n`);
-  console.log(`${bold}${cyan}COLLECTIONS:${reset}\n`);
-  collections.forEach((col, index) => {
-    const num = `${col.color}${bold}${index + 1}${reset}`;
-    console.log(
-      `  ${num}  ${yellow}┃${reset}  ${col.color}${col.name}${reset}`
-    );
-  });
-  console.log('\n' + '─'.repeat(60));
-  console.log(`${dim}  0 = Kembali ke pilih environment${reset}`);
-  console.log('─'.repeat(60) + '\n');
-}
-
-function printFolderMenu(folders, collectionName, colBg, envName, envColor) {
-  console.log('\n' + '═'.repeat(60));
-  console.log(`${colBg}${bold}  ${collectionName.padEnd(50)} ${reset}`);
-  console.log('═'.repeat(60));
-  console.log(`${dim}  Environment: ${envColor}${bold}${envName}${reset}\n`);
-  console.log(`${bold}${cyan}PILIH FOLDER:${reset}\n`);
-  folders.forEach((folder, index) => {
-    const num = `${green}${bold}${String(index + 1).padStart(2)}${reset}`;
-    const displayName =
-      folder.length > 40 ? folder.substring(0, 37) + '...' : folder;
-    console.log(`  ${num}  ${green}┃${reset}  ${displayName}`);
-  });
-  console.log(
-    `\n  ${magenta}${bold}${String(folders.length + 1).padStart(2)}${reset}  ${yellow}┃${reset}  ${magenta}${bold}JALANKAN SEMUA${reset}`
-  );
-  console.log('\n' + '─'.repeat(60));
-  console.log(`${dim}  0 = Kembali ke daftar collection${reset}`);
-  console.log('─'.repeat(60) + '\n');
-}
-
-// ─── Core ─────────────────────────────────────────────────────────────────────
 
 function loadCollection(filename) {
   try {
-    const filePath = path.join(collectionsDir, filename);
-    return JSON.parse(fs.readFileSync(filePath, 'utf8'));
-  } catch (error) {
+    return JSON.parse(
+      fs.readFileSync(path.join(DIR.collections, filename), 'utf8')
+    );
+  } catch {
     return null;
   }
 }
 
-function runTest(
-  collectionPath,
-  choice,
-  folders,
-  collectionName,
-  colBg,
-  envFile,
-  envName
-) {
-  console.log('\n' + '═'.repeat(60));
-  console.log(
-    `${colBg}${bold}  RUNNING: ${collectionName.padEnd(42)} ${reset}`
-  );
-  console.log('═'.repeat(60) + '\n');
+function getFolders(collection) {
+  return collection.item.filter((item) => item.item).map((item) => item.name);
+}
 
-  const envPath = path.join(envDir, envFile);
-  let command;
-
-  if (choice === folders.length + 1) {
-    command = `npx newman run "${collectionPath}" -e "${envPath}" --insecure`;
-  } else {
-    const selectedFolder = folders[choice - 1];
-    console.log(`${bold}Folder: ${selectedFolder}${reset}`);
-    command = `npx newman run "${collectionPath}" -e "${envPath}" --folder "${selectedFolder}" --insecure`;
-  }
-
-  console.log(`${dim}Environment: ${envName}${reset}\n`);
-
+function runNewman(collectionPath, envPath, folder = null) {
+  const base = `npx newman run "${collectionPath}" -e "${envPath}" --insecure`;
+  const command = folder ? `${base} --folder "${folder}"` : base;
   try {
     execSync(command, { stdio: 'inherit', cwd: __dirname });
-  } catch (error) {
-    console.error(`\n${yellow}Test selesai dengan beberapa error.${reset}`);
+  } catch {
+    console.error(`\n${C.yellow}Test selesai dengan beberapa error.${C.reset}`);
   }
 }
 
-// ─── Menu Flow ────────────────────────────────────────────────────────────────
+async function runWithScenario(col, folders, folderChoice, envFile, envName) {
+  const collectionPath = path.join(DIR.collections, col.file);
+  const envPath = path.join(DIR.env, envFile);
+  const selectedFolder =
+    folderChoice <= folders.length ? folders[folderChoice - 1] : null;
 
-function showEnvMenu() {
-  printHeader();
-  printEnvMenu();
+  // 1. BEFORE
+  console.log(
+    `\n${C.cyan}${C.bold}[SETUP] Menjalankan before scenario untuk "${col.name}"...${C.reset}`
+  );
+  try {
+    await col.before();
+    console.log(`${C.green}${C.bold}[SETUP] Selesai.${C.reset}\n`);
+  } catch (err) {
+    console.error(
+      `\n${C.red}${C.bold}[SETUP] GAGAL — test dibatalkan.${C.reset}`
+    );
+    console.error(`${C.red}${err.message}${C.reset}\n`);
+    return;
+  }
 
-  rl.question(`${bold}Pilih environment:${reset} `, (answer) => {
-    const choice = parseInt(answer.trim());
 
-    if (isNaN(choice) || choice < 1 || choice > environments.length) {
-      console.log(`\n${yellow}Pilihan tidak valid!${reset}`);
-      rl.close();
-      return;
-    }
+  console.log('\n' + '═'.repeat(60));
+  console.log(`${col.bg}${C.bold}  RUNNING: ${col.name.padEnd(42)} ${C.reset}`);
+  console.log('═'.repeat(60));
+  console.log(`${C.dim}Environment: ${envName}${C.reset}\n`);
+  if (selectedFolder)
+    console.log(`${C.bold}Folder: ${selectedFolder}${C.reset}\n`);
 
-    showCollectionMenu(environments[choice - 1]);
-  });
+  runNewman(collectionPath, envPath, selectedFolder);
+
+
+  console.log(
+    `\n${C.cyan}${C.bold}[TEARDOWN] Menjalankan after scenario untuk "${col.name}"...${C.reset}`
+  );
+  try {
+    await col.after();
+    console.log(`${C.green}${C.bold}[TEARDOWN] Selesai.${C.reset}\n`);
+  } catch (err) {
+    console.error(`\n${C.red}${C.bold}[TEARDOWN] GAGAL.${C.reset}`);
+    console.error(`${C.red}${err.message}${C.reset}\n`);
+  }
+
+  process.exit(0);
 }
 
-function showCollectionMenu(selectedEnv) {
+
+async function showEnvMenu() {
   printHeader();
-  printCollectionMenu(selectedEnv.name, selectedEnv.color);
-
-  rl.question(`${bold}Pilih collection:${reset} `, (answer) => {
-    const choice = parseInt(answer.trim());
-
-    if (choice === 0) {
-      showEnvMenu();
-      return;
-    }
-
-    if (isNaN(choice) || choice < 1 || choice > collections.length) {
-      console.log(`\n${yellow}Pilihan tidak valid!${reset}`);
-      rl.close();
-      return;
-    }
-
-    const col = collections[choice - 1];
-    const collection = loadCollection(col.file);
-
-    if (!collection) {
-      console.log(`\n${red}Error: Tidak dapat membaca collection.${reset}`);
-      rl.close();
-      return;
-    }
-
-    const folders = collection.item
-      .filter((item) => item.item)
-      .map((item) => item.name);
-    showFolderMenu(folders, col.name, col.color, col.bg, col.file, selectedEnv);
-  });
-}
-
-function showFolderMenu(
-  folders,
-  collectionName,
-  colColor,
-  colBg,
-  collectionFile,
-  selectedEnv
-) {
-  printHeader();
-  printFolderMenu(
-    folders,
-    collectionName,
-    colColor,
-    colBg,
-    selectedEnv.name,
-    selectedEnv.color
+  printMenu(
+    'PILIH ENVIRONMENT:',
+    ENVIRONMENTS.map((env, i) => ({
+      label: `[${env.label}]  ${env.name}`,
+      color: env.color,
+      prefix: i + 1,
+    })),
+    'Pilih environment variable sebelum melanjutkan testing'
   );
 
-  rl.question(`${bold}Pilih folder:${reset} `, (answer) => {
-    const choice = parseInt(answer.trim());
+  const answer = parseInt(await ask(`${C.bold}Pilih environment:${C.reset} `));
 
-    if (choice === 0) {
-      showCollectionMenu(selectedEnv);
-      return;
-    }
-
-    if (isNaN(choice) || choice < 1 || choice > folders.length + 1) {
-      console.log(`\n${yellow}Pilihan tidak valid!${reset}`);
-      rl.close();
-      return;
-    }
-
+  if (isNaN(answer) || answer < 1 || answer > ENVIRONMENTS.length) {
+    console.log(`\n${C.yellow}Pilihan tidak valid!${C.reset}`);
     rl.close();
+    return;
+  }
 
-    const collectionPath = path.join(collectionsDir, collectionFile);
-    const scenario = scenarioMap[collectionName];
-
-    if (!scenario) {
-      console.log(
-        `\n${red}Error: Scenario tidak ditemukan untuk collection "${collectionName}".${reset}`
-      );
-      return;
-    }
-
-    console.log(
-      `\n${cyan}${bold}[SETUP] Menjalankan before scenario untuk "${collectionName}"...${reset}`
-    );
-
-    (async () => {
-      // 1. BEFORE
-      try {
-        await scenario.before();
-        console.log(`${green}${bold}[SETUP] Selesai.${reset}\n`);
-      } catch (err) {
-        console.error(
-          `\n${red}${bold}[SETUP] GAGAL — test dibatalkan.${reset}`
-        );
-        console.error(`${red}${err.message}${reset}\n`);
-        return; // stop, tidak lanjut ke test maupun teardown
-      }
-
-      // 2. TEST
-      runTest(
-        collectionPath,
-        choice,
-        folders,
-        collectionName,
-        colBg,
-        selectedEnv.file,
-        selectedEnv.name
-      );
-
-      // 3. AFTER
-      console.log(
-        `\n${cyan}${bold}[TEARDOWN] Menjalankan after scenario untuk "${collectionName}"...${reset}`
-      );
-      try {
-        await scenario.after();
-        console.log(`${green}${bold}[TEARDOWN] Selesai.${reset}\n`);
-      } catch (err) {
-        console.error(`\n${red}${bold}[TEARDOWN] GAGAL.${reset}`);
-        console.error(`${red}${err.message}${reset}\n`);
-      }
-      process.exit(0);
-    })();
-  });
+  showCollectionMenu(ENVIRONMENTS[answer - 1]);
 }
 
-// ─── Entry Point ──────────────────────────────────────────────────────────────
+async function showCollectionMenu(selectedEnv) {
+  printHeader();
+  console.log(
+    `\n${C.dim}  Environment: ${selectedEnv.color}${C.bold}${selectedEnv.name}${C.reset}\n`
+  );
+  printMenu(
+    'COLLECTIONS:',
+    COLLECTIONS.map((col, i) => ({
+      label: col.name,
+      color: col.color,
+      prefix: i + 1,
+    })),
+    '0 = Kembali ke pilih environment'
+  );
+
+  const answer = parseInt(await ask(`${C.bold}Pilih collection:${C.reset} `));
+
+  if (answer === 0) return showEnvMenu();
+
+  if (isNaN(answer) || answer < 1 || answer > COLLECTIONS.length) {
+    console.log(`\n${C.yellow}Pilihan tidak valid!${C.reset}`);
+    rl.close();
+    return;
+  }
+
+  const col = COLLECTIONS[answer - 1];
+  const collection = loadCollection(col.file);
+
+  if (!collection) {
+    console.log(`\n${C.red}Error: Tidak dapat membaca collection.${C.reset}`);
+    rl.close();
+    return;
+  }
+
+  showFolderMenu(col, getFolders(collection), selectedEnv);
+}
+
+async function showFolderMenu(col, folders, selectedEnv) {
+  printHeader();
+  console.log('\n' + '═'.repeat(60));
+  console.log(`${col.bg}${C.bold}  ${col.name.padEnd(50)} ${C.reset}`);
+  console.log('═'.repeat(60));
+  console.log(
+    `${C.dim}  Environment: ${selectedEnv.color}${C.bold}${selectedEnv.name}${C.reset}\n`
+  );
+
+  printMenu(
+    'PILIH FOLDER:',
+    [
+      ...folders.map((f, i) => ({
+        label: f.length > 40 ? f.substring(0, 37) + '...' : f,
+        color: C.green,
+        prefix: String(i + 1).padStart(2),
+      })),
+      {
+        label: 'JALANKAN SEMUA',
+        color: C.magenta,
+        prefix: String(folders.length + 1).padStart(2),
+      },
+    ],
+    '0 = Kembali ke daftar collection'
+  );
+
+  const answer = parseInt(await ask(`${C.bold}Pilih folder:${C.reset} `));
+
+  if (answer === 0) return showCollectionMenu(selectedEnv);
+
+  if (isNaN(answer) || answer < 1 || answer > folders.length + 1) {
+    console.log(`\n${C.yellow}Pilihan tidak valid!${C.reset}`);
+    rl.close();
+    return;
+  }
+
+  rl.close();
+  await runWithScenario(
+    col,
+    folders,
+    answer,
+    selectedEnv.file,
+    selectedEnv.name
+  );
+}
+
 
 showEnvMenu();
