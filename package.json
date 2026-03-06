@@ -10,7 +10,8 @@
   "devDependencies": {
     "axios": "^1.13.6",
     "newman": "^6.2.2",
-    "newman-reporter-htmlextra": "^1.23.1"
+    "newman-reporter-htmlextra": "^1.23.1",
+    "k6": "^0.0.0"
   },
   "dependencies": {
     "dotenv": "^17.3.1",
