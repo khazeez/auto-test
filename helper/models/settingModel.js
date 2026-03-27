@@ -54,6 +54,23 @@ class SettingModels {
 
     return result;
   }
+
+
+  async enbaleHttps() {
+
+  }
+
+  async disableHttps() {
+
+  }
+
+  async enbalePrefork() {
+
+  }
+
+  async disbalePrefork() {
+    
+  }
 }
 
 export default new SettingModels()
