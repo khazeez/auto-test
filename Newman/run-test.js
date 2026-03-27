@@ -3,9 +3,9 @@ import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
 import { fileURLToPath } from 'url';
-import beforeScenario from './helper/beforeScenario.js';
-import afterScenario from './helper/afterScenario.js';
-import restartService from './helper/services/restartServerService.js';
+import beforeScenario from '../helper/before-scenario/beforeScenario-newman.js';
+import afterScenario from '../helper/after-scenario/afterScenario-newman.js';
+import restartService from '../helper/services/restartServerService.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
