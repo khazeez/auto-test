@@ -3,8 +3,12 @@ import path from 'path';
 import readline from 'readline';
 import { fileURLToPath } from 'url';
 
+import beforeScenario from '../helper/before-scenario/beforeScenario-k6.js';
+import afterScenario from '../helper/after-scenario/afterScenario-k6.js';
+import restartService from '../helper/services/restartServerService.js';
+
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname  = path.dirname(__filename);
 
 // ─────────────────────────────────────────────
 //  Colors
@@ -31,6 +35,68 @@ const C = {
 //  Environment (fixed)
 // ─────────────────────────────────────────────
 const ENV_FILE = path.join(__dirname, 'env', 'Lawang-Core.environment.json');
+
+// ─────────────────────────────────────────────
+//  Test scenarios
+// ─────────────────────────────────────────────
+const TEST_SCENARIO = [
+  {
+    name:  'HTTP PREFORK',
+    color: C.blue,
+    bg:    C.bgBlue,
+    before: async () => {
+      await afterScenario.disableHttps();
+      await beforeScenario.enablePrefork();
+      await restartService();
+    },
+    after: async () => {
+      await beforeScenario.enableHttps();
+      await afterScenario.disablePrefork();
+      await restartService();
+    },
+  },
+  {
+    name:  'HTTP NON PREFORK',
+    color: C.cyan,
+    bg:    C.bgCyan,
+    before: async () => {
+      await afterScenario.disableHttps();
+      await afterScenario.disablePrefork();
+      await restartService();
+    },
+    after: async () => {
+      await beforeScenario.enableHttps();
+      await restartService();
+    },
+  },
+  {
+    name:  'HTTPS PREFORK',
+    color: C.magenta,
+    bg:    C.bgMagenta,
+    before: async () => {
+      await beforeScenario.enableHttps();
+      await afterScenario.disableHttp2();
+      await beforeScenario.enablePrefork();
+      await restartService();
+    },
+    after: async () => {
+      await afterScenario.disablePrefork();
+      await restartService();
+    },
+  },
+  {
+    name:  'HTTPS NON PREFORK',
+    color: C.green,
+    bg:    C.bgGreen,
+    before: async () => {
+      await beforeScenario.enableHttps();
+      await beforeScenario.enableHttp2();
+      await afterScenario.disablePrefork();
+      await restartService();
+    },
+    after: async () => {},
+  },
+];
 
 // ─────────────────────────────────────────────
 //  Test types
@@ -108,9 +174,7 @@ function printMenu(title, items, noteBottom = '') {
 //  Runner
 // ─────────────────────────────────────────────
 function runK6(testFile) {
-  const testPath = path.join(__dirname, testFile);
-  const command  = `k6 run "${testPath}" --env ENV_FILE="${ENV_FILE}"`;
-
+  const command = `k6 run "${testFile}" --env ENV_FILE="${ENV_FILE}"`;
   try {
     execSync(command, { stdio: 'inherit', cwd: __dirname });
   } catch {
@@ -118,6 +182,46 @@ function runK6(testFile) {
       `\n${C.yellow}${C.bold}Test selesai dengan beberapa kegagalan threshold.${C.reset}\n`
     );
   }
+}
+
+async function runWithScenario(scenario, testType) {
+  // BEFORE
+  console.log(`\n${C.cyan}${C.bold}[SETUP] Menjalankan before scenario "${scenario.name}"...${C.reset}`);
+  try {
+    await scenario.before();
+    console.log(`${C.green}${C.bold}[SETUP] Selesai.${C.reset}\n`);
+  } catch (err) {
+    console.error(`\n${C.red}${C.bold}[SETUP] GAGAL — test dibatalkan.${C.reset}`);
+    console.error(`${C.red}${err.message}${C.reset}\n`);
+    console.log(err);
+    
+    return;
+  }
+
+  // RUN
+  console.log('\n' + '═'.repeat(60));
+  console.log(`${testType.bg}${C.bold}  RUNNING: ${testType.name.padEnd(43)} ${C.reset}`);
+  console.log('═'.repeat(60));
+  console.log(`${C.dim}  Scenario : ${scenario.name}${C.reset}`);
+  console.log(`${C.dim}  File     : ${testType.file}${C.reset}`);
+  console.log(`${C.dim}  Beban    : ${testType.desc}${C.reset}`);
+  console.log('─'.repeat(60) + '\n');
+
+  runK6(testType.file);
+
+  // AFTER
+  console.log(`\n${C.cyan}${C.bold}[TEARDOWN] Menjalankan after scenario "${scenario.name}"...${C.reset}`);
+  try {
+    await scenario.after();
+    console.log(`${C.green}${C.bold}[TEARDOWN] Selesai.${C.reset}\n`);
+  } catch (err) {
+    console.error(`\n${C.red}${C.bold}[TEARDOWN] GAGAL.${C.reset}`);
+    console.error(`${C.red}${err.message}${C.reset}\n`);
+  }
+
+  console.log('\n' + '═'.repeat(60));
+  console.log(`${C.bgGreen}${C.bold}  SELESAI: ${testType.name.padEnd(43)} ${C.reset}`);
+  console.log('═'.repeat(60) + '\n');
 }
 
 // ─────────────────────────────────────────────
@@ -132,21 +236,21 @@ async function confirmSoak() {
 }
 
 // ─────────────────────────────────────────────
-//  Main menu
+//  Menu: scenario
 // ─────────────────────────────────────────────
-async function showTestTypeMenu() {
+async function showScenarioMenu() {
   printHeader();
   printMenu(
-    'PILIH JENIS TEST:',
-    TEST_TYPES.map((t, i) => ({
-      label:  `[${t.label.padEnd(6)}]  ${t.name.padEnd(14)}  ${C.dim}${t.desc}${C.reset}`,
-      color:  t.color,
+    'PILIH TEST SCENARIO:',
+    TEST_SCENARIO.map((s, i) => ({
+      label:  s.name,
+      color:  s.color,
       prefix: i + 1,
     })),
     '0 = Keluar'
   );
 
-  const answer = parseInt(await ask(`${C.bold}Pilih jenis test: ${C.reset}`));
+  const answer = parseInt(await ask(`${C.bold}Pilih scenario: ${C.reset}`));
 
   if (answer === 0) {
     console.log(`\n${C.dim}  Sampai jumpa!${C.reset}\n`);
@@ -154,15 +258,46 @@ async function showTestTypeMenu() {
     return;
   }
 
+  if (isNaN(answer) || answer < 1 || answer > TEST_SCENARIO.length) {
+    console.log(`\n${C.yellow}Pilihan tidak valid!${C.reset}`);
+    rl.close();
+    return;
+  }
+
+  showTestTypeMenu(TEST_SCENARIO[answer - 1]);
+}
+
+// ─────────────────────────────────────────────
+//  Menu: test type
+// ─────────────────────────────────────────────
+async function showTestTypeMenu(selectedScenario) {
+  printHeader();
+  console.log(
+    `\n${C.dim}  Scenario: ${selectedScenario.color}${C.bold}${selectedScenario.name}${C.reset}\n`
+  );
+  printMenu(
+    'PILIH JENIS TEST:',
+    TEST_TYPES.map((t, i) => ({
+      label:  `[${t.label.padEnd(6)}]  ${t.name.padEnd(14)}  ${C.dim}${t.desc}${C.reset}`,
+      color:  t.color,
+      prefix: i + 1,
+    })),
+    '0 = Kembali ke pilih scenario'
+  );
+
+  const answer = parseInt(await ask(`${C.bold}Pilih jenis test: ${C.reset}`));
+
+  if (answer === 0) return showScenarioMenu();
+
   if (isNaN(answer) || answer < 1 || answer > TEST_TYPES.length) {
     console.log(`\n${C.yellow}Pilihan tidak valid!${C.reset}`);
     rl.close();
     return;
   }
 
-  const selected = TEST_TYPES[answer - 1];
+  const selectedType = TEST_TYPES[answer - 1];
 
-  if (selected.label === 'SOAK') {
+  if (selectedType.label === 'SOAK') {
     const confirmed = await confirmSoak();
     if (!confirmed) {
       console.log(`\n${C.dim}  Soak test dibatalkan.${C.reset}\n`);
@@ -172,22 +307,10 @@ async function showTestTypeMenu() {
   }
 
   rl.close();
-
-  console.log('\n' + '═'.repeat(60));
-  console.log(`${selected.bg}${C.bold}  RUNNING: ${selected.name.padEnd(43)} ${C.reset}`);
-  console.log('═'.repeat(60));
-  console.log(`${C.dim}  File  : ${selected.file}${C.reset}`);
-  console.log(`${C.dim}  Beban : ${selected.desc}${C.reset}`);
-  console.log('─'.repeat(60) + '\n');
-
-  runK6(selected.file);
-
-  console.log('\n' + '═'.repeat(60));
-  console.log(`${C.bgGreen}${C.bold}  SELESAI: ${selected.name.padEnd(43)} ${C.reset}`);
-  console.log('═'.repeat(60) + '\n');
+  await runWithScenario(selectedScenario, selectedType);
 }
 
 // ─────────────────────────────────────────────
 //  Entry point
 // ─────────────────────────────────────────────
-showTestTypeMenu();
+showScenarioMenu();

@@ -58,6 +58,55 @@ class SettingService {
       console.log(error);
     }
   }
+
+  async enableHttps() {
+    try {
+      await settingModel.updateHttps(true)
+    } catch (error) {
+      console.log(error);  
+    } 
+  }
+
+  async disableHttps() {
+    try {
+      await settingModel.updateHttps(false)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async enablePrefork() {
+    try {
+      await settingModel.updatePrefork(true)
+    } catch (error) {
+      console.log(error); 
+    }
+  }
+
+  async disablePrefork() {
+    try {
+      await settingModel.updatePrefork(false)
+    } catch (error) {
+      console.log(error); 
+    }
+  }
+
+
+  async enableHttp2() {
+    try {
+      await settingModel.updateHttp2(true)
+    } catch (error) {
+      console.log(error); 
+    }
+  }
+
+  async disableHttp2() {
+    try {
+      await settingModel.updateHttp2(false)
+    } catch (error) {
+      console.log();
+    }
+  }
 }
 
 export default new SettingService();

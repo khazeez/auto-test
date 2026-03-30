@@ -56,20 +56,29 @@ class SettingModels {
   }
 
 
-  async enbaleHttps() {
+  async updateHttps(status) {
+
+    const [result] = await db('server_settings')
+    .where({id: '7bcfff88-94b2-40a6-ae53-4dd92792ff07'})
+    .update({use_https: status, enable_http2: status})
+    .returning("*");
+
+    return result
 
   }
 
-  async disableHttps() {
+  async updateHttp2(status) {
+    const [result] = await db('server_settings')
+    .where({id: '7bcfff88-94b2-40a6-ae53-4dd92792ff07'})
+    .update({enable_http2: status})
+    .returning("*");
 
+    return result
   }
 
-  async enbalePrefork() {
 
-  }
+  async updatePrefork(status) {
 
-  async disbalePrefork() {
-    
   }
 }
 

@@ -1,29 +1,32 @@
 import settingService from '../services/settingService.js';
 
-class AfterScenario {
-  async setCorsOff() {
-    try {
-      await settingService.disableCors();
-    } catch (error) {
-      console.log(error);
-    }
+class BeforeScenario {
+ async disableHttps() {
+  try {
+    await settingService.disableHttps()
+  } catch (error) {
+    console.log(error);
   }
+ }
 
-  async setSecurityHeaderOff() {
-    try {
-      await settingService.disableSecurityHeader();
-    } catch (error) {
-      console.log(error);
-    }
+ async disablePrefork() {
+  try {
+    await settingService.disablePrefork()
+  } catch (error) {
+    console.log(error);
   }
+ }
 
-  async removeIpFromBlackList() {
-    try {
-      await settingService.removeIpBlackList();
-    } catch (error) {
-      console.log(error);
-    }
+ async disableHttp2() {
+  try {
+    await settingService.disableHttp2()
+  } catch (error) {
+    console.log(error);
+    
   }
+ }
+
+ 
 }
 
-export default new AfterScenario();
+export default new BeforeScenario();

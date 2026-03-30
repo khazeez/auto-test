@@ -20,6 +20,7 @@ export default async function RestartService() {
     {
       headers: {
         Authorization: `Bearer ${token}`,
+        'Expect': '',
       },
     }
   );

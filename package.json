@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "test": "node ./Newman/run-test.js",
+    "newman": "node ./Newman/run-test.js",
+    "k6": "node ./k6-test/run-test.js",
     "test:dev": "newman run ./Newman/collections/\"Test API Lawang.postman_collection.json\" -e ./Newman/env/Lawang-Core.postman_environment.json --working-dir ./Newman --insecure",
     "test:local": "newman run ./Newman/collections/\"Test API Lawang.postman_collection.json\" -e ./Newman/env/Local.postman_environment.json --working-dir ./Newman --insecure"
   },
