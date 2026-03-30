@@ -9788,20 +9788,20 @@
             },
             "method": "POST",
             "header": [],
-            "body": {
+           "body": {
               "mode": "graphql",
               "graphql": {
-                "query": "query {\r\n  launchesPast {\r\n    mission_name\r\n  }\r\n}",
+                "query": "query {\r\n  characters(page: 1) {\r\n    results {\r\n      id\r\n      name\r\n      status\r\n      species\r\n    }\r\n  }\r\n}",
                 "variables": ""
               }
             },
             "url": {
-              "raw": "{{baseUrlCore}}/space",
+              "raw": "{{baseUrlCore}}/rick-and-morty",
               "host": [
                 "{{baseUrlCore}}"
               ],
               "path": [
-                "space"
+                "rick-and-morty"
               ]
             }
           },
@@ -9931,12 +9931,12 @@
               }
             },
             "url": {
-              "raw": "{{baseUrlCore}}/space",
+              "raw": "{{baseUrlCore}}/rick-and-morty",
               "host": [
                 "{{baseUrlCore}}"
               ],
               "path": [
-                "space"
+                "rick-and-morty"
               ]
             }
           },
