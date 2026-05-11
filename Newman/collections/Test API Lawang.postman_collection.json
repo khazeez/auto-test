@@ -1,9 +1,10 @@
 {
   "info": {
-    "_postman_id": "285415a1-99d4-4d8c-b352-8126a774672d",
+    "_postman_id": "8770f5a2-2abc-4eb7-a20b-5301f0ff0e68",
     "name": "Lawang - Normal Flow",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "27427413"
+    "_exporter_id": "53603159",
+    "_collection_link": "https://go.postman.co/collection/53603159-8770f5a2-2abc-4eb7-a20b-5301f0ff0e68?source=collection_link"
   },
   "item": [
     {
@@ -370,6 +371,286 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "HTTP - Auth",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();\r",
+                  "pm.environment.set(\"accessToken\", res.accessToken);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "credentials",
+                "value": "include",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"emilys\",\r\n  \"password\": \"emilyspass\",\r\n  \"expiresInMins\": 30\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/auth/login",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Add Product",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response has id\", () => {\r",
+                  "    const res = pm.response.json();\r",
+                  "    pm.expect(res).to.have.property(\"id\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"userId\": 1,\r\n  \"title\": \"Laptop Gaming3\",\r\n  \"description\": \"High performance\",\r\n  \"price\": 15000000,\r\n  \"stock\": 10,\r\n  \"brand\": \"BrandX\",\r\n  \"category\": \"laptops\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/products/add",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "products",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Add User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response has id\", () => {\r",
+                  "    const res = pm.response.json();\r",
+                  "    pm.expect(res).to.have.property(\"id\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"userId\": 1,\r\n  \"firstName\": \"Budi\",\r\n  \"lastName\": \"Santoso\",\r\n  \"age\": 28,\r\n  \"email\": \"budi@mail.com\",\r\n  \"phone\": \"+62812345678\",\r\n  \"username\": \"budisantoso\",\r\n  \"password\": \"budi123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/users/add",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "users",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - add post",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response has id\", () => {\r",
+                  "    const res = pm.response.json();\r",
+                  "    pm.expect(res).to.have.property(\"id\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Belajar REST API\",\r\n  \"body\": \"REST API sangat berguna\",\r\n  \"userId\": 1,\r\n  \"tags\": [\"tutorial\", \"api\"],\r\n  \"reactions\": {\r\n    \"likes\": 0,\r\n    \"dislikes\": 0\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/posts/add",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "posts",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Add Chart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response has id\", () => {\r",
+                  "    const res = pm.response.json();\r",
+                  "    pm.expect(res).to.have.property(\"id\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"userId\": 1,\r\n  \"products\": [\r\n    { \"id\": 1, \"quantity\": 2 },\r\n    { \"id\": 3, \"quantity\": 1 },\r\n    { \"id\": 10, \"quantity\": 3 }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/carts/add",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "carts",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Add todo",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response has id\", () => {\r",
+                  "    const res = pm.response.json();\r",
+                  "    pm.expect(res).to.have.property(\"id\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"todo\": \"Belajar REST API hari ini\",\r\n  \"completed\": false,\r\n  \"userId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/todos/add",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "todos",
+                "add"
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
@@ -381,6 +662,64 @@
           "item": [
             {
               "name": "JS - Mask Data",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {",
+                      "    const text = pm.response.text().toLowerCase();",
+                      "    pm.expect(text).to.not.include(\"jakarta selatan\");",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"fullname\": \"Lawang\",\r\n  \"address\": \"Jakarta Selatan\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/v2.1/js/mask-data",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "v2.1",
+                    "js",
+                    "mask-data"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Mask Data Copy",
               "event": [
                 {
                   "listen": "test",
@@ -5890,6 +6229,35 @@
           ]
         }
       ]
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"firstName\": \"Budi\",\r\n  \"lastName\": \"Santoso\",\r\n  \"age\": 28,\r\n  \"email\": \"budi@mail.com\",\r\n  \"phone\": \"+62812345678\",\r\n  \"username\": \"budisantoso\",\r\n  \"password\": \"budi123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://dummyjson.com/users/add",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "users",
+            "add"
+          ]
+        }
+      },
+      "response": []
     }
   ],
   "event": [
@@ -5927,6 +6295,10 @@
     },
     {
       "key": "Password",
+      "value": ""
+    },
+    {
+      "key": "accessToken",
       "value": ""
     }
   ]
