@@ -11,6 +11,591 @@
       "name": "HTTP",
       "item": [
         {
+          "name": "All Request Type",
+          "item": [
+            {
+              "name": "Raw - Json",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                      "pm.test(\"Echoed json.name matches sent data\", () => {",
+                      "    const res = pm.response.json();",
+                      "    pm.expect(res.json.name).to.eql(\"Aziz\");",
+                      "});",
+                      "pm.test(\"Echoed json.role matches sent data\", () => {",
+                      "    const res = pm.response.json();",
+                      "    pm.expect(res.json.role).to.eql(\"admin\");",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/post",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Raw - Deep Nested JSON",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                      "pm.test(\"Echoed nested message matches sent data\", () => {",
+                      "    const res = pm.response.json();",
+                      "    pm.expect(res.json.level1.level2.level3.level4.level5.message).to.eql(\"deep nesting\");",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"level1\": {\r\n    \"level2\": {\r\n      \"level3\": {\r\n        \"level4\": {\r\n          \"level5\": {\r\n            \"message\": \"deep nesting\"\r\n          }\r\n        }\r\n      }\r\n    }\r\n  }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/post",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Raw - Xml",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                      "pm.test(\"Response body contains XML content\", () => {",
+                      "    const text = pm.response.text();",
+                      "    pm.expect(text).to.include(\"<name>Aziz</name>\");",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<user> \r\n<name>Aziz</name> \r\n<role>admin</role> \r\n</user>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/post",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Raw - PlaintTex",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                      "pm.test(\"Response body contains sent plain text\", () => {",
+                      "    const text = pm.response.text();",
+                      "    pm.expect(text).to.include(\"Hello world!\");",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "Hello world!",
+                  "options": {
+                    "raw": {
+                      "language": "text"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/post",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "x-www-form-urlencoded",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                      "pm.test(\"Echoed form.username matches sent data\", () => {",
+                      "    const res = pm.response.json();",
+                      "    pm.expect(res.form.username).to.eql(\"admin\");",
+                      "});",
+                      "pm.test(\"Echoed form.password matches sent data\", () => {",
+                      "    const res = pm.response.json();",
+                      "    pm.expect(res.form.password).to.eql(\"admin123!\");",
+                      "});",
+                      "pm.test(\"Echoed form.role matches sent data\", () => {",
+                      "    const res = pm.response.json();",
+                      "    pm.expect(res.form.role).to.eql(\"admin\");",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "username",
+                      "value": "admin",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "admin123!",
+                      "type": "text"
+                    },
+                    {
+                      "key": "role",
+                      "value": "admin",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/post",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Multipart Form Data",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                      "pm.test(\"Echoed form.username matches sent data\", () => {",
+                      "    const res = pm.response.json();",
+                      "    pm.expect(res.form.username).to.eql(\"Admin\");",
+                      "});",
+                      "pm.test(\"File upload field exists in response\", () => {",
+                      "    const res = pm.response.json();",
+                      "    pm.expect(res.files).to.exist;",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "username",
+                      "value": "Admin",
+                      "type": "text"
+                    },
+                    {
+                      "key": "description",
+                      "value": "testing",
+                      "type": "text"
+                    },
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "src": "httpbin/PDF.pdf"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/post",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Binary File Upload",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                      "pm.test(\"Response has file upload data\", () => {",
+                      "    const res = pm.response.json();",
+                      "    pm.expect(res.files).to.exist;",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "file",
+                  "file": {
+                    "src": "httpbin/PDF.pdf"
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/post",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Raw - Javascript",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                      "pm.test(\"Response body contains JS function name\", () => {",
+                      "    const text = pm.response.text();",
+                      "    pm.expect(text).to.include(\"gatewayTest\");",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "\r\nfunction gatewayTest() {\r\n   console.log(\"hello gateway\"); \r\n  } \r\n  \r\n  \r\n  gatewayTest();",
+                  "options": {
+                    "raw": {
+                      "language": "javascript"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/post",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Raw - HTML",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                      "pm.test(\"Response body contains HTML content\", () => {",
+                      "    const text = pm.response.text();",
+                      "    pm.expect(text).to.include(\"<h1>Hello World!</h1>\");",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<!DOCTYPE html> <html> <head> <title>Gateway Test</title> </head> <body> <h1>Hello World!</h1> </body> </html>",
+                  "options": {
+                    "raw": {
+                      "language": "html"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/post",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
           "name": "HTTP - Get Public",
           "event": [
             {
@@ -379,8 +964,39 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "const res = pm.response.json();\r",
-                  "pm.environment.set(\"accessToken\", res.accessToken);"
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                  "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                  "pm.test(\"Response has accessToken\", () => {",
+                  "    const res = pm.response.json();",
+                  "    pm.expect(res).to.have.property(\"accessToken\");",
+                  "    pm.environment.set(\"accessToken\", res.accessToken);",
+                  "});",
+                  "pm.test(\"Response has refreshToken\", () => {",
+                  "    const res = pm.response.json();",
+                  "    pm.expect(res).to.have.property(\"refreshToken\");",
+                  "});",
+                  "pm.test(\"Response has id\", () => {",
+                  "    const res = pm.response.json();",
+                  "    pm.expect(res).to.have.property(\"id\");",
+                  "});",
+                  "pm.test(\"Username matches sent data\", () => {",
+                  "    const res = pm.response.json();",
+                  "    pm.expect(res.username).to.eql(\"emilys\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
                 ],
                 "type": "text/javascript",
                 "packages": {},
@@ -388,12 +1004,18 @@
               }
             }
           ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "POST",
             "header": [
               {
-                "key": "credentials",
-                "value": "include",
+                "key": "Content-Type",
+                "value": "application/json",
                 "type": "text"
               }
             ],
@@ -6229,35 +6851,6 @@
           ]
         }
       ]
-    },
-    {
-      "name": "New Request",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n  \"firstName\": \"Budi\",\r\n  \"lastName\": \"Santoso\",\r\n  \"age\": 28,\r\n  \"email\": \"budi@mail.com\",\r\n  \"phone\": \"+62812345678\",\r\n  \"username\": \"budisantoso\",\r\n  \"password\": \"budi123\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "https://dummyjson.com/users/add",
-          "protocol": "https",
-          "host": [
-            "dummyjson",
-            "com"
-          ],
-          "path": [
-            "users",
-            "add"
-          ]
-        }
-      },
-      "response": []
     }
   ],
   "event": [
