@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "newman": "node ./Newman/run-test.js",
-    "k6": "node ./k6-test/run-test.js",
-    "test:dev": "newman run ./Newman/collections/\"Test API Lawang.postman_collection.json\" -e ./Newman/env/Lawang-Core.postman_environment.json --working-dir ./Newman --insecure",
-    "test:local": "newman run ./Newman/collections/\"Test API Lawang.postman_collection.json\" -e ./Newman/env/Local.postman_environment.json --working-dir ./Newman --insecure"
+    "newman": "node --no-deprecation ./Newman/run-test.js",
+    "k6": "node --no-deprecation ./k6-test/run-test.js",
+    "test:dev": "node --no-deprecation ./node_modules/.bin/newman run ./Newman/collections/\"Test API Lawang.postman_collection.json\" -e ./Newman/env/Lawang-Core.postman_environment.json --working-dir ./Newman --insecure",
+    "test:local": "node --no-deprecation ./node_modules/.bin/newman run ./Newman/collections/\"Test API Lawang.postman_collection.json\" -e ./Newman/env/Local.postman_environment.json --working-dir ./Newman --insecure"
   },
   "devDependencies": {
     "axios": "^1.13.6",

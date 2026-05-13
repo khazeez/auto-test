@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "8770f5a2-2abc-4eb7-a20b-5301f0ff0e68",
+    "_postman_id": "34817c10-9650-411c-856f-ec05801d6c66",
     "name": "Lawang - Normal Flow",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "53603159",
-    "_collection_link": "https://go.postman.co/collection/53603159-8770f5a2-2abc-4eb7-a20b-5301f0ff0e68?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/53603159-34817c10-9650-411c-856f-ec05801d6c66?source=collection_link"
   },
   "item": [
     {
@@ -51,9 +51,6 @@
                   }
                 }
               ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
               "request": {
                 "method": "POST",
                 "header": [],
@@ -112,9 +109,6 @@
                   }
                 }
               ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
               "request": {
                 "method": "POST",
                 "header": [],
@@ -172,9 +166,6 @@
                   }
                 }
               ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
               "request": {
                 "method": "POST",
                 "header": [],
@@ -232,9 +223,6 @@
                   }
                 }
               ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
               "request": {
                 "method": "POST",
                 "header": [],
@@ -301,9 +289,6 @@
                   }
                 }
               ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
               "request": {
                 "method": "POST",
                 "header": [],
@@ -377,9 +362,6 @@
                   }
                 }
               ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
               "request": {
                 "method": "POST",
                 "header": [],
@@ -449,9 +431,6 @@
                   }
                 }
               ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
               "request": {
                 "method": "POST",
                 "header": [],
@@ -506,9 +485,6 @@
                   }
                 }
               ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
               "request": {
                 "method": "POST",
                 "header": [],
@@ -566,9 +542,6 @@
                   }
                 }
               ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
               "request": {
                 "method": "POST",
                 "header": [],
@@ -958,7 +931,7 @@
           "response": []
         },
         {
-          "name": "HTTP - Auth",
+          "name": "HTTP - Post Public",
           "event": [
             {
               "listen": "test",
@@ -1004,9 +977,6 @@
               }
             }
           ],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
             "auth": {
               "type": "noauth"
@@ -1042,18 +1012,18 @@
           "response": []
         },
         {
-          "name": "HTTP - Add Product",
+          "name": "HTTP - Post Public Negative",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));\r",
+                  "pm.test(\"Status code is 201\", () => pm.response.to.have.status(500));\r",
                   "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
                   "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
                   "pm.test(\"Response has id\", () => {\r",
                   "    const res = pm.response.json();\r",
-                  "    pm.expect(res).to.have.property(\"id\");\r",
+                  "    pm.expect(res.code).to.eql(500);\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -1091,7 +1061,7 @@
           "response": []
         },
         {
-          "name": "HTTP - Add User",
+          "name": "HTTP - Post Private",
           "event": [
             {
               "listen": "test",
@@ -1112,6 +1082,21 @@
             }
           ],
           "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [],
             "body": {
@@ -1137,18 +1122,19 @@
           "response": []
         },
         {
-          "name": "HTTP - add post",
+          "name": "HTTP - Post Private Negative",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));\r",
+                  "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
                   "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
                   "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                  "pm.test(\"Response has id\", () => {\r",
+                  "pm.test(\"Response has code 401\", () => {\r",
                   "    const res = pm.response.json();\r",
-                  "    pm.expect(res).to.have.property(\"id\");\r",
+                  "    pm.expect(res.code).to.eql(401);\r",
+                  "    pm.expect(res.message).to.eql(\"Unauthorized\")\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -1183,19 +1169,17 @@
           "response": []
         },
         {
-          "name": "HTTP - Add Chart",
+          "name": "HTTP - Post User",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
                   "pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));\r",
-                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is valid JSON\", () => pm.response.to.be.json);\r",
                   "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                  "pm.test(\"Response has id\", () => {\r",
-                  "    const res = pm.response.json();\r",
-                  "    pm.expect(res).to.have.property(\"id\");\r",
-                  "});"
+                  "pm.test(\"Authorization accepted - not 401/403\", () => pm.expect(pm.response.code).to.not.be.oneOf([401, 403]));"
                 ],
                 "type": "text/javascript",
                 "packages": {},
@@ -1204,6 +1188,21 @@
             }
           ],
           "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [],
             "body": {
@@ -1229,18 +1228,18 @@
           "response": []
         },
         {
-          "name": "HTTP - Add todo",
+          "name": "HTTP - Post User Negative",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));\r",
-                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
-                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                  "pm.test(\"Response has id\", () => {\r",
-                  "    const res = pm.response.json();\r",
-                  "    pm.expect(res).to.have.property(\"id\");\r",
+                  "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
+                  "pm.test(\"Unauthorized response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response does not expose sensitive data\", () => {\r",
+                  "    const text = pm.response.text().toLowerCase();\r",
+                  "    pm.expect(text).to.not.include(\"password\");\r",
+                  "    pm.expect(text).to.not.include(\"secret\");\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -1269,6 +1268,932 @@
               "path": [
                 "todos",
                 "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Put Public",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Updated Product\",\r\n  \"price\": 999\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/products/2",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "products",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Put Public Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\r",
+                  "pm.test(\"Error response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Updated Product\",\r\n  \"price\": 999\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/put/negative",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "put",
+                "negative"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Put Private",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response has id\", () => {\r",
+                  "    const res = pm.response.json();\r",
+                  "    pm.expect(res).to.have.property(\"id\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"firstName\": \"Aziz\",\r\n  \"age\": 25\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/users/3",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "users",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Put Private Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response has code 401\", () => {\r",
+                  "    const res = pm.response.json();\r",
+                  "    pm.expect(res.code).to.eql(401);\r",
+                  "    pm.expect(res.message).to.eql(\"Unauthorized\")\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"firstName\": \"Aziz\",\r\n  \"age\": 25\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/users/3",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "users",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Put User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Authorization accepted - not 401/403\", () => pm.expect(pm.response.code).to.not.be.oneOf([401, 403]));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"New Title\",\r\n  \"body\": \"Updated content\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/posts/2",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "posts",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Put User Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
+                  "pm.test(\"Unauthorized response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response does not expose sensitive data\", () => {\r",
+                  "    const text = pm.response.text().toLowerCase();\r",
+                  "    pm.expect(text).to.not.include(\"password\");\r",
+                  "    pm.expect(text).to.not.include(\"secret\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"New Title\",\r\n  \"body\": \"Updated content\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/posts/2",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "posts",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Delete Public",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": 1,\r\n  \"isDeleted\": true,\r\n  \"deletedOn\": \"2026-05-13T10:00:00.000Z\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/users/2",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "users",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Delete Public Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response message valid\", ()=> {\r",
+                  "    const res = pm.response.json();\r",
+                  "    pm.expect(res.message).to.equal(\"Method Not Allowed\")\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": 1,\r\n  \"isDeleted\": true,\r\n  \"deletedOn\": \"2026-05-13T10:00:00.000Z\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/posts/2",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "posts",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Delete Private",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response has id\", () => {\r",
+                  "    const res = pm.response.json();\r",
+                  "    pm.expect(res).to.have.property(\"id\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"firstName\": \"Aziz\",\r\n  \"age\": 25\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/users/3",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "users",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Delete Private Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response has code 401\", () => {\r",
+                  "    const res = pm.response.json();\r",
+                  "    pm.expect(res.code).to.eql(401);\r",
+                  "    pm.expect(res.message).to.eql(\"Unauthorized\")\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"firstName\": \"Aziz\",\r\n  \"age\": 25\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/products/3",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "products",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Delete User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Authorization accepted - not 401/403\", () => pm.expect(pm.response.code).to.not.be.oneOf([401, 403]));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"New Title\",\r\n  \"body\": \"Updated content\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/posts/2",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "posts",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Delete User Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Authorization accepted - not 401/403\", () => pm.expect(pm.response.code).to.not.be.oneOf([201, 200, 500]));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"New Title\",\r\n  \"body\": \"Updated content\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/posts/2",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "posts",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Patch Public",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"price\": 777\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/products/2",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "products",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Patch Public Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\r",
+                  "pm.test(\"Error response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"price\": 999\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/patch/negative",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "patch",
+                "negative"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Patch Private",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response has id\", () => {\r",
+                  "    const res = pm.response.json();\r",
+                  "    pm.expect(res).to.have.property(\"id\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"firstName\": \"Aziz\",\r\n  \"age\": 25\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/users/3",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "users",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Patch Private Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response has code 401\", () => {\r",
+                  "    const res = pm.response.json();\r",
+                  "    pm.expect(res.code).to.eql(401);\r",
+                  "    pm.expect(res.message).to.eql(\"Unauthorized\")\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"firstName\": \"Aziz\",\r\n  \"age\": 25\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/users/3",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "users",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Patch User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Authorization accepted - not 401/403\", () => pm.expect(pm.response.code).to.not.be.oneOf([401, 403]));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"New Title\",\r\n  \"body\": \"Updated content\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/posts/2",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "posts",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - Patch User Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Authorization accepted - not 401/403\", () => pm.expect(pm.response.code).to.not.be.oneOf([201, 200, 500]));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"New Title\",\r\n  \"body\": \"Updated content\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/posts/2",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "posts",
+                "2"
               ]
             }
           },
@@ -1436,7 +2361,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"text\":\"Lawang\"\r\n}",
+                  "raw": "{\r\n    \"text\":\"Lawang apim\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -4746,6 +5671,80 @@
       "name": "File",
       "item": [
         {
+          "name": "File - Public",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response body contains expected text\", () => pm.expect(pm.response.text()).to.include(\"halo from txt file\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlCore}}/testo/hallo.txt",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "testo",
+                "hallo.txt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "File - Public Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response body contains expected text\", () => pm.expect(pm.response.text()).to.include(\"halo from txt file\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlCore}}/testo/hello.txt",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "testo",
+                "hello.txt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "SFTP - Private Get Data",
           "event": [
             {
@@ -5538,7 +6537,7 @@
       ]
     },
     {
-      "name": "HTTBIN",
+      "name": "Upload",
       "item": [
         {
           "name": "Family Office File",

@@ -1,3 +1,8 @@
+process.env.NODE_OPTIONS = process.env.NODE_OPTIONS || '';
+if (!process.env.NODE_OPTIONS.includes('--no-deprecation')) {
+  process.env.NODE_OPTIONS += ' --no-deprecation';
+}
+
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
