@@ -4149,6 +4149,611 @@
                 }
               },
               "response": []
+            },
+            {
+              "name": "JS - Encrypt",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Validate top level fields\", function () {\r",
+                      "\r",
+                      "    let res = pm.response.json();\r",
+                      "\r",
+                      "    [\r",
+                      "        \"message\",\r",
+                      "        \"data\"\r",
+                      "    ].forEach(field => {\r",
+                      "\r",
+                      "        pm.expect(res)\r",
+                      "            .to.have.property(field);\r",
+                      "\r",
+                      "        pm.expect(res[field])\r",
+                      "            .to.not.equal(null);\r",
+                      "\r",
+                      "    });\r",
+                      "\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Validate data object\", function () {\r",
+                      "\r",
+                      "    let res = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(res.data)\r",
+                      "        .to.be.an(\"object\");\r",
+                      "\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Validate text field\", function () {\r",
+                      "\r",
+                      "    let res = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(res.data)\r",
+                      "        .to.have.property(\"text\");\r",
+                      "\r",
+                      "    pm.expect(res.data.text)\r",
+                      "        .to.not.equal(null);\r",
+                      "\r",
+                      "    pm.expect(res.data.text)\r",
+                      "        .to.not.equal(\"\");\r",
+                      "\r",
+                      "    pm.expect(res.data.text)\r",
+                      "        .to.be.a(\"string\");\r",
+                      "\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Validate encrypted_result field\", function () {\r",
+                      "\r",
+                      "    let res = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(res.data)\r",
+                      "        .to.have.property(\"encrypted_result\");\r",
+                      "\r",
+                      "    pm.expect(res.data.encrypted_result)\r",
+                      "        .to.not.equal(null);\r",
+                      "\r",
+                      "    pm.expect(res.data.encrypted_result)\r",
+                      "        .to.not.equal(\"\");\r",
+                      "\r",
+                      "    pm.expect(res.data.encrypted_result)\r",
+                      "        .to.be.a(\"string\");\r",
+                      "\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"text\": \"hello world\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/encrypt",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "encrypt"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Decrypt",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Validate top level fields\", function () {\r",
+                      "\r",
+                      "    let res = pm.response.json();\r",
+                      "\r",
+                      "    [\r",
+                      "        \"message\",\r",
+                      "        \"data\"\r",
+                      "    ].forEach(field => {\r",
+                      "\r",
+                      "        pm.expect(res)\r",
+                      "            .to.have.property(field);\r",
+                      "\r",
+                      "        pm.expect(res[field])\r",
+                      "            .to.not.equal(null);\r",
+                      "\r",
+                      "    });\r",
+                      "\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Validate data object\", function () {\r",
+                      "\r",
+                      "    let res = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(res.data)\r",
+                      "        .to.be.an(\"object\");\r",
+                      "\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Validate encrypted_text field\", function () {\r",
+                      "\r",
+                      "    let res = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(res.data)\r",
+                      "        .to.have.property(\"encrypted_text\");\r",
+                      "\r",
+                      "    pm.expect(res.data.encrypted_text)\r",
+                      "        .to.not.equal(null);\r",
+                      "\r",
+                      "    pm.expect(res.data.encrypted_text)\r",
+                      "        .to.not.equal(\"\");\r",
+                      "\r",
+                      "    pm.expect(res.data.encrypted_text)\r",
+                      "        .to.be.a(\"string\");\r",
+                      "\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Validate decrypted_result field\", function () {\r",
+                      "\r",
+                      "    let res = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(res.data)\r",
+                      "        .to.have.property(\"decrypted_result\");\r",
+                      "\r",
+                      "    pm.expect(res.data.decrypted_result)\r",
+                      "        .to.not.equal(null);\r",
+                      "\r",
+                      "    pm.expect(res.data.decrypted_result)\r",
+                      "        .to.not.equal(\"\");\r",
+                      "\r",
+                      "    pm.expect(res.data.decrypted_result)\r",
+                      "        .to.be.a(\"string\");\r",
+                      "\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"text\": \"H0Z4dSqS2tBw2EXxbCWOpOJ/O2R9BbnwYvSti0xSYsjMm+Axf14h\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/decrypt",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "decrypt"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Encrypt-Decrypt String",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Validate top level fields\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    [",
+                      "        \"message\",",
+                      "        \"data\"",
+                      "    ].forEach(field => {",
+                      "",
+                      "        pm.expect(res)",
+                      "            .to.have.property(field);",
+                      "",
+                      "        pm.expect(res[field])",
+                      "            .to.not.equal(null);",
+                      "",
+                      "    });",
+                      "",
+                      "});",
+                      "",
+                      "pm.test(\"Validate data object\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.data)",
+                      "        .to.be.an(\"object\");",
+                      "",
+                      "});",
+                      "",
+                      "pm.test(\"Validate text field\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.data)",
+                      "        .to.have.property(\"text\");",
+                      "",
+                      "    pm.expect(res.data.text)",
+                      "        .to.not.equal(null);",
+                      "",
+                      "    pm.expect(res.data.text)",
+                      "        .to.not.equal(\"\");",
+                      "",
+                      "    pm.expect(res.data.text)",
+                      "        .to.be.a(\"string\");",
+                      "",
+                      "});",
+                      "",
+                      "pm.test(\"Validate encrypted field\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.data)",
+                      "        .to.have.property(\"encrypted\");",
+                      "",
+                      "    pm.expect(res.data.encrypted)",
+                      "        .to.not.equal(null);",
+                      "",
+                      "    pm.expect(res.data.encrypted)",
+                      "        .to.not.equal(\"\");",
+                      "",
+                      "    pm.expect(res.data.encrypted)",
+                      "        .to.be.a(\"string\");",
+                      "",
+                      "});",
+                      "",
+                      "pm.test(\"Validate decrypted field\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.data)",
+                      "        .to.have.property(\"decrypted\");",
+                      "",
+                      "    pm.expect(res.data.decrypted)",
+                      "        .to.not.equal(null);",
+                      "",
+                      "    pm.expect(res.data.decrypted)",
+                      "        .to.not.equal(\"\");",
+                      "",
+                      "    pm.expect(res.data.decrypted)",
+                      "        .to.be.a(\"string\");",
+                      "",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"text\":\"makan malam\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/encrypt-decrypt",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "encrypt-decrypt"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Encrypt-Decrypt Number",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Validate top level fields\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    [",
+                      "        \"message\",",
+                      "        \"data\"",
+                      "    ].forEach(field => {",
+                      "",
+                      "        pm.expect(res)",
+                      "            .to.have.property(field);",
+                      "",
+                      "        pm.expect(res[field])",
+                      "            .to.not.equal(null);",
+                      "",
+                      "    });",
+                      "",
+                      "});",
+                      "",
+                      "pm.test(\"Validate data object\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.data)",
+                      "        .to.be.an(\"object\");",
+                      "",
+                      "});",
+                      "",
+                      "pm.test(\"Validate text field\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.data)",
+                      "        .to.have.property(\"text\");",
+                      "",
+                      "    pm.expect(res.data.text)",
+                      "        .to.not.equal(null);",
+                      "",
+                      "    pm.expect(res.data.text)",
+                      "        .to.not.equal(\"\");",
+                      "",
+                      "    pm.expect(res.data.text)",
+                      "        .to.be.a(\"number\");",
+                      "",
+                      "});",
+                      "",
+                      "pm.test(\"Validate encrypted field\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.data)",
+                      "        .to.have.property(\"encrypted\");",
+                      "",
+                      "    pm.expect(res.data.encrypted)",
+                      "        .to.not.equal(null);",
+                      "",
+                      "    pm.expect(res.data.encrypted)",
+                      "        .to.not.equal(\"\");",
+                      "",
+                      "    pm.expect(res.data.encrypted)",
+                      "        .to.be.a(\"string\");",
+                      "",
+                      "});",
+                      "",
+                      "pm.test(\"Validate decrypted field\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.data)",
+                      "        .to.have.property(\"decrypted\");",
+                      "",
+                      "    pm.expect(res.data.decrypted)",
+                      "        .to.not.equal(null);",
+                      "",
+                      "    pm.expect(res.data.decrypted)",
+                      "        .to.not.equal(\"\");",
+                      "",
+                      "    pm.expect(res.data.decrypted)",
+                      "        .to.be.a(\"string\");",
+                      "",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"text\":123456\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/encrypt-decrypt",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "encrypt-decrypt"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Encrypt-Decrypt Object",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Validate top level fields\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    [",
+                      "        \"message\",",
+                      "        \"data\"",
+                      "    ].forEach(field => {",
+                      "",
+                      "        pm.expect(res)",
+                      "            .to.have.property(field);",
+                      "",
+                      "        pm.expect(res[field])",
+                      "            .to.not.equal(null);",
+                      "",
+                      "    });",
+                      "",
+                      "});",
+                      "",
+                      "pm.test(\"Validate data object\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.data)",
+                      "        .to.be.an(\"object\");",
+                      "",
+                      "});",
+                      "",
+                      "pm.test(\"Validate text field\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.data)",
+                      "        .to.have.property(\"text\");",
+                      "",
+                      "    pm.expect(res.data.text)",
+                      "        .to.not.equal(null);",
+                      "",
+                      "    pm.expect(res.data.text)",
+                      "        .to.not.equal(\"\");",
+                      "",
+                      "});",
+                      "",
+                      "pm.test(\"Validate encrypted field\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.data)",
+                      "        .to.have.property(\"encrypted\");",
+                      "",
+                      "    pm.expect(res.data.encrypted)",
+                      "        .to.not.equal(null);",
+                      "",
+                      "    pm.expect(res.data.encrypted)",
+                      "        .to.not.equal(\"\");",
+                      "",
+                      "    pm.expect(res.data.encrypted)",
+                      "        .to.be.a(\"string\");",
+                      "",
+                      "});",
+                      "",
+                      "pm.test(\"Validate decrypted field\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.data)",
+                      "        .to.have.property(\"decrypted\");",
+                      "",
+                      "    pm.expect(res.data.decrypted)",
+                      "        .to.not.equal(null);",
+                      "",
+                      "    pm.expect(res.data.decrypted)",
+                      "        .to.not.equal(\"\");",
+                      "",
+                      "    pm.expect(res.data.decrypted)",
+                      "        .to.be.a(\"string\");",
+                      "",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"Aziz\",\r\n    \"Age\": 24,\r\n    \"isAlive\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/encrypt-decrypt/object",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "encrypt-decrypt",
+                    "object"
+                  ]
+                }
+              },
+              "response": []
             }
           ]
         },
@@ -11348,6 +11953,86 @@
           ]
         }
       ]
+    },
+    {
+      "name": "JS - Encrypt Save DB Copy",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+              "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+              "pm.test(\"Validate required fields\", function () {",
+              "",
+              "    let res = pm.response.json();",
+              "",
+              "    // Validate top level fields",
+              "    [",
+              "        \"message\",",
+              "        \"data\"",
+              "    ].forEach(field => {",
+              "        pm.expect(res).to.have.property(field);",
+              "    });",
+              "",
+              "    // Validate nested data fields",
+              "    [",
+              "        \"id\",",
+              "        \"plain_text\",",
+              "        \"encrypted_text\"",
+              "    ].forEach(field => {",
+              "        pm.expect(res.data)",
+              "            .to.have.property(field);",
+              "    });",
+              "",
+              "    // Validate object types",
+              "    pm.expect(res.data)",
+              "        .to.be.an(\"object\");",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"text\":\"Lawang apim\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrlCore}}/v2.1/js/save-encrypt",
+          "host": [
+            "{{baseUrlCore}}"
+          ],
+          "path": [
+            "v2.1",
+            "js",
+            "save-encrypt"
+          ]
+        }
+      },
+      "response": []
     }
   ],
   "event": [
