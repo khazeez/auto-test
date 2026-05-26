@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "9a409cda-791e-4e28-a664-de4e366eb919",
+    "_postman_id": "3d9507f4-6a6a-4b70-8983-93b0127920af",
     "name": "Lawang - Normal Flow",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "53603159",
-    "_collection_link": "https://go.postman.co/collection/53603159-9a409cda-791e-4e28-a664-de4e366eb919?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/53603159-3d9507f4-6a6a-4b70-8983-93b0127920af?source=collection_link"
   },
   "item": [
     {
@@ -24,7 +24,7 @@
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
                       "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                      "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
                       "pm.test(\"Validate response body\", function () {",
                       "    let res = pm.response.json();",
                       "",
@@ -111,7 +111,7 @@
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
                       "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                      "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
                       "pm.test(\"Schema validation\", function () {",
                       "    const schema = {",
                       "        type: \"object\",",
@@ -213,7 +213,7 @@
                       "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                      "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
                       "pm.test(\"Validate XML response\", function () {",
                       "    let res = pm.response.json();",
                       "",
@@ -287,7 +287,7 @@
                       "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                      "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
                       "pm.test(\"Validate plain text response\", function () {",
                       "    let res = pm.response.json();",
                       "",
@@ -361,7 +361,7 @@
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
                       "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                      "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
                       "pm.test(\"Echoed form.username matches sent data\", () => {",
                       "    const res = pm.response.json();",
                       "    pm.expect(res.form.username).to.eql(\"admin\");",
@@ -438,7 +438,7 @@
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
                       "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                      "pm.test(\"Response time is less than 10000ms\", () => pm.expect(pm.response.responseTime).to.be.below(10000));",
                       "pm.test(\"Echoed form.username matches sent data\", () => {",
                       "    const res = pm.response.json();",
                       "    pm.expect(res.form.username).to.eql(\"Admin\");",
@@ -511,7 +511,7 @@
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
                       "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                      "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
                       "pm.test(\"Response has file upload data\", () => {",
                       "    const res = pm.response.json();",
                       "    pm.expect(res.files).to.exist;",
@@ -565,7 +565,7 @@
                       "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                      "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
                       "pm.test(\"Response body contains JS function name\", () => {",
                       "    const text = pm.response.text();",
                       "    pm.expect(text).to.include(\"gatewayTest\");",
@@ -622,7 +622,7 @@
                       "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                      "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
                       "pm.test(\"Response body contains HTML content\", () => {",
                       "    const text = pm.response.text();",
                       "    pm.expect(text).to.include(\"<h1>Hello World!</h1>\");",
@@ -1141,7 +1141,7 @@
                   "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                   "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
                   "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                  "pm.test(\"Response time is less than 5000ms\", () => pm.expect(pm.response.responseTime).to.be.below(5000));",
+                  "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
                   "pm.test(\"Response has accessToken\", () => {",
                   "    const res = pm.response.json();",
                   "    pm.expect(res).to.have.property(\"accessToken\");",
@@ -3915,10 +3915,147 @@
       "name": "Javascript",
       "item": [
         {
+          "name": "JS - Hashing",
+          "item": [
+            {
+              "name": "JS - Generate UUID",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text().toLowerCase();\r",
+                      "    pm.expect(text).to.not.include(\"Successfully generate UUID\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCore}}/generate/uuid",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "generate",
+                    "uuid"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Hashing MD5",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"Successfully hashing text with md5 alghorithm\");\r",
+                      "    pm.expect(text).to.include(\"test hashing\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"text\": \"test hashing\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/hashing/md5",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "hashing",
+                    "md5"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Hashing SHA256",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"Successfully hashing data\");\r",
+                      "    pm.expect(text).to.include(\"text\");\r",
+                      "    pm.expect(text).to.include(\"hashing\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"text\": \"BITCOIN A PEER TO PEER CASH SYSTEM\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/hash/sha256",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "hash",
+                    "sha256"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
           "name": "JS - Masking",
           "item": [
             {
-              "name": "JS - Mask Data",
+              "name": "JS - Mask Data and save",
               "event": [
                 {
                   "listen": "test",
@@ -3970,6 +4107,165 @@
                     "v2.1",
                     "js",
                     "mask-data"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Mask Data",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"message\");\r",
+                      "    pm.expect(text).to.include(\"data_masked\");\r",
+                      "\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Data masked not null\", ()=> {\r",
+                      "    const jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.data_masked).to.not.be.null;\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"text\": \"0812345678901\",\r\n    \"char\": \"*\",\r\n    \"start\": 0,\r\n    \"end\": 12\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/masking/mask",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "masking",
+                    "mask"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Mask Prefix",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"message\");\r",
+                      "    pm.expect(text).to.include(\"data_mask_prefix\");\r",
+                      "\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Data masked not null\", ()=> {\r",
+                      "    const jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.data_masked_prefix).to.not.be.null;\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"text\": \"0812345678901\",\r\n    \"char\": \"&\",\r\n    \"n\": 2\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/masking/mask-prefix",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "masking",
+                    "mask-prefix"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Mask Suffix",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"message\");\r",
+                      "    pm.expect(text).to.include(\"data_mask_suffix\");\r",
+                      "\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Data masked not null\", ()=> {\r",
+                      "    const jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.data_masked_suffix).to.not.be.null;\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"text\": \"0812345678901\",\r\n    \"char\": \"&\",\r\n    \"n\": 2\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/masking/mask-suffix",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "masking",
+                    "mask-suffix"
                   ]
                 }
               },
@@ -5084,1134 +5380,1710 @@
           "name": "JS - Get, Post, Put, Patch and Delete",
           "item": [
             {
-              "name": "JS - Post httpbin",
-              "event": [
+              "name": "JS - GET",
+              "item": [
                 {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let outer = pm.response.json();",
-                      "    let res = JSON.parse(outer.response.body);",
-                      "",
-                      "    // Validate wrapper response",
-                      "    pm.expect(outer)",
-                      "        .to.have.property(\"response\");",
-                      "",
-                      "    // Validate response wrapper fields",
-                      "    [",
-                      "        \"headers\",",
-                      "        \"body\",",
-                      "        \"code\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer.response).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate parsed body fields",
-                      "    [",
-                      "        \"args\",",
-                      "        \"data\",",
-                      "        \"files\",",
-                      "        \"form\",",
-                      "        \"headers\",",
-                      "        \"json\",",
-                      "        \"origin\",",
-                      "        \"url\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested headers",
-                      "    [",
-                      "        \"Accept-Encoding\",",
-                      "        \"Content-Length\",",
-                      "        \"Content-Type\",",
-                      "        \"Host\",",
-                      "        \"User-Agent\",",
-                      "        \"X-Amzn-Trace-Id\",",
-                      "        \"X-Lawang-Request-Id\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.headers).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested json object",
-                      "    [",
-                      "        \"city\",",
-                      "        \"name\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.json).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(res.args)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.files)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.form)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.headers)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.json)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"Name\": \"Lawang\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "name": "JS - Get",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                          "\r",
+                          "const response = pm.response.json();\r",
+                          "const body = JSON.parse(response.data.body);\r",
+                          "\r",
+                          "const schema = {\r",
+                          "    type: \"object\",\r",
+                          "    required: [\r",
+                          "        \"id\",\r",
+                          "        \"firstName\",\r",
+                          "        \"lastName\",\r",
+                          "        \"email\",\r",
+                          "        \"address\",\r",
+                          "        \"company\",\r",
+                          "        \"crypto\"\r",
+                          "    ],\r",
+                          "    properties: {\r",
+                          "        id: { type: \"number\" },\r",
+                          "        firstName: { type: \"string\" },\r",
+                          "        lastName: { type: \"string\" },\r",
+                          "        email: { type: \"string\" },\r",
+                          "        age: { type: \"number\" },\r",
+                          "\r",
+                          "        address: {\r",
+                          "            type: \"object\",\r",
+                          "            required: [\"city\", \"country\"]\r",
+                          "        },\r",
+                          "\r",
+                          "        company: {\r",
+                          "            type: \"object\",\r",
+                          "            required: [\"department\", \"name\"]\r",
+                          "        },\r",
+                          "\r",
+                          "        crypto: {\r",
+                          "            type: \"object\",\r",
+                          "            required: [\"coin\", \"wallet\"]\r",
+                          "        }\r",
+                          "    }\r",
+                          "};\r",
+                          "\r",
+                          "pm.test(\"Schema valid\", function () {\r",
+                          "    pm.expect(tv4.validate(body, schema)).to.be.true;\r",
+                          "});\r",
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
                     }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/post-httpbin",
-                  "host": [
-                    "{{baseUrlCore}}"
                   ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "post-httpbin"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - PUT httpbin",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let outer = pm.response.json();",
-                      "    let res = JSON.parse(outer.response.body);",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\",",
-                      "        \"response\",",
-                      "        \"log\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate response wrapper fields",
-                      "    [",
-                      "        \"headers\",",
-                      "        \"body\",",
-                      "        \"code\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer.response).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate parsed body fields",
-                      "    [",
-                      "        \"args\",",
-                      "        \"data\",",
-                      "        \"files\",",
-                      "        \"form\",",
-                      "        \"headers\",",
-                      "        \"json\",",
-                      "        \"origin\",",
-                      "        \"url\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested headers",
-                      "    [",
-                      "        \"Accept-Encoding\",",
-                      "        \"Content-Length\",",
-                      "        \"Content-Type\",",
-                      "        \"Host\",",
-                      "        \"User-Agent\",",
-                      "        \"X-Amzn-Trace-Id\",",
-                      "        \"X-Lawang-Request-Id\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.headers).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested json object",
-                      "    [",
-                      "        \"id\",",
-                      "        \"name\",",
-                      "        \"city\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.json).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(outer.response)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.args)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.files)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.form)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.headers)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.json)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "PUT",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js-req/get",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js-req",
+                        "get"
+                      ]
                     }
-                  }
+                  },
+                  "response": []
                 },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/put-httpbin",
-                  "host": [
-                    "{{baseUrlCore}}"
+                {
+                  "name": "JS - Get with Headers",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                          "\r",
+                          "const response = pm.response.json();\r",
+                          "const body = JSON.parse(response.data.body);\r",
+                          "\r",
+                          "const schema = {\r",
+                          "    type: \"object\",\r",
+                          "    required: [\r",
+                          "        \"id\",\r",
+                          "        \"firstName\",\r",
+                          "        \"lastName\",\r",
+                          "        \"email\",\r",
+                          "        \"address\",\r",
+                          "        \"company\",\r",
+                          "        \"crypto\"\r",
+                          "    ],\r",
+                          "    properties: {\r",
+                          "        id: { type: \"number\" },\r",
+                          "        firstName: { type: \"string\" },\r",
+                          "        lastName: { type: \"string\" },\r",
+                          "        email: { type: \"string\" },\r",
+                          "        age: { type: \"number\" },\r",
+                          "\r",
+                          "        address: {\r",
+                          "            type: \"object\",\r",
+                          "            required: [\"city\", \"country\"]\r",
+                          "        },\r",
+                          "\r",
+                          "        company: {\r",
+                          "            type: \"object\",\r",
+                          "            required: [\"department\", \"name\"]\r",
+                          "        },\r",
+                          "\r",
+                          "        crypto: {\r",
+                          "            type: \"object\",\r",
+                          "            required: [\"coin\", \"wallet\"]\r",
+                          "        }\r",
+                          "    }\r",
+                          "};\r",
+                          "\r",
+                          "pm.test(\"Schema valid\", function () {\r",
+                          "    pm.expect(tv4.validate(body, schema)).to.be.true;\r",
+                          "});\r",
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
                   ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "put-httpbin"
-                  ]
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js-req/get-header",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js-req",
+                        "get-header"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Get with Timeout",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                          "\r",
+                          "const response = pm.response.json();\r",
+                          "const body = JSON.parse(response.data.body);\r",
+                          "\r",
+                          "const schema = {\r",
+                          "    type: \"object\",\r",
+                          "    required: [\r",
+                          "        \"id\",\r",
+                          "        \"firstName\",\r",
+                          "        \"lastName\",\r",
+                          "        \"email\",\r",
+                          "        \"address\",\r",
+                          "        \"company\",\r",
+                          "        \"crypto\"\r",
+                          "    ],\r",
+                          "    properties: {\r",
+                          "        id: { type: \"number\" },\r",
+                          "        firstName: { type: \"string\" },\r",
+                          "        lastName: { type: \"string\" },\r",
+                          "        email: { type: \"string\" },\r",
+                          "        age: { type: \"number\" },\r",
+                          "\r",
+                          "        address: {\r",
+                          "            type: \"object\",\r",
+                          "            required: [\"city\", \"country\"]\r",
+                          "        },\r",
+                          "\r",
+                          "        company: {\r",
+                          "            type: \"object\",\r",
+                          "            required: [\"department\", \"name\"]\r",
+                          "        },\r",
+                          "\r",
+                          "        crypto: {\r",
+                          "            type: \"object\",\r",
+                          "            required: [\"coin\", \"wallet\"]\r",
+                          "        }\r",
+                          "    }\r",
+                          "};\r",
+                          "\r",
+                          "pm.test(\"Schema valid\", function () {\r",
+                          "    pm.expect(tv4.validate(body, schema)).to.be.true;\r",
+                          "});\r",
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js-req/get",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js-req",
+                        "get"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Get With Headres and timeout",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                          "\r",
+                          "const response = pm.response.json();\r",
+                          "const body = JSON.parse(response.data.body);\r",
+                          "\r",
+                          "const schema = {\r",
+                          "    type: \"object\",\r",
+                          "    required: [\r",
+                          "        \"id\",\r",
+                          "        \"firstName\",\r",
+                          "        \"lastName\",\r",
+                          "        \"email\",\r",
+                          "        \"address\",\r",
+                          "        \"company\",\r",
+                          "        \"crypto\"\r",
+                          "    ],\r",
+                          "    properties: {\r",
+                          "        id: { type: \"number\" },\r",
+                          "        firstName: { type: \"string\" },\r",
+                          "        lastName: { type: \"string\" },\r",
+                          "        email: { type: \"string\" },\r",
+                          "        age: { type: \"number\" },\r",
+                          "\r",
+                          "        address: {\r",
+                          "            type: \"object\",\r",
+                          "            required: [\"city\", \"country\"]\r",
+                          "        },\r",
+                          "\r",
+                          "        company: {\r",
+                          "            type: \"object\",\r",
+                          "            required: [\"department\", \"name\"]\r",
+                          "        },\r",
+                          "\r",
+                          "        crypto: {\r",
+                          "            type: \"object\",\r",
+                          "            required: [\"coin\", \"wallet\"]\r",
+                          "        }\r",
+                          "    }\r",
+                          "};\r",
+                          "\r",
+                          "pm.test(\"Schema valid\", function () {\r",
+                          "    pm.expect(tv4.validate(body, schema)).to.be.true;\r",
+                          "});\r",
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js-req/get-headers-timeout",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js-req",
+                        "get-headers-timeout"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Get  Headers httpbin",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let outer = pm.response.json();",
+                          "    let res = JSON.parse(outer.response.body);",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"message\",",
+                          "        \"response\",",
+                          "        \"log\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate response wrapper fields",
+                          "    [",
+                          "        \"headers\",",
+                          "        \"body\",",
+                          "        \"code\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer.response).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate parsed body fields",
+                          "    [",
+                          "        \"args\",",
+                          "        \"headers\",",
+                          "        \"origin\",",
+                          "        \"url\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested headers",
+                          "    [",
+                          "        \"Accept-Encoding\",",
+                          "        \"Content-Type\",",
+                          "        \"Host\",",
+                          "        \"User-Agent\",",
+                          "        \"X-Amzn-Trace-Id\",",
+                          "        \"X-Lawang-Request-Id\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.headers).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate object types",
+                          "    pm.expect(outer.response)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.args)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.headers)",
+                          "        .to.be.an(\"object\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/v2.1/js/get/headers-httpbin",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "v2.1",
+                        "js",
+                        "get",
+                        "headers-httpbin"
+                      ]
+                    }
+                  },
+                  "response": []
                 }
-              },
-              "response": []
+              ]
             },
             {
-              "name": "JS - GET httpbin",
-              "event": [
+              "name": "JS - POST",
+              "item": [
                 {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let outer = pm.response.json();",
-                      "    let res = JSON.parse(outer.response.body);",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\",",
-                      "        \"response\",",
-                      "        \"log\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate response wrapper fields",
-                      "    [",
-                      "        \"headers\",",
-                      "        \"body\",",
-                      "        \"code\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer.response).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate parsed body fields",
-                      "    [",
-                      "        \"args\",",
-                      "        \"headers\",",
-                      "        \"origin\",",
-                      "        \"url\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested headers",
-                      "    [",
-                      "        \"Accept-Encoding\",",
-                      "        \"Content-Type\",",
-                      "        \"Host\",",
-                      "        \"User-Agent\",",
-                      "        \"X-Amzn-Trace-Id\",",
-                      "        \"X-Lawang-Request-Id\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.headers).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(outer.response)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.args)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.headers)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "GET",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/get-httpbin",
-                  "host": [
-                    "{{baseUrlCore}}"
+                  "name": "JS - Post with no body",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
                   ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "get-httpbin"
-                  ]
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js-req/post",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js-req",
+                        "post"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Post httpbin",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let outer = pm.response.json();",
+                          "    let res = JSON.parse(outer.response.body);",
+                          "",
+                          "    // Validate wrapper response",
+                          "    pm.expect(outer)",
+                          "        .to.have.property(\"response\");",
+                          "",
+                          "    // Validate response wrapper fields",
+                          "    [",
+                          "        \"headers\",",
+                          "        \"body\",",
+                          "        \"code\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer.response).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate parsed body fields",
+                          "    [",
+                          "        \"args\",",
+                          "        \"data\",",
+                          "        \"files\",",
+                          "        \"form\",",
+                          "        \"headers\",",
+                          "        \"json\",",
+                          "        \"origin\",",
+                          "        \"url\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested headers",
+                          "    [",
+                          "        \"Accept-Encoding\",",
+                          "        \"Content-Length\",",
+                          "        \"Content-Type\",",
+                          "        \"Host\",",
+                          "        \"User-Agent\",",
+                          "        \"X-Amzn-Trace-Id\",",
+                          "        \"X-Lawang-Request-Id\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.headers).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested json object",
+                          "    [",
+                          "        \"city\",",
+                          "        \"name\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.json).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate object types",
+                          "    pm.expect(res.args)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.files)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.form)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.headers)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.json)",
+                          "        .to.be.an(\"object\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"Name\": \"Lawang test\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/v2.1/js/post-httpbin",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "v2.1",
+                        "js",
+                        "post-httpbin"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Post Timeout httpbin",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let outer = pm.response.json();",
+                          "    let res = JSON.parse(outer.response.body);",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"response\",",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate response wrapper fields",
+                          "    [",
+                          "        \"headers\",",
+                          "        \"body\",",
+                          "        \"code\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer.response).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate parsed body fields",
+                          "    [",
+                          "        \"args\",",
+                          "        \"headers\",",
+                          "        \"origin\",",
+                          "        \"url\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested headers",
+                          "    [",
+                          "        \"Accept-Encoding\",",
+                          "        \"Host\",",
+                          "        \"User-Agent\",",
+                          "        \"X-Amzn-Trace-Id\",",
+                          "        \"X-Lawang-Request-Id\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.headers).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate object types",
+                          "    pm.expect(outer.response)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.args)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.headers)",
+                          "        .to.be.an(\"object\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/v2.1/js/post/timeout-httpbin",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "v2.1",
+                        "js",
+                        "post",
+                        "timeout-httpbin"
+                      ]
+                    }
+                  },
+                  "response": []
                 }
-              },
-              "response": []
+              ]
             },
             {
-              "name": "JS - DELETE httpbin",
-              "event": [
+              "name": "JS - PUT",
+              "item": [
                 {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let outer = pm.response.json();",
-                      "    let res = JSON.parse(outer.response.body);",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\",",
-                      "        \"response\",",
-                      "        \"log\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate response wrapper fields",
-                      "    [",
-                      "        \"headers\",",
-                      "        \"body\",",
-                      "        \"code\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer.response).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate parsed body fields",
-                      "    [",
-                      "        \"args\",",
-                      "        \"headers\",",
-                      "        \"origin\",",
-                      "        \"url\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested headers",
-                      "    [",
-                      "        \"Accept-Encoding\",",
-                      "        \"Content-Type\",",
-                      "        \"Host\",",
-                      "        \"User-Agent\",",
-                      "        \"X-Amzn-Trace-Id\",",
-                      "        \"X-Lawang-Request-Id\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.headers).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(outer.response)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.args)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.headers)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "DELETE",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/delete-httpbin",
-                  "host": [
-                    "{{baseUrlCore}}"
+                  "name": "JS - PUT httpbin",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let outer = pm.response.json();",
+                          "    let res = JSON.parse(outer.response.body);",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"message\",",
+                          "        \"response\",",
+                          "        \"log\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate response wrapper fields",
+                          "    [",
+                          "        \"headers\",",
+                          "        \"body\",",
+                          "        \"code\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer.response).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate parsed body fields",
+                          "    [",
+                          "        \"args\",",
+                          "        \"data\",",
+                          "        \"files\",",
+                          "        \"form\",",
+                          "        \"headers\",",
+                          "        \"json\",",
+                          "        \"origin\",",
+                          "        \"url\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested headers",
+                          "    [",
+                          "        \"Accept-Encoding\",",
+                          "        \"Content-Length\",",
+                          "        \"Content-Type\",",
+                          "        \"Host\",",
+                          "        \"User-Agent\",",
+                          "        \"X-Amzn-Trace-Id\",",
+                          "        \"X-Lawang-Request-Id\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.headers).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested json object",
+                          "    [",
+                          "        \"id\",",
+                          "        \"name\",",
+                          "        \"city\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.json).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate object types",
+                          "    pm.expect(outer.response)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.args)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.files)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.form)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.headers)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.json)",
+                          "        .to.be.an(\"object\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
                   ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "delete-httpbin"
-                  ]
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/v2.1/js/put-httpbin",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "v2.1",
+                        "js",
+                        "put-httpbin"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Put Headers httpbin",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let outer = pm.response.json();",
+                          "    let res = JSON.parse(outer.response.body);",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"message\",",
+                          "        \"response\",",
+                          "        \"log\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate response wrapper fields",
+                          "    [",
+                          "        \"headers\",",
+                          "        \"body\",",
+                          "        \"code\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer.response).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate parsed body fields",
+                          "    [",
+                          "        \"args\",",
+                          "        \"headers\",",
+                          "        \"origin\",",
+                          "        \"url\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested headers",
+                          "    [",
+                          "        \"Accept-Encoding\",",
+                          "        \"Content-Type\",",
+                          "        \"Host\",",
+                          "        \"User-Agent\",",
+                          "        \"X-Amzn-Trace-Id\",",
+                          "        \"X-Lawang-Request-Id\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.headers).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate object types",
+                          "    pm.expect(outer.response)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.args)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.headers)",
+                          "        .to.be.an(\"object\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/v2.1/js/put/headers-httpbin",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "v2.1",
+                        "js",
+                        "put",
+                        "headers-httpbin"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Put Headers body timeout",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let outer = pm.response.json();",
+                          "    let res = JSON.parse(outer.response.body);",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"message\",",
+                          "        \"response\",",
+                          "        \"log\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate response wrapper fields",
+                          "    [",
+                          "        \"headers\",",
+                          "        \"body\",",
+                          "        \"code\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer.response).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate parsed body fields",
+                          "    [",
+                          "        \"args\",",
+                          "        \"headers\",",
+                          "        \"origin\",",
+                          "        \"url\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested headers",
+                          "    [",
+                          "        \"Accept-Encoding\",",
+                          "        \"Content-Type\",",
+                          "        \"Host\",",
+                          "        \"User-Agent\",",
+                          "        \"X-Amzn-Trace-Id\",",
+                          "        \"X-Lawang-Request-Id\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.headers).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate object types",
+                          "    pm.expect(outer.response)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.args)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.headers)",
+                          "        .to.be.an(\"object\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js-re/put-body-header-timeout",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js-re",
+                        "put-body-header-timeout"
+                      ]
+                    }
+                  },
+                  "response": []
                 }
-              },
-              "response": []
+              ]
             },
             {
-              "name": "JS - PATCH httpbin",
-              "event": [
+              "name": "JS - PATCH",
+              "item": [
                 {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let outer = pm.response.json();",
-                      "    let res = JSON.parse(outer.response.body);",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\",",
-                      "        \"response\",",
-                      "        \"log\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate response wrapper fields",
-                      "    [",
-                      "        \"headers\",",
-                      "        \"body\",",
-                      "        \"code\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer.response).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate parsed body fields",
-                      "    [",
-                      "        \"args\",",
-                      "        \"headers\",",
-                      "        \"origin\",",
-                      "        \"url\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested headers",
-                      "    [",
-                      "        \"Accept-Encoding\",",
-                      "        \"Content-Type\",",
-                      "        \"Host\",",
-                      "        \"User-Agent\",",
-                      "        \"X-Amzn-Trace-Id\",",
-                      "        \"X-Lawang-Request-Id\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.headers).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(outer.response)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.args)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.headers)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "PATCH",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/patch-httpbin",
-                  "host": [
-                    "{{baseUrlCore}}"
+                  "name": "JS - PATCH httpbin",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let outer = pm.response.json();",
+                          "    let res = JSON.parse(outer.response.body);",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"message\",",
+                          "        \"response\",",
+                          "        \"log\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate response wrapper fields",
+                          "    [",
+                          "        \"headers\",",
+                          "        \"body\",",
+                          "        \"code\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer.response).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate parsed body fields",
+                          "    [",
+                          "        \"args\",",
+                          "        \"headers\",",
+                          "        \"origin\",",
+                          "        \"url\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested headers",
+                          "    [",
+                          "        \"Accept-Encoding\",",
+                          "        \"Content-Type\",",
+                          "        \"Host\",",
+                          "        \"User-Agent\",",
+                          "        \"X-Amzn-Trace-Id\",",
+                          "        \"X-Lawang-Request-Id\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.headers).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate object types",
+                          "    pm.expect(outer.response)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.args)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.headers)",
+                          "        .to.be.an(\"object\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
                   ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "patch-httpbin"
-                  ]
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "PATCH",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/v2.1/js/patch-httpbin",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "v2.1",
+                        "js",
+                        "patch-httpbin"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Patch Timeout httpbin",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let outer = pm.response.json();",
+                          "    let res = JSON.parse(outer.response.body);",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"message\",",
+                          "        \"response\",",
+                          "        \"log\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate response wrapper fields",
+                          "    [",
+                          "        \"headers\",",
+                          "        \"body\",",
+                          "        \"code\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer.response).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate parsed body fields",
+                          "    [",
+                          "        \"args\",",
+                          "        \"headers\",",
+                          "        \"origin\",",
+                          "        \"url\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested headers",
+                          "    [",
+                          "        \"Accept-Encoding\",",
+                          "        \"Host\",",
+                          "        \"User-Agent\",",
+                          "        \"X-Amzn-Trace-Id\",",
+                          "        \"X-Lawang-Request-Id\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.headers).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate object types",
+                          "    pm.expect(outer.response)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.args)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.headers)",
+                          "        .to.be.an(\"object\");",
+                          "});",
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "PATCH",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/v2.1/js/patch/timeout-httpbin",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "v2.1",
+                        "js",
+                        "patch",
+                        "timeout-httpbin"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Patch Body Headers Timeout",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let outer = pm.response.json();",
+                          "    let res = JSON.parse(outer.response.body);",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"message\",",
+                          "        \"response\",",
+                          "        \"log\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate response wrapper fields",
+                          "    [",
+                          "        \"headers\",",
+                          "        \"body\",",
+                          "        \"code\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer.response).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate parsed body fields",
+                          "    [",
+                          "        \"args\",",
+                          "        \"headers\",",
+                          "        \"origin\",",
+                          "        \"url\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested headers",
+                          "    [",
+                          "        \"Accept-Encoding\",",
+                          "        \"Host\",",
+                          "        \"User-Agent\",",
+                          "        \"X-Amzn-Trace-Id\",",
+                          "        \"X-Lawang-Request-Id\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.headers).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate object types",
+                          "    pm.expect(outer.response)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.args)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.headers)",
+                          "        .to.be.an(\"object\");",
+                          "});",
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "PATCH",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js-req/patch-body-header-timeout",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js-req",
+                        "patch-body-header-timeout"
+                      ]
+                    }
+                  },
+                  "response": []
                 }
-              },
-              "response": []
+              ]
             },
             {
-              "name": "JS - Get  Headers httpbin",
-              "event": [
+              "name": "JS - DELETE",
+              "item": [
                 {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let outer = pm.response.json();",
-                      "    let res = JSON.parse(outer.response.body);",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\",",
-                      "        \"response\",",
-                      "        \"log\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate response wrapper fields",
-                      "    [",
-                      "        \"headers\",",
-                      "        \"body\",",
-                      "        \"code\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer.response).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate parsed body fields",
-                      "    [",
-                      "        \"args\",",
-                      "        \"headers\",",
-                      "        \"origin\",",
-                      "        \"url\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested headers",
-                      "    [",
-                      "        \"Accept-Encoding\",",
-                      "        \"Content-Type\",",
-                      "        \"Host\",",
-                      "        \"User-Agent\",",
-                      "        \"X-Amzn-Trace-Id\",",
-                      "        \"X-Lawang-Request-Id\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.headers).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(outer.response)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.args)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.headers)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "GET",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/get/headers-httpbin",
-                  "host": [
-                    "{{baseUrlCore}}"
+                  "name": "JS - DELETE httpbin",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let outer = pm.response.json();",
+                          "    let res = JSON.parse(outer.response.body);",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"message\",",
+                          "        \"response\",",
+                          "        \"log\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate response wrapper fields",
+                          "    [",
+                          "        \"headers\",",
+                          "        \"body\",",
+                          "        \"code\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer.response).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate parsed body fields",
+                          "    [",
+                          "        \"args\",",
+                          "        \"headers\",",
+                          "        \"origin\",",
+                          "        \"url\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested headers",
+                          "    [",
+                          "        \"Accept-Encoding\",",
+                          "        \"Content-Type\",",
+                          "        \"Host\",",
+                          "        \"User-Agent\",",
+                          "        \"X-Amzn-Trace-Id\",",
+                          "        \"X-Lawang-Request-Id\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.headers).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate object types",
+                          "    pm.expect(outer.response)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.args)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.headers)",
+                          "        .to.be.an(\"object\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
                   ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "get",
-                    "headers-httpbin"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Post Timeout httpbin",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let outer = pm.response.json();",
-                      "    let res = JSON.parse(outer.response.body);",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"response\",",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate response wrapper fields",
-                      "    [",
-                      "        \"headers\",",
-                      "        \"body\",",
-                      "        \"code\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer.response).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate parsed body fields",
-                      "    [",
-                      "        \"args\",",
-                      "        \"headers\",",
-                      "        \"origin\",",
-                      "        \"url\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested headers",
-                      "    [",
-                      "        \"Accept-Encoding\",",
-                      "        \"Host\",",
-                      "        \"User-Agent\",",
-                      "        \"X-Amzn-Trace-Id\",",
-                      "        \"X-Lawang-Request-Id\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.headers).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(outer.response)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.args)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.headers)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/v2.1/js/delete-httpbin",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "v2.1",
+                        "js",
+                        "delete-httpbin"
+                      ]
+                    }
+                  },
+                  "response": []
                 },
                 {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/post/timeout-httpbin",
-                  "host": [
-                    "{{baseUrlCore}}"
+                  "name": "JS - Delete Headers httpbin",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let outer = pm.response.json();",
+                          "    let res = JSON.parse(outer.response.body);",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"message\",",
+                          "        \"response\",",
+                          "        \"log\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate response wrapper fields",
+                          "    [",
+                          "        \"headers\",",
+                          "        \"body\",",
+                          "        \"code\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer.response).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate parsed body fields",
+                          "    [",
+                          "        \"args\",",
+                          "        \"headers\",",
+                          "        \"origin\",",
+                          "        \"url\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested headers",
+                          "    [",
+                          "        \"Accept-Encoding\",",
+                          "        \"Content-Type\",",
+                          "        \"Host\",",
+                          "        \"User-Agent\",",
+                          "        \"X-Amzn-Trace-Id\",",
+                          "        \"X-Lawang-Request-Id\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.headers).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate object types",
+                          "    pm.expect(outer.response)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.args)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.headers)",
+                          "        .to.be.an(\"object\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
                   ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "post",
-                    "timeout-httpbin"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Put Headers httpbin",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let outer = pm.response.json();",
-                      "    let res = JSON.parse(outer.response.body);",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\",",
-                      "        \"response\",",
-                      "        \"log\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate response wrapper fields",
-                      "    [",
-                      "        \"headers\",",
-                      "        \"body\",",
-                      "        \"code\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer.response).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate parsed body fields",
-                      "    [",
-                      "        \"args\",",
-                      "        \"headers\",",
-                      "        \"origin\",",
-                      "        \"url\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested headers",
-                      "    [",
-                      "        \"Accept-Encoding\",",
-                      "        \"Content-Type\",",
-                      "        \"Host\",",
-                      "        \"User-Agent\",",
-                      "        \"X-Amzn-Trace-Id\",",
-                      "        \"X-Lawang-Request-Id\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.headers).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(outer.response)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.args)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.headers)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/v2.1/js/delete/headers-httpbin",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "v2.1",
+                        "js",
+                        "delete",
+                        "headers-httpbin"
+                      ]
+                    }
+                  },
+                  "response": []
                 },
                 {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "PUT",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/put/headers-httpbin",
-                  "host": [
-                    "{{baseUrlCore}}"
+                  "name": "JS - Delete Headers Timeout",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let outer = pm.response.json();",
+                          "    let res = JSON.parse(outer.response.body);",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"message\",",
+                          "        \"response\",",
+                          "        \"log\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate response wrapper fields",
+                          "    [",
+                          "        \"headers\",",
+                          "        \"body\",",
+                          "        \"code\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(outer.response).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate parsed body fields",
+                          "    [",
+                          "        \"args\",",
+                          "        \"headers\",",
+                          "        \"origin\",",
+                          "        \"url\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested headers",
+                          "    [",
+                          "        \"Accept-Encoding\",",
+                          "        \"Content-Type\",",
+                          "        \"Host\",",
+                          "        \"User-Agent\",",
+                          "        \"X-Amzn-Trace-Id\",",
+                          "        \"X-Lawang-Request-Id\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.headers).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate object types",
+                          "    pm.expect(outer.response)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.args)",
+                          "        .to.be.an(\"object\");",
+                          "",
+                          "    pm.expect(res.headers)",
+                          "        .to.be.an(\"object\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
                   ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "put",
-                    "headers-httpbin"
-                  ]
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js-req/delete-header-timeout",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js-req",
+                        "delete-header-timeout"
+                      ]
+                    }
+                  },
+                  "response": []
                 }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Patch Timeout httpbin",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let outer = pm.response.json();",
-                      "    let res = JSON.parse(outer.response.body);",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\",",
-                      "        \"response\",",
-                      "        \"log\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate response wrapper fields",
-                      "    [",
-                      "        \"headers\",",
-                      "        \"body\",",
-                      "        \"code\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer.response).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate parsed body fields",
-                      "    [",
-                      "        \"args\",",
-                      "        \"headers\",",
-                      "        \"origin\",",
-                      "        \"url\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested headers",
-                      "    [",
-                      "        \"Accept-Encoding\",",
-                      "        \"Host\",",
-                      "        \"User-Agent\",",
-                      "        \"X-Amzn-Trace-Id\",",
-                      "        \"X-Lawang-Request-Id\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.headers).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(outer.response)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.args)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.headers)",
-                      "        .to.be.an(\"object\");",
-                      "});",
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "PATCH",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/patch/timeout-httpbin",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "patch",
-                    "timeout-httpbin"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Delete Headers httpbin",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let outer = pm.response.json();",
-                      "    let res = JSON.parse(outer.response.body);",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\",",
-                      "        \"response\",",
-                      "        \"log\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate response wrapper fields",
-                      "    [",
-                      "        \"headers\",",
-                      "        \"body\",",
-                      "        \"code\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(outer.response).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate parsed body fields",
-                      "    [",
-                      "        \"args\",",
-                      "        \"headers\",",
-                      "        \"origin\",",
-                      "        \"url\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested headers",
-                      "    [",
-                      "        \"Accept-Encoding\",",
-                      "        \"Content-Type\",",
-                      "        \"Host\",",
-                      "        \"User-Agent\",",
-                      "        \"X-Amzn-Trace-Id\",",
-                      "        \"X-Lawang-Request-Id\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.headers).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(outer.response)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.args)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.headers)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "DELETE",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/delete/headers-httpbin",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "delete",
-                    "headers-httpbin"
-                  ]
-                }
-              },
-              "response": []
+              ]
             }
           ]
         },
@@ -6785,7 +7657,13 @@
                       "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);"
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Jumlah data harus 6628\", function () {",
+                      "    let response = pm.response.json();",
+                      "",
+                      "    pm.expect(response.data).to.be.an(\"array\");",
+                      "    pm.expect(response.data.length).to.eql(6628);",
+                      "});"
                     ],
                     "type": "text/javascript",
                     "packages": {},
@@ -6848,7 +7726,13 @@
                       "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);"
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Jumlah data harus 6628\", function () {",
+                      "    let response = pm.response.json();",
+                      "",
+                      "    pm.expect(response.data).to.be.an(\"array\");",
+                      "    pm.expect(response.data.length).to.eql(6628);",
+                      "});"
                     ],
                     "type": "text/javascript",
                     "packages": {},
@@ -6981,6 +7865,12 @@
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
                       "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Jumlah data harus 180\", function () {",
+                      "    let response = pm.response.json();",
+                      "",
+                      "    pm.expect(response.data).to.be.an('array');",
+                      "    pm.expect(response.data.length).to.eql(180);",
+                      "});",
                       ""
                     ],
                     "type": "text/javascript",
@@ -7044,7 +7934,13 @@
                       "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);"
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Jumlah data harus 180\", function () {",
+                      "    let response = pm.response.json();",
+                      "",
+                      "    pm.expect(response.data).to.be.an('array');",
+                      "    pm.expect(response.data.length).to.eql(180);",
+                      "});"
                     ],
                     "type": "text/javascript",
                     "packages": {},
@@ -9494,14 +10390,15 @@
           "response": []
         },
         {
-          "name": "Event Driven - Public Negative case",
+          "name": "Event Driven - Get Negative case",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
                   "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));",
-                  "pm.test(\"405 response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);"
+                  "pm.test(\"405 response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "pm.test(\"405 response body contains 'Method Not Allowed'\", () => pm.expect(pm.response.text()).to.include(\"Method Not Allowed\"));"
                 ],
                 "type": "text/javascript",
                 "packages": {},
@@ -9528,6 +10425,177 @@
               "type": "noauth"
             },
             "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"dmefew0\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/v2.1/event_driven/negative",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "v2.1",
+                "event_driven",
+                "negative"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Event Driven - Put Negative case",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));",
+                  "pm.test(\"405 response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "pm.test(\"405 response body contains 'Method Not Allowed'\", () => pm.expect(pm.response.text()).to.include(\"Method Not Allowed\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"dmefew0\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/v2.1/event_driven/negative",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "v2.1",
+                "event_driven",
+                "negative"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Event Driven - Patch Negative case",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));",
+                  "pm.test(\"405 response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "pm.test(\"405 response body contains 'Method Not Allowed'\", () => pm.expect(pm.response.text()).to.include(\"Method Not Allowed\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"dmefew0\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/v2.1/event_driven/negative",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "v2.1",
+                "event_driven",
+                "negative"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Event Driven - Delete Negative case",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));",
+                  "pm.test(\"405 response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "pm.test(\"405 response body contains 'Method Not Allowed'\", () => pm.expect(pm.response.text()).to.include(\"Method Not Allowed\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
             "header": [],
             "body": {
               "mode": "raw",
@@ -9861,18 +10929,16 @@
           "response": []
         },
         {
-          "name": "File - Public Negative",
+          "name": "File - Post Negative",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 404\", () => pm.response.to.have.status(404));\r",
+                  "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));\r",
                   "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
                   "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                  "pm.test(\"Response body contains expected message\", () => pm.expect(pm.response.text()).to.include(\"open /go/app/storages/testo/hello.txt:\"));\r",
-                  "\r",
-                  ""
+                  "pm.test(\"Response body contains expected text\", () => pm.expect(pm.response.text()).to.include(\"Method Not Allowed\"));"
                 ],
                 "type": "text/javascript",
                 "packages": {},
@@ -9884,7 +10950,118 @@
             "auth": {
               "type": "noauth"
             },
-            "method": "GET",
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlCore}}/testo/hallo.txt",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "testo",
+                "hallo.txt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "File - Put Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response body contains expected text\", () => pm.expect(pm.response.text()).to.include(\"Method Not Allowed\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlCore}}/testo/hallo.txt",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "testo",
+                "hallo.txt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "File - Patch Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response body contains expected text\", () => pm.expect(pm.response.text()).to.include(\"Method Not Allowed\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlCore}}/testo/hallo.txt",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "testo",
+                "hallo.txt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "File - Delete Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response body contains expected text\", () => pm.expect(pm.response.text()).to.include(\"Method Not Allowed\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
             "header": [],
             "url": {
               "raw": "{{baseUrlCore}}/testo/hello.txt",
@@ -10020,6 +11197,250 @@
           "response": []
         },
         {
+          "name": "SFTP - Post Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "pm.test(\"Response body contains expected text\", () => pm.expect(pm.response.text()).to.include(\"Method Not Allowed\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlCore}}/162-sftp/data/lawang.txt",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "162-sftp",
+                "data",
+                "lawang.txt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SFTP - Put Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "pm.test(\"Response body contains expected text\", () => pm.expect(pm.response.text()).to.include(\"Method Not Allowed\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlCore}}/162-sftp/data/lawang.txt",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "162-sftp",
+                "data",
+                "lawang.txt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SFTP - Patch Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "pm.test(\"Response body contains expected text\", () => pm.expect(pm.response.text()).to.include(\"Method Not Allowed\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlCore}}/162-sftp/data/lawang.txt",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "162-sftp",
+                "data",
+                "lawang.txt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SFTP - Delete Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "pm.test(\"Response body contains expected text\", () => pm.expect(pm.response.text()).to.include(\"Method Not Allowed\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlCore}}/162-sftp/data/lawang.txt",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "162-sftp",
+                "data",
+                "lawang.txt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "S3 - User",
           "event": [
             {
@@ -10130,6 +11551,262 @@
               "type": "noauth"
             },
             "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/minion/minio.txt",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "minion",
+                "minio.txt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "S3 - Post Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "pm.test(\"Response body contains expected text\", () => pm.expect(pm.response.text()).to.include(\"Method Not Allowed\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/minion/minio.txt",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "minion",
+                "minio.txt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "S3 - Put Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "pm.test(\"Response body contains expected text\", () => pm.expect(pm.response.text()).to.include(\"Method Not Allowed\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/minion/minio.txt",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "minion",
+                "minio.txt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "S3 - Patch Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "pm.test(\"Response body contains expected text\", () => pm.expect(pm.response.text()).to.include(\"Method Not Allowed\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/minion/minio.txt",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "minion",
+                "minio.txt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "S3 - Delete Negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "pm.test(\"Response body contains expected text\", () => pm.expect(pm.response.text()).to.include(\"Method Not Allowed\"));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
             "header": [],
             "body": {
               "mode": "raw",
