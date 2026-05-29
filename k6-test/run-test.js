@@ -10,9 +10,7 @@ import restartService from '../helper/services/restartServerService.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
 
-// ─────────────────────────────────────────────
-//  Colors
-// ─────────────────────────────────────────────
+
 const C = {
   cyan:      '\x1b[36m',
   green:     '\x1b[32m',
@@ -31,14 +29,10 @@ const C = {
   bgCyan:    '\x1b[46m',
 };
 
-// ─────────────────────────────────────────────
-//  Environment (fixed)
-// ─────────────────────────────────────────────
+const SKIP_SCENARIO_MENU = true;
+
 const ENV_FILE = path.join(__dirname, 'env', 'Lawang-Core.environment.json');
 
-// ─────────────────────────────────────────────
-//  Test scenarios
-// ─────────────────────────────────────────────
 const TEST_SCENARIO = [
   {
     name:  'HTTP PREFORK',
@@ -98,9 +92,6 @@ const TEST_SCENARIO = [
   },
 ];
 
-// ─────────────────────────────────────────────
-//  Test types
-// ─────────────────────────────────────────────
 const TEST_TYPES = [
   {
     name:  'Smoke Test',
@@ -136,9 +127,7 @@ const TEST_TYPES = [
   },
 ];
 
-// ─────────────────────────────────────────────
-//  Readline helper
-// ─────────────────────────────────────────────
+
 const rl = readline.createInterface({
   input:  process.stdin,
   output: process.stdout,
@@ -147,9 +136,7 @@ const rl = readline.createInterface({
 const ask = (question) =>
   new Promise((resolve) => rl.question(question, (ans) => resolve(ans.trim())));
 
-// ─────────────────────────────────────────────
-//  UI helpers
-// ─────────────────────────────────────────────
+
 function printHeader() {
   console.log('\n' + '═'.repeat(60));
   console.log(
@@ -170,9 +157,7 @@ function printMenu(title, items, noteBottom = '') {
   console.log('─'.repeat(60) + '\n');
 }
 
-// ─────────────────────────────────────────────
-//  Runner
-// ─────────────────────────────────────────────
+
 function runK6(testFile) {
   const command = `k6 run "${testFile}" --env ENV_FILE="${ENV_FILE}"`;
   try {
@@ -182,6 +167,21 @@ function runK6(testFile) {
       `\n${C.yellow}${C.bold}Test selesai dengan beberapa kegagalan threshold.${C.reset}\n`
     );
   }
+}
+
+async function runDirect(testType) {
+  console.log('\n' + '═'.repeat(60));
+  console.log(`${testType.bg}${C.bold}  RUNNING: ${testType.name.padEnd(43)} ${C.reset}`);
+  console.log('═'.repeat(60));
+  console.log(`${C.dim}  File  : ${testType.file}${C.reset}`);
+  console.log(`${C.dim}  Beban : ${testType.desc}${C.reset}`);
+  console.log('─'.repeat(60) + '\n');
+
+  runK6(testType.file);
+
+  console.log('\n' + '═'.repeat(60));
+  console.log(`${C.bgGreen}${C.bold}  SELESAI: ${testType.name.padEnd(43)} ${C.reset}`);
+  console.log('═'.repeat(60) + '\n');
 }
 
 async function runWithScenario(scenario, testType) {
@@ -194,7 +194,6 @@ async function runWithScenario(scenario, testType) {
     console.error(`\n${C.red}${C.bold}[SETUP] GAGAL — test dibatalkan.${C.reset}`);
     console.error(`${C.red}${err.message}${C.reset}\n`);
     console.log(err);
-    
     return;
   }
 
@@ -224,9 +223,7 @@ async function runWithScenario(scenario, testType) {
   console.log('═'.repeat(60) + '\n');
 }
 
-// ─────────────────────────────────────────────
-//  Soak confirmation
-// ─────────────────────────────────────────────
+
 async function confirmSoak() {
   console.log(`\n${C.bgYellow}${C.bold}  ⚠  PERHATIAN — SOAK TEST  ${C.reset}`);
   console.log(`${C.yellow}  Test ini akan berjalan selama ±1 jam.${C.reset}`);
@@ -235,9 +232,6 @@ async function confirmSoak() {
   return confirm.toLowerCase() === 'y';
 }
 
-// ─────────────────────────────────────────────
-//  Menu: scenario
-// ─────────────────────────────────────────────
 async function showScenarioMenu() {
   printHeader();
   printMenu(
@@ -267,14 +261,13 @@ async function showScenarioMenu() {
   showTestTypeMenu(TEST_SCENARIO[answer - 1]);
 }
 
-// ─────────────────────────────────────────────
-//  Menu: test type
-// ─────────────────────────────────────────────
-async function showTestTypeMenu(selectedScenario) {
+async function showTestTypeMenu(selectedScenario = null) {
   printHeader();
-  console.log(
-    `\n${C.dim}  Scenario: ${selectedScenario.color}${C.bold}${selectedScenario.name}${C.reset}\n`
-  );
+  if (selectedScenario) {
+    console.log(
+      `\n${C.dim}  Scenario: ${selectedScenario.color}${C.bold}${selectedScenario.name}${C.reset}\n`
+    );
+  }
   printMenu(
     'PILIH JENIS TEST:',
     TEST_TYPES.map((t, i) => ({
@@ -282,12 +275,19 @@ async function showTestTypeMenu(selectedScenario) {
       color:  t.color,
       prefix: i + 1,
     })),
-    '0 = Kembali ke pilih scenario'
+    SKIP_SCENARIO_MENU ? '0 = Keluar' : '0 = Kembali ke pilih scenario'
   );
 
   const answer = parseInt(await ask(`${C.bold}Pilih jenis test: ${C.reset}`));
 
-  if (answer === 0) return showScenarioMenu();
+  if (answer === 0) {
+    if (SKIP_SCENARIO_MENU) {
+      console.log(`\n${C.dim}  Sampai jumpa!${C.reset}\n`);
+      rl.close();
+      return;
+    }
+    return showScenarioMenu();
+  }
 
   if (isNaN(answer) || answer < 1 || answer > TEST_TYPES.length) {
     console.log(`\n${C.yellow}Pilihan tidak valid!${C.reset}`);
@@ -307,10 +307,17 @@ async function showTestTypeMenu(selectedScenario) {
   }
 
   rl.close();
-  await runWithScenario(selectedScenario, selectedType);
+
+  if (SKIP_SCENARIO_MENU) {
+    await runDirect(selectedType);
+  } else {
+    await runWithScenario(selectedScenario, selectedType);
+  }
 }
 
-// ─────────────────────────────────────────────
-//  Entry point
-// ─────────────────────────────────────────────
-showScenarioMenu();
+
+if (SKIP_SCENARIO_MENU) {
+  showTestTypeMenu();
+} else {
+  showScenarioMenu();
+}
