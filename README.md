@@ -1,4 +1,4 @@
-# Console Automation Test
+# Core Automation Test
 
 Repositori ini berisi otomasi pengujian API untuk sistem **Lawang API Gateway**, menggunakan dua tools utama:
 
@@ -102,7 +102,7 @@ Pastikan sudah menginstal k6
 ### Menjalankan Test
 
 ```bash
-task test-k6
+task k6
 ```
 
 Atau:

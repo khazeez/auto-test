@@ -10,9 +10,10 @@
   },
   "devDependencies": {
     "axios": "^1.13.6",
+    "cypress": "^15.16.0",
+    "k6": "^0.0.0",
     "newman": "^6.2.2",
-    "newman-reporter-htmlextra": "^1.23.1",
-    "k6": "^0.0.0"
+    "newman-reporter-htmlextra": "^1.23.1"
   },
   "dependencies": {
     "dotenv": "^17.3.1",

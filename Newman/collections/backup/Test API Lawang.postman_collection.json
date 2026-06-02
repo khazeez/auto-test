@@ -101,6 +101,93 @@
               "response": []
             },
             {
+              "name": "Raw - Json Copy",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                      "pm.test(\"Validate response body\", function () {",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    // Status code",
+                      "    pm.response.to.have.status(200);",
+                      "",
+                      "    // Root fields",
+                      "    pm.expect(res).to.have.property(\"args\");",
+                      "    pm.expect(res).to.have.property(\"data\");",
+                      "    pm.expect(res).to.have.property(\"headers\");",
+                      "    pm.expect(res).to.have.property(\"json\");",
+                      "    pm.expect(res).to.have.property(\"origin\");",
+                      "    pm.expect(res).to.have.property(\"url\");",
+                      "",
+                      "    // Validate json object",
+                      "    pm.expect(res.json.name).to.eql(\"Aziz\");",
+                      "    pm.expect(res.json.role).to.eql(\"admin\");",
+                      "    pm.expect(res.json.active).to.eql(true);",
+                      "",
+                      "    // Validate array",
+                      "    pm.expect(res.json.tags).to.be.an(\"array\");",
+                      "    pm.expect(res.json.tags).to.include(\"gateway\");",
+                      "    pm.expect(res.json.tags).to.include(\"test\");",
+                      "",
+                      "    // Validate nested object",
+                      "    pm.expect(res.json.metadata.ip).to.eql(\"127.0.0.1\");",
+                      "",
+                      "    // Validate URL",
+                      "    pm.expect(res.url).to.eql(\"https://httpbin.org/post\");",
+                      "",
+                      "    // Validate headers",
+                      "    pm.expect(res.headers[\"Content-Type\"]).to.include(\"application/json\");",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/post",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "post"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
               "name": "Raw - Deep Nested JSON",
               "event": [
                 {
@@ -192,9 +279,11 @@
                   }
                 },
                 "url": {
-                  "raw": "{{baseUrlCore}}/post",
+                  "raw": "https://httpbin.org/post",
+                  "protocol": "https",
                   "host": [
-                    "{{baseUrlCore}}"
+                    "httpbin",
+                    "org"
                   ],
                   "path": [
                     "post"
@@ -5373,6 +5462,1436 @@
                 }
               },
               "response": []
+            },
+            {
+              "name": "JS - Request Headers Timeout",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Validate required fields\", function () {",
+                      "",
+                      "    let outer = pm.response.json();",
+                      "    let res = JSON.parse(outer.body);",
+                      "",
+                      "    // Validate top level wrapper",
+                      "    [",
+                      "        \"headers\",",
+                      "        \"body\",",
+                      "        \"code\"",
+                      "    ].forEach(field => {",
+                      "        pm.expect(outer).to.have.property(field);",
+                      "    });",
+                      "",
+                      "    // Validate parsed body fields",
+                      "    [",
+                      "        \"args\",",
+                      "        \"headers\",",
+                      "        \"method\",",
+                      "        \"origin\",",
+                      "        \"url\",",
+                      "        \"data\",",
+                      "        \"files\",",
+                      "        \"form\",",
+                      "        \"json\"",
+                      "    ].forEach(field => {",
+                      "        pm.expect(res).to.have.property(field);",
+                      "    });",
+                      "",
+                      "    // Validate nested headers",
+                      "    [",
+                      "        \"Accept-Encoding\",",
+                      "        \"Content-Length\",",
+                      "        \"Host\",",
+                      "        \"User-Agent\",",
+                      "        \"X-Lawang-Request-Id\"",
+                      "    ].forEach(field => {",
+                      "        pm.expect(res.headers).to.have.property(field);",
+                      "    });",
+                      "",
+                      "    // Validate object types",
+                      "    pm.expect(res.args)",
+                      "        .to.be.an(\"object\");",
+                      "",
+                      "    pm.expect(res.headers)",
+                      "        .to.be.an(\"object\");",
+                      "",
+                      "    pm.expect(res.files)",
+                      "        .to.be.an(\"object\");",
+                      "",
+                      "    pm.expect(res.form)",
+                      "        .to.be.an(\"object\");",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/js/request-headers-timeout",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "js",
+                    "request-headers-timeout"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "JS - DB",
+          "item": [
+            {
+              "name": "JS - Save User",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Validate required fields\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    // Validate top level fields",
+                      "    [",
+                      "        \"message\",",
+                      "        \"data\"",
+                      "    ].forEach(field => {",
+                      "        pm.expect(res).to.have.property(field);",
+                      "    });",
+                      "",
+                      "    // Validate nested data fields",
+                      "    [",
+                      "        \"id\",",
+                      "        \"fullname\",",
+                      "        \"address\"",
+                      "    ].forEach(field => {",
+                      "        pm.expect(res.data).to.have.property(field);",
+                      "    });",
+                      "",
+                      "    // Validate object types",
+                      "    pm.expect(res.data)",
+                      "        .to.be.an(\"object\");",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"fullname\": \"Ipan\",\r\n  \"address\": \"Pemalang\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/v2.1/js/save-user",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "v2.1",
+                    "js",
+                    "save-user"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Put User",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Validate required fields\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    // Validate top level fields",
+                      "    [",
+                      "        \"message\",",
+                      "        \"data\"",
+                      "    ].forEach(field => {",
+                      "        pm.expect(res).to.have.property(field);",
+                      "    });",
+                      "",
+                      "    // Validate nested data fields",
+                      "    [",
+                      "        \"fullname\",",
+                      "        \"address\"",
+                      "    ].forEach(field => {",
+                      "        pm.expect(res.data).to.have.property(field);",
+                      "    });",
+                      "",
+                      "    // Validate object types",
+                      "    pm.expect(res.data)",
+                      "        .to.be.an(\"object\");",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": \"ec839f0a-6c60-4448-8c49-cd0c7656e8c2\", \r\n    \"fullname\": \"Ipan\",\r\n    \"address\": \"Pekalongan\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/v2.1/js/put-user",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "v2.1",
+                    "js",
+                    "put-user"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Exists User",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Validate required fields\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    // Validate top level fields",
+                      "    [",
+                      "        \"message\",",
+                      "        \"data\"",
+                      "    ].forEach(field => {",
+                      "        pm.expect(res).to.have.property(field);",
+                      "    });",
+                      "",
+                      "    // Validate nested data fields",
+                      "    [",
+                      "        \"fullname\",",
+                      "        \"address\"",
+                      "    ].forEach(field => {",
+                      "        pm.expect(res.data).to.have.property(field);",
+                      "    });",
+                      "",
+                      "    // Validate object types",
+                      "    pm.expect(res.data)",
+                      "        .to.be.an(\"object\");",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"fullname\": \"Ipan\",\r\n    \"address\": \"Pemalang\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/v2.1/js/exist-user",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "v2.1",
+                    "js",
+                    "exist-user"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Query User",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Validate response schema\", function () {",
+                      "",
+                      "    const res = pm.response.json();",
+                      "",
+                      "    // response harus array",
+                      "    pm.expect(res).to.be.an(\"array\");",
+                      "",
+                      "    // array tidak boleh kosong",
+                      "    pm.expect(res.length).to.be.greaterThan(0);",
+                      "",
+                      "    res.forEach((item) => {",
+                      "",
+                      "        // field wajib ada",
+                      "        pm.expect(item).to.have.property(\"id\");",
+                      "        pm.expect(item).to.have.property(\"fullname\");",
+                      "        pm.expect(item).to.have.property(\"address\");",
+                      "",
+                      "        // type validation",
+                      "        pm.expect(item.id).to.be.a(\"string\");",
+                      "        pm.expect(item.fullname).to.be.a(\"string\");",
+                      "        pm.expect(item.address).to.be.a(\"string\");",
+                      "",
+                      "        // value validation",
+                      "        pm.expect(item.fullname).to.eql(\"Ipan\");",
+                      "        pm.expect(item.address).to.eql(\"Pekalongan\");",
+                      "    });",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/v2.1/js/query-user",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "v2.1",
+                    "js",
+                    "query-user"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Upsert",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Validate required fields\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    // Validate top level fields",
+                      "    [",
+                      "        \"message\"",
+                      "    ].forEach(field => {",
+                      "        pm.expect(res).to.have.property(field);",
+                      "        pm.expect(res.message).to.equal(\"Upsert sukses\");",
+                      "    });",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/v2.1/js/upsert-user",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "v2.1",
+                    "js",
+                    "upsert-user"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Save Timeout",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Validate required fields\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    // Validate top level fields",
+                      "    [",
+                      "        \"message\",",
+                      "        \"data\"",
+                      "    ].forEach(field => {",
+                      "        pm.expect(res).to.have.property(field);",
+                      "    });",
+                      "",
+                      "    // Validate nested data fields",
+                      "    [",
+                      "        \"id\",",
+                      "        \"fullname\",",
+                      "        \"address\"",
+                      "    ].forEach(field => {",
+                      "        pm.expect(res.data).to.have.property(field);",
+                      "    });",
+                      "",
+                      "    // Validate object type",
+                      "    pm.expect(res.data)",
+                      "        .to.be.an(\"object\");",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"fullname\": \"Ipan\",\r\n    \"address\": \"Pemalang\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/v2.1/js/save-timeout",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "v2.1",
+                    "js",
+                    "save-timeout"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Query Params User",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Validate required fields\", function () {",
+                      "",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    // Validate response is array",
+                      "    pm.expect(res)",
+                      "        .to.be.an(\"array\");",
+                      "",
+                      "    // Validate array is not empty",
+                      "    pm.expect(res.length)",
+                      "        .to.be.greaterThan(0);",
+                      "",
+                      "    // Validate object fields",
+                      "    [",
+                      "        \"fullname\",",
+                      "        \"id\",",
+                      "        \"address\"",
+                      "    ].forEach(field => {",
+                      "        pm.expect(res[0]).to.have.property(field);",
+                      "    });",
+                      "",
+                      "    // Validate object type",
+                      "    pm.expect(res[0])",
+                      "        .to.be.an(\"object\");",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/v2.1/js/queryparams-user",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "v2.1",
+                    "js",
+                    "queryparams-user"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "JS - File",
+          "item": [
+            {
+              "name": "JS - Read CSV",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Jumlah data harus 6628\", function () {",
+                      "    let response = pm.response.json();",
+                      "",
+                      "    pm.expect(response.data).to.be.an(\"array\");",
+                      "    pm.expect(response.data.length).to.eql(6628);",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "User-Application",
+                    "value": "curl/8.0",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/csv/read",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "csv",
+                    "read"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Read CSV With Separator",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Jumlah data harus 6628\", function () {",
+                      "    let response = pm.response.json();",
+                      "",
+                      "    pm.expect(response.data).to.be.an(\"array\");",
+                      "    pm.expect(response.data.length).to.eql(6628);",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "User-Application",
+                    "value": "curl/8.0",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/csv-with-separator/read",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "csv-with-separator",
+                    "read"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Read CSV With Wrong Separator",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "",
+                      "pm.test(\"Validate message\", ()=> {",
+                      "let res = pm.response.json();",
+                      "",
+                      "pm.expect(res.message).to.be.not.null;",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "User-Application",
+                    "value": "curl/8.0",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/csv-with-wrong-separator/read",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "csv-with-wrong-separator",
+                    "read"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Read XLSX",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Jumlah data harus 180\", function () {",
+                      "    let response = pm.response.json();",
+                      "",
+                      "    pm.expect(response.data).to.be.an('array');",
+                      "    pm.expect(response.data.length).to.eql(180);",
+                      "});",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "User-Application",
+                    "value": "curl/8.0",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/xlsx/read",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "xlsx",
+                    "read"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Read XLSX With Sheet",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Jumlah data harus 180\", function () {",
+                      "    let response = pm.response.json();",
+                      "",
+                      "    pm.expect(response.data).to.be.an('array');",
+                      "    pm.expect(response.data.length).to.eql(180);",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "User-Application",
+                    "value": "curl/8.0",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/xlsx-with-separator/read",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "xlsx-with-separator",
+                    "read"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Read XLSX With Wrong Sheet",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "",
+                      "pm.test(\"Validate message\", ()=> {",
+                      "let res = pm.response.json();",
+                      "",
+                      "pm.expect(res.message).to.be.not.null;",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "User-Application",
+                    "value": "curl/8.0",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/xlsx-with-wrong-sheet/read",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "xlsx-with-wrong-sheet",
+                    "read"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "JS - XML to JSON",
+          "item": [
+            {
+              "name": "JS - xml to json",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const response = pm.response.json();\r",
+                      "\r",
+                      "// Status Code\r",
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "// Response is valid JSON\r",
+                      "pm.test(\"Response is valid JSON\", function () {\r",
+                      "pm.expect(response).to.be.an(\"object\");\r",
+                      "});\r",
+                      "\r",
+                      "// Validate root structure\r",
+                      "pm.test(\"Validate root structure\", function () {\r",
+                      "pm.expect(response).to.have.property(\"message\");\r",
+                      "pm.expect(response).to.have.property(\"data\");\r",
+                      "pm.expect(response.data).to.have.property(\"users\");\r",
+                      "pm.expect(response.data.users).to.have.property(\"user\");\r",
+                      "});\r",
+                      "\r",
+                      "// Validate data types\r",
+                      "pm.test(\"Validate data types\", function () {\r",
+                      "pm.expect(response.message).to.be.a(\"string\");\r",
+                      "pm.expect(response.data).to.be.an(\"object\");\r",
+                      "pm.expect(response.data.users).to.be.an(\"object\");\r",
+                      "pm.expect(response.data.users.user).to.be.an(\"array\");\r",
+                      "});\r",
+                      "\r",
+                      "// Validate message value\r",
+                      "pm.test(\"Validate message value\", function () {\r",
+                      "pm.expect(response.message)\r",
+                      ".to.equal(\"Successfully convert xml to json\");\r",
+                      "});\r",
+                      "\r",
+                      "// Validate user array length\r",
+                      "pm.test(\"Validate user count\", function () {\r",
+                      "pm.expect(response.data.users.user.length).to.equal(2);\r",
+                      "});\r",
+                      "\r",
+                      "// Validate each user structure\r",
+                      "pm.test(\"Validate user object structure\", function () {\r",
+                      "response.data.users.user.forEach(user => {\r",
+                      "pm.expect(user).to.have.property(\"id\");\r",
+                      "pm.expect(user).to.have.property(\"name\");\r",
+                      "pm.expect(user).to.have.property(\"email\");\r",
+                      "pm.expect(user).to.have.property(\"active\");\r",
+                      "\r",
+                      "    pm.expect(user.id).to.be.a(\"string\");\r",
+                      "    pm.expect(user.name).to.be.a(\"string\");\r",
+                      "    pm.expect(user.email).to.be.a(\"string\");\r",
+                      "    pm.expect(user.active).to.be.a(\"string\");\r",
+                      "});\r",
+                      "\r",
+                      "});\r",
+                      "\r",
+                      "// Validate first user values\r",
+                      "pm.test(\"Validate first user\", function () {\r",
+                      "const user = response.data.users.user[0];\r",
+                      "\r",
+                      "pm.expect(user.id).to.equal(\"1\");\r",
+                      "pm.expect(user.name).to.equal(\"Aziz\");\r",
+                      "pm.expect(user.email).to.equal(\"aziz@example.com\");\r",
+                      "pm.expect(user.active).to.equal(\"true\");\r",
+                      "\r",
+                      "\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCore}}/xml2json",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "xml2json"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - xml to json post",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const response = pm.response.json();\r",
+                      "\r",
+                      "// Status Code\r",
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "// Response is valid JSON\r",
+                      "pm.test(\"Response is valid JSON\", function () {\r",
+                      "pm.expect(response).to.be.an(\"object\");\r",
+                      "});\r",
+                      "\r",
+                      "// Validate root structure\r",
+                      "pm.test(\"Validate root structure\", function () {\r",
+                      "pm.expect(response).to.have.property(\"message\");\r",
+                      "pm.expect(response).to.have.property(\"data\");\r",
+                      "pm.expect(response.data).to.have.property(\"users\");\r",
+                      "pm.expect(response.data.users).to.have.property(\"user\");\r",
+                      "});\r",
+                      "\r",
+                      "// Validate data types\r",
+                      "pm.test(\"Validate data types\", function () {\r",
+                      "pm.expect(response.message).to.be.a(\"string\");\r",
+                      "pm.expect(response.data).to.be.an(\"object\");\r",
+                      "pm.expect(response.data.users).to.be.an(\"object\");\r",
+                      "pm.expect(response.data.users.user).to.be.an(\"array\");\r",
+                      "});\r",
+                      "\r",
+                      "// Validate message value\r",
+                      "pm.test(\"Validate message value\", function () {\r",
+                      "pm.expect(response.message)\r",
+                      ".to.equal(\"Successfully convert xml to json\");\r",
+                      "});\r",
+                      "\r",
+                      "// Validate user array length\r",
+                      "pm.test(\"Validate user count\", function () {\r",
+                      "pm.expect(response.data.users.user.length).to.equal(2);\r",
+                      "});\r",
+                      "\r",
+                      "// Validate each user structure\r",
+                      "pm.test(\"Validate user object structure\", function () {\r",
+                      "response.data.users.user.forEach(user => {\r",
+                      "pm.expect(user).to.have.property(\"id\");\r",
+                      "pm.expect(user).to.have.property(\"name\");\r",
+                      "pm.expect(user).to.have.property(\"email\");\r",
+                      "pm.expect(user).to.have.property(\"active\");\r",
+                      "\r",
+                      "    pm.expect(user.id).to.be.a(\"string\");\r",
+                      "    pm.expect(user.name).to.be.a(\"string\");\r",
+                      "    pm.expect(user.email).to.be.a(\"string\");\r",
+                      "    pm.expect(user.active).to.be.a(\"string\");\r",
+                      "});\r",
+                      "\r",
+                      "});\r",
+                      "\r",
+                      "// Validate first user values\r",
+                      "pm.test(\"Validate first user\", function () {\r",
+                      "const user = response.data.users.user[0];\r",
+                      "\r",
+                      "pm.expect(user.id).to.equal(\"1\");\r",
+                      "pm.expect(user.name).to.equal(\"Aziz\");\r",
+                      "pm.expect(user.email).to.equal(\"aziz@example.com\");\r",
+                      "pm.expect(user.active).to.equal(\"true\");\r",
+                      "\r",
+                      "\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"xml\": \"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>\\n<users>\\n    <user>\\n        <id>1</id>\\n        <name>Aziz</name>\\n        <email>aziz@example.com</email>\\n        <active>true</active>\\n    </user>\\n\\n    <user>\\n        <id>2</id>\\n        <name>Budi</name>\\n        <email>budi@example.com</email>\\n        <active>false</active>\\n    </user>\\n</users>\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/xml2json/post",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "xml2json",
+                    "post"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - xml to json (Invalid XML)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const response = pm.response.json();\r",
+                      "\r",
+                      "// Status Code\r",
+                      "pm.test(\"Status code is 500\", function () {\r",
+                      "pm.response.to.have.status(500);\r",
+                      "});\r",
+                      "\r",
+                      "// Response is valid JSON\r",
+                      "pm.test(\"Response is valid JSON\", function () {\r",
+                      "pm.expect(response).to.be.an(\"object\");\r",
+                      "});\r",
+                      "\r",
+                      "// Validate root structure\r",
+                      "pm.test(\"Validate root structure\", function () {\r",
+                      "pm.expect(response).to.have.property(\"message\").eql(\"Error: XML conversion returned empty string\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"xml\": \"<xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>\\n<users>\\n    <user>\\n        <id>1</id>\\n        <name>Aziz</name>\\n        xample.com</email>\\n        <active>true</active>\\n    </user>\\n\\n    \\n        <id>2</id>\\n        <name>Budi\\n        <email>budi@example.com</email>\\n        <active>false</active>\\n</users>\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/xml2json/post",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "xml2json",
+                    "post"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "JS - Transform",
+          "item": [
+            {
+              "name": "JS - Transformation",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Validate response body\", ()=> {\r",
+                      "    const jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"Umur\");\r",
+                      "    pm.expect(jsonData).to.have.property(\"Nama\");\r",
+                      "})\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCore}}/transform",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "transform"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Transformation Negative",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Validate response body\", ()=> {\r",
+                      "    const jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"message\").eq(\"transform() invalid spec\");\r",
+                      "    pm.expect(jsonData).to.have.property(\"code\").eq(500);\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"xml\": \"<xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>\\n<users>\\n    <user>\\n        <id>1</id>\\n        <name>Aziz</name>\\n        xample.com</email>\\n        <active>true</active>\\n    </user>\\n\\n    \\n        <id>2</id>\\n        <name>Budi\\n        <email>budi@example.com</email>\\n        <active>false</active>\\n</users>\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/transform/negative",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "transform",
+                    "negative"
+                  ]
+                }
+              },
+              "response": []
             }
           ]
         },
@@ -7084,983 +8603,6 @@
                   "response": []
                 }
               ]
-            }
-          ]
-        },
-        {
-          "name": "JS - DB",
-          "item": [
-            {
-              "name": "JS - Save User",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let res = pm.response.json();",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\",",
-                      "        \"data\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested data fields",
-                      "    [",
-                      "        \"id\",",
-                      "        \"fullname\",",
-                      "        \"address\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.data).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(res.data)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n  \"fullname\": \"Ipan\",\r\n  \"address\": \"Pemalang\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/save-user",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "save-user"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Put User",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let res = pm.response.json();",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\",",
-                      "        \"data\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested data fields",
-                      "    [",
-                      "        \"fullname\",",
-                      "        \"address\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.data).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(res.data)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "PUT",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"id\": \"ec839f0a-6c60-4448-8c49-cd0c7656e8c2\", \r\n    \"fullname\": \"Ipan\",\r\n    \"address\": \"Pekalongan\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/put-user",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "put-user"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Exists User",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let res = pm.response.json();",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\",",
-                      "        \"data\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested data fields",
-                      "    [",
-                      "        \"fullname\",",
-                      "        \"address\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.data).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(res.data)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"fullname\": \"Ipan\",\r\n    \"address\": \"Pemalang\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/exist-user",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "exist-user"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Query User",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Validate response schema\", function () {",
-                      "",
-                      "    const res = pm.response.json();",
-                      "",
-                      "    // response harus array",
-                      "    pm.expect(res).to.be.an(\"array\");",
-                      "",
-                      "    // array tidak boleh kosong",
-                      "    pm.expect(res.length).to.be.greaterThan(0);",
-                      "",
-                      "    res.forEach((item) => {",
-                      "",
-                      "        // field wajib ada",
-                      "        pm.expect(item).to.have.property(\"id\");",
-                      "        pm.expect(item).to.have.property(\"fullname\");",
-                      "        pm.expect(item).to.have.property(\"address\");",
-                      "",
-                      "        // type validation",
-                      "        pm.expect(item.id).to.be.a(\"string\");",
-                      "        pm.expect(item.fullname).to.be.a(\"string\");",
-                      "        pm.expect(item.address).to.be.a(\"string\");",
-                      "",
-                      "        // value validation",
-                      "        pm.expect(item.fullname).to.eql(\"Ipan\");",
-                      "        pm.expect(item.address).to.eql(\"Pekalongan\");",
-                      "    });",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "GET",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/query-user",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "query-user"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Upsert",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let res = pm.response.json();",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "        pm.expect(res.message).to.equal(\"Upsert sukses\");",
-                      "    });",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "PUT",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/upsert-user",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "upsert-user"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Save Timeout",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let res = pm.response.json();",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\",",
-                      "        \"data\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested data fields",
-                      "    [",
-                      "        \"id\",",
-                      "        \"fullname\",",
-                      "        \"address\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.data).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object type",
-                      "    pm.expect(res.data)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"fullname\": \"Ipan\",\r\n    \"address\": \"Pemalang\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/save-timeout",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "save-timeout"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Query Params User",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let res = pm.response.json();",
-                      "",
-                      "    // Validate response is array",
-                      "    pm.expect(res)",
-                      "        .to.be.an(\"array\");",
-                      "",
-                      "    // Validate array is not empty",
-                      "    pm.expect(res.length)",
-                      "        .to.be.greaterThan(0);",
-                      "",
-                      "    // Validate object fields",
-                      "    [",
-                      "        \"fullname\",",
-                      "        \"id\",",
-                      "        \"address\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res[0]).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object type",
-                      "    pm.expect(res[0])",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "GET",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/queryparams-user",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "queryparams-user"
-                  ]
-                }
-              },
-              "response": []
-            }
-          ]
-        },
-        {
-          "name": "JS - File",
-          "item": [
-            {
-              "name": "JS - Read CSV",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Jumlah data harus 6628\", function () {",
-                      "    let response = pm.response.json();",
-                      "",
-                      "    pm.expect(response.data).to.be.an(\"array\");",
-                      "    pm.expect(response.data.length).to.eql(6628);",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "User-Application",
-                    "value": "curl/8.0",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/csv/read",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "csv",
-                    "read"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Read CSV With Separator",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Jumlah data harus 6628\", function () {",
-                      "    let response = pm.response.json();",
-                      "",
-                      "    pm.expect(response.data).to.be.an(\"array\");",
-                      "    pm.expect(response.data.length).to.eql(6628);",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "User-Application",
-                    "value": "curl/8.0",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/csv-with-separator/read",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "csv-with-separator",
-                    "read"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Read CSV With Wrong Separator",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "",
-                      "pm.test(\"Validate message\", ()=> {",
-                      "let res = pm.response.json();",
-                      "",
-                      "pm.expect(res.message).to.be.not.null;",
-                      "})"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "User-Application",
-                    "value": "curl/8.0",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/csv-with-wrong-separator/read",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "csv-with-wrong-separator",
-                    "read"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Read XLSX",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Jumlah data harus 180\", function () {",
-                      "    let response = pm.response.json();",
-                      "",
-                      "    pm.expect(response.data).to.be.an('array');",
-                      "    pm.expect(response.data.length).to.eql(180);",
-                      "});",
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "User-Application",
-                    "value": "curl/8.0",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/xlsx/read",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "xlsx",
-                    "read"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Read XLSX With Sheet",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Jumlah data harus 180\", function () {",
-                      "    let response = pm.response.json();",
-                      "",
-                      "    pm.expect(response.data).to.be.an('array');",
-                      "    pm.expect(response.data.length).to.eql(180);",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "User-Application",
-                    "value": "curl/8.0",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/xlsx-with-separator/read",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "xlsx-with-separator",
-                    "read"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Read XLSX With Wrong Sheet",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "",
-                      "pm.test(\"Validate message\", ()=> {",
-                      "let res = pm.response.json();",
-                      "",
-                      "pm.expect(res.message).to.be.not.null;",
-                      "})"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "User-Application",
-                    "value": "curl/8.0",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/xlsx-with-wrong-sheet/read",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "xlsx-with-wrong-sheet",
-                    "read"
-                  ]
-                }
-              },
-              "response": []
             }
           ]
         },
