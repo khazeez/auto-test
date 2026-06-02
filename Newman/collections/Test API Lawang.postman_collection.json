@@ -101,93 +101,6 @@
               "response": []
             },
             {
-              "name": "Raw - Json Copy",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
-                      "pm.test(\"Validate response body\", function () {",
-                      "    let res = pm.response.json();",
-                      "",
-                      "    // Status code",
-                      "    pm.response.to.have.status(200);",
-                      "",
-                      "    // Root fields",
-                      "    pm.expect(res).to.have.property(\"args\");",
-                      "    pm.expect(res).to.have.property(\"data\");",
-                      "    pm.expect(res).to.have.property(\"headers\");",
-                      "    pm.expect(res).to.have.property(\"json\");",
-                      "    pm.expect(res).to.have.property(\"origin\");",
-                      "    pm.expect(res).to.have.property(\"url\");",
-                      "",
-                      "    // Validate json object",
-                      "    pm.expect(res.json.name).to.eql(\"Aziz\");",
-                      "    pm.expect(res.json.role).to.eql(\"admin\");",
-                      "    pm.expect(res.json.active).to.eql(true);",
-                      "",
-                      "    // Validate array",
-                      "    pm.expect(res.json.tags).to.be.an(\"array\");",
-                      "    pm.expect(res.json.tags).to.include(\"gateway\");",
-                      "    pm.expect(res.json.tags).to.include(\"test\");",
-                      "",
-                      "    // Validate nested object",
-                      "    pm.expect(res.json.metadata.ip).to.eql(\"127.0.0.1\");",
-                      "",
-                      "    // Validate URL",
-                      "    pm.expect(res.url).to.eql(\"https://httpbin.org/post\");",
-                      "",
-                      "    // Validate headers",
-                      "    pm.expect(res.headers[\"Content-Type\"]).to.include(\"application/json\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/post",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "post"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
               "name": "Raw - Deep Nested JSON",
               "event": [
                 {
@@ -4198,7 +4111,7 @@
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
                       "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
                       "    const text = pm.response.text()\r",
-                      "    pm.expect(text).to.include(\"Success hashing with HMAC512\");\r",
+                      "    pm.expect(text).to.include(\"Success hashing with HMAC256\");\r",
                       "    pm.expect(text).to.include(\"message\");\r",
                       "    pm.expect(text).to.include(\"hashing\");\r",
                       "});"
@@ -4635,7 +4548,7 @@
                       "    const text = pm.response.text()\r",
                       "    pm.expect(text).to.include(\"success\");\r",
                       "    pm.expect(text).to.include(\"data\");\r",
-                      "    pm.expect(text).to.include(\"hashing\");\r",
+                      "    pm.expect(text).to.include(\"token\");\r",
                       "});"
                     ],
                     "type": "text/javascript",

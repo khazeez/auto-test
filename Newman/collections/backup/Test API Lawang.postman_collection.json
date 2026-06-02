@@ -101,93 +101,6 @@
               "response": []
             },
             {
-              "name": "Raw - Json Copy",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
-                      "pm.test(\"Validate response body\", function () {",
-                      "    let res = pm.response.json();",
-                      "",
-                      "    // Status code",
-                      "    pm.response.to.have.status(200);",
-                      "",
-                      "    // Root fields",
-                      "    pm.expect(res).to.have.property(\"args\");",
-                      "    pm.expect(res).to.have.property(\"data\");",
-                      "    pm.expect(res).to.have.property(\"headers\");",
-                      "    pm.expect(res).to.have.property(\"json\");",
-                      "    pm.expect(res).to.have.property(\"origin\");",
-                      "    pm.expect(res).to.have.property(\"url\");",
-                      "",
-                      "    // Validate json object",
-                      "    pm.expect(res.json.name).to.eql(\"Aziz\");",
-                      "    pm.expect(res.json.role).to.eql(\"admin\");",
-                      "    pm.expect(res.json.active).to.eql(true);",
-                      "",
-                      "    // Validate array",
-                      "    pm.expect(res.json.tags).to.be.an(\"array\");",
-                      "    pm.expect(res.json.tags).to.include(\"gateway\");",
-                      "    pm.expect(res.json.tags).to.include(\"test\");",
-                      "",
-                      "    // Validate nested object",
-                      "    pm.expect(res.json.metadata.ip).to.eql(\"127.0.0.1\");",
-                      "",
-                      "    // Validate URL",
-                      "    pm.expect(res.url).to.eql(\"https://httpbin.org/post\");",
-                      "",
-                      "    // Validate headers",
-                      "    pm.expect(res.headers[\"Content-Type\"]).to.include(\"application/json\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/post",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "post"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
               "name": "Raw - Deep Nested JSON",
               "event": [
                 {
@@ -4137,6 +4050,732 @@
                 }
               },
               "response": []
+            },
+            {
+              "name": "JS - Hashing HMAC512",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"Success hashing with HMAC512\");\r",
+                      "    pm.expect(text).to.include(\"message\");\r",
+                      "    pm.expect(text).to.include(\"hashing\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"text\": \"BITCOIN A PEER TO PEER CASH SYSTEM\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/hash/hmac512",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "hash",
+                    "hmac512"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Hashing HMAC259",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"Success hashing with HMAC512\");\r",
+                      "    pm.expect(text).to.include(\"message\");\r",
+                      "    pm.expect(text).to.include(\"hashing\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"text\": \"BITCOIN A PEER TO PEER CASH SYSTEM\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/hash/hmac256",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "hash",
+                    "hmac256"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - HMAC259 Base64Encode True",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"Success hashing with HMAC256\");\r",
+                      "    pm.expect(text).to.include(\"message\");\r",
+                      "    pm.expect(text).to.include(\"hashing\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"text\": \"BITCOIN A PEER TO PEER CASH SYSTEM\",\r\n    \"base64\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/hash/hmac256-base64",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "hash",
+                    "hmac256-base64"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - HMAC259 Base64Encode False",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"Success hashing with HMAC256\");\r",
+                      "    pm.expect(text).to.include(\"message\");\r",
+                      "    pm.expect(text).to.include(\"hashing\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"text\": \"BITCOIN A PEER TO PEER CASH SYSTEM\",\r\n    \"base64\": false\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/hash/hmac256-base64",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "hash",
+                    "hmac256-base64"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - SHA256 Signing",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"Success hashing with SHA256\");\r",
+                      "    pm.expect(text).to.include(\"message\");\r",
+                      "    pm.expect(text).to.include(\"hashing\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"text\": \"BITCOIN A PEER TO PEER CASH SYSTEM\",\r\n  \"private_key\": \"-----BEGIN PRIVATE KEY-----\\nMIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJhH5YNhgTeGtQFQ\\nKTmCN72r3zCipvCW5vXSKl1zTHpSKN56Rve7sWOCraDdOI3ei+GYtLcEdytbG63X\\n8tJY1g4yqRArog5mKlX27ibwkGKeubfG8SvOk6OcNXVkhhPz7xbqUv2Sy6dHtQOv\\nELriakogokUIr3JVxP5MXDVsF/rtAgMBAAECgYBiNNO+Q+6KebRX0XOUo/cAukvo\\n2Kyish7m34/0znu+0yeKOv9zmrcOvuLswF5Nl/1MEyhQc2/LJSmXlpIBt8rrQOQ4\\nXM5ZIZYmD9FULcIfyOukTiiE+Rfp9Dyj6G6PQKprGU4x1Sd3zZSHebVO1k2+PTax\\nXDgIxLq7JCLLVIlrYQJBAOlWLHgkbg3O3zLM7gz4uquHKtuD+ubMs0CORTgf/adD\\ni7kR/LcfPWUxygoPZh/irLi7YpgLiSPbx0odU0mgqFUCQQCnEk1Jdt35yY1rapEU\\nJ+BiC19OL/Qpb5ced66dAhHGBkX0zZYCmBYlbbXWFihrNU1+7+l9rC9UpR3XuD0u\\niIA5AkEA59SgljXLyphRlo2ZrvWpsia35CY7MPkM2AUCrQLL6FXqCtTeO6skOti/\\nHkOyedejOF+lU9+SQDhqxy5fw/WFiQJAfRCLQHo10n2ZWpaMgd0T7/D5aAsnqDj7\\nk/gdgzUAXw9lIMshB1IYCe6lltxBZ3egSmyHiebyC1gLDefCDOprqQJABELLfq6N\\nUUF4lT9wNsYo3adPDOXWsUKTJdOVt9gGbCYsZKRQGr2b0kBXWU3mRczUOKr7glY+\\nwjemwBOrEpHJAw==\\n-----END PRIVATE KEY-----\"\r\n} //PKCS #8",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/hash/sha256/signing",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "hash",
+                    "sha256",
+                    "signing"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - SHA256 Signing - Incorrect Private Key",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(500));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"failed to decode private key\");\r",
+                      "    pm.expect(text).to.include(\"message\");\r",
+                      "    pm.expect(text).to.include(\"code\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"text\": \"BITCOIN A PEER TO PEER CASH SYSTEM\",\r\n  \"private_key\": \"-----BEGIN PRIVATE KEY-----\\nMIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJhH5YNhgTeGtQFQ\\nKTmCN72r3zCipvCW5vXSKl1zTHpSKN56Rve7sWOCraDdOI3ei+GYtLcEdytbG63X\\n8tJY1g4yqRArog5mKlX27ibwkGKeubfG8SvOk6OcNXVkhhPz7xbqUv2Sy6dHtQOv\\nELriakogokUIr3JVxP5MAgMBAAECgYBiNNO+Q+6KebRX0XOUo/cAukvo\\n2Kyish7m34/0znu+0yeKOv9zmrcOvuLswF5Nl/1MEyhQc2/LJSmXlpIBt8rrQOQ4\\nXM5ZIZYmD9FULcIfyOukTiiE+Rfp9Dyj6G6PQKprGU4x1Sd3zZSHebVO1k2+PTax\\nXDgIxLq7JCLLBAOlWLHgkbg3O3zLM7gz4uquHKtuD+ubMs0CORTgf/adD\\ni7kR/LcfPWUxygoPZh/irLi7YpgLiSPbx0odU0mgqFUCQQCnEk1Jdt35yY1rapEU\\nJ+BiC19OL/Qpb5ced66dAhHGBkX0zZYCmBYlbbXWFihrNU1+7+l9rC9UpR3XuD0u\\niIA5AkEA59SgljXLyphRlo2ZrvWpsia35CY7MPkM2AUCrQLL6FXqCtTeO6skOti/\\nHkOyedejOF+lU9+SQDhqxy5fw/WFiQJAfRCLQHo10n2ZWpaMgd0T7/D5aAsnqDj7\\nk/gdgzUAXw9lIMshB1IYCe6lltxBZ3egSmyHiebyC1gLDefCDOprqQJABELLfq6N\\nUUF4lT9wNsYo3adPDOXWsUKTJdOVt9gGbCYsZKRQGr2b0kBXWU3mRczUOKr7glY+\\nwjemwBOrEpHJAw==\\n-----END PRIVATE KEY-----\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/hash/sha256/signing",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "hash",
+                    "sha256",
+                    "signing"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - SHA256 Signing - pkcs#01",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"x509: failed to parse private key (use ParsePKCS1PrivateKey instead for this key format)\");\r",
+                      "    pm.expect(text).to.include(\"message\");\r",
+                      "    pm.expect(text).to.include(\"code\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"text\": \"BITCOIN A PEER TO PEER CASH SYSTEM\",\r\n  \"private_key\": \"-----BEGIN RSA PRIVATE KEY-----\\nMIICXAIBAAKBgQCYR+WDYYE3hrUBUCk5gje9q98woqbwlub10ipdc0x6Uijeekb3\\nu7Fjgq2g3TiN3ovhmLS3BHcrWxut1/LSWNYOMqkQK6IOZipV9u4m8JBinrm3xvEr\\nzpOjnDV1ZIYT8+8W6lL9ksunR7UDrxC64mpKIKJFCK9yVcT+TFw1bBf67QIDAQAB\\nAoGAYjTTvkPuinm0V9FzlKP3ALpL6NisorIe5t+P9M57vtMnijr/c5q3Dr7i7MBe\\nTZf9TBMoUHNvyyUpl5aSAbfK60DkOFzOWSGWJg/RVC3CH8jrpE4ohPkX6fQ8o+hu\\nj0CqaxlOMdUnd82Uh3m1TtZNvj02sVw4CMS6uyQiy1SJa2ECQQDpVix4JG4Nzt8y\\nzO4M+Lqrhyrbg/rmzLNAjkU4H/2nQ4u5Efy3Hz1lMcoKD2Yf4qy4u2KYC4kj28dK\\nHVNJoKhVAkEApxJNSXbd+cmNa2qRFCfgYgtfTi/0KW+XHneunQIRxgZF9M2WApgW\\nJW211hYoazVNfu/pfawvVKUd17g9LoiAOQJBAOfUoJY1y8qYUZaNma71qbImt+Qm\\nOzD5DNgFAq0Cy+hV6grU3jurJDrYvx5DsnnXozhfpVPfkkA4ascuX8P1hYkCQH0Q\\ni0B6NdJ9mVqWjIHdE+/w+WgLJ6g4+5P4HYM1AF8PZSDLIQdSGAnupZbcQWd3oEps\\nh4nm8gtYCw3nwgzqa6kCQARCy36ujVFBeJU/cDbGKN2nTwzl1rFCkyXTlbfYBmwm\\nLGSkUBq9m9JAV1lN5kXM1Diq+4JWPsI3psATqxKRyQM=\\n-----END RSA PRIVATE KEY-----\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/hash/sha256/signing",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "hash",
+                    "sha256",
+                    "signing"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - SHA256 Verify",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"Verify sign is success\");\r",
+                      "    pm.expect(text).to.include(\"message\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"encoded\":\"QvGbbZa3c4eWr1phfVAmqg2A4XttNSMpA5v+Y1UClDqvd8OltzoFBCijtqjdSDgUXptBvfNI96EYd8HaKVXYeeTn5dUHFelAVeDKKCsIL5e+atbS/geJdyp0VeEC2TyIASmXR1kPgBz0yZf5QOj4F5Q9wAnLIDFPzyflV767tNs=\",\r\n  \"plain_text\": \"BITCOIN A PEER TO PEER CASH SYSTEM\",\r\n  \r\n  \"public_key\": \"-----BEGIN PUBLIC KEY-----\\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCYR+WDYYE3hrUBUCk5gje9q98w\\noqbwlub10ipdc0x6Uijeekb3u7Fjgq2g3TiN3ovhmLS3BHcrWxut1/LSWNYOMqkQ\\nK6IOZipV9u4m8JBinrm3xvErzpOjnDV1ZIYT8+8W6lL9ksunR7UDrxC64mpKIKJF\\nCK9yVcT+TFw1bBf67QIDAQAB\\n-----END PUBLIC KEY-----\"\r\n\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/hash/sha256/verify",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "hash",
+                    "sha256",
+                    "verify"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - SHA256 Verify - Incorrect Public Key",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"failed to decode public key\");\r",
+                      "    pm.expect(text).to.include(\"message\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"encoded\":\"QvGbbZa3c4eWr1phfVAmqg2A4XttNSMpA5v+Y1UClDqvd8OltzoFBCijtqjdSDgUXptBvfNI96EYd8HaKVXYeeTn5dUHFelAVeDKKCsIL5e+atbS/geJdyp0VeEC2TyIASmXR1kPgBz0yZf5QOj4F5Q9wAnLIDFPzyflV767tNs=\",\r\n  \"plain_text\": \"BITCOIN A PEER TO PEER CASH SYSTEM\",\r\n  \r\n  \"public_key\": \"-----BEGIN PUBLIC KEY-----\\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCYR+WDYYE3hrUBUCk5gje9q98w\\noqbwlub10ipdrc0x6Uijeekb3u7Fjgq2g3TiN3ovhmLS3BHcrWxut1/LSWNYOMqkQ\\nK6IOZipV9u4m8JBinrm3xvErzpOjnDV1ZIYT8+8W6lL9ksunR7UDrxC64mpKIKJF\\nCK9yVcT+TFw1bBf67QIDAQAB\\n-----END PUBLIC KEY-----\"\r\n\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/hash/sha256/verify",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "hash",
+                    "sha256",
+                    "verify"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - SHA256 Verify - Incorrect Plain Text",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"Verify sign is failed\");\r",
+                      "    pm.expect(text).to.include(\"message\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"encoded\":\"QvGbbZa3c4eWr1phfVAmqg2A4XttNSMpA5v+Y1UClDqvd8OltzoFBCijtqjdSDgUXptBvfNI96EYd8HaKVXYeeTn5dUHFelAVeDKKCsIL5e+atbS/geJdyp0VeEC2TyIASmXR1kPgBz0yZf5QOj4F5Q9wAnLIDFPzyflV767tNs=\",\r\n  \"plain_text\": \"PLAIN TEXT SALAH\",\r\n \"public_key\": \"-----BEGIN PUBLIC KEY-----\\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCYR+WDYYE3hrUBUCk5gje9q98w\\noqbwlub10ipdc0x6Uijeekb3u7Fjgq2g3TiN3ovhmLS3BHcrWxut1/LSWNYOMqkQ\\nK6IOZipV9u4m8JBinrm3xvErzpOjnDV1ZIYT8+8W6lL9ksunR7UDrxC64mpKIKJF\\nCK9yVcT+TFw1bBf67QIDAQAB\\n-----END PUBLIC KEY-----\"\r\n\r\n\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/hash/sha256/verify",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "hash",
+                    "sha256",
+                    "verify"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - JWTR256 Signing",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"success\");\r",
+                      "    pm.expect(text).to.include(\"data\");\r",
+                      "    pm.expect(text).to.include(\"hashing\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"claim\": {\r\n    \"id\": \"1298327487934\",\r\n    \"name\": \"AZIZ\",\r\n    \"role\": \"Admin\"\r\n  },\r\n  \"private_key\": \"-----BEGIN PRIVATE KEY-----\\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDO4Qi4SKd8Q+6b\\nrhKEFLyVoEHMCCQtCU8gXLbR5iKpM51bHs5lvCfDeDVmeiJ7L6XX0dRlM26tqZ/A\\nk07w11AvbAdXdI77eHUJzrlNwrBw6SJw65S6DWbGhMGW5pKCF0aPpLvDgbCry9DI\\nzBXf0Qxp9f88yVMmA0t7BXXZlh4QzQFAh5IIyR4T8J5LvnIi2FA1gQQQ77fMDgy6\\nG2BA20QeYtKAQoF3z3ZvqrZLErhksAj0jBEdSoFWgQMeg/TOpexOA+CdX+Mrrc+S\\nAOVVz+4/Kk4uCutQdrcCVSe00La3oeVee7GbHl8rSQ6jT51FSBzrUAg+w5tTVV5w\\nArC5lGbjAgMBAAECggEAR2VnRn4geyTQoJ6jGj0z1imP+5OltHs9eQw2NdtIA//h\\novRPQ9H7IR0HxN2Kr9vCTujF9cUZwcpD7UiJWlncfPk50WdS/xtTvPZAgkMZ9GWo\\n8rKCyfDdEs73JpZdYpMY0XMHL9I+wBNfcyTnua3iLGFu3DIYxYomjwbT5KtHpgET\\nPeDW2QcUII9HZwFYxCiME6uUGpOwFl52haRziEd5Y5/T/gVnbL40kgR2QsZeZnZr\\nAg+rqZEGcDRRZMpZNLE7A89OsY8nP174zmIStzKxmkJ/lh2kL8nHPCSD3amXI24T\\nrKNOovfCy5Hc+DcDH9J7v78I+fHrw9btM1SRh8p5RQKBgQDo5ruuRJtwOK0ZLNsL\\n7rJj1jkkQVHefCLLA822/TCVZBsP9sdLyes8P3S72JRWfPyo+SQbz8uK3ubhPW5v\\nSukDi3TIbzfgBipyIdb8KuTw8YpNTtIXs0OPdklT7gP3pnRFHtizRGXmKgvVGq6i\\nm8wJnguxd8R1lVGahjUBFMt45wKBgQDjZZtHdP5tdojI95qg4S81J4jYkioLs8cB\\nFNH5dcwK2td3UJssmZtjW4KTAkdn2t4L8PCg7M3ZIdw6Ami9+jG1urSweuvWueSL\\nimylAlvGz102s8dB4Cw7nDwXB7OXxiwxZwUsmFSWjdxKjOnEAwC309B9aH4bR+WF\\ndx0vMgN2pQKBgCcBfa1SEDZbR6JPwN/eukG+PxOzXOLGJ42YtXtQLDLY8S9bRUWM\\nK7mLZyGOxEk35ZjnIQUHaC955XETuMsq4JuXX5eyCMmcPr+eq0LQbEduLJuF9+nA\\nPDBqvx0vX7q6Rf7Ni716VxaVNCYcseLJ9QInVg4C4QRQXbpjf70OnoVBAoGBALwj\\n4gCSNLu+edfEvOPkzBkvd5KwBCege8NSRZQfOU212NW4FFsnUCA5o2QcW5X6yQKa\\nO4z5wCqpUDuSqLSeH6jbLApj+WK0dPpa8h7oP6TTBq1uuyqu3goH7tOjJJ0rcn8B\\nXI+UDVBvWNc5lWP+lAaEMpi/7q6Fosn1Tmkw+RqdAoGATEgRe8Xrp4PCmpv+CacH\\n8ogoASOOf/55997CouJRgK+/tJH6YgcBVQokDv2ytRwuvastfBjtoIVn4k6XOkUh\\n2DzHM03l7cxielRQ2xlluKaB/qj0DoS3JTzojiXt5lEdqqUIbBypqJcugq0SifVV\\nZsxZiOgd1k69Waz/7VLP2dw=\\n-----END PRIVATE KEY-----\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/hash/jwtrs256/signing",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "hash",
+                    "jwtrs256",
+                    "signing"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - JWTR256 Signing  - Incorrect Private Key",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"invalid key: Key must be a PEM encoded PKCS1 or PKCS8 key\");\r",
+                      "    pm.expect(text).to.include(\"message\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"claim\": {\r\n    \"id\": \"1298327487934\",\r\n    \"name\": \"AZIZ\",\r\n    \"role\": \"Admin\"\r\n  },\r\n  \"private_key\": \"-----BEGIN PRIVATE KEY-----\\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDO4Qi4SKd8Q+6b\\nrhKEFLyVoEHMCCQtCU8gXLbR5iKpM51bHs5lvCfDeDVmeiJ7L6XX0dRlM26tqZ/A\\nk07w11AvbAdXdI77eHUJzrlNwrBw6SJw65S6DWbGhMGW5pKCF0aPpLvDgbCry9DI\\nzBXf0Qxp9f88yVMmA0t7BXXZlh4QzQFAh5IIyR4T8J5vnIi2FA1gQQQ77fMDgy6\\nG2BA20QeYtKAQoF3z3ZvqrZLErhksAj0jBEdSoFWgQMeg/TOpexOA+CdX+Mrrc+S\\nAOVVz+4/Kk4uCutQdrcCVSe00La3oeVee7GbHl8rSQ6jT51FSBzrUAg+w5tTVV5w\\nArC5lGbjAgMBAAECggEAR2VnRn4geyTQoJ6jGj0z1imP+5OltHs9eQw2NdtIA//h\\novRPQ9H7IR0HxN2Kr9vCTujF9cUZwcpD7UiJWlncfPk50WdS/xtTvPZAgkMZ9GWo\\n8rKCyfDdEs73JpZdYpMY0XMHL9I+wBNfcyTnua3iLGFu3DIYxYomjwbT5KtHpgET\\nPeDW2QcUII9HZwFYxCiME6uUGpOwFl52haRziEd5Y5/T/gVnbL40kgR2QsZeZnZr\\nAg+rqZEGcDRRZMpZNLE7A89OsY8nP174zmIStzKxmkJ/lh2kL8nHPCSD3amXI24T\\nrKNOovfCy5Hc+DcDH9J7v78I+fHrw9btM1SRh8p5RQKBgQDo5ruuRJtwOK0ZLNsL\\n7rJj1jkkQVHefCLLA822/TCVZBsP9sdLyes8P3S72JRWfPyo+SQbz8uK3ubhPW5v\\nSukDi3TIbzfgBipyIdb8KuTw8YpNTtIXs0OPdklT7gP3pnRFHtizRGXmKgvVGq6i\\nm8wJnguxd8R1lVGahjUBFMt45wKBgQDjZZtHdP5tdojI95qg4S81J4jYkioLs8cB\\nFNH5dcwK2td3UJssmZtjW4KTAkdn2t4L8PCg7M3ZIdw6Ami9+jG1urSweuvWueSL\\nimylAlvGz102s8dB4Cw7nDwXB7OXxiwxZwUsmFSWjdxKjOnEAwC309B9aH4bR+WF\\ndx0vMgN2pQKBgCcBfa1SEDZbR6JPwN/eukG+PxOzXOLGJ42YtXtQLDLY8S9bRUWM\\nK7mLZyGOxEk35ZjnIQUHaC955XETuMsq4JuXX5eyCMmcPr+eq0LQbEduLJuF9+nA\\nPDBqvx0vX7q6Rf7Ni716VxaVNCYcseLJ9QInVg4C4QRQXbpjf70OnoVBAoGBALwj\\n4gCSNLu+edfEvOPkzBkvd5KwBCege8NSRZQfOU212NW4FFsnUCA5o2QcW5X6yQKa\\nO4z5wCqpUDuSqLSeH6jbLApj+WK0dPpa8h7oP6TTBq1uuyqu3goH7tOjJJ0rcn8B\\nXI+UDVBvWNc5lWP+lAaEMpi/7q6Fosn1Tmkw+RqdAoGATEgRe8Xrp4PCmpv+CacH\\n8ogoASOOf/55997CouJRgK+/tJH6YgcBVQokDv2ytRwuvastfBjtoIVn4k6XOkUh\\n2DzHM03l7cxielRQ2xlluKaB/qj0DoS3JTzojiXt5lEdqqUIbBypqJcugq0SifVV\\nZsxZiOgd1k69Waz/7VLP2dw=\\n-----END PRIVATE KEY-----\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/hash/jwtrs256/signing",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "hash",
+                    "jwtrs256",
+                    "signing"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - JWTR256 Verify",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"success\");\r",
+                      "    pm.expect(text).to.include(\"data\");;\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyOTgzMjc0ODc5MzQiLCJuYW1lIjoiQVpJWiIsInJvbGUiOiJBZG1pbiJ9.tIFZmFtEA6nUOnzfN1UTH2E_fHvHAqJF1zYhdl9iFl5W2yU30H6aMARo9bni17aG7mTWmj8utm4A8PsqnF3bknAnaTo2AkB1NvW0RABDNQvUUhwifbEhnUZwwmNHczlyq-z9BsVXQFss_WmnwWS4s12qESPQRLbmj5V7tP7m8_CbEQSEp9KAgU8fSSyBrNkAms77RoCEbTPvFgzhaKbM9Ylm-4AhdjA_xo4GiwxEUSpq6LWZx5SAfVNSRAcwHrAKYKQKlXpjJmlVVCvaQV7DBE5vTLGNV78ktIG1oLvHS0WeIi5VHlB9L5zkOCg2jMqRyvRCb7eD76vQu4TLoDZq7g\",\r\n  \"public_key\": \"-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzuEIuEinfEPum64ShBS8\\nlaBBzAgkLQlPIFy20eYiqTOdWx7OZbwnw3g1Znoiey+l19HUZTNuramfwJNO8NdQ\\nL2wHV3SO+3h1Cc65TcKwcOkicOuUug1mxoTBluaSghdGj6S7w4Gwq8vQyMwV39EM\\nafX/PMlTJgNLewV12ZYeEM0BQIeSCMkeE/CeS75yIthQNYEEEO+3zA4MuhtgQNtE\\nHmLSgEKBd892b6q2SxK4ZLAI9IwRHUqBVoEDHoP0zqXsTgPgnV/jK63PkgDlVc/u\\nPypOLgrrUHa3AlUntNC2t6HlXnuxmx5fK0kOo0+dRUgc61AIPsObU1VecAKwuZRm\\n4wIDAQAB\\n-----END PUBLIC KEY-----\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/hash/jwtrs256/verify",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "hash",
+                    "jwtrs256",
+                    "verify"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - JWTR256 Verify - Incorrect public key",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"code\");\r",
+                      "    pm.expect(text).to.include(\"message\");\r",
+                      "    pm.expect(text).to.include(\"invalid key: Key must be a PEM encoded PKCS1 or PKCS8 key\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyOTgzMjc0ODc5MzQiLCJuYW1lIjoiQVpJWiIsInJvbGUiOiJBZG1pbiJ9.tIFZmFtEA6nUOnzfN1UTH2E_fHvHAqJF1zYhdl9iFl5W2yU30H6aMARo9bni17aG7mTWmj8utm4A8PsqnF3bknAnaTo2AkB1NvW0RABDNQvUUhwifbEhnUZwwmNHczlyq-z9BsVXQFss_WmnwWS4s12qESPQRLbmj5V7tP7m8_CbEQSEp9KAgU8fSSyBrNkAms77RoCEbTPvFgzhaKbM9Ylm-4AhdjA_xo4GiwxEUSpq6LWZx5SAfVNSRAcwHrAKYKQKlXpjJmlVVCvaQV7DBE5vTLGNV78ktIG1oLvHS0WeIi5VHlB9L5zkOCg2jMqRyvRCb7eD76vQu4TLoDZq7g\",\r\n  \"public_key\": \"-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzuEIuEinfEPum64ShBS8\\nlaBBzAgkLQlPIFy20eYiqTOdWx7OZbwnw3rg1Znoiey+l19HUZTNuramfwJNO8NdQ\\nL2wHV3SO+3h1Cc65TcKwcOkicOuUug1mxoTBluaSghdGj6S7w4Gwq8vQyMwV39EM\\nafX/PMlTJgNLewV12ZYeEM0BQIeSCMkeE/CeS75yIthQNYEEEO+3zA4MuhtgQNtE\\nHmLSgEKBd892b6q2SxK4ZLAI9IwRHUqBVoEDHoP0zqXsTgPgnV/jK63PkgDlVc/u\\nPypOLgrrUHa3AlUntNC2t6HlXnuxmx5fK0kOo0+dRUgc61AIPsObU1VecAKwuZRm\\n4wIDAQAB\\n-----END PUBLIC KEY-----\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/hash/jwtrs256/verify",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "hash",
+                    "jwtrs256",
+                    "verify"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - JWTR256 Verify - Incorrect token",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text()\r",
+                      "    pm.expect(text).to.include(\"code\");\r",
+                      "    pm.expect(text).to.include(\"message\");\r",
+                      "    pm.expect(text).to.include(\"token signature is invalid: crypto/rsa: verification error\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"token\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyOTgzMjc0ODc5MzQiLCJuYW1lIjoiQVpJWiIsInJvbGUiOiJBZG1pbiJ9.tIFZmFtEA6nUOnzfN1UTH2E_fHvHAqJF1zYhdl9iFl5W2yU30H6aMARo9bni17aG7mTWmj8utm4A8PsqnF3bknAnaTo2AkB1NvW0RABDNQvUUhwifbEhnUZwwmN3Hczlyq-z9BsVXQFss_WmnwWS4s12qESPQRLbmj5V7tP7m8_CbEQSEp9KAgU8fSSyBrNkAms77RoCEbTPvFgzhaKbM9Ylm-4AhdjA_xo4GiwxEUSpq6LWZx5SAfVNSRAcwHrAKYKQKlXpjJmlVVCvaQV7DBE5vTLGNV78ktIG1oLvHS0WeIi5VHlB9L5zkOCg2jMqRyvRCb7eD76vQu4TLoDZq7g\",\r\n  \"public_key\": \"-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzuEIuEinfEPum64ShBS8\\nlaBBzAgkLQlPIFy20eYiqTOdWx7OZbwnw3g1Znoiey+l19HUZTNuramfwJNO8NdQ\\nL2wHV3SO+3h1Cc65TcKwcOkicOuUug1mxoTBluaSghdGj6S7w4Gwq8vQyMwV39EM\\nafX/PMlTJgNLewV12ZYeEM0BQIeSCMkeE/CeS75yIthQNYEEEO+3zA4MuhtgQNtE\\nHmLSgEKBd892b6q2SxK4ZLAI9IwRHUqBVoEDHoP0zqXsTgPgnV/jK63PkgDlVc/u\\nPypOLgrrUHa3AlUntNC2t6HlXnuxmx5fK0kOo0+dRUgc61AIPsObU1VecAKwuZRm\\n4wIDAQAB\\n-----END PUBLIC KEY-----\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/hash/jwtrs256/verify",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "hash",
+                    "jwtrs256",
+                    "verify"
+                  ]
+                }
+              },
+              "response": []
             }
           ]
         },
@@ -6751,7 +7390,7 @@
               "response": []
             },
             {
-              "name": "JS - xml to json (Invalid XML)",
+              "name": "JS - xml to json - Invalid XML",
               "event": [
                 {
                   "listen": "test",
