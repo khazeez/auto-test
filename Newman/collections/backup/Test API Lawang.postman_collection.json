@@ -4111,7 +4111,7 @@
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
                       "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
                       "    const text = pm.response.text()\r",
-                      "    pm.expect(text).to.include(\"Success hashing with HMAC512\");\r",
+                      "    pm.expect(text).to.include(\"Success hashing with HMAC256\");\r",
                       "    pm.expect(text).to.include(\"message\");\r",
                       "    pm.expect(text).to.include(\"hashing\");\r",
                       "});"
@@ -4548,7 +4548,7 @@
                       "    const text = pm.response.text()\r",
                       "    pm.expect(text).to.include(\"success\");\r",
                       "    pm.expect(text).to.include(\"data\");\r",
-                      "    pm.expect(text).to.include(\"hashing\");\r",
+                      "    pm.expect(text).to.include(\"token\");\r",
                       "});"
                     ],
                     "type": "text/javascript",
