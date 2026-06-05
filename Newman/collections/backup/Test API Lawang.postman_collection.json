@@ -52,8 +52,6 @@
                       "    // Validate nested object",
                       "    pm.expect(res.json.metadata.ip).to.eql(\"127.0.0.1\");",
                       "",
-                      "    // Validate URL",
-                      "    pm.expect(res.url).to.eql(\"https://httpbin.org/post\");",
                       "",
                       "    // Validate headers",
                       "    pm.expect(res.headers[\"Content-Type\"]).to.include(\"application/json\");",
@@ -192,11 +190,9 @@
                   }
                 },
                 "url": {
-                  "raw": "https://httpbin.org/post",
-                  "protocol": "https",
+                  "raw": "{{baseUrlCore}}/post",
                   "host": [
-                    "httpbin",
-                    "org"
+                    "{{baseUrlCore}}"
                   ],
                   "path": [
                     "post"
@@ -233,9 +229,6 @@
                       "    // Validate json is null",
                       "    pm.expect(res.json).to.eql(null);",
                       "",
-                      "    // Validate URL",
-                      "    pm.expect(res.url)",
-                      "        .to.eql(\"https://httpbin.org/post\");",
                       "});"
                     ],
                     "type": "text/javascript",
@@ -306,9 +299,6 @@
                       "    // Validate json is null",
                       "    pm.expect(res.json).to.eql(null);",
                       "",
-                      "    // Validate URL",
-                      "    pm.expect(res.url)",
-                      "        .to.eql(\"https://httpbin.org/post\");",
                       "});"
                     ],
                     "type": "text/javascript",
@@ -542,7 +532,7 @@
                 "body": {
                   "mode": "file",
                   "file": {
-                    "src": "httpbin/PDF.pdf"
+                    "src": "/C:/Users/ASUS/HARMONIX/WORKING/core-automation-test/Newman/httpbin/PDF.pdf"
                   }
                 },
                 "url": {
@@ -10312,7 +10302,21 @@
                 "exec": [
                   "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
                   "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);"
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "",
+                  "const response = pm.response.json();",
+                  "",
+                  "pm.test(\"result field exists\", () => {",
+                  "    pm.expect(response).to.have.property(\"result\");",
+                  "});",
+                  "",
+                  "pm.test(\"result is an array\", () => {",
+                  "    pm.expect(response.result).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"result array is 200 record\", () => {",
+                  "    pm.expect(response.result).to.have.lengthOf(200);",
+                  "});"
                 ],
                 "type": "text/javascript",
                 "packages": {},
@@ -10343,6 +10347,64 @@
                 "v2.1",
                 "db",
                 "lawang"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DB - Database Empty Case",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "",
+                  "const response = pm.response.json();",
+                  "",
+                  "pm.test(\"result field exists\", () => {",
+                  "    pm.expect(response).to.have.property(\"result\");",
+                  "});",
+                  "",
+                  "pm.test(\"result is an array\", () => {",
+                  "    pm.expect(response.result).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"result array is empty\", () => {",
+                  "    pm.expect(response.result).to.have.lengthOf(0);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlCore}}/empty/db",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "empty",
+                "db"
               ]
             }
           },
@@ -10401,7 +10463,21 @@
                 "exec": [
                   "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
                   "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);"
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "",
+                  "const response = pm.response.json();",
+                  "",
+                  "pm.test(\"result field exists\", () => {",
+                  "    pm.expect(response).to.have.property(\"result\");",
+                  "});",
+                  "",
+                  "pm.test(\"result is an array\", () => {",
+                  "    pm.expect(response.result).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"result array is 500 record\", () => {",
+                  "    pm.expect(response.result).to.have.lengthOf(500);",
+                  "});"
                 ],
                 "type": "text/javascript",
                 "packages": {},
@@ -10513,7 +10589,21 @@
                 "exec": [
                   "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
                   "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);"
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "",
+                  "const response = pm.response.json();",
+                  "",
+                  "pm.test(\"result field exists\", () => {",
+                  "    pm.expect(response).to.have.property(\"result\");",
+                  "});",
+                  "",
+                  "pm.test(\"result is an array\", () => {",
+                  "    pm.expect(response.result).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"result array is 1000 record\", () => {",
+                  "    pm.expect(response.result).to.have.lengthOf(1000);",
+                  "});"
                 ],
                 "type": "text/javascript",
                 "packages": {},
