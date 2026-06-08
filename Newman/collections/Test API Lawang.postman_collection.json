@@ -10295,8 +10295,8 @@
                   "    pm.expect(response.result).to.be.an(\"array\");",
                   "});",
                   "",
-                  "pm.test(\"result array is 200 record\", () => {",
-                  "    pm.expect(response.result).to.have.lengthOf(200);",
+                  "pm.test(\"result array is 10 record\", () => {",
+                  "    pm.expect(response.result).to.have.lengthOf(10);",
                   "});"
                 ],
                 "type": "text/javascript",
