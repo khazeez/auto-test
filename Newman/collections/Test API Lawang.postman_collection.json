@@ -532,7 +532,7 @@
                 "body": {
                   "mode": "file",
                   "file": {
-                    "src": "/C:/Users/ASUS/HARMONIX/WORKING/core-automation-test/Newman/httpbin/PDF.pdf"
+                    "src": "httpbin/PDF.pdf"
                   }
                 },
                 "url": {
