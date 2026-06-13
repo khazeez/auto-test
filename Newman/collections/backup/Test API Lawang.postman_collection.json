@@ -6858,556 +6858,1050 @@
           "name": "JS - DB",
           "item": [
             {
-              "name": "JS - Save User",
-              "event": [
+              "name": "Query",
+              "item": [
                 {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let res = pm.response.json();",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\",",
-                      "        \"data\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested data fields",
-                      "    [",
-                      "        \"id\",",
-                      "        \"fullname\",",
-                      "        \"address\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.data).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(res.data)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n  \"fullname\": \"Ipan\",\r\n  \"address\": \"Pemalang\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "name": "JS - Query Params (source, sql)",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    pm.expect(res.data)",
+                          "        .to.be.an(\"array\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
                     }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/save-user",
-                  "host": [
-                    "{{baseUrlCore}}"
                   ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "save-user"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Put User",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let res = pm.response.json();",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\",",
-                      "        \"data\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested data fields",
-                      "    [",
-                      "        \"fullname\",",
-                      "        \"address\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.data).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(res.data)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "PUT",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"id\": \"ec839f0a-6c60-4448-8c49-cd0c7656e8c2\", \r\n    \"fullname\": \"Ipan\",\r\n    \"address\": \"Pekalongan\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"source\": \"DSP-TEST\",\r\n    \"sql\":\"SELECT * FROM customer\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js/query-param",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js",
+                        "query-param"
+                      ]
                     }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/put-user",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "put-user"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Exists User",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let res = pm.response.json();",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\",",
-                      "        \"data\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested data fields",
-                      "    [",
-                      "        \"fullname\",",
-                      "        \"address\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.data).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(res.data)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
+                  },
+                  "response": []
                 },
                 {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"fullname\": \"Ipan\",\r\n    \"address\": \"Pemalang\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "name": "JS - Query Params (source, sql, params)",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    pm.expect(res.data)",
+                          "        .to.be.an(\"array\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
                     }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/exist-user",
-                  "host": [
-                    "{{baseUrlCore}}"
                   ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "exist-user"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Query User",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Validate response schema\", function () {",
-                      "",
-                      "    const res = pm.response.json();",
-                      "",
-                      "    // response harus array",
-                      "    pm.expect(res).to.be.an(\"array\");",
-                      "",
-                      "    // array tidak boleh kosong",
-                      "    pm.expect(res.length).to.be.greaterThan(0);",
-                      "",
-                      "    res.forEach((item) => {",
-                      "",
-                      "        // field wajib ada",
-                      "        pm.expect(item).to.have.property(\"id\");",
-                      "        pm.expect(item).to.have.property(\"fullname\");",
-                      "        pm.expect(item).to.have.property(\"address\");",
-                      "",
-                      "        // type validation",
-                      "        pm.expect(item.id).to.be.a(\"string\");",
-                      "        pm.expect(item.fullname).to.be.a(\"string\");",
-                      "        pm.expect(item.address).to.be.a(\"string\");",
-                      "",
-                      "        // value validation",
-                      "        pm.expect(item.fullname).to.eql(\"Ipan\");",
-                      "        pm.expect(item.address).to.eql(\"Pekalongan\");",
-                      "    });",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "GET",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/query-user",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "query-user"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Upsert",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let res = pm.response.json();",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "        pm.expect(res.message).to.equal(\"Upsert sukses\");",
-                      "    });",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "PUT",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/upsert-user",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "upsert-user"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Save Timeout",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let res = pm.response.json();",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"message\",",
-                      "        \"data\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested data fields",
-                      "    [",
-                      "        \"id\",",
-                      "        \"fullname\",",
-                      "        \"address\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.data).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object type",
-                      "    pm.expect(res.data)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"fullname\": \"Ipan\",\r\n    \"address\": \"Pemalang\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"source\": \"DSP-TEST\",\r\n    \"sql\":\"SELECT * FROM customer WHERE id=$1\",\r\n    \"params\": [\"b2841bb1-af94-4acb-bedf-b99edd93429e\"]\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js/query-param",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js",
+                        "query-param"
+                      ]
                     }
-                  }
+                  },
+                  "response": []
                 },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/save-timeout",
-                  "host": [
-                    "{{baseUrlCore}}"
+                {
+                  "name": "JS - Query Params (source, sql, timeout)",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    pm.expect(res.data)",
+                          "        .to.be.an(\"array\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
                   ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "save-timeout"
-                  ]
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"source\": \"DSP-TEST\",\r\n    \"sql\":\"SELECT * FROM customer\",\r\n    \"timeout\": 5\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js/query-param",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js",
+                        "query-param"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Query Params (source, sql, params, timeout)",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    pm.expect(res.data)",
+                          "        .to.be.an(\"array\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"source\": \"DSP-TEST\",\r\n    \"sql\":\"SELECT * FROM customer WHERE id=$1\",\r\n    \"params\": [\"932298ad-eb59-462d-a320-8d57d97fac56\"],\r\n    \"timeout\": 5\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js/query-param",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js",
+                        "query-param"
+                      ]
+                    }
+                  },
+                  "response": []
                 }
-              },
-              "response": []
+              ]
             },
             {
-              "name": "JS - Query Params User",
-              "event": [
+              "name": "Save",
+              "item": [
                 {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let res = pm.response.json();",
-                      "",
-                      "    // Validate response is array",
-                      "    pm.expect(res)",
-                      "        .to.be.an(\"array\");",
-                      "",
-                      "    // Validate array is not empty",
-                      "    pm.expect(res.length)",
-                      "        .to.be.greaterThan(0);",
-                      "",
-                      "    // Validate object fields",
-                      "    [",
-                      "        \"fullname\",",
-                      "        \"id\",",
-                      "        \"address\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res[0]).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object type",
-                      "    pm.expect(res[0])",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "GET",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/queryparams-user",
-                  "host": [
-                    "{{baseUrlCore}}"
+                  "name": "JS - Save User",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"message\",",
+                          "        \"data\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested data fields",
+                          "    [",
+                          "        \"id\",",
+                          "        \"fullname\",",
+                          "        \"address\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.data).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate object types",
+                          "    pm.expect(res.data)",
+                          "        .to.be.an(\"object\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
                   ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "queryparams-user"
-                  ]
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"fullname\": \"Ipan\",\r\n  \"address\": \"Pemalang\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/v2.1/js/save-user",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "v2.1",
+                        "js",
+                        "save-user"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Save User Timeout",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"message\",",
+                          "        \"data\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested data fields",
+                          "    [",
+                          "        \"id\",",
+                          "        \"fullname\",",
+                          "        \"address\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.data).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate object types",
+                          "    pm.expect(res.data)",
+                          "        .to.be.an(\"object\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"fullname\": \"Ipan\",\r\n  \"address\": \"Pemalang\",\r\n  \"timeout\": 5\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/v2.1/js/save-user",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "v2.1",
+                        "js",
+                        "save-user"
+                      ]
+                    }
+                  },
+                  "response": []
                 }
-              },
-              "response": []
+              ]
+            },
+            {
+              "name": "Exec",
+              "item": [
+                {
+                  "name": "JS - Query Exec (source, sql)",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"source\": \"DSP-TEST\",\r\n    \"sql\":\"SELECT * FROM customer\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js/exec",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js",
+                        "exec"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Query Exec (source, sql, params)",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"source\": \"DSP-TEST\",\r\n    \"sql\":\"SELECT * FROM customer WHERE id=$1\",\r\n    \"params\": [\"b2841bb1-af94-4acb-bedf-b99edd93429e\"]\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js/exec",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js",
+                        "exec"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Query Exec (source, sql, timeout)",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"source\": \"DSP-TEST\",\r\n    \"sql\":\"SELECT * FROM customer\",\r\n    \"timeout\": 5\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js/exec",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js",
+                        "exec"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Query Exec (source, sql, params, timout)",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"source\": \"DSP-TEST\",\r\n    \"sql\":\"SELECT * FROM customer WHERE id=$1\",\r\n    \"params\": [\"932298ad-eb59-462d-a320-8d57d97fac56\"],\r\n    \"timeout\": 5\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js/exec",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js",
+                        "exec"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Update",
+              "item": [
+                {
+                  "name": "JS - Update (source, table, identities, payload)",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"message\",",
+                          "        \"data\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested data fields",
+                          "    [",
+                          "        \"fullname\",",
+                          "        \"address\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.data).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate object types",
+                          "    pm.expect(res.data)",
+                          "        .to.be.an(\"object\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"id\": \"ec839f0a-6c60-4448-8c49-cd0c7656e8c2\", \r\n    \"fullname\": \"Ipan\",\r\n    \"address\": \"Pekalongan\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/v2.1/js/put-user",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "v2.1",
+                        "js",
+                        "put-user"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Update (source, table, identities, payload, timeout)",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"message\",",
+                          "        \"data\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested data fields",
+                          "    [",
+                          "        \"fullname\",",
+                          "        \"address\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.data).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate object types",
+                          "    pm.expect(res.data)",
+                          "        .to.be.an(\"object\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"id\": \"ec839f0a-6c60-4448-8c49-cd0c7656e8c2\", \r\n    \"fullname\": \"Ipan\",\r\n    \"address\": \"Pekalongan\",\r\n    \"timeout\": 5\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/v2.1/js/put-user",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "v2.1",
+                        "js",
+                        "put-user"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Upsert",
+              "item": [
+                {
+                  "name": "JS - Upsert (source, table, identities, payload)",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"message\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "        pm.expect(res.message).to.equal(\"Upsert sukses\");",
+                          "    });",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/v2.1/js/upsert-user",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "v2.1",
+                        "js",
+                        "upsert-user"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Upsert (source, table, identities, payload, timeout)",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"message\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "        pm.expect(res.message).to.equal(\"Upsert sukses\");",
+                          "    });",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"timeout\": 5\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/v2.1/js/upsert-user",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "v2.1",
+                        "js",
+                        "upsert-user"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Exist",
+              "item": [
+                {
+                  "name": "JS - Exists User",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Validate required fields\", function () {",
+                          "",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Validate top level fields",
+                          "    [",
+                          "        \"message\",",
+                          "        \"data\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate nested data fields",
+                          "    [",
+                          "        \"fullname\",",
+                          "        \"address\"",
+                          "    ].forEach(field => {",
+                          "        pm.expect(res.data).to.have.property(field);",
+                          "    });",
+                          "",
+                          "    // Validate object types",
+                          "    pm.expect(res.data)",
+                          "        .to.be.an(\"object\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"fullname\": \"Ipan\",\r\n    \"address\": \"Pemalang\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/v2.1/js/exist-user",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "v2.1",
+                        "js",
+                        "exist-user"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
             }
           ]
         },
