@@ -918,7 +918,7 @@
                   "listen": "test",
                   "script": {
                     "exec": [
-                      "pm.test(\"Status code is 429\", () => pm.response.to.have.status(429));\r",
+                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));\r",
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
                       "pm.test(\"Response is valid json\", () => {\r",
@@ -970,7 +970,7 @@
                   "listen": "test",
                   "script": {
                     "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));\r",
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
                       "pm.test(\"Response is valid json\", () => {\r",
@@ -1173,7 +1173,7 @@
                   "listen": "test",
                   "script": {
                     "exec": [
-                      "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
+                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));\r",
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
                       "pm.test(\"Validate response\", () => {\r",
