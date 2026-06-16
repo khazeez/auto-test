@@ -59,7 +59,7 @@ const ENVIRONMENTS = [
 const COLLECTIONS = [
   {
     name: 'Test Normal Flow',
-    file: 'Lawang - Normal Flow 2.postman_collection.json',
+    file: 'Lawang - Normal Flow.postman_collection.json',
     color: C.green,
     bg: C.bgGreen,
     before: async () => {},
