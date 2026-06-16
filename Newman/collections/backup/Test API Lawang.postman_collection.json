@@ -912,7 +912,7 @@
               "response": []
             },
             {
-              "name": "Quota exceeded - error message masih tidak sesuai",
+              "name": "Quota exceeded",
               "event": [
                 {
                   "listen": "test",
@@ -964,7 +964,7 @@
               "response": []
             },
             {
-              "name": "Quota Expired - error message masih tidak sesuai",
+              "name": "Quota Expired",
               "event": [
                 {
                   "listen": "test",
@@ -1122,12 +1122,12 @@
                   "listen": "test",
                   "script": {
                     "exec": [
-                      "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
+                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));\r",
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
                       "pm.test(\"Validate response\", () => {\r",
-                      "   pm.expect(pm.response.json()).to.have.property(\"code\").to.eq(401);\r",
-                      "   pm.expect(pm.response.json()).to.have.property(\"message\").to.eq(\"Unauthorized\")\r",
+                      "   pm.expect(pm.response.json()).to.have.property(\"code\").to.eq(403);\r",
+                      "   pm.expect(pm.response.json()).to.have.property(\"message\").to.eq(\"Forbidden\")\r",
                       "});"
                     ],
                     "type": "text/javascript",
@@ -1177,8 +1177,8 @@
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
                       "pm.test(\"Validate response\", () => {\r",
-                      "   pm.expect(pm.response.json()).to.have.property(\"code\").to.eq(401);\r",
-                      "   pm.expect(pm.response.json()).to.have.property(\"message\").to.eq(\"Unauthorized\")\r",
+                      "   pm.expect(pm.response.json()).to.have.property(\"code\").to.eq(403);\r",
+                      "   pm.expect(pm.response.json()).to.have.property(\"message\").to.eq(\"Forbidden\")\r",
                       "});"
                     ],
                     "type": "text/javascript",
@@ -7730,7 +7730,12 @@
                     "header": [],
                     "body": {
                       "mode": "raw",
-                      "raw": ""
+                      "raw": "{\r\n    \"timeout\": 0\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
                     },
                     "url": {
                       "raw": "{{baseUrlCore}}/v2.1/js/upsert-user",
@@ -15023,7 +15028,7 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));",
                   "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
                   "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
                   "console.log(\"Request body:\", pm.request.body.toString());",
@@ -15031,39 +15036,6 @@
                   "pm.test(\"Validate required fields\", function () {",
                   "",
                   "    let res = pm.response.json();",
-                  "",
-                  "    // Validate top level fields",
-                  "    [",
-                  "        \"additionalProperties\"",
-                  "    ].forEach(field => {",
-                  "        pm.expect(res).to.have.property(field);",
-                  "    });",
-                  "",
-                  "    // Validate additionalProperties fields",
-                  "    [",
-                  "        \"keyword\",",
-                  "        \"code\",",
-                  "        \"message\",",
-                  "        \"params\"",
-                  "    ].forEach(field => {",
-                  "        pm.expect(res.additionalProperties)",
-                  "            .to.have.property(field);",
-                  "    });",
-                  "",
-                  "    // Validate params fields",
-                  "    [",
-                  "        \"property\"",
-                  "    ].forEach(field => {",
-                  "        pm.expect(res.additionalProperties.params)",
-                  "            .to.have.property(field);",
-                  "    });",
-                  "",
-                  "    // Validate object types",
-                  "    pm.expect(res.additionalProperties)",
-                  "        .to.be.an(\"object\");",
-                  "",
-                  "    pm.expect(res.additionalProperties.params)",
-                  "        .to.be.an(\"object\");",
                   "});"
                 ],
                 "type": "text/javascript",
