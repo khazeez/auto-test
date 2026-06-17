@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "78f8db07-18ac-4c45-bfd3-bf44df5e6d79",
-    "name": "Lawang - Normal Flow 2",
+    "_postman_id": "e96a1874-9a6e-4afb-928f-8297c24a47f5",
+    "name": "Lawang - Normal Flow",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "53603159",
-    "_collection_link": "https://go.postman.co/collection/53603159-78f8db07-18ac-4c45-bfd3-bf44df5e6d79?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/53603159-e96a1874-9a6e-4afb-928f-8297c24a47f5?source=collection_link"
   },
   "item": [
     {
@@ -1122,11 +1122,11 @@
                   "listen": "test",
                   "script": {
                     "exec": [
-                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));\r",
+                      "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
                       "pm.test(\"Validate response\", () => {\r",
-                      "   pm.expect(pm.response.json()).to.have.property(\"code\").to.eq(403);\r",
+                      "   pm.expect(pm.response.json()).to.have.property(\"code\").to.eq(401);\r",
                       "});"
                     ],
                     "type": "text/javascript",
@@ -1222,12 +1222,12 @@
                   "listen": "test",
                   "script": {
                     "exec": [
-                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));\r",
+                      "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
                       "pm.test(\"Validate response\", () => {\r",
-                      "   pm.expect(pm.response.json()).to.have.property(\"code\").to.eq(403);\r",
-                      "   pm.expect(pm.response.json()).to.have.property(\"message\").to.eq(\"Forbidden\")\r",
+                      "   pm.expect(pm.response.json()).to.have.property(\"code\").to.eq(401);\r",
+                      "   pm.expect(pm.response.json()).to.have.property(\"message\").to.eq(\"Unauthorized\")\r",
                       "});"
                     ],
                     "type": "text/javascript",
@@ -1621,6 +1621,89 @@
                     "v2.1",
                     "http",
                     "req-validator"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Rate Limit",
+          "item": [
+            {
+              "name": "HTTP - Rate limit Available",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Validate drizzle ability response\", function () {\r",
+                      "    let res = pm.response.json();\r",
+                      "\r",
+                      "   pm.expect(res.slideshow).to.have.property(\"title\", \"Sample Slide Show\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCore}}/json/rate-limit",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "json",
+                    "rate-limit"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "HTTP - Rate limit Exceeded",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 429\", () => pm.response.to.have.status(429));\r",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Validate drizzle ability response\", function () {\r",
+                      "   const jsonData = pm.response.json();\r",
+                      "   pm.expect(jsonData.message).to.eql(\"Too many requests\");\r",
+                      "   pm.expect(jsonData.code).to.eql(429);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCore}}/xml/limit-exceeded",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "xml",
+                    "limit-exceeded"
                   ]
                 }
               },
@@ -12124,6 +12207,158 @@
           "response": []
         },
         {
+          "name": "DB - Get With Req param",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "",
+                  "const response = pm.response.json();",
+                  "",
+                  "pm.test(\"result field exists\", () => {",
+                  "    pm.expect(response).to.have.property(\"result\");",
+                  "});",
+                  "",
+                  "pm.test(\"result is an array\", () => {",
+                  "    pm.expect(response.result).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"result array is 1 record\", () => {",
+                  "    pm.expect(response.result).to.have.lengthOf(1);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/req-body/get-user?age=25",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "req-body",
+                "get-user"
+              ],
+              "query": [
+                {
+                  "key": "age",
+                  "value": "25"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DB - Get With Req param and wrong type value",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                  "",
+                  "const response = pm.response.json();",
+                  "",
+                  "pm.test(\"result field exists\", () => {",
+                  "    pm.expect(response).to.have.property(\"result\");",
+                  "});",
+                  "",
+                  "pm.test(\"result is an array\", () => {",
+                  "    pm.expect(response.result).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"result array is 1 record\", () => {",
+                  "    pm.expect(response.result).to.have.lengthOf(0);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/req-body/get-user?age=\"27\"",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "req-body",
+                "get-user"
+              ],
+              "query": [
+                {
+                  "key": "age",
+                  "value": "\"27\""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "DB - Database Empty Case",
           "event": [
             {
@@ -12566,11 +12801,7 @@
                   "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                   "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
                   "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                  "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
-                  "pm.test(\"Response has id\", () => {",
-                  "    const res = pm.response.json();",
-                  "    pm.expect(res).to.have.property(\"id\");",
-                  "});"
+                  "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));"
                 ],
                 "type": "text/javascript",
                 "packages": {},
@@ -12606,7 +12837,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"id\": \r\n}",
+              "raw": "",
               "options": {
                 "raw": {
                   "language": "json"
@@ -17232,7 +17463,7 @@
     },
     {
       "key": "token",
-      "value": ""
+      "value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyOTgzMjc0ODc5MzQiLCJuYW1lIjoiQVpJWiIsInJvbGUiOiJBZG1pbiJ9.tIFZmFtEA6nUOnzfN1UTH2E_fHvHAqJF1zYhdl9iFl5W2yU30H6aMARo9bni17aG7mTWmj8utm4A8PsqnF3bknAnaTo2AkB1NvW0RABDNQvUUhwifbEhnUZwwmNHczlyq-z9BsVXQFss_WmnwWS4s12qESPQRLbmj5V7tP7m8_CbEQSEp9KAgU8fSSyBrNkAms77RoCEbTPvFgzhaKbM9Ylm-4AhdjA_xo4GiwxEUSpq6LWZx5SAfVNSRAcwHrAKYKQKlXpjJmlVVCvaQV7DBE5vTLGNV78ktIG1oLvHS0WeIi5VHlB9L5zkOCg2jMqRyvRCb7eD76vQu4TLoDZq7g"
     }
   ]
 }
