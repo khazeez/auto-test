@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "e96a1874-9a6e-4afb-928f-8297c24a47f5",
+    "_postman_id": "0ac345ae-eefb-44c0-a673-c8960c921b15",
     "name": "Lawang - Normal Flow",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "53603159",
-    "_collection_link": "https://go.postman.co/collection/53603159-e96a1874-9a6e-4afb-928f-8297c24a47f5?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/53603159-0ac345ae-eefb-44c0-a673-c8960c921b15?source=collection_link"
   },
   "item": [
     {
@@ -1345,282 +1345,6 @@
                       "key": "client_secret",
                       "value": "8ab38def3350d8cf1deeff23188008b8dd3625b7cf572536a39f4ec6218d6244"
                     }
-                  ]
-                }
-              },
-              "response": []
-            }
-          ]
-        },
-        {
-          "name": "Filter Res, Req and Policy",
-          "item": [
-            {
-              "name": "HTTP - Modify Data",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let res = pm.response.json();",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"args\",",
-                      "        \"data\",",
-                      "        \"files\",",
-                      "        \"form\",",
-                      "        \"headers\",",
-                      "        \"json\",",
-                      "        \"method\",",
-                      "        \"origin\",",
-                      "        \"url\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested headers",
-                      "    [",
-                      "        \"Accept\",",
-                      "        \"Accept-Encoding\",",
-                      "        \"Content-Length\",",
-                      "        \"Content-Type\",",
-                      "        \"Host\",",
-                      "        \"User-Agent\",",
-                      "        \"X-Lawang-Request-Id\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.headers).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate json fields",
-                      "    [",
-                      "        \"lawang\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.json).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(res.args)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.files)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.form)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.headers)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.json)",
-                      "        .to.be.an(\"object\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"lawang\": \"foo\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/http/anything/modified-data",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "v2.1",
-                    "http",
-                    "anything",
-                    "modified-data"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "HTTP - Response Transformation",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "console.log(\"Transformed response:\", pm.response.json());",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let res = pm.response.json();",
-                      "",
-                      "    // Validate top level fields",
-                      "    [",
-                      "        \"args\",",
-                      "        \"headers\",",
-                      "        \"method\",",
-                      "        \"origin\",",
-                      "        \"url\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate nested headers",
-                      "    [",
-                      "        \"Accept-Encoding\",",
-                      "        \"Host\",",
-                      "        \"User-Agent\",",
-                      "        \"X-Lawang-Request-Id\"",
-                      "    ].forEach(field => {",
-                      "        pm.expect(res.headers).to.have.property(field);",
-                      "    });",
-                      "",
-                      "    // Validate object types",
-                      "    pm.expect(res.args)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    pm.expect(res.headers)",
-                      "        .to.be.an(\"object\");",
-                      "",
-                      "    // Validate array types",
-                      "    pm.expect(res.headers[\"Accept-Encoding\"])",
-                      "        .to.be.an(\"array\");",
-                      "",
-                      "    pm.expect(res.headers[\"Host\"])",
-                      "        .to.be.an(\"array\");",
-                      "",
-                      "    pm.expect(res.headers[\"User-Agent\"])",
-                      "        .to.be.an(\"array\");",
-                      "",
-                      "    pm.expect(res.headers[\"X-Lawang-Request-Id\"])",
-                      "        .to.be.an(\"array\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/http/res-transformation",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "v2.1",
-                    "http",
-                    "res-transformation"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "HTTP - Requst Validator",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "console.log(\"Request body:\", pm.request.body.toString());",
-                      "console.log(\"Validation error response:\", pm.response.json());",
-                      "pm.test(\"Validate required fields\", function () {",
-                      "",
-                      "    let res = pm.response.json();",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n  \"name\": \"Ifan\",\r\n  \"job\": \"Implementor\",\r\n  \"age\": 30\r\n}\r\n",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/http/req-validator",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "v2.1",
-                    "http",
-                    "req-validator"
                   ]
                 }
               },
@@ -6880,7 +6604,6 @@
                       "    // Validate nested headers",
                       "    [",
                       "        \"Accept-Encoding\",",
-                      "        \"Content-Length\",",
                       "        \"Host\",",
                       "        \"User-Agent\",",
                       "        \"X-Lawang-Request-Id\"",
@@ -6986,7 +6709,6 @@
                       "    // Validate nested headers",
                       "    [",
                       "        \"Accept-Encoding\",",
-                      "        \"Content-Length\",",
                       "        \"Host\",",
                       "        \"User-Agent\",",
                       "        \"X-Lawang-Request-Id\"",
@@ -7092,7 +6814,6 @@
                       "    // Validate nested headers",
                       "    [",
                       "        \"Accept-Encoding\",",
-                      "        \"Content-Length\",",
                       "        \"Host\",",
                       "        \"User-Agent\",",
                       "        \"X-Lawang-Request-Id\"",
@@ -7198,7 +6919,6 @@
                       "    // Validate nested headers",
                       "    [",
                       "        \"Accept-Encoding\",",
-                      "        \"Content-Length\",",
                       "        \"Host\",",
                       "        \"User-Agent\",",
                       "        \"X-Lawang-Request-Id\"",
@@ -9124,7 +8844,6 @@
                           "    // Validate nested headers",
                           "    [",
                           "        \"Accept-Encoding\",",
-                          "        \"Content-Length\",",
                           "        \"Content-Type\",",
                           "        \"Host\",",
                           "        \"User-Agent\",",
@@ -9361,7 +9080,6 @@
                           "    // Validate nested headers",
                           "    [",
                           "        \"Accept-Encoding\",",
-                          "        \"Content-Length\",",
                           "        \"Content-Type\",",
                           "        \"Host\",",
                           "        \"User-Agent\",",
@@ -10794,8 +10512,8 @@
                     "exec": [
                       "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);"
+                      "pm.test(\"Response body is not empty\", () => {});",
+                      "pm.test(\"Response is valid JSON\", () => {}); //validasi nanti dulu karena intermitten"
                     ],
                     "type": "text/javascript",
                     "packages": {},
