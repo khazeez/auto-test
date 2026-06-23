@@ -12693,7 +12693,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{ \"id\": 1, \"name\": \"John Updated\", \"email\": \"john@test.com\" }",
+              "raw": "{ \"id\": 26, \"name\": \"John Updated\", \"email\": \"john@test.com\" }",
               "options": {
                 "raw": {
                   "language": "json"
@@ -12762,7 +12762,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{ \"id\": 1, \"name\": \"John Patched\", \"email\":\"email@patch\" }",
+              "raw": "{ \"id\": 26, \"name\": \"John Patched\", \"email\":\"email@patch\" }",
               "options": {
                 "raw": {
                   "language": "json"
