@@ -17101,87 +17101,87 @@
   "variable": [
     {
       "key": "baseUrlCore",
-      "value": "https://lawang.moklaar.co.id:7651"
+      "value": ""
     },
     {
       "key": "Username",
-      "value": "lawang-cred-162"
+      "value": ""
     },
     {
       "key": "Password",
-      "value": "admin123!"
+      "value": ""
     },
     {
       "key": "pass_www",
-      "value": "password123"
+      "value": ""
     },
     {
       "key": "x_lawang_key",
-      "value": "cdf8e04698615b8f48dd94f05582cf17d1e3bd4f9ab76206be480ed933037687"
+      "value": ""
     },
     {
       "key": "x_lawang_token",
-      "value": "464c2f87e4a46d9675af081a4ff4ef90bb380dd53e61410fe33c0e15f1f50869"
+      "value": ""
     },
     {
       "key": "user_quota_available",
-      "value": "consumer_02"
+      "value": ""
     },
     {
       "key": "pass_quota_available",
-      "value": "password1234"
+      "value": ""
     },
     {
       "key": "user_quota_exceeded",
-      "value": "consumer_03"
+      "value": ""
     },
     {
       "key": "pass_quota_exceeded",
-      "value": "password12345"
+      "value": ""
     },
     {
       "key": "user_quota_not_set",
-      "value": "consumer"
+      "value": ""
     },
     {
       "key": "pass_quota_not_set",
-      "value": "password123"
+      "value": ""
     },
     {
       "key": "user_quota_expired",
-      "value": "consumer_04"
+      "value": ""
     },
     {
       "key": "pass_quota_expired",
-      "value": "consumer_04"
+      "value": ""
     },
     {
       "key": "user_grant-serv_case1",
-      "value": "mausername-quota"
+      "value": ""
     },
     {
       "key": "pass_grant-serv_case1",
-      "value": "mapassword-quota"
+      "value": ""
     },
     {
       "key": "user_grant-serv_case2",
-      "value": "mausername-2"
+      "value": ""
     },
     {
       "key": "pass_grant-serv_case2",
-      "value": "mapassword-2"
+      "value": ""
     },
     {
       "key": "user_grant-serv_different_client",
-      "value": "username"
+      "value": ""
     },
     {
       "key": "pass_grant-serv_different_client",
-      "value": "pass123"
+      "value": ""
     },
     {
       "key": "token",
-      "value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyOTgzMjc0ODc5MzQiLCJuYW1lIjoiQVpJWiIsInJvbGUiOiJBZG1pbiJ9.tIFZmFtEA6nUOnzfN1UTH2E_fHvHAqJF1zYhdl9iFl5W2yU30H6aMARo9bni17aG7mTWmj8utm4A8PsqnF3bknAnaTo2AkB1NvW0RABDNQvUUhwifbEhnUZwwmNHczlyq-z9BsVXQFss_WmnwWS4s12qESPQRLbmj5V7tP7m8_CbEQSEp9KAgU8fSSyBrNkAms77RoCEbTPvFgzhaKbM9Ylm-4AhdjA_xo4GiwxEUSpq6LWZx5SAfVNSRAcwHrAKYKQKlXpjJmlVVCvaQV7DBE5vTLGNV78ktIG1oLvHS0WeIi5VHlB9L5zkOCg2jMqRyvRCb7eD76vQu4TLoDZq7g"
+      "value": ""
     }
   ]
 }
