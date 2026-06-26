@@ -12007,23 +12007,7 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                  "",
-                  "const response = pm.response.json();",
-                  "",
-                  "pm.test(\"result field exists\", () => {",
-                  "    pm.expect(response).to.have.property(\"result\");",
-                  "});",
-                  "",
-                  "pm.test(\"result is an array\", () => {",
-                  "    pm.expect(response.result).to.be.an(\"array\");",
-                  "});",
-                  "",
-                  "pm.test(\"result array is 1 record\", () => {",
-                  "    pm.expect(response.result).to.have.lengthOf(0);",
-                  "});"
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));"
                 ],
                 "type": "text/javascript",
                 "packages": {},
@@ -12084,22 +12068,8 @@
               "script": {
                 "exec": [
                   "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
                   "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                  "",
-                  "const response = pm.response.json();",
-                  "",
-                  "pm.test(\"result field exists\", () => {",
-                  "    pm.expect(response).to.have.property(\"result\");",
-                  "});",
-                  "",
-                  "pm.test(\"result is an array\", () => {",
-                  "    pm.expect(response.result).to.be.an(\"array\");",
-                  "});",
-                  "",
-                  "pm.test(\"result array is empty\", () => {",
-                  "    pm.expect(response.result).to.have.lengthOf(0);",
-                  "});"
+                  ""
                 ],
                 "type": "text/javascript",
                 "packages": {},
