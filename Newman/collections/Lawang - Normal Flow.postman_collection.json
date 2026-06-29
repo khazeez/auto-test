@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "0ac345ae-eefb-44c0-a673-c8960c921b15",
+    "_postman_id": "76a06aa2-dd7a-4f32-905e-1a483592d110",
     "name": "Lawang - Normal Flow",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "53603159",
-    "_collection_link": "https://go.postman.co/collection/53603159-0ac345ae-eefb-44c0-a673-c8960c921b15?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/53603159-76a06aa2-dd7a-4f32-905e-1a483592d110?source=collection_link"
   },
   "item": [
     {
@@ -79,7 +79,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
+                  "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"age\": 30,\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -182,7 +182,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"level1\": {\r\n    \"level2\": {\r\n      \"level3\": {\r\n        \"level4\": {\r\n          \"level5\": {\r\n            \"message\": \"deep nesting\"\r\n          }\r\n        }\r\n      }\r\n    }\r\n  }\r\n}",
+                  "raw": "{\r\n    \"name\": \"deep nested\",\r\n    \"age\": 70,\r\n  \"level1\": {\r\n    \"level2\": {\r\n      \"level3\": {\r\n        \"level4\": {\r\n          \"level5\": {\r\n            \"message\": \"deep nesting\"\r\n          }\r\n        }\r\n      }\r\n    }\r\n  }\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1432,6 +1432,545 @@
                 }
               },
               "response": []
+            }
+          ]
+        },
+        {
+          "name": "Filter",
+          "item": [
+            {
+              "name": "Request Validation",
+              "item": [
+                {
+                  "name": "Request Validation - Positive",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Status code",
+                          "    pm.response.to.have.status(200);",
+                          "",
+                          "    // Root fields",
+                          "    pm.expect(res).to.have.property(\"args\");",
+                          "    pm.expect(res).to.have.property(\"data\");",
+                          "    pm.expect(res).to.have.property(\"headers\");",
+                          "    pm.expect(res).to.have.property(\"json\");",
+                          "    pm.expect(res).to.have.property(\"origin\");",
+                          "    pm.expect(res).to.have.property(\"url\");",
+                          "",
+                          "    // Validate json object",
+                          "    pm.expect(res.json.name).to.eql(\"Aziz\");",
+                          "    pm.expect(res.json.role).to.eql(\"admin\");",
+                          "    pm.expect(res.json.active).to.eql(true);",
+                          "",
+                          "    // Validate array",
+                          "    pm.expect(res.json.tags).to.be.an(\"array\");",
+                          "    pm.expect(res.json.tags).to.include(\"gateway\");",
+                          "    pm.expect(res.json.tags).to.include(\"test\");",
+                          "",
+                          "    // Validate nested object",
+                          "    pm.expect(res.json.metadata.ip).to.eql(\"127.0.0.1\");",
+                          "",
+                          "",
+                          "    // Validate headers",
+                          "    pm.expect(res.headers[\"Content-Type\"]).to.include(\"application/json\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"age\": 30,\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/post",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "post"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Request Validation - Negative required fields",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "    pm.response.to.have.status(400);",
+                          "    pm.expect(res).to.have.property(\"properties\");",
+                          "    pm.expect(res).to.have.property(\"required\");",
+                          "",
+                          "",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"age\": 30,\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/post",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "post"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Request Validation - Negative required minimum",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "    pm.response.to.have.status(400);",
+                          "    pm.expect(res).to.have.property(\"properties\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"name\": \"Aziz\",\r\n  \"age\": 11,\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/post",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "post"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Request Validation - Negative enum test",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "    pm.response.to.have.status(400);",
+                          "    pm.expect(res).to.have.property(\"properties\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"name\": \"Aziz\",\r\n  \"age\": 20,\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"enum-test\": \"test-2\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/post",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "post"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Request Validation - Negative Min Length",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "    pm.response.to.have.status(400);",
+                          "    pm.expect(res).to.have.property(\"properties\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"name\": \"Aziz\",\r\n  \"age\": 20,\r\n  \"role\": \"admin\",\r\n  \"nik\": \"123456\",\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ]\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/post",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "post"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Request Validation - Negative Max Length",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "    pm.response.to.have.status(400);",
+                          "    pm.expect(res).to.have.property(\"properties\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"name\": \"Aziz\",\r\n  \"age\": 20,\r\n  \"role\": \"admin\",\r\n  \"nik\": \"1234567891011121314\",\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ]\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/post",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "post"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Request Validation - Positive Capitalize field",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Status code",
+                          "    pm.response.to.have.status(200);",
+                          "",
+                          "    // Root fields",
+                          "    pm.expect(res).to.have.property(\"args\");",
+                          "    pm.expect(res).to.have.property(\"data\");",
+                          "    pm.expect(res).to.have.property(\"headers\");",
+                          "    pm.expect(res).to.have.property(\"json\");",
+                          "    pm.expect(res).to.have.property(\"origin\");",
+                          "    pm.expect(res).to.have.property(\"url\");",
+                          "",
+                          "    // Validate json object",
+                          "    pm.expect(res.json.Role).to.eql(\"admin\");",
+                          "    pm.expect(res.json.Active).to.eql(true);",
+                          "",
+                          "    // Validate array",
+                          "    pm.expect(res.json.Tags).to.be.an(\"array\");",
+                          "    pm.expect(res.json.Tags).to.include(\"gateway\");",
+                          "    pm.expect(res.json.Tags).to.include(\"test\");",
+                          "",
+                          "    // Validate nested object",
+                          "    pm.expect(res.json.Metadata.ip).to.eql(\"127.0.0.1\");",
+                          "",
+                          "",
+                          "    // Validate headers",
+                          "    pm.expect(res.headers[\"Content-Type\"]).to.include(\"application/json\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"age\":30,\r\n  \"Role\": \"admin\",\r\n  \"Active\": true,\r\n  \"Tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"Metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/post",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "post"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Request Validation - Negative wrong type",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Status code",
+                          "    pm.response.to.have.status(400);",
+                          "    pm.expect(res.properties.code).to.equal(\"property_mismatch\");",
+                          "",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": 24,\r\n  \"age\": 24,\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/post",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "post"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
             }
           ]
         },
