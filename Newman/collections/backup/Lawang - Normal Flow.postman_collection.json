@@ -12194,7 +12194,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrlCore}}/get-user/25",
+              "raw": "{{baseUrlCore}}/get-user/50",
               "host": [
                 "{{baseUrlCore}}"
               ],
@@ -12264,7 +12264,7 @@
               }
             },
             "url": {
-              "raw": "{{baseUrlCore}}/req-body/get-user?age=25",
+              "raw": "{{baseUrlCore}}/req-body/get-user?age=50",
               "host": [
                 "{{baseUrlCore}}"
               ],
