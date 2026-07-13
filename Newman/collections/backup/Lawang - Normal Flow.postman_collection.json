@@ -1515,12 +1515,13 @@
                       }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/post",
+                      "raw": "{{baseUrlCore}}/anything/req-val-body",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "post"
+                        "anything",
+                        "req-val-body"
                       ]
                     }
                   },
@@ -1577,12 +1578,13 @@
                       }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/post",
+                      "raw": "{{baseUrlCore}}/anything/req-val-body",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "post"
+                        "anything",
+                        "req-val-body"
                       ]
                     }
                   },
@@ -1636,12 +1638,13 @@
                       }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/post",
+                      "raw": "{{baseUrlCore}}/anything/req-val-body",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "post"
+                        "anything",
+                        "req-val-body"
                       ]
                     }
                   },
@@ -1695,12 +1698,13 @@
                       }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/post",
+                      "raw": "{{baseUrlCore}}/anything/req-val-body",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "post"
+                        "anything",
+                        "req-val-body"
                       ]
                     }
                   },
@@ -1754,12 +1758,13 @@
                       }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/post",
+                      "raw": "{{baseUrlCore}}/anything/req-val-body",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "post"
+                        "anything",
+                        "req-val-body"
                       ]
                     }
                   },
@@ -1813,12 +1818,13 @@
                       }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/post",
+                      "raw": "{{baseUrlCore}}/anything/req-val-body",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "post"
+                        "anything",
+                        "req-val-body"
                       ]
                     }
                   },
@@ -1897,12 +1903,13 @@
                       }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/post",
+                      "raw": "{{baseUrlCore}}/anything/req-val-body",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "post"
+                        "anything",
+                        "req-val-body"
                       ]
                     }
                   },
@@ -1959,33 +1966,61 @@
                       }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/post",
+                      "raw": "{{baseUrlCore}}/anything/req-val-body",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "post"
+                        "anything",
+                        "req-val-body"
                       ]
                     }
                   },
                   "response": []
-                }
-              ]
-            },
-            {
-              "name": "Response Transformer",
-              "item": [
+                },
                 {
-                  "name": "HTTP - Positive",
+                  "name": "Request Validation - Negative headers",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
                         "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(403));",
                           "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                           "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);"
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Status code",
+                          "    pm.response.to.have.status(403);",
+                          "",
+                          "    // Root fields",
+                          "    pm.expect(res).to.have.property(\"args\");",
+                          "    pm.expect(res).to.have.property(\"data\");",
+                          "    pm.expect(res).to.have.property(\"headers\");",
+                          "    pm.expect(res).to.have.property(\"json\");",
+                          "    pm.expect(res).to.have.property(\"origin\");",
+                          "    pm.expect(res).to.have.property(\"url\");",
+                          "",
+                          "    // Validate json object",
+                          "    pm.expect(res.json.name).to.eql(\"Aziz\");",
+                          "    pm.expect(res.json.role).to.eql(\"admin\");",
+                          "    pm.expect(res.json.active).to.eql(true);",
+                          "",
+                          "    // Validate array",
+                          "    pm.expect(res.json.tags).to.be.an(\"array\");",
+                          "    pm.expect(res.json.tags).to.include(\"gateway\");",
+                          "    pm.expect(res.json.tags).to.include(\"test\");",
+                          "",
+                          "    // Validate nested object",
+                          "    pm.expect(res.json.metadata.ip).to.eql(\"127.0.0.1\");",
+                          "",
+                          "",
+                          "    // Validate headers",
+                          "    pm.expect(res.headers[\"Content-Type\"]).to.include(\"application/json\");",
+                          "});"
                         ],
                         "type": "text/javascript",
                         "packages": {},
@@ -2004,24 +2039,25 @@
                       }
                     }
                   ],
-                  "protocolProfileBehavior": {
-                    "disableBodyPruning": true
-                  },
                   "request": {
-                    "auth": {
-                      "type": "noauth"
-                    },
-                    "method": "GET",
+                    "method": "POST",
                     "header": [
                       {
-                        "key": "X-WAF-TEST",
-                        "value": "1",
-                        "type": "text"
+                        "key": "uid",
+                        "value": "08c623571ddca73f-ee8f219f-482d8492",
+                        "type": "text",
+                        "disabled": true
+                      },
+                      {
+                        "key": "uid",
+                        "value": "08c623571ddca73f-ee8f219f-482d8492",
+                        "type": "text",
+                        "disabled": true
                       }
                     ],
                     "body": {
                       "mode": "raw",
-                      "raw": "",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"age\": 30,\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
                       "options": {
                         "raw": {
                           "language": "json"
@@ -2029,21 +2065,84 @@
                       }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/get?name=aziz&age=24",
+                      "raw": "{{baseUrlCore}}/anything/req-val-headers",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "get"
+                        "anything",
+                        "req-val-headers"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Request Validation - Negative queries",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Status code",
+                          "    pm.response.to.have.status(403);",
+                          "",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"age\": 30,\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/anything/req-val-queries?date=eeee&",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "anything",
+                        "req-val-queries"
                       ],
                       "query": [
                         {
-                          "key": "name",
-                          "value": "aziz"
+                          "key": "date",
+                          "value": "eeee"
                         },
                         {
-                          "key": "age",
-                          "value": "24"
+                          "key": "",
+                          "value": null
                         }
                       ]
                     }
@@ -2056,7 +2155,7 @@
               "name": "Request Transformer",
               "item": [
                 {
-                  "name": "HTTP - Positive",
+                  "name": "HTTP - Transform field name",
                   "event": [
                     {
                       "listen": "test",
@@ -2081,19 +2180,13 @@
                           "    pm.expect(res).to.have.property(\"origin\");",
                           "    pm.expect(res).to.have.property(\"url\");",
                           "",
-                          "    // Validate json object",
-                          "    pm.expect(res.json.Name).to.eql(\"Aziz\");",
-                          "    pm.expect(res.json.Bagian).to.eql(\"admin\");",
-                          "    pm.expect(res.json.Age).to.eql(30);",
-                          "    pm.expect(res.json.active).to.eql(true);",
+                          "    pm.expect(res.json).to.have.property(\"field_changed_active\");",
+                          "    pm.expect(res.json).to.have.property(\"field_changed_age\");",
+                          "    pm.expect(res.json).to.have.property(\"field_changed_name\");",
+                          "    pm.expect(res.json).to.have.property(\"field_changed_role\");",
+                          "    pm.expect(res.json).to.have.property(\"field_changed_tags\");",
                           "",
-                          "    // Validate array",
-                          "    pm.expect(res.json.tags).to.be.an(\"array\");",
-                          "    pm.expect(res.json.tags).to.include(\"gateway\");",
-                          "    pm.expect(res.json.tags).to.include(\"test\");",
-                          "",
-                          "    // Validate nested object",
-                          "    pm.expect(res.json.metadata.ip).to.eql(\"127.0.0.1\");",
+                          "    ",
                           "",
                           "",
                           "    // Validate headers",
@@ -2130,19 +2223,701 @@
                       }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/anything/anything",
+                      "raw": "{{baseUrlCore}}/anything/test-1",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
                         "anything",
-                        "anything"
+                        "test-1"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "HTTP - Transform Value",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Status code",
+                          "    pm.response.to.have.status(200);",
+                          "",
+                          "    // Root fields",
+                          "    pm.expect(res).to.have.property(\"args\");",
+                          "    pm.expect(res).to.have.property(\"data\");",
+                          "    pm.expect(res).to.have.property(\"headers\");",
+                          "    pm.expect(res).to.have.property(\"json\");",
+                          "    pm.expect(res).to.have.property(\"origin\");",
+                          "    pm.expect(res).to.have.property(\"url\");",
+                          "",
+                          "    // Validate json object",
+                          "    pm.expect(res.json.name).to.eql(\"Khoirul\");",
+                          "    pm.expect(res.json.role).to.eql(\"Dev\");",
+                          "    pm.expect(res.json.age).to.eql(\"100\");",
+                          "",
+                          "",
+                          "",
+                          "    // Validate headers",
+                          "    pm.expect(res.headers[\"Content-Type\"]).to.include(\"application/json\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"age\": 30\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/anything/req-transform-value",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "anything",
+                        "req-transform-value"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "HTTP - Transform Add Field",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Status code",
+                          "    pm.response.to.have.status(200);",
+                          "",
+                          "   pm.expect(res.json).to.have.property(\"additional_field\");",
+                          "",
+                          "    // Validate headers",
+                          "    pm.expect(res.headers[\"Content-Type\"]).to.include(\"application/json\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"age\": 30\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/anything/req-add-field",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "anything",
+                        "req-add-field"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "HTTP - Transformer Not Set",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    pm.response.to.have.status(200);",
+                          "",
+                          "    pm.expect(res.headers[\"Content-Type\"]).to.include(\"application/json\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"age\": 30\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/anything/req-not-set",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "anything",
+                        "req-not-set"
                       ]
                     }
                   },
                   "response": []
                 }
               ]
+            },
+            {
+              "name": "Response Transformer",
+              "item": [
+                {
+                  "name": "HTTP - Transform field name",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Status code",
+                          "    pm.response.to.have.status(200);",
+                          "",
+                          "    // Root fields",
+                          "    pm.expect(res).to.have.property(\"change_field_args\");",
+                          "    pm.expect(res).to.have.property(\"change_field_data\");",
+                          "    pm.expect(res).to.have.property(\"change_field_headers\");",
+                          "    pm.expect(res).to.have.property(\"change_field_json\");",
+                          "    pm.expect(res).to.have.property(\"change_field_origin\");",
+                          "    pm.expect(res).to.have.property(\"change_field_url\");",
+                          "",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"age\": 30,\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/anything/res-transform-field",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "anything",
+                        "res-transform-field"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "HTTP - Transform Value",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Status code",
+                          "    pm.response.to.have.status(200);",
+                          "",
+                          "    // Root fields",
+                          "    pm.expect(res).to.have.property(\"args\").to.equal(\"ARGUMENTS EDITED\");",
+                          "    pm.expect(res).to.have.property(\"data\").to.equal(\"DATA EDITED\");",
+                          "    pm.expect(res).to.have.property(\"headers\").to.equal(\"HEADERS EDITED\");",
+                          "    pm.expect(res).to.have.property(\"json\").to.equal(\"JSON EDITED\");",
+                          "    pm.expect(res).to.have.property(\"origin\").to.equal(\"ORIGIN EDITED\");",
+                          "    pm.expect(res).to.have.property(\"url\").to.equal(\"URL EDITED\");",
+                          "",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"age\": 30\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/anything/res-transform-value",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "anything",
+                        "res-transform-value"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "HTTP - Transform Add field",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Status code",
+                          "    pm.response.to.have.status(200);",
+                          "",
+                          "    // Root fields",
+                          "    pm.expect(res).to.have.property(\"ADDITIOANAL_FIELD\");",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"age\": 30\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/anything/res-add-field",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "anything",
+                        "res-add-field"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "HTTP - Transformer Not Set",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"age\": 30\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/anything/res-not-set",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "anything",
+                        "res-not-set"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Log Transformer",
+              "item": [
+                {
+                  "name": "HTTP - Transformer",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Status code",
+                          "    pm.response.to.have.status(200);",
+                          "",
+                          "    // Root fields",
+                          "    pm.expect(res).to.have.property(\"args\");",
+                          "    pm.expect(res).to.have.property(\"data\");",
+                          "    pm.expect(res).to.have.property(\"headers\");",
+                          "    pm.expect(res).to.have.property(\"json\");",
+                          "    pm.expect(res).to.have.property(\"origin\");",
+                          "    pm.expect(res).to.have.property(\"url\");",
+                          "",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"age\": 30\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/anything/log-transform",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "anything",
+                        "log-transform"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "HTTP - Not Set",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Status code",
+                          "    pm.response.to.have.status(200);",
+                          "",
+                          "    // Root fields",
+                          "    pm.expect(res).to.have.property(\"change_field_args\");",
+                          "    pm.expect(res).to.have.property(\"change_field_data\");",
+                          "    pm.expect(res).to.have.property(\"change_field_headers\");",
+                          "    pm.expect(res).to.have.property(\"change_field_json\");",
+                          "    pm.expect(res).to.have.property(\"change_field_origin\");",
+                          "    pm.expect(res).to.have.property(\"change_field_url\");",
+                          "",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"age\": 30\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/anything/log-not-set",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "anything",
+                        "log-not-set"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "HTTP - req, res, log",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                      "pm.test(\"Validate response body\", function () {",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    // Status code",
+                      "    pm.response.to.have.status(200);",
+                      "",
+                      "    // Root fields",
+                      "    pm.expect(res).to.have.property(\"json_field_changed_on_response\");",
+                      "   ",
+                      "",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"age\": 30\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/anything/transformer-e2e",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "anything",
+                    "transformer-e2e"
+                  ]
+                }
+              },
+              "response": []
             }
           ]
         },
