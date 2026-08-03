@@ -1507,7 +1507,7 @@
                     "header": [],
                     "body": {
                       "mode": "raw",
-                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"age\": 30,\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"age\": 30,\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"start_date\": \"2026-03-01\",\r\n  \"end_date\": \"2026-03-02\",\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
                       "options": {
                         "raw": {
                           "language": "json"
@@ -1895,7 +1895,7 @@
                     "header": [],
                     "body": {
                       "mode": "raw",
-                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"age\":30,\r\n  \"Role\": \"admin\",\r\n  \"Active\": true,\r\n  \"Tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"Metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"age\":30,\r\n  \"Role\": \"admin\",\r\n  \"Active\": true,\r\n  \"start_date\": \"2026-03-01\",\r\n  \"end_date\": \"2026-03-02\",\r\n  \"Tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"Metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
                       "options": {
                         "raw": {
                           "language": "json"
@@ -1958,7 +1958,7 @@
                     "header": [],
                     "body": {
                       "mode": "raw",
-                      "raw": "{\r\n  \"name\": 24,\r\n  \"age\": 24,\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
+                      "raw": "{\r\n  \"name\": 24,\r\n  \"age\": 24,\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"start_date\": \"2026-03-01\",\r\n  \"end_date\": \"2026-03-02\",\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
                       "options": {
                         "raw": {
                           "language": "json"
@@ -1979,13 +1979,13 @@
                   "response": []
                 },
                 {
-                  "name": "Request Validation - Negative headers",
+                  "name": "Request Validation - Positive headers",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
                         "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(403));",
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
                           "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                           "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
                           "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
@@ -1994,7 +1994,7 @@
                           "    let res = pm.response.json();",
                           "",
                           "    // Status code",
-                          "    pm.response.to.have.status(403);",
+                          "    pm.response.to.have.status(200);",
                           "",
                           "    // Root fields",
                           "    pm.expect(res).to.have.property(\"args\");",
@@ -2045,14 +2045,12 @@
                       {
                         "key": "uid",
                         "value": "08c623571ddca73f-ee8f219f-482d8492",
-                        "type": "text",
-                        "disabled": true
+                        "type": "text"
                       },
                       {
                         "key": "uid",
-                        "value": "08c623571ddca73f-ee8f219f-482d8492",
-                        "type": "text",
-                        "disabled": true
+                        "value": "18c623571ddca73f-ee8f219f-482d8492",
+                        "type": "text"
                       }
                     ],
                     "body": {
@@ -2078,7 +2076,7 @@
                   "response": []
                 },
                 {
-                  "name": "Request Validation - Negative queries",
+                  "name": "Request Validation - Negative headers",
                   "event": [
                     {
                       "listen": "test",
@@ -2094,6 +2092,90 @@
                           "",
                           "    // Status code",
                           "    pm.response.to.have.status(403);",
+                          "",
+                          "    // Root fields",
+                          "    pm.expect(res).to.have.property(\"properties\");",
+                          "    ",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "uid",
+                        "value": "ngasal",
+                        "type": "text"
+                      },
+                      {
+                        "key": "uid",
+                        "value": "18c623571ddca73f-ee8f219f-482d8492",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"age\": 30,\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/anything/req-val-headers",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "anything",
+                        "req-val-headers"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Request Validation - Positive queries",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Status code",
+                          "    pm.response.to.have.status(200);",
+                          "",
+                          "    pm.expect(res).to.have.property(\"args\");",
+                          "    pm.expect(res).to.have.property(\"data\");",
+                          "    pm.expect(res).to.have.property(\"headers\");",
+                          "    pm.expect(res).to.have.property(\"json\");",
+                          "    pm.expect(res).to.have.property(\"origin\");",
+                          "    pm.expect(res).to.have.property(\"url\");",
+                          "",
                           "",
                           "});"
                         ],
@@ -2127,7 +2209,7 @@
                       }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/anything/req-val-queries?date=eeee&",
+                      "raw": "{{baseUrlCore}}/anything/req-val-queries?startdate=2026-03-10&enddate=2026-03-13",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
@@ -2137,12 +2219,111 @@
                       ],
                       "query": [
                         {
-                          "key": "date",
-                          "value": "eeee"
+                          "key": "startdate",
+                          "value": "2026-03-10"
                         },
                         {
-                          "key": "",
-                          "value": null
+                          "key": "enddate",
+                          "value": "2026-03-13"
+                        },
+                        {
+                          "key": "startdate",
+                          "value": "2026-03-10",
+                          "type": "text",
+                          "disabled": true
+                        },
+                        {
+                          "key": "enddate",
+                          "value": "2026-03-10",
+                          "type": "text",
+                          "disabled": true
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Request Validation - Negative queries",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));",
+                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
+                          "pm.test(\"Validate response body\", function () {",
+                          "    let res = pm.response.json();",
+                          "",
+                          "    // Status code",
+                          "    pm.response.to.have.status(400);",
+                          "",
+                          "    // Root fields",
+                          "    pm.expect(res).to.have.property(\"properties\");",
+                          "    ",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"age\": 30,\r\n  \"role\": \"admin\",\r\n  \"active\": true,\r\n  \"tags\": [\r\n    \"gateway\",\r\n    \"test\"\r\n  ],\r\n  \"metadata\": {\r\n    \"ip\": \"127.0.0.1\"\r\n  }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/anything/req-val-queries?startdate=2026-03-10&enddate=2026-03",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "anything",
+                        "req-val-queries"
+                      ],
+                      "query": [
+                        {
+                          "key": "startdate",
+                          "value": "2026-03-10"
+                        },
+                        {
+                          "key": "enddate",
+                          "value": "2026-03"
+                        },
+                        {
+                          "key": "startdate",
+                          "value": "2026-03-10",
+                          "type": "text",
+                          "disabled": true
+                        },
+                        {
+                          "key": "enddate",
+                          "value": "2026-03-10",
+                          "type": "text",
+                          "disabled": true
                         }
                       ]
                     }
@@ -2800,12 +2981,12 @@
                           "    pm.response.to.have.status(200);",
                           "",
                           "    // Root fields",
-                          "    pm.expect(res).to.have.property(\"change_field_args\");",
-                          "    pm.expect(res).to.have.property(\"change_field_data\");",
-                          "    pm.expect(res).to.have.property(\"change_field_headers\");",
-                          "    pm.expect(res).to.have.property(\"change_field_json\");",
-                          "    pm.expect(res).to.have.property(\"change_field_origin\");",
-                          "    pm.expect(res).to.have.property(\"change_field_url\");",
+                          "    pm.expect(res).to.have.property(\"args\");",
+                          "    pm.expect(res).to.have.property(\"data\");",
+                          "    pm.expect(res).to.have.property(\"headers\");",
+                          "    pm.expect(res).to.have.property(\"json\");",
+                          "    pm.expect(res).to.have.property(\"origin\");",
+                          "    pm.expect(res).to.have.property(\"url\");",
                           "",
                           "});"
                         ],
@@ -7626,7 +7807,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"text\": \"aWsnFTLEso1nIivrSqlsN6byiTu9VBnVIJoMNWsVniFDQloMS+qe\"\r\n}",
+                  "raw": "{\r\n    \"text\": \"+23zVZ59JXtRT7kq5jbzhNVfzhEZZShNKjB2Ll+zbUnTkmJpFpS5\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -12833,79 +13014,6 @@
                   "path": [
                     "js",
                     "check-file"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Store File",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "User-Application",
-                    "value": "curl/8.0",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "formdata",
-                  "formdata": [
-                    {
-                      "key": "source",
-                      "value": "TESTO-FILE",
-                      "type": "text",
-                      "uuid": "6c53bd00-2039-4c6d-bff9-20aa74f8afb9"
-                    },
-                    {
-                      "key": "path",
-                      "value": "/",
-                      "type": "text",
-                      "uuid": "93ac57aa-83a8-4036-bbaf-b7005ef338de"
-                    },
-                    {
-                      "key": "body",
-                      "type": "file",
-                      "uuid": "2b64e39f-090f-4eff-850e-60c50891caee",
-                      "src": "httpbin/PDF.pdf"
-                    }
-                  ]
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/store-file",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "store-file"
                   ]
                 }
               },
