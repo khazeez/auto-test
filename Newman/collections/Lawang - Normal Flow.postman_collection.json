@@ -1282,7 +1282,11 @@
                       "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                       "pm.test(\"Response body is valid JSON\", () => pm.response.to.be.json);",
                       "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Authorization accepted - not 401/403\", () => pm.expect(pm.response.code).to.not.be.oneOf([401, 403]));"
+                      "pm.test(\"Authorization accepted - not 401/403\", () => pm.expect(pm.response.code).to.not.be.oneOf([401, 403]));",
+                      "",
+                      "const reponse = pm.response.json();",
+                      "",
+                      "pm.environment.set(\"accessToken\", reponse.access_token);"
                     ],
                     "type": "text/javascript",
                     "packages": {},
@@ -1345,6 +1349,142 @@
                       "key": "client_secret",
                       "value": "8ab38def3350d8cf1deeff23188008b8dd3625b7cf572536a39f4ec6218d6244"
                     }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "OAUTH2 Positive Case",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Authorization accepted - not 401/403\", () => pm.expect(pm.response.code).to.not.be.oneOf([401, 403]));"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"text\": \"test auth\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/anything/test",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "anything",
+                    "test"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "OAUTH2 Negative Flow",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response body contains 'message' with error unauthorized\", () => pm.expect(pm.response.json()).to.have.property(\"message\").to.eql(\"Unauthorized\"));"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessTokens}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"text\": \"test auth\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/anything/test",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "anything",
+                    "test"
                   ]
                 }
               },
@@ -15217,7 +15357,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"id\": \"53f03aac-3e5f-4c2b-aa84-0f80cbd75d1c\",\r\n  \"payload\": { \"Name\": \"webhook-lawang\" }\r\n}\r\n",
+              "raw": "{\r\n  \"id\": \"2cf57b93-4e9c-4ee4-b42d-534e7bdc8019\",\r\n  \"payload\": { \"Name\": \"webhook-lawang\" }\r\n}\r\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -15225,14 +15365,12 @@
               }
             },
             "url": {
-              "raw": "{{baseUrlCore}}/v2.1/async/post-webhook",
+              "raw": "{{baseUrlCore}}/2cf57b93-4e9c-4ee4-b42d-534e7bdc8019",
               "host": [
                 "{{baseUrlCore}}"
               ],
               "path": [
-                "v2.1",
-                "async",
-                "post-webhook"
+                "2cf57b93-4e9c-4ee4-b42d-534e7bdc8019"
               ]
             }
           },

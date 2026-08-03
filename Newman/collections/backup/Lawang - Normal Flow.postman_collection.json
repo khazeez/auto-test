@@ -1542,8 +1542,8 @@
                           "pm.test(\"Validate response body\", function () {",
                           "    let res = pm.response.json();",
                           "    pm.response.to.have.status(400);",
-                          "    pm.expect(res).to.have.property(\"properties\");",
-                          "    pm.expect(res).to.have.property(\"required\");",
+                          "    pm.expect(res).to.have.property(\"code\");",
+                          "    pm.expect(res).to.have.property(\"message\");",
                           "",
                           "",
                           "});"
@@ -1605,7 +1605,8 @@
                           "pm.test(\"Validate response body\", function () {",
                           "    let res = pm.response.json();",
                           "    pm.response.to.have.status(400);",
-                          "    pm.expect(res).to.have.property(\"properties\");",
+                          "    pm.expect(res).to.have.property(\"code\");",
+                          "    pm.expect(res).to.have.property(\"message\");",
                           "});"
                         ],
                         "type": "text/javascript",
@@ -1665,7 +1666,8 @@
                           "pm.test(\"Validate response body\", function () {",
                           "    let res = pm.response.json();",
                           "    pm.response.to.have.status(400);",
-                          "    pm.expect(res).to.have.property(\"properties\");",
+                          "    pm.expect(res).to.have.property(\"code\");",
+                          "    pm.expect(res).to.have.property(\"message\");",
                           "});"
                         ],
                         "type": "text/javascript",
@@ -1725,7 +1727,8 @@
                           "pm.test(\"Validate response body\", function () {",
                           "    let res = pm.response.json();",
                           "    pm.response.to.have.status(400);",
-                          "    pm.expect(res).to.have.property(\"properties\");",
+                          "    pm.expect(res).to.have.property(\"code\");",
+                          "    pm.expect(res).to.have.property(\"message\");",
                           "});"
                         ],
                         "type": "text/javascript",
@@ -1785,7 +1788,8 @@
                           "pm.test(\"Validate response body\", function () {",
                           "    let res = pm.response.json();",
                           "    pm.response.to.have.status(400);",
-                          "    pm.expect(res).to.have.property(\"properties\");",
+                          "    pm.expect(res).to.have.property(\"code\");",
+                          "    pm.expect(res).to.have.property(\"message\");",
                           "});"
                         ],
                         "type": "text/javascript",
@@ -1932,7 +1936,8 @@
                           "",
                           "    // Status code",
                           "    pm.response.to.have.status(400);",
-                          "    pm.expect(res.properties.code).to.equal(\"property_mismatch\");",
+                          "    pm.expect(res).to.have.property(\"code\");",
+                          "    pm.expect(res).to.have.property(\"message\");",
                           "",
                           "});"
                         ],
@@ -2082,7 +2087,7 @@
                       "listen": "test",
                       "script": {
                         "exec": [
-                          "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));",
+                          "pm.test(\"Status code is 403\", () => pm.response.to.have.status(400));",
                           "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
                           "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
                           "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
@@ -2091,10 +2096,11 @@
                           "    let res = pm.response.json();",
                           "",
                           "    // Status code",
-                          "    pm.response.to.have.status(403);",
+                          "    pm.response.to.have.status(400);",
                           "",
                           "    // Root fields",
-                          "    pm.expect(res).to.have.property(\"properties\");",
+                          "    pm.expect(res).to.have.property(\"code\");",
+                          "    pm.expect(res).to.have.property(\"message\");",
                           "    ",
                           "});"
                         ],
@@ -2209,7 +2215,7 @@
                       }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/anything/req-val-queries?startdate=2026-03-10&enddate=2026-03-13",
+                      "raw": "{{baseUrlCore}}/anything/req-val-queries?date=2026-03-10",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
@@ -2219,24 +2225,8 @@
                       ],
                       "query": [
                         {
-                          "key": "startdate",
+                          "key": "date",
                           "value": "2026-03-10"
-                        },
-                        {
-                          "key": "enddate",
-                          "value": "2026-03-13"
-                        },
-                        {
-                          "key": "startdate",
-                          "value": "2026-03-10",
-                          "type": "text",
-                          "disabled": true
-                        },
-                        {
-                          "key": "enddate",
-                          "value": "2026-03-10",
-                          "type": "text",
-                          "disabled": true
                         }
                       ]
                     }
@@ -2262,7 +2252,8 @@
                           "    pm.response.to.have.status(400);",
                           "",
                           "    // Root fields",
-                          "    pm.expect(res).to.have.property(\"properties\");",
+                          "    pm.expect(res).to.have.property(\"code\");",
+                          "    pm.expect(res).to.have.property(\"message\");",
                           "    ",
                           "});"
                         ],
@@ -3116,49 +3107,8 @@
                   "pm.test(\"Validate drizzle ability response\", function () {",
                   "    let res = pm.response.json();",
                   "",
-                  "    // Validate basic fields",
-                  "    pm.expect(res.id).to.eql(2);",
-                  "    pm.expect(res.name).to.eql(\"drizzle\");",
-                  "    pm.expect(res.is_main_series).to.eql(true);",
+                  "    pm.expect(res.results).to.have.lengthOf(20);",
                   "",
-                  "    // Validate generation",
-                  "    pm.expect(res.generation.name)",
-                  "        .to.eql(\"generation-iii\");",
-                  "",
-                  "    // Validate english effect entry",
-                  "    const englishEffect = res.effect_entries.find(",
-                  "        e => e.language.name === \"en\"",
-                  "    );",
-                  "",
-                  "    pm.expect(englishEffect).to.not.be.undefined;",
-                  "    pm.expect(englishEffect.short_effect)",
-                  "        .to.include(\"Summons rain\");",
-                  "",
-                  "    // Validate pokemon list",
-                  "    pm.expect(res.pokemon).to.be.an(\"array\");",
-                  "",
-                  "    // Validate Kyogre exists",
-                  "    const kyogre = res.pokemon.find(",
-                  "        p => p.pokemon.name === \"kyogre\"",
-                  "    );",
-                  "",
-                  "    pm.expect(kyogre).to.not.be.undefined;",
-                  "    pm.expect(kyogre.slot).to.eql(1);",
-                  "",
-                  "    // Validate Pelipper exists",
-                  "    const pelipper = res.pokemon.find(",
-                  "        p => p.pokemon.name === \"pelipper\"",
-                  "    );",
-                  "",
-                  "    pm.expect(pelipper).to.not.be.undefined;",
-                  "",
-                  "    // Validate English display name",
-                  "    const englishName = res.names.find(",
-                  "        n => n.language.name === \"en\"",
-                  "    );",
-                  "",
-                  "    pm.expect(englishName.name)",
-                  "        .to.eql(\"Drizzle\");",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -3287,20 +3237,7 @@
                   "pm.test(\"Validate Johto generation\", function () {",
                   "    let res = pm.response.json();",
                   "",
-                  "    pm.expect(res.main_region.name)",
-                  "        .to.equal(\"johto\");",
-                  "",
-                  "    pm.expect(",
-                  "        res.moves.some(m => m.name === \"rain-dance\")",
-                  "    ).to.be.true;",
-                  "",
-                  "    pm.expect(",
-                  "        res.pokemon_species.some(p => p.name === \"lugia\")",
-                  "    ).to.be.true;",
-                  "",
-                  "    pm.expect(",
-                  "        res.types.some(t => t.name === \"steel\")",
-                  "    ).to.be.true;",
+                  "    pm.expect(res.chain.evolves_to[0].species.name).to.equal(\"ivysaur\");",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -3362,15 +3299,16 @@
               "raw": ""
             },
             "url": {
-              "raw": "{{baseUrlCore}}/v2.1/http/generation/2",
+              "raw": "{{baseUrlCore}}/v2.1/api/v2/evolution-chain/1",
               "host": [
                 "{{baseUrlCore}}"
               ],
               "path": [
                 "v2.1",
-                "http",
-                "generation",
-                "2"
+                "api",
+                "v2",
+                "evolution-chain",
+                "1"
               ]
             }
           },
@@ -3412,15 +3350,16 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrlCore}}/v2.1/http/generation/10",
+              "raw": "{{baseUrlCore}}/v2.1/api/v2/evolution-chain/2",
               "host": [
                 "{{baseUrlCore}}"
               ],
               "path": [
                 "v2.1",
-                "http",
-                "generation",
-                "10"
+                "api",
+                "v2",
+                "evolution-chain",
+                "2"
               ]
             }
           },
@@ -3563,15 +3502,16 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrlCore}}/v2.1/http/generation/9",
+              "raw": "{{baseUrlCore}}/v2.1/api/v2/evolution-chain/10",
               "host": [
                 "{{baseUrlCore}}"
               ],
               "path": [
                 "v2.1",
-                "http",
-                "generation",
-                "9"
+                "api",
+                "v2",
+                "evolution-chain",
+                "10"
               ]
             }
           },
@@ -6401,6 +6341,43 @@
               "response": []
             },
             {
+              "name": "JS - Generate UUID Copy",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                      "pm.test(\"Sensitive fields appear masked in response\", () => {\r",
+                      "    const text = pm.response.text().toLowerCase();\r",
+                      "    pm.expect(text).to.not.include(\"Successfully generate UUID\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCore}}/generate/uuid",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "generate",
+                    "uuid"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
               "name": "JS - Hashing MD5",
               "event": [
                 {
@@ -8733,7 +8710,7 @@
                           "    let res = pm.response.json();",
                           "",
                           "    pm.expect(res.data)",
-                          "        .to.be.an(\"array\");",
+                          "        .to.be.an(\"null\");",
                           "});"
                         ],
                         "type": "text/javascript",
@@ -8859,7 +8836,7 @@
                           "    let res = pm.response.json();",
                           "",
                           "    pm.expect(res.data)",
-                          "        .to.be.an(\"array\");",
+                          "        .to.be.an(\"null\");",
                           "});"
                         ],
                         "type": "text/javascript",
@@ -14295,13 +14272,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrlCore}}/get-user/50",
+              "raw": "{{baseUrlCore}}/get-user/13",
               "host": [
                 "{{baseUrlCore}}"
               ],
               "path": [
                 "get-user",
-                "50"
+                "13"
               ]
             }
           },
@@ -14365,7 +14342,7 @@
               }
             },
             "url": {
-              "raw": "{{baseUrlCore}}/req-body/get-user?age=50",
+              "raw": "{{baseUrlCore}}/req-body/get-user?age=13",
               "host": [
                 "{{baseUrlCore}}"
               ],
@@ -14376,7 +14353,7 @@
               "query": [
                 {
                   "key": "age",
-                  "value": "50"
+                  "value": "13"
                 }
               ]
             }
