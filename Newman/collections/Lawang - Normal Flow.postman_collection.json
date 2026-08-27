@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "76a06aa2-dd7a-4f32-905e-1a483592d110",
+    "_postman_id": "ad811a37-fc7b-4f54-8f9c-b9339cc33017",
     "name": "Lawang - Normal Flow",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "53603159",
-    "_collection_link": "https://go.postman.co/collection/53603159-76a06aa2-dd7a-4f32-905e-1a483592d110?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/53603159-ad811a37-fc7b-4f54-8f9c-b9339cc33017?source=collection_link"
   },
   "item": [
     {
@@ -3226,6 +3226,404 @@
                   "path": [
                     "anything",
                     "transformer-e2e"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Block By WAF Rules",
+          "item": [
+            {
+              "name": "HTTP - Header wget",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Validate content\", function () {",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.code).to.equal(403);",
+                      "    pm.expect(res.message).to.equal(\"blocked Headers\");",
+                      "",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-WAF-TEST",
+                    "value": "1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "User-Agent",
+                    "value": "wget",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/v2.1/http/ability/2",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "v2.1",
+                    "http",
+                    "ability",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "HTTP - Header nicto",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Validate content\", function () {",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.code).to.equal(403);",
+                      "    pm.expect(res.message).to.equal(\"blocked Headers\");",
+                      "",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-WAF-TEST",
+                    "value": "1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "User-Agent",
+                    "value": "nikto",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/v2.1/http/ability/2",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "v2.1",
+                    "http",
+                    "ability",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "HTTP - Header nmap",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Validate content\", function () {",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.code).to.equal(403);",
+                      "    pm.expect(res.message).to.equal(\"blocked Headers\");",
+                      "",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-WAF-TEST",
+                    "value": "1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "User-Agent",
+                    "value": "nmap",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/v2.1/http/ability/2",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "v2.1",
+                    "http",
+                    "ability",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "HTTP - Block URI",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Validate content\", function () {",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.code).to.equal(403);",
+                      "    pm.expect(res.message).to.equal(\"Blocked URI\");",
+                      "",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-WAF-TEST",
+                    "value": "1",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/http/dev/get",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "http",
+                    "dev",
+                    "get"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "HTTP - Block SQL Injection",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Validate content\", function () {",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.code).to.equal(403);",
+                      "    pm.expect(res.message).to.equal(\"SQLi boolean-based tautology detected\");",
+                      "",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-WAF-TEST",
+                    "value": "1",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/req-body/get-user?age=1 OR 1=1",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "req-body",
+                    "get-user"
+                  ],
+                  "query": [
+                    {
+                      "key": "age",
+                      "value": "1 OR 1=1"
+                    }
                   ]
                 }
               },
@@ -19649,6 +20047,18 @@
     },
     {
       "key": "token",
+      "value": ""
+    },
+    {
+      "key": "consoleUri",
+      "value": ""
+    },
+    {
+      "key": "jwt_token",
+      "value": ""
+    },
+    {
+      "key": "refresh_token",
       "value": ""
     }
   ]
