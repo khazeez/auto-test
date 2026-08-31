@@ -1535,6 +1535,37 @@
               "response": []
             },
             {
+              "name": "HTTP - Rate limit Exceeded prepare",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCore}}/xml/limit-exceeded",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "xml",
+                    "limit-exceeded"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
               "name": "HTTP - Rate limit Exceeded",
               "event": [
                 {
@@ -11233,7 +11264,7 @@
                       "\r",
                       "// Validate root structure\r",
                       "pm.test(\"Validate root structure\", function () {\r",
-                      "pm.expect(response).to.have.property(\"message\").eql(\"Error: XML conversion returned empty string\");\r",
+                      "pm.expect(response).to.have.property(\"message\").eql(\"XML syntax error on line 1: expected attribute name in element\");\r",
                       "});"
                     ],
                     "type": "text/javascript",
@@ -11340,7 +11371,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"xml\": \"<xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>\\n<users>\\n    <user>\\n        <id>1</id>\\n        <name>Aziz</name>\\n        xample.com</email>\\n        <active>true</active>\\n    </user>\\n\\n    \\n        <id>2</id>\\n        <name>Budi\\n        <email>budi@example.com</email>\\n        <active>false</active>\\n</users>\"\r\n}"
+                  "raw": ""
                 },
                 "url": {
                   "raw": "{{baseUrlCore}}/transform/negative",
@@ -14823,7 +14854,7 @@
           "response": []
         },
         {
-          "name": "DB - Get With Req param",
+          "name": "DB - Get With Req param integer",
           "event": [
             {
               "listen": "test",
@@ -14899,13 +14930,378 @@
           "response": []
         },
         {
-          "name": "DB - Get With Req param and wrong type value",
+          "name": "DB - Get With Req param string",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));"
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"result field exists\", () => {\r",
+                  "    pm.expect(response).to.have.property(\"result\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"result is an array\", () => {\r",
+                  "    pm.expect(response.result).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/req-body/get-user-string?name=namaku-ini",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "req-body",
+                "get-user-string"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "namaku-ini"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DB - Get With Req param string boolean true",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"result field exists\", () => {\r",
+                  "    pm.expect(response).to.have.property(\"result\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"result is an array\", () => {\r",
+                  "    pm.expect(response.result).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/lawang/bool?active=true",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "lawang",
+                "bool"
+              ],
+              "query": [
+                {
+                  "key": "active",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DB - Get With Req param string boolean false",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"result field exists\", () => {\r",
+                  "    pm.expect(response).to.have.property(\"result\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"result is an array\", () => {\r",
+                  "    pm.expect(response.result).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/lawang/bool?active=false",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "lawang",
+                "bool"
+              ],
+              "query": [
+                {
+                  "key": "active",
+                  "value": "false"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DB - Get With Req param string boolean true (1)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"result field exists\", () => {\r",
+                  "    pm.expect(response).to.have.property(\"result\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"result is an array\", () => {\r",
+                  "    pm.expect(response.result).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/lawang/bool?active=1",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "lawang",
+                "bool"
+              ],
+              "query": [
+                {
+                  "key": "active",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DB - Get With Req param string boolean false (0)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"result field exists\", () => {\r",
+                  "    pm.expect(response).to.have.property(\"result\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"result is an array\", () => {\r",
+                  "    pm.expect(response.result).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/lawang/bool?active=0",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "lawang",
+                "bool"
+              ],
+              "query": [
+                {
+                  "key": "active",
+                  "value": "0"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DB - Get With Req param and wrong integer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "\r",
+                  "const response = pm.response.json()\r",
+                  "pm.test(\"Message is invalid int\", () => pm.expect((response.message)).to.eql('invalid int'));"
                 ],
                 "type": "text/javascript",
                 "packages": {},
@@ -14952,6 +15348,130 @@
                 {
                   "key": "age",
                   "value": "\"27\""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DB - Get With missing param",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "\r",
+                  "const response = pm.response.json()\r",
+                  "pm.test(\"Message is invalid int\", () => pm.expect((response.message)).to.eql('missing SQL parameter: name'));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/req-body/get-user-string",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "req-body",
+                "get-user-string"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DB - Get With Req param and wrong boolean",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\r",
+                  "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "\r",
+                  "const response = pm.response.json()\r",
+                  "pm.test(\"Message is invalid int\", () => pm.expect((response.message)).to.eql('invalid bool'));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/lawang/bool?active=uyt",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "lawang",
+                "bool"
+              ],
+              "query": [
+                {
+                  "key": "active",
+                  "value": "uyt"
                 }
               ]
             }
