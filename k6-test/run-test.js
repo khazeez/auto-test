@@ -107,7 +107,7 @@ const TEST_TYPES = [
     color: C.blue,
     bg:    C.bgBlue,
     label: 'LOAD',
-    desc:  '100 VU · ~14 menit · performa normal',
+    desc:  '100 VU · 14 menit · performa normal',
   },
   {
     name:  'Stress Test',
@@ -115,7 +115,7 @@ const TEST_TYPES = [
     color: C.red,
     bg:    C.bgRed,
     label: 'STRESS',
-    desc:  'up to 1000 VU · ~14 menit · breaking point',
+    desc:  'up to 1000 VU · 14 menit · breaking point',
   },
   {
     name:  'Soak Test',
