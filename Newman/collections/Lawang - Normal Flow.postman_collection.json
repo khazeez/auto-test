@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "ad811a37-fc7b-4f54-8f9c-b9339cc33017",
+    "_postman_id": "fcb0e46b-8b22-47ad-9840-93acfefaeb78",
     "name": "Lawang - Normal Flow",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "53603159",
-    "_collection_link": "https://go.postman.co/collection/53603159-ad811a37-fc7b-4f54-8f9c-b9339cc33017?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/53603159-fcb0e46b-8b22-47ad-9840-93acfefaeb78?source=collection_link"
   },
   "item": [
     {
@@ -912,23 +912,15 @@
               "response": []
             },
             {
-              "name": "Quota exceeded",
+              "name": "Balance IDR Available",
               "event": [
                 {
                   "listen": "test",
                   "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));\r",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                      "pm.test(\"Response is valid json\", () => {\r",
-                      "    pm.expect(pm.response.json()).to.have.property(\"code\");\r",
-                      "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                      "});"
-                    ],
                     "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is image\", () => {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"image/\");\r\n});"
+                    ]
                   }
                 }
               ],
@@ -937,13 +929,13 @@
                   "type": "basic",
                   "basic": [
                     {
-                      "key": "password",
-                      "value": "{{pass_quota_exceeded}}",
+                      "key": "username",
+                      "value": "{{user_balance_available}}",
                       "type": "string"
                     },
                     {
-                      "key": "username",
-                      "value": "{{user_quota_exceeded}}",
+                      "key": "password",
+                      "value": "{{pass_balance_available}}",
                       "type": "string"
                     }
                   ]
@@ -951,36 +943,28 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{baseUrlCore}}/image/svg",
+                  "raw": "{{baseUrlCore}}/anything/idr-01",
                   "host": [
                     "{{baseUrlCore}}"
                   ],
                   "path": [
-                    "image",
-                    "svg"
+                    "anything",
+                    "idr-01"
                   ]
                 }
               },
               "response": []
             },
             {
-              "name": "Quota Expired",
+              "name": "Balance IDR Not Available",
               "event": [
                 {
                   "listen": "test",
                   "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));\r",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                      "pm.test(\"Response is valid json\", () => {\r",
-                      "    pm.expect(pm.response.json()).to.have.property(\"code\");\r",
-                      "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                      "});"
-                    ],
                     "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
+                    "exec": [
+                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is insufficient balance\", () => {\r\n    pm.expect(pm.response.text()).to.include(\"insufficient balance\");\r\n});"
+                    ]
                   }
                 }
               ],
@@ -989,13 +973,13 @@
                   "type": "basic",
                   "basic": [
                     {
-                      "key": "password",
-                      "value": "{{pass_quota_expired}}",
+                      "key": "username",
+                      "value": "{{user_balance_not_available}}",
                       "type": "string"
                     },
                     {
-                      "key": "username",
-                      "value": "{{user_quota_expired}}",
+                      "key": "password",
+                      "value": "{{pass_balance_not_available}}",
                       "type": "string"
                     }
                   ]
@@ -1003,13 +987,101 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{baseUrlCore}}/image/webp",
+                  "raw": "{{baseUrlCore}}/anything/idr-02",
                   "host": [
                     "{{baseUrlCore}}"
                   ],
                   "path": [
-                    "image",
-                    "webp"
+                    "anything",
+                    "idr-02"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Balance HIT Available",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is image\", () => {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{user_balance_available}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pass_balance_available}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCore}}/anything/hit-01",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "anything",
+                    "hit-01"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Balance HIT Not Available",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is insufficient balance\", () => {\r\n    pm.expect(pm.response.text()).to.include(\"insufficient balance\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{user_balance_not_available}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pass_balance_not_available}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCore}}/anything/hit-02",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "anything",
+                    "hit-02"
                   ]
                 }
               },
@@ -1116,56 +1188,6 @@
               "response": []
             },
             {
-              "name": "Access Grant Service (different user different client)",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                      "pm.test(\"Validate response\", () => {\r",
-                      "   pm.expect(pm.response.json()).to.have.property(\"code\").to.eq(401);\r",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "basic",
-                  "basic": [
-                    {
-                      "key": "password",
-                      "value": "{{pass_quota_available}}",
-                      "type": "string"
-                    },
-                    {
-                      "key": "username",
-                      "value": "{{user_quota_available}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrlCore}}/image",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "image"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
               "name": "Access Grant Service (different user different client and allowed ip)",
               "event": [
                 {
@@ -1210,57 +1232,6 @@
                   ],
                   "path": [
                     "image"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Endpoint Not Registered to grant service",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                      "pm.test(\"Validate response\", () => {\r",
-                      "   pm.expect(pm.response.json()).to.have.property(\"code\").to.eq(401);\r",
-                      "   pm.expect(pm.response.json()).to.have.property(\"message\").to.eq(\"Unauthorized\")\r",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "basic",
-                  "basic": [
-                    {
-                      "key": "password",
-                      "value": "{{pass_quota_available}}",
-                      "type": "string"
-                    },
-                    {
-                      "key": "username",
-                      "value": "{{user_quota_available}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrlCore}}/html",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "html"
                   ]
                 }
               },
@@ -9200,7 +9171,7 @@
                           "    let res = pm.response.json();",
                           "",
                           "    pm.expect(res.data)",
-                          "        .to.be.an(\"null\");",
+                          "        .to.be.an(\"array\");",
                           "});"
                         ],
                         "type": "text/javascript",
@@ -9326,7 +9297,7 @@
                           "    let res = pm.response.json();",
                           "",
                           "    pm.expect(res.data)",
-                          "        .to.be.an(\"null\");",
+                          "        .to.be.an(\"array\");",
                           "});"
                         ],
                         "type": "text/javascript",
@@ -17846,10 +17817,14 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Status code is 404\", () => pm.response.to.have.status(404));\r",
                   "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
                   "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                  "pm.test(\"Response body contains expected text\", () => pm.expect(pm.response.text()).to.include(\"halo from txt file\"));"
+                  "pm.test(\"Response body contains expected error\", () => {\r",
+                  "    const res = pm.response.json();\r",
+                  "    pm.expect(res.message).to.eql(\"invalid path\")\r",
+                  "    pm.expect(res.code).to.eql(404);\r",
+                  "});"
                 ],
                 "type": "text/javascript",
                 "packages": {},
@@ -17907,7 +17882,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrlCore}}/testo/../../docker-compose.ym",
+              "raw": "{{baseUrlCore}}/testo/../../docker-compose.yml",
               "host": [
                 "{{baseUrlCore}}"
               ],
@@ -17915,7 +17890,7 @@
                 "testo",
                 "..",
                 "..",
-                "docker-compose.ym"
+                "docker-compose.yml"
               ]
             }
           },
@@ -19262,65 +19237,7 @@
                   "",
                   "    let res = pm.response.json();",
                   "",
-                  "    // Validate top level fields",
-                  "    [",
-                  "        \"data\"",
-                  "    ].forEach(field => {",
-                  "        pm.expect(res).to.have.property(field);",
-                  "    });",
-                  "",
-                  "    // Validate Page field",
-                  "    [",
-                  "        \"Page\"",
-                  "    ].forEach(field => {",
-                  "        pm.expect(res.data).to.have.property(field);",
-                  "    });",
-                  "",
-                  "    // Validate media field",
-                  "    [",
-                  "        \"media\"",
-                  "    ].forEach(field => {",
-                  "        pm.expect(res.data.Page).to.have.property(field);",
-                  "    });",
-                  "",
-                  "    // Validate media array",
-                  "    pm.expect(res.data.Page.media)",
-                  "        .to.be.an(\"array\");",
-                  "",
-                  "    pm.expect(res.data.Page.media.length)",
-                  "        .to.be.greaterThan(0);",
-                  "",
-                  "    // Validate first media fields",
-                  "    [",
-                  "        \"siteUrl\",",
-                  "        \"title\",",
-                  "        \"description\"",
-                  "    ].forEach(field => {",
-                  "        pm.expect(res.data.Page.media[0])",
-                  "            .to.have.property(field);",
-                  "    });",
-                  "",
-                  "    // Validate title fields",
-                  "    [",
-                  "        \"english\",",
-                  "        \"native\"",
-                  "    ].forEach(field => {",
-                  "        pm.expect(res.data.Page.media[0].title)",
-                  "            .to.have.property(field);",
-                  "    });",
-                  "",
-                  "    // Validate object types",
-                  "    pm.expect(res.data)",
-                  "        .to.be.an(\"object\");",
-                  "",
-                  "    pm.expect(res.data.Page)",
-                  "        .to.be.an(\"object\");",
-                  "",
-                  "    pm.expect(res.data.Page.media[0])",
-                  "        .to.be.an(\"object\");",
-                  "",
-                  "    pm.expect(res.data.Page.media[0].title)",
-                  "        .to.be.an(\"object\");",
+                  "    pm.expect(res.data.getPokemon).to.have.property(\"sprite\");",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -19361,17 +19278,17 @@
             "body": {
               "mode": "graphql",
               "graphql": {
-                "query": "{\r\n  Page {\r\n    media {\r\n      siteUrl\r\n      title {\r\n        english\r\n        native\r\n      }\r\n      description\r\n    }\r\n  }\r\n}",
+                "query": "query {\r\n  getPokemon(pokemon: dragonite) {\r\n    sprite\r\n    num\r\n    species\r\n    color\r\n  }\r\n}",
                 "variables": ""
               }
             },
             "url": {
-              "raw": "{{baseUrlCore}}/anilist",
+              "raw": "{{baseUrlCore}}/v8",
               "host": [
                 "{{baseUrlCore}}"
               ],
               "path": [
-                "anilist"
+                "v8"
               ]
             }
           },
@@ -20871,6 +20788,22 @@
     },
     {
       "key": "refresh_token",
+      "value": ""
+    },
+    {
+      "key": "user_balance_available",
+      "value": ""
+    },
+    {
+      "key": "pass_balance_available",
+      "value": ""
+    },
+    {
+      "key": "user_balance_not_available",
+      "value": ""
+    },
+    {
+      "key": "pass_balance_not_available",
       "value": ""
     }
   ]

@@ -20,5 +20,6 @@ export const User = [
   '/v2.1/db/rag-user',
   '/get/anything',
   '/minion/minio.txt',
+  '/price-test-2'
 ];
 

@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "ad811a37-fc7b-4f54-8f9c-b9339cc33017",
+    "_postman_id": "d7a02598-6b09-4218-a859-60aa148b4de7",
     "name": "Lawang - Normal Flow",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "53603159",
-    "_collection_link": "https://go.postman.co/collection/53603159-ad811a37-fc7b-4f54-8f9c-b9339cc33017?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/53603159-d7a02598-6b09-4218-a859-60aa148b4de7?source=collection_link"
   },
   "item": [
     {
@@ -912,110 +912,6 @@
               "response": []
             },
             {
-              "name": "Quota exceeded",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));\r",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                      "pm.test(\"Response is valid json\", () => {\r",
-                      "    pm.expect(pm.response.json()).to.have.property(\"code\");\r",
-                      "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "basic",
-                  "basic": [
-                    {
-                      "key": "password",
-                      "value": "{{pass_quota_exceeded}}",
-                      "type": "string"
-                    },
-                    {
-                      "key": "username",
-                      "value": "{{user_quota_exceeded}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrlCore}}/image/svg",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "image",
-                    "svg"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Quota Expired",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));\r",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                      "pm.test(\"Response is valid json\", () => {\r",
-                      "    pm.expect(pm.response.json()).to.have.property(\"code\");\r",
-                      "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "basic",
-                  "basic": [
-                    {
-                      "key": "password",
-                      "value": "{{pass_quota_expired}}",
-                      "type": "string"
-                    },
-                    {
-                      "key": "username",
-                      "value": "{{user_quota_expired}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrlCore}}/image/webp",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "image",
-                    "webp"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
               "name": "Access Grant Service (different user same client) - Case 1",
               "event": [
                 {
@@ -1116,56 +1012,6 @@
               "response": []
             },
             {
-              "name": "Access Grant Service (different user different client)",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                      "pm.test(\"Validate response\", () => {\r",
-                      "   pm.expect(pm.response.json()).to.have.property(\"code\").to.eq(401);\r",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "basic",
-                  "basic": [
-                    {
-                      "key": "password",
-                      "value": "{{pass_quota_available}}",
-                      "type": "string"
-                    },
-                    {
-                      "key": "username",
-                      "value": "{{user_quota_available}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrlCore}}/image",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "image"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
               "name": "Access Grant Service (different user different client and allowed ip)",
               "event": [
                 {
@@ -1210,57 +1056,6 @@
                   ],
                   "path": [
                     "image"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "Endpoint Not Registered to grant service",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));\r",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                      "pm.test(\"Validate response\", () => {\r",
-                      "   pm.expect(pm.response.json()).to.have.property(\"code\").to.eq(401);\r",
-                      "   pm.expect(pm.response.json()).to.have.property(\"message\").to.eq(\"Unauthorized\")\r",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "basic",
-                  "basic": [
-                    {
-                      "key": "password",
-                      "value": "{{pass_quota_available}}",
-                      "type": "string"
-                    },
-                    {
-                      "key": "username",
-                      "value": "{{user_quota_available}}",
-                      "type": "string"
-                    }
-                  ]
-                },
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrlCore}}/html",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "html"
                   ]
                 }
               },
@@ -2302,7 +2097,7 @@
                       },
                       {
                         "key": "uid",
-                        "value": "18c623571ddca73f-ee8f219f-482d8492",
+                        "value": "ngasal",
                         "type": "text"
                       }
                     ],
@@ -3576,85 +3371,6 @@
                     "http",
                     "dev",
                     "get"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "HTTP - Block SQL Injection",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));",
-                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                      "pm.test(\"Validate content\", function () {",
-                      "    let res = pm.response.json();",
-                      "",
-                      "    pm.expect(res.code).to.equal(403);",
-                      "    pm.expect(res.message).to.equal(\"SQLi boolean-based tautology detected\");",
-                      "",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              },
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "X-WAF-TEST",
-                    "value": "1",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/req-body/get-user?age=1 OR 1=1",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "req-body",
-                    "get-user"
-                  ],
-                  "query": [
-                    {
-                      "key": "age",
-                      "value": "1 OR 1=1"
-                    }
                   ]
                 }
               },
@@ -9279,7 +8995,7 @@
                           "    let res = pm.response.json();",
                           "",
                           "    pm.expect(res.data)",
-                          "        .to.be.an(\"null\");",
+                          "        .to.be.an(\"array\");",
                           "});"
                         ],
                         "type": "text/javascript",
@@ -9405,7 +9121,7 @@
                           "    let res = pm.response.json();",
                           "",
                           "    pm.expect(res.data)",
-                          "        .to.be.an(\"null\");",
+                          "        .to.be.an(\"array\");",
                           "});"
                         ],
                         "type": "text/javascript",
@@ -14737,6 +14453,254 @@
       "name": "Database",
       "item": [
         {
+          "name": "Sql injection",
+          "item": [
+            {
+              "name": "HTTP - SQLi Boolean condition",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Validate content\", function () {",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.code).to.equal(500);",
+                      "    pm.expect(res.message).to.equal(\"invalid int\");",
+                      "",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-WAF-TEST",
+                    "value": "1",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/req-body/get-user?age=1 OR 1=1",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "req-body",
+                    "get-user"
+                  ],
+                  "query": [
+                    {
+                      "key": "age",
+                      "value": "1 OR 1=1"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "HTTP - SQLi Comment Injection",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Validate content\", function () {",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.result).to.be.an('array');",
+                      "    pm.expect(res.result.length).to.equal(0);",
+                      "",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-WAF-TEST",
+                    "value": "1",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/admin?username=admin'--&password=admin123",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "admin"
+                  ],
+                  "query": [
+                    {
+                      "key": "username",
+                      "value": "admin'--"
+                    },
+                    {
+                      "key": "password",
+                      "value": "admin123"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "HTTP - SQLi Union Attacks",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                      "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
+                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
+                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
+                      "pm.test(\"Validate content\", function () {",
+                      "    let res = pm.response.json();",
+                      "",
+                      "    pm.expect(res.result).to.be.an('array');",
+                      "    pm.expect(res.result.length).to.equal(0);",
+                      "",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-WAF-TEST",
+                    "value": "1",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/admin?username=admin'--&password=admin123",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "admin"
+                  ],
+                  "query": [
+                    {
+                      "key": "username",
+                      "value": "admin'--"
+                    },
+                    {
+                      "key": "password",
+                      "value": "admin123"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
           "name": "DB - Lawang Public",
           "event": [
             {
@@ -17671,6 +17635,133 @@
           "response": []
         },
         {
+          "name": "File - Access other file on storages directory",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", () => pm.response.to.have.status(404));\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response body contains expected error\", () => {\r",
+                  "    const res = pm.response.json();\r",
+                  "    pm.expect(res.message).to.eql(\"invalid path\")\r",
+                  "    pm.expect(res.code).to.eql(404);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlCore}}/testo/../sig/zakcurah.js",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "testo",
+                "..",
+                "sig",
+                "zakcurah.js"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "File - Access other file out of storages directory",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", () => pm.response.to.have.status(404));\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response body contains expected error\", () => {\r",
+                  "    const res = pm.response.json();\r",
+                  "    pm.expect(res.message).to.eql(\"invalid path\")\r",
+                  "    pm.expect(res.code).to.eql(404);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlCore}}/testo/../../docker-compose.yml",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "testo",
+                "..",
+                "..",
+                "docker-compose.yml"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "File - Access other file with encoding path",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", () => pm.response.to.have.status(404));\r",
+                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
+                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
+                  "pm.test(\"Response body contains expected error\", () => {\r",
+                  "    const res = pm.response.json();\r",
+                  "    pm.expect(res.message).to.eql(\"open /app/storages/testo/..%2f..%2fdocker-compose.ym: no such file or directory\")\r",
+                  "    pm.expect(res.code).to.eql(404);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrlCore}}/testo/..%2f..%2fdocker-compose.ym",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "testo",
+                "..%2f..%2fdocker-compose.ym"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "File - Post Negative",
           "event": [
             {
@@ -18970,65 +19061,7 @@
                   "",
                   "    let res = pm.response.json();",
                   "",
-                  "    // Validate top level fields",
-                  "    [",
-                  "        \"data\"",
-                  "    ].forEach(field => {",
-                  "        pm.expect(res).to.have.property(field);",
-                  "    });",
-                  "",
-                  "    // Validate Page field",
-                  "    [",
-                  "        \"Page\"",
-                  "    ].forEach(field => {",
-                  "        pm.expect(res.data).to.have.property(field);",
-                  "    });",
-                  "",
-                  "    // Validate media field",
-                  "    [",
-                  "        \"media\"",
-                  "    ].forEach(field => {",
-                  "        pm.expect(res.data.Page).to.have.property(field);",
-                  "    });",
-                  "",
-                  "    // Validate media array",
-                  "    pm.expect(res.data.Page.media)",
-                  "        .to.be.an(\"array\");",
-                  "",
-                  "    pm.expect(res.data.Page.media.length)",
-                  "        .to.be.greaterThan(0);",
-                  "",
-                  "    // Validate first media fields",
-                  "    [",
-                  "        \"siteUrl\",",
-                  "        \"title\",",
-                  "        \"description\"",
-                  "    ].forEach(field => {",
-                  "        pm.expect(res.data.Page.media[0])",
-                  "            .to.have.property(field);",
-                  "    });",
-                  "",
-                  "    // Validate title fields",
-                  "    [",
-                  "        \"english\",",
-                  "        \"native\"",
-                  "    ].forEach(field => {",
-                  "        pm.expect(res.data.Page.media[0].title)",
-                  "            .to.have.property(field);",
-                  "    });",
-                  "",
-                  "    // Validate object types",
-                  "    pm.expect(res.data)",
-                  "        .to.be.an(\"object\");",
-                  "",
-                  "    pm.expect(res.data.Page)",
-                  "        .to.be.an(\"object\");",
-                  "",
-                  "    pm.expect(res.data.Page.media[0])",
-                  "        .to.be.an(\"object\");",
-                  "",
-                  "    pm.expect(res.data.Page.media[0].title)",
-                  "        .to.be.an(\"object\");",
+                  "    pm.expect(res.data.getPokemon).to.have.property(\"sprite\");",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -19069,17 +19102,17 @@
             "body": {
               "mode": "graphql",
               "graphql": {
-                "query": "{\r\n  Page {\r\n    media {\r\n      siteUrl\r\n      title {\r\n        english\r\n        native\r\n      }\r\n      description\r\n    }\r\n  }\r\n}",
+                "query": "query {\r\n  getPokemon(pokemon: dragonite) {\r\n    sprite\r\n    num\r\n    species\r\n    color\r\n  }\r\n}",
                 "variables": ""
               }
             },
             "url": {
-              "raw": "{{baseUrlCore}}/anilist",
+              "raw": "{{baseUrlCore}}/v8",
               "host": [
                 "{{baseUrlCore}}"
               ],
               "path": [
-                "anilist"
+                "v8"
               ]
             }
           },
