@@ -1,9 +1,10 @@
 {
   "info": {
-    "_postman_id": "e1919c8e-0b92-4c09-ab3c-1eef07fd3b0d",
+    "_postman_id": "fd09c4dc-6b3c-4974-9a59-b8f0ad1bace6",
     "name": "Lawang - CORS",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "27427413"
+    "_exporter_id": "53603159",
+    "_collection_link": "https://go.postman.co/collection/53603159-fd09c4dc-6b3c-4974-9a59-b8f0ad1bace6?source=collection_link"
   },
   "item": [
     {
@@ -15,44 +16,10 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                  "",
-                  "// ========== CORS HEADERS ==========",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Origin exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");",
-                  "    const requestOrigin = pm.request.headers.get(\"Origin\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header).to.be.oneOf([\"*\", requestOrigin]);",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.toLowerCase()).to.eql(\"true\");",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.length).to.be.above(0);",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
                 "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\n\n// ========== CORS HEADERS ==========\n\npm.test(\"CORS - Access-Control-Allow-Origin exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");\n    const requestOrigin = pm.request.headers.get(\"Origin\");\n    pm.expect(header).to.exist;\n    pm.expect(header).to.be.oneOf([\"*\", requestOrigin]);\n});\n\npm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");\n    pm.expect(header).to.exist;\n    pm.expect(header.toLowerCase()).to.eql(\"true\");\n});\n\npm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");\n    pm.expect(header).to.exist;\n    pm.expect(header.length).to.be.above(0);\n});"
+                ]
               }
             }
           ],
@@ -67,13 +34,67 @@
             "header": [
               {
                 "key": "X-WAF-TEST",
-                "value": "1",
-                "type": "text"
+                "value": "1"
+              },
+              {
+                "key": "Origin",
+                "value": "https://lawangsewu.com"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrlCore}}/v2.1/http/ability/2",
+              "host": [
+                "{{baseUrlCore}}"
+              ],
+              "path": [
+                "v2.1",
+                "http",
+                "ability",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HTTP - With No Origin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\n\n// ========== CORS HEADERS ==========\n\npm.test(\"CORS - Access-Control-Allow-Origin is not exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");\n    const requestOrigin = pm.request.headers.get(\"Origin\");\n    pm.expect(header).to.not.exist;\n});\n\npm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");\n     pm.expect(header).to.not.exist;\n});\n\npm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");\n     pm.expect(header).to.not.exist;\n});"
+                ]
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-WAF-TEST",
+                "value": "1"
               },
               {
                 "key": "Origin",
                 "value": "https://lawangsewu.com",
-                "type": "text"
+                "disabled": true
               }
             ],
             "body": {
@@ -182,213 +203,15 @@
           "response": []
         },
         {
-          "name": "HTTP - Get Private",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                  "",
-                  "// ========== CORS HEADERS ==========",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Origin exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");",
-                  "    const requestOrigin = pm.request.headers.get(\"Origin\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header).to.be.oneOf([\"*\", requestOrigin]);",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.toLowerCase()).to.eql(\"true\");",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.length).to.be.above(0);",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "auth": {
-              "type": "basic",
-              "basic": [
-                {
-                  "key": "password",
-                  "value": "{{Password}}",
-                  "type": "string"
-                },
-                {
-                  "key": "username",
-                  "value": "{{Username}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Origin",
-                "value": "https://lawangsewu.com",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": {
-              "raw": "{{baseUrlCore}}/v2.1/http/generation/2",
-              "host": [
-                "{{baseUrlCore}}"
-              ],
-              "path": [
-                "v2.1",
-                "http",
-                "generation",
-                "2"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "HTTP - Private Negative Case",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));",
-                  "",
-                  "// ========== CORS HEADERS ==========",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Origin exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");",
-                  "    const requestOrigin = pm.request.headers.get(\"Origin\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header).to.be.oneOf([\"*\", requestOrigin]);",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.toLowerCase()).to.eql(\"true\");",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.length).to.be.above(0);",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Origin",
-                "value": "https://lawangsewu.com",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrlCore}}/v2.1/http/generation/10",
-              "host": [
-                "{{baseUrlCore}}"
-              ],
-              "path": [
-                "v2.1",
-                "http",
-                "generation",
-                "10"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
           "name": "HTTP - Get User",
           "event": [
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                  "",
-                  "// ========== CORS HEADERS ==========",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Origin exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");",
-                  "    const requestOrigin = pm.request.headers.get(\"Origin\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header).to.be.oneOf([\"*\", requestOrigin]);",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.toLowerCase()).to.eql(\"true\");",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.length).to.be.above(0);",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
                 "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\n\n// ========== CORS HEADERS ==========\n\npm.test(\"CORS - Access-Control-Allow-Origin exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");\n    const requestOrigin = pm.request.headers.get(\"Origin\");\n    pm.expect(header).to.exist;\n    pm.expect(header).to.be.oneOf([\"*\", requestOrigin]);\n});\n\npm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");\n    pm.expect(header).to.exist;\n    pm.expect(header.toLowerCase()).to.eql(\"true\");\n});\n\npm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");\n    pm.expect(header).to.exist;\n    pm.expect(header.length).to.be.above(0);\n});"
+                ]
               }
             }
           ],
@@ -400,13 +223,13 @@
               "type": "basic",
               "basic": [
                 {
-                  "key": "password",
-                  "value": "{{Password}}",
+                  "key": "username",
+                  "value": "{{Username}}",
                   "type": "string"
                 },
                 {
-                  "key": "username",
-                  "value": "{{Username}}",
+                  "key": "password",
+                  "value": "{{Password}}",
                   "type": "string"
                 }
               ]
@@ -415,13 +238,17 @@
             "header": [
               {
                 "key": "Origin",
-                "value": "https://lawangsewu.com",
-                "type": "text"
+                "value": "https://lawangsewu.com"
               }
             ],
             "body": {
               "mode": "raw",
-              "raw": ""
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
             },
             "url": {
               "raw": "{{baseUrlCore}}/v2.1/http/bible-jhn",
@@ -438,71 +265,76 @@
           "response": []
         },
         {
-          "name": "HTTP - User Negative Case",
+          "name": "HTTP - Get Private (Basic Auth)",
           "event": [
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));",
-                  "",
-                  "// ========== CORS HEADERS ==========",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Origin exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");",
-                  "    const requestOrigin = pm.request.headers.get(\"Origin\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header).to.be.oneOf([\"*\", requestOrigin]);",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.toLowerCase()).to.eql(\"true\");",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.length).to.be.above(0);",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
                 "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\n\n// ========== CORS HEADERS ==========\n\npm.test(\"CORS - Access-Control-Allow-Origin exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");\n    const requestOrigin = pm.request.headers.get(\"Origin\");\n    pm.expect(header).to.exist;\n    pm.expect(header).to.be.oneOf([\"*\", requestOrigin]);\n});\n\npm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");\n    pm.expect(header).to.exist;\n    pm.expect(header.toLowerCase()).to.eql(\"true\");\n});\n\npm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");\n    pm.expect(header).to.exist;\n    pm.expect(header.length).to.be.above(0);\n});"
+                ]
               }
             }
           ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
+                "key": "client_id",
+                "value": "6bb0e1431b347bf48532fe748bc16ae812f6737706289982e9bd46f1380ee904"
+              },
+              {
+                "key": "client_secret",
+                "value": "69027d6e7757b7e8aa5c497bccb6da778cd71c6a0c7f2f1fea3a232f335c1b5d"
+              },
+              {
+                "key": "scope",
+                "value": "api_gateway"
+              },
+              {
                 "key": "Origin",
-                "value": "https://lawangsewu.com",
-                "type": "text"
+                "value": "https://lawangsewu.com"
               }
             ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            },
             "url": {
-              "raw": "{{baseUrlCore}}/v2.1/http/generation/9",
+              "raw": "{{baseUrlCore}}/v2.1/api/v2/evolution-chain/1",
               "host": [
                 "{{baseUrlCore}}"
               ],
               "path": [
                 "v2.1",
-                "http",
-                "generation",
-                "9"
+                "api",
+                "v2",
+                "evolution-chain",
+                "1"
               ]
             }
           },
@@ -1847,44 +1679,10 @@
                 {
                   "listen": "test",
                   "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "",
-                      "// ========== CORS HEADERS ==========",
-                      "",
-                      "pm.test(\"CORS - Access-Control-Allow-Origin exists\", () => {",
-                      "    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");",
-                      "    const requestOrigin = pm.request.headers.get(\"Origin\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header).to.be.oneOf([\"*\", requestOrigin]);",
-                      "});",
-                      "",
-                      "pm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {",
-                      "    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header.toLowerCase()).to.eql(\"true\");",
-                      "});",
-                      "",
-                      "pm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {",
-                      "    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header.length).to.be.above(0);",
-                      "});"
-                    ],
                     "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
                     "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\n\n// ========== CORS HEADERS ==========\n\npm.test(\"CORS - Access-Control-Allow-Origin exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");\n    const requestOrigin = pm.request.headers.get(\"Origin\");\n    pm.expect(header).to.exist;\n    pm.expect(header).to.be.oneOf([\"*\", requestOrigin]);\n});\n\npm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");\n    pm.expect(header).to.exist;\n    pm.expect(header.toLowerCase()).to.eql(\"true\");\n});\n\npm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");\n    pm.expect(header).to.exist;\n    pm.expect(header.length).to.be.above(0);\n});"
+                    ]
                   }
                 }
               ],
@@ -1896,13 +1694,12 @@
                 "header": [
                   {
                     "key": "Origin",
-                    "value": "https://lawangsewu.com",
-                    "type": "text"
+                    "value": "https://lawangsewu.com"
                   }
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"id\": \"ec839f0a-6c60-4448-8c49-cd0c7656e8c2\", \r\n    \"fullname\": \"Ipan\",\r\n    \"address\": \"Pekalongan\"\r\n}",
+                  "raw": "{\r\n    \"connection\": {\r\n        \"db\": \"DSP-TEST\",\r\n        \"table\": \"customer\",\r\n        \"identities\":[\"id\"]\r\n    },\r\n    \"data\": {\r\n    \"id\": \"b2841bb1-af94-4acb-bedf-b99edd93429e\", \r\n    \"name\": \"Ipan\",\r\n    \"age\": 50\r\n    }\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2083,40 +1880,10 @@
                 {
                   "listen": "test",
                   "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "",
-                      "// ========== CORS HEADERS ==========",
-                      "",
-                      "pm.test(\"CORS - Access-Control-Allow-Origin exists\", () => {",
-                      "    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");",
-                      "    const requestOrigin = pm.request.headers.get(\"Origin\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header).to.be.oneOf([\"*\", requestOrigin]);",
-                      "});",
-                      "",
-                      "pm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {",
-                      "    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header.toLowerCase()).to.eql(\"true\");",
-                      "});",
-                      "",
-                      "pm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {",
-                      "    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header.length).to.be.above(0);",
-                      "});"
-                    ],
                     "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [],
-                    "type": "text/javascript"
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\n\n// ========== CORS HEADERS ==========\n\npm.test(\"CORS - Access-Control-Allow-Origin exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");\n    const requestOrigin = pm.request.headers.get(\"Origin\");\n    pm.expect(header).to.exist;\n    pm.expect(header).to.be.oneOf([\"*\", requestOrigin]);\n});\n\npm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");\n    pm.expect(header).to.exist;\n    pm.expect(header.toLowerCase()).to.eql(\"true\");\n});\n\npm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");\n    pm.expect(header).to.exist;\n    pm.expect(header.length).to.be.above(0);\n});"
+                    ]
                   }
                 }
               ],
@@ -2128,13 +1895,17 @@
                 "header": [
                   {
                     "key": "Origin",
-                    "value": "https://lawangsewu.com",
-                    "type": "text"
+                    "value": "https://lawangsewu.com"
                   }
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": ""
+                  "raw": "{\r\n    \"timeout\": 0\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "text"
+                    }
+                  }
                 },
                 "url": {
                   "raw": "{{baseUrlCore}}/v2.1/js/upsert-user",
@@ -2979,85 +2750,6 @@
           "response": []
         },
         {
-          "name": "LB - Public Negative Case",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 404\", () => pm.response.to.have.status(404));",
-                  "",
-                  "// ========== CORS HEADERS ==========",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Origin exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");",
-                  "    const requestOrigin = pm.request.headers.get(\"Origin\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header).to.be.oneOf([\"*\", requestOrigin]);",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.toLowerCase()).to.eql(\"true\");",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.length).to.be.above(0);",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Origin",
-                "value": "https://lawangsewu.com",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": {
-              "raw": "{{baseUrlCore}}/v2.1/lb/api/location/negative",
-              "host": [
-                "{{baseUrlCore}}"
-              ],
-              "path": [
-                "v2.1",
-                "lb",
-                "api",
-                "location",
-                "negative"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
           "name": "LB - Get Private",
           "event": [
             {
@@ -3871,44 +3563,10 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                  "",
-                  "// ========== CORS HEADERS ==========",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Origin exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");",
-                  "    const requestOrigin = pm.request.headers.get(\"Origin\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header).to.be.oneOf([\"*\", requestOrigin]);",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.toLowerCase()).to.eql(\"true\");",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.length).to.be.above(0);",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
                 "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\n\n// ========== CORS HEADERS ==========\n\npm.test(\"CORS - Access-Control-Allow-Origin exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");\n    const requestOrigin = pm.request.headers.get(\"Origin\");\n    pm.expect(header).to.exist;\n    pm.expect(header).to.be.oneOf([\"*\", requestOrigin]);\n});\n\npm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");\n    pm.expect(header).to.exist;\n    pm.expect(header.toLowerCase()).to.eql(\"true\");\n});\n\npm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {\n    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");\n    pm.expect(header).to.exist;\n    pm.expect(header.length).to.be.above(0);\n});"
+                ]
               }
             }
           ],
@@ -3917,8 +3575,7 @@
             "header": [
               {
                 "key": "Origin",
-                "value": "https://lawangsewu.com",
-                "type": "text"
+                "value": "https://lawangsewu.com"
               }
             ],
             "body": {
@@ -3931,97 +3588,12 @@
               }
             },
             "url": {
-              "raw": "{{baseUrlCore}}/v2.1/async/post-webhook",
+              "raw": "{{baseUrlCore}}/2cf57b93-4e9c-4ee4-b42d-534e7bdc8019",
               "host": [
                 "{{baseUrlCore}}"
               ],
               "path": [
-                "v2.1",
-                "async",
-                "post-webhook"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Async - Public Negative case",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 404\", () => pm.response.to.have.status(404));",
-                  "",
-                  "// ========== CORS HEADERS ==========",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Origin exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");",
-                  "    const requestOrigin = pm.request.headers.get(\"Origin\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header).to.be.oneOf([\"*\", requestOrigin]);",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.toLowerCase()).to.eql(\"true\");",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.length).to.be.above(0);",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Origin",
-                "value": "https://lawangsewu.com",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrlCore}}/v2.1/async/get-webhook/negative",
-              "host": [
-                "{{baseUrlCore}}"
-              ],
-              "path": [
-                "v2.1",
-                "async",
-                "get-webhook",
-                "negative"
+                "2cf57b93-4e9c-4ee4-b42d-534e7bdc8019"
               ]
             }
           },
@@ -4926,91 +4498,6 @@
           "response": []
         },
         {
-          "name": "Event Driven - Public Negative case",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 405\", () => pm.response.to.have.status(405));",
-                  "",
-                  "// ========== CORS HEADERS ==========",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Origin exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Origin\");",
-                  "    const requestOrigin = pm.request.headers.get(\"Origin\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header).to.be.oneOf([\"*\", requestOrigin]);",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Allow-Credentials exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Allow-Credentials\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.toLowerCase()).to.eql(\"true\");",
-                  "});",
-                  "",
-                  "pm.test(\"CORS - Access-Control-Expose-Headers exists\", () => {",
-                  "    const header = pm.response.headers.get(\"Access-Control-Expose-Headers\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.length).to.be.above(0);",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Origin",
-                "value": "https://lawangsewu.com",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"dmefew0\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrlCore}}/v2.1/event_driven/negative",
-              "host": [
-                "{{baseUrlCore}}"
-              ],
-              "path": [
-                "v2.1",
-                "event_driven",
-                "negative"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
           "name": "Event Driven - Private",
           "event": [
             {
@@ -5739,7 +5226,7 @@
                 "type": "text"
               }
             ],
-           "body": {
+            "body": {
               "mode": "graphql",
               "graphql": {
                 "query": "query {\r\n  characters(page: 1) {\r\n    results {\r\n      id\r\n      name\r\n      status\r\n      species\r\n    }\r\n  }\r\n}",
@@ -8022,6 +7509,20 @@
           ""
         ]
       }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrlCore",
+      "value": ""
+    },
+    {
+      "key": "Username",
+      "value": ""
+    },
+    {
+      "key": "Password",
+      "value": ""
     }
   ]
 }

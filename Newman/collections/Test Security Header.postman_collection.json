@@ -1,9 +1,10 @@
 {
   "info": {
-    "_postman_id": "e1919c8e-0b92-4c09-ab3c-1eef07fd3b0d",
+    "_postman_id": "7b9992cb-f436-47a0-b201-b1ee47084aac",
     "name": "Lawang - Security Header",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "27427413"
+    "_exporter_id": "53603159",
+    "_collection_link": "https://go.postman.co/collection/53603159-7b9992cb-f436-47a0-b201-b1ee47084aac?source=collection_link"
   },
   "item": [
     {
@@ -297,284 +298,6 @@
           "response": []
         },
         {
-          "name": "HTTP - Get Private",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                  "",
-                  "// ========== SECURITY HEADERS ==========",
-                  "",
-                  "// XSS Protection",
-                  "pm.test(\"Security - X-XSS-Protection is enabled\", () => {",
-                  "    const header = pm.response.headers.get(\"X-XSS-Protection\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header).to.include(\"1\");",
-                  "});",
-                  "",
-                  "// Content Security Policy (CSP)",
-                  "pm.test(\"Security - Content-Security-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Content-Security-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.length).to.be.above(0);",
-                  "});",
-                  "",
-                  "// HTTP Strict Transport Security (HSTS)",
-                  "pm.test(\"Security - Strict-Transport-Security (HSTS) is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Strict-Transport-Security\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header).to.include(\"max-age\");",
-                  "});",
-                  "",
-                  "// X-Frame-Options",
-                  "pm.test(\"Security - X-Frame-Options prevents clickjacking\", () => {",
-                  "    const header = pm.response.headers.get(\"X-Frame-Options\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"deny\", \"sameorigin\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Referrer Policy",
-                  "pm.test(\"Security - Referrer-Policy is set\", () => {",
-                  "    const header = pm.response.headers.get(\"Referrer-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"no-referrer\", \"no-referrer-when-downgrade\", \"origin\", \"origin-when-cross-origin\", \"same-origin\", \"strict-origin\", \"strict-origin-when-cross-origin\", \"unsafe-url\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Permissions Policy",
-                  "pm.test(\"Security - Permissions-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Permissions-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.length).to.be.above(0);",
-                  "});",
-                  "",
-                  "// Content Type Options",
-                  "pm.test(\"Security - X-Content-Type-Options is nosniff\", () => {",
-                  "    const header = pm.response.headers.get(\"X-Content-Type-Options\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.toLowerCase()).to.eql(\"nosniff\");",
-                  "});",
-                  "",
-                  "// Cross-Origin-Embedder-Policy",
-                  "pm.test(\"Security - Cross-Origin-Embedder-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Cross-Origin-Embedder-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"require-corp\", \"credentialless\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Cross-Origin-Opener-Policy",
-                  "pm.test(\"Security - Cross-Origin-Opener-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Cross-Origin-Opener-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"same-origin\", \"same-origin-allow-popups\", \"unsafe-none\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Cross-Origin-Resource-Policy",
-                  "pm.test(\"Security - Cross-Origin-Resource-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Cross-Origin-Resource-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"same-origin\", \"same-site\", \"cross-origin\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Origin-Agent-Cluster",
-                  "pm.test(\"Security - Origin-Agent-Cluster is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Origin-Agent-Cluster\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.toLowerCase()).to.eql(\"?1\");",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "auth": {
-              "type": "basic",
-              "basic": [
-                {
-                  "key": "password",
-                  "value": "{{Password}}",
-                  "type": "string"
-                },
-                {
-                  "key": "username",
-                  "value": "{{Username}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": {
-              "raw": "{{baseUrlCore}}/v2.1/http/generation/2",
-              "host": [
-                "{{baseUrlCore}}"
-              ],
-              "path": [
-                "v2.1",
-                "http",
-                "generation",
-                "2"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "HTTP - Private Negative Case",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));",
-                  "",
-                  "// ========== SECURITY HEADERS ==========",
-                  "",
-                  "// XSS Protection",
-                  "pm.test(\"Security - X-XSS-Protection is enabled\", () => {",
-                  "    const header = pm.response.headers.get(\"X-XSS-Protection\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header).to.include(\"1\");",
-                  "});",
-                  "",
-                  "// Content Security Policy (CSP)",
-                  "pm.test(\"Security - Content-Security-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Content-Security-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.length).to.be.above(0);",
-                  "});",
-                  "",
-                  "// HTTP Strict Transport Security (HSTS)",
-                  "pm.test(\"Security - Strict-Transport-Security (HSTS) is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Strict-Transport-Security\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header).to.include(\"max-age\");",
-                  "});",
-                  "",
-                  "// X-Frame-Options",
-                  "pm.test(\"Security - X-Frame-Options prevents clickjacking\", () => {",
-                  "    const header = pm.response.headers.get(\"X-Frame-Options\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"deny\", \"sameorigin\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Referrer Policy",
-                  "pm.test(\"Security - Referrer-Policy is set\", () => {",
-                  "    const header = pm.response.headers.get(\"Referrer-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"no-referrer\", \"no-referrer-when-downgrade\", \"origin\", \"origin-when-cross-origin\", \"same-origin\", \"strict-origin\", \"strict-origin-when-cross-origin\", \"unsafe-url\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Permissions Policy",
-                  "pm.test(\"Security - Permissions-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Permissions-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.length).to.be.above(0);",
-                  "});",
-                  "",
-                  "// Content Type Options",
-                  "pm.test(\"Security - X-Content-Type-Options is nosniff\", () => {",
-                  "    const header = pm.response.headers.get(\"X-Content-Type-Options\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.toLowerCase()).to.eql(\"nosniff\");",
-                  "});",
-                  "",
-                  "// Cross-Origin-Embedder-Policy",
-                  "pm.test(\"Security - Cross-Origin-Embedder-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Cross-Origin-Embedder-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"require-corp\", \"credentialless\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Cross-Origin-Opener-Policy",
-                  "pm.test(\"Security - Cross-Origin-Opener-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Cross-Origin-Opener-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"same-origin\", \"same-origin-allow-popups\", \"unsafe-none\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Cross-Origin-Resource-Policy",
-                  "pm.test(\"Security - Cross-Origin-Resource-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Cross-Origin-Resource-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"same-origin\", \"same-site\", \"cross-origin\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Origin-Agent-Cluster",
-                  "pm.test(\"Security - Origin-Agent-Cluster is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Origin-Agent-Cluster\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.toLowerCase()).to.eql(\"?1\");",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrlCore}}/v2.1/http/generation/10",
-              "host": [
-                "{{baseUrlCore}}"
-              ],
-              "path": [
-                "v2.1",
-                "http",
-                "generation",
-                "10"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
           "name": "HTTP - Get User",
           "event": [
             {
@@ -724,128 +447,72 @@
           "response": []
         },
         {
-          "name": "HTTP - User Negative Case",
+          "name": "HTTP - Get Private (Basic Auth)",
           "event": [
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code is 401\", () => pm.response.to.have.status(401));",
-                  "",
-                  "// ========== SECURITY HEADERS ==========",
-                  "",
-                  "// XSS Protection",
-                  "pm.test(\"Security - X-XSS-Protection is enabled\", () => {",
-                  "    const header = pm.response.headers.get(\"X-XSS-Protection\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header).to.include(\"1\");",
-                  "});",
-                  "",
-                  "// Content Security Policy (CSP)",
-                  "pm.test(\"Security - Content-Security-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Content-Security-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.length).to.be.above(0);",
-                  "});",
-                  "",
-                  "// HTTP Strict Transport Security (HSTS)",
-                  "pm.test(\"Security - Strict-Transport-Security (HSTS) is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Strict-Transport-Security\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header).to.include(\"max-age\");",
-                  "});",
-                  "",
-                  "// X-Frame-Options",
-                  "pm.test(\"Security - X-Frame-Options prevents clickjacking\", () => {",
-                  "    const header = pm.response.headers.get(\"X-Frame-Options\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"deny\", \"sameorigin\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Referrer Policy",
-                  "pm.test(\"Security - Referrer-Policy is set\", () => {",
-                  "    const header = pm.response.headers.get(\"Referrer-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"no-referrer\", \"no-referrer-when-downgrade\", \"origin\", \"origin-when-cross-origin\", \"same-origin\", \"strict-origin\", \"strict-origin-when-cross-origin\", \"unsafe-url\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Permissions Policy",
-                  "pm.test(\"Security - Permissions-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Permissions-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.length).to.be.above(0);",
-                  "});",
-                  "",
-                  "// Content Type Options",
-                  "pm.test(\"Security - X-Content-Type-Options is nosniff\", () => {",
-                  "    const header = pm.response.headers.get(\"X-Content-Type-Options\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.toLowerCase()).to.eql(\"nosniff\");",
-                  "});",
-                  "",
-                  "// Cross-Origin-Embedder-Policy",
-                  "pm.test(\"Security - Cross-Origin-Embedder-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Cross-Origin-Embedder-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"require-corp\", \"credentialless\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Cross-Origin-Opener-Policy",
-                  "pm.test(\"Security - Cross-Origin-Opener-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Cross-Origin-Opener-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"same-origin\", \"same-origin-allow-popups\", \"unsafe-none\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Cross-Origin-Resource-Policy",
-                  "pm.test(\"Security - Cross-Origin-Resource-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Cross-Origin-Resource-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"same-origin\", \"same-site\", \"cross-origin\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Origin-Agent-Cluster",
-                  "pm.test(\"Security - Origin-Agent-Cluster is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Origin-Agent-Cluster\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.toLowerCase()).to.eql(\"?1\");",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
                 "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\n\n// ========== SECURITY HEADERS ==========\n\n// XSS Protection\npm.test(\"Security - X-XSS-Protection is enabled\", () => {\n    const header = pm.response.headers.get(\"X-XSS-Protection\");\n    pm.expect(header).to.exist;\n    pm.expect(header).to.include(\"1\");\n});\n\n// Content Security Policy (CSP)\npm.test(\"Security - Content-Security-Policy is present\", () => {\n    const header = pm.response.headers.get(\"Content-Security-Policy\");\n    pm.expect(header).to.exist;\n    pm.expect(header.length).to.be.above(0);\n});\n\n// HTTP Strict Transport Security (HSTS)\npm.test(\"Security - Strict-Transport-Security (HSTS) is present\", () => {\n    const header = pm.response.headers.get(\"Strict-Transport-Security\");\n    pm.expect(header).to.exist;\n    pm.expect(header).to.include(\"max-age\");\n});\n\n// X-Frame-Options\npm.test(\"Security - X-Frame-Options prevents clickjacking\", () => {\n    const header = pm.response.headers.get(\"X-Frame-Options\");\n    pm.expect(header).to.exist;\n    const validValues = [\"deny\", \"sameorigin\"];\n    pm.expect(validValues).to.include(header.toLowerCase());\n});\n\n// Referrer Policy\npm.test(\"Security - Referrer-Policy is set\", () => {\n    const header = pm.response.headers.get(\"Referrer-Policy\");\n    pm.expect(header).to.exist;\n    const validValues = [\"no-referrer\", \"no-referrer-when-downgrade\", \"origin\", \"origin-when-cross-origin\", \"same-origin\", \"strict-origin\", \"strict-origin-when-cross-origin\", \"unsafe-url\"];\n    pm.expect(validValues).to.include(header.toLowerCase());\n});\n\n// Permissions Policy\npm.test(\"Security - Permissions-Policy is present\", () => {\n    const header = pm.response.headers.get(\"Permissions-Policy\");\n    pm.expect(header).to.exist;\n    pm.expect(header.length).to.be.above(0);\n});\n\n// Content Type Options\npm.test(\"Security - X-Content-Type-Options is nosniff\", () => {\n    const header = pm.response.headers.get(\"X-Content-Type-Options\");\n    pm.expect(header).to.exist;\n    pm.expect(header.toLowerCase()).to.eql(\"nosniff\");\n});\n\n// Cross-Origin-Embedder-Policy\npm.test(\"Security - Cross-Origin-Embedder-Policy is present\", () => {\n    const header = pm.response.headers.get(\"Cross-Origin-Embedder-Policy\");\n    pm.expect(header).to.exist;\n    const validValues = [\"require-corp\", \"credentialless\"];\n    pm.expect(validValues).to.include(header.toLowerCase());\n});\n\n// Cross-Origin-Opener-Policy\npm.test(\"Security - Cross-Origin-Opener-Policy is present\", () => {\n    const header = pm.response.headers.get(\"Cross-Origin-Opener-Policy\");\n    pm.expect(header).to.exist;\n    const validValues = [\"same-origin\", \"same-origin-allow-popups\", \"unsafe-none\"];\n    pm.expect(validValues).to.include(header.toLowerCase());\n});\n\n// Cross-Origin-Resource-Policy\npm.test(\"Security - Cross-Origin-Resource-Policy is present\", () => {\n    const header = pm.response.headers.get(\"Cross-Origin-Resource-Policy\");\n    pm.expect(header).to.exist;\n    const validValues = [\"same-origin\", \"same-site\", \"cross-origin\"];\n    pm.expect(validValues).to.include(header.toLowerCase());\n});\n\n// Origin-Agent-Cluster\npm.test(\"Security - Origin-Agent-Cluster is present\", () => {\n    const header = pm.response.headers.get(\"Origin-Agent-Cluster\");\n    pm.expect(header).to.exist;\n    pm.expect(header.toLowerCase()).to.eql(\"?1\");\n});"
+                ]
               }
             }
           ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{Username}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
-            "header": [],
+            "header": [
+              {
+                "key": "client_id",
+                "value": "6bb0e1431b347bf48532fe748bc16ae812f6737706289982e9bd46f1380ee904"
+              },
+              {
+                "key": "client_secret",
+                "value": "69027d6e7757b7e8aa5c497bccb6da778cd71c6a0c7f2f1fea3a232f335c1b5d"
+              },
+              {
+                "key": "scope",
+                "value": "api_gateway"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            },
             "url": {
-              "raw": "{{baseUrlCore}}/v2.1/http/generation/9",
+              "raw": "{{baseUrlCore}}/v2.1/api/v2/evolution-chain/1",
               "host": [
                 "{{baseUrlCore}}"
               ],
               "path": [
                 "v2.1",
-                "http",
-                "generation",
-                "9"
+                "api",
+                "v2",
+                "evolution-chain",
+                "1"
               ]
             }
           },
@@ -3154,145 +2821,6 @@
               "response": []
             },
             {
-              "name": "JS - Put User",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "",
-                      "// ========== SECURITY HEADERS ==========",
-                      "",
-                      "// XSS Protection",
-                      "pm.test(\"Security - X-XSS-Protection is enabled\", () => {",
-                      "    const header = pm.response.headers.get(\"X-XSS-Protection\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header).to.include(\"1\");",
-                      "});",
-                      "",
-                      "// Content Security Policy (CSP)",
-                      "pm.test(\"Security - Content-Security-Policy is present\", () => {",
-                      "    const header = pm.response.headers.get(\"Content-Security-Policy\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header.length).to.be.above(0);",
-                      "});",
-                      "",
-                      "// HTTP Strict Transport Security (HSTS)",
-                      "pm.test(\"Security - Strict-Transport-Security (HSTS) is present\", () => {",
-                      "    const header = pm.response.headers.get(\"Strict-Transport-Security\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header).to.include(\"max-age\");",
-                      "});",
-                      "",
-                      "// X-Frame-Options",
-                      "pm.test(\"Security - X-Frame-Options prevents clickjacking\", () => {",
-                      "    const header = pm.response.headers.get(\"X-Frame-Options\");",
-                      "    pm.expect(header).to.exist;",
-                      "    const validValues = [\"deny\", \"sameorigin\"];",
-                      "    pm.expect(validValues).to.include(header.toLowerCase());",
-                      "});",
-                      "",
-                      "// Referrer Policy",
-                      "pm.test(\"Security - Referrer-Policy is set\", () => {",
-                      "    const header = pm.response.headers.get(\"Referrer-Policy\");",
-                      "    pm.expect(header).to.exist;",
-                      "    const validValues = [\"no-referrer\", \"no-referrer-when-downgrade\", \"origin\", \"origin-when-cross-origin\", \"same-origin\", \"strict-origin\", \"strict-origin-when-cross-origin\", \"unsafe-url\"];",
-                      "    pm.expect(validValues).to.include(header.toLowerCase());",
-                      "});",
-                      "",
-                      "// Permissions Policy",
-                      "pm.test(\"Security - Permissions-Policy is present\", () => {",
-                      "    const header = pm.response.headers.get(\"Permissions-Policy\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header.length).to.be.above(0);",
-                      "});",
-                      "",
-                      "// Content Type Options",
-                      "pm.test(\"Security - X-Content-Type-Options is nosniff\", () => {",
-                      "    const header = pm.response.headers.get(\"X-Content-Type-Options\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header.toLowerCase()).to.eql(\"nosniff\");",
-                      "});",
-                      "",
-                      "// Cross-Origin-Embedder-Policy",
-                      "pm.test(\"Security - Cross-Origin-Embedder-Policy is present\", () => {",
-                      "    const header = pm.response.headers.get(\"Cross-Origin-Embedder-Policy\");",
-                      "    pm.expect(header).to.exist;",
-                      "    const validValues = [\"require-corp\", \"credentialless\"];",
-                      "    pm.expect(validValues).to.include(header.toLowerCase());",
-                      "});",
-                      "",
-                      "// Cross-Origin-Opener-Policy",
-                      "pm.test(\"Security - Cross-Origin-Opener-Policy is present\", () => {",
-                      "    const header = pm.response.headers.get(\"Cross-Origin-Opener-Policy\");",
-                      "    pm.expect(header).to.exist;",
-                      "    const validValues = [\"same-origin\", \"same-origin-allow-popups\", \"unsafe-none\"];",
-                      "    pm.expect(validValues).to.include(header.toLowerCase());",
-                      "});",
-                      "",
-                      "// Cross-Origin-Resource-Policy",
-                      "pm.test(\"Security - Cross-Origin-Resource-Policy is present\", () => {",
-                      "    const header = pm.response.headers.get(\"Cross-Origin-Resource-Policy\");",
-                      "    pm.expect(header).to.exist;",
-                      "    const validValues = [\"same-origin\", \"same-site\", \"cross-origin\"];",
-                      "    pm.expect(validValues).to.include(header.toLowerCase());",
-                      "});",
-                      "",
-                      "// Origin-Agent-Cluster",
-                      "pm.test(\"Security - Origin-Agent-Cluster is present\", () => {",
-                      "    const header = pm.response.headers.get(\"Origin-Agent-Cluster\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header.toLowerCase()).to.eql(\"?1\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "PUT",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"id\": \"ec839f0a-6c60-4448-8c49-cd0c7656e8c2\", \r\n    \"fullname\": \"Ipan\",\r\n    \"address\": \"Pekalongan\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/put-user",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "put-user"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
               "name": "JS - Exists User",
               "event": [
                 {
@@ -3555,136 +3083,6 @@
                     "v2.1",
                     "js",
                     "query-user"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "JS - Upsert",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                      "",
-                      "// ========== SECURITY HEADERS ==========",
-                      "",
-                      "// XSS Protection",
-                      "pm.test(\"Security - X-XSS-Protection is enabled\", () => {",
-                      "    const header = pm.response.headers.get(\"X-XSS-Protection\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header).to.include(\"1\");",
-                      "});",
-                      "",
-                      "// Content Security Policy (CSP)",
-                      "pm.test(\"Security - Content-Security-Policy is present\", () => {",
-                      "    const header = pm.response.headers.get(\"Content-Security-Policy\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header.length).to.be.above(0);",
-                      "});",
-                      "",
-                      "// HTTP Strict Transport Security (HSTS)",
-                      "pm.test(\"Security - Strict-Transport-Security (HSTS) is present\", () => {",
-                      "    const header = pm.response.headers.get(\"Strict-Transport-Security\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header).to.include(\"max-age\");",
-                      "});",
-                      "",
-                      "// X-Frame-Options",
-                      "pm.test(\"Security - X-Frame-Options prevents clickjacking\", () => {",
-                      "    const header = pm.response.headers.get(\"X-Frame-Options\");",
-                      "    pm.expect(header).to.exist;",
-                      "    const validValues = [\"deny\", \"sameorigin\"];",
-                      "    pm.expect(validValues).to.include(header.toLowerCase());",
-                      "});",
-                      "",
-                      "// Referrer Policy",
-                      "pm.test(\"Security - Referrer-Policy is set\", () => {",
-                      "    const header = pm.response.headers.get(\"Referrer-Policy\");",
-                      "    pm.expect(header).to.exist;",
-                      "    const validValues = [\"no-referrer\", \"no-referrer-when-downgrade\", \"origin\", \"origin-when-cross-origin\", \"same-origin\", \"strict-origin\", \"strict-origin-when-cross-origin\", \"unsafe-url\"];",
-                      "    pm.expect(validValues).to.include(header.toLowerCase());",
-                      "});",
-                      "",
-                      "// Permissions Policy",
-                      "pm.test(\"Security - Permissions-Policy is present\", () => {",
-                      "    const header = pm.response.headers.get(\"Permissions-Policy\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header.length).to.be.above(0);",
-                      "});",
-                      "",
-                      "// Content Type Options",
-                      "pm.test(\"Security - X-Content-Type-Options is nosniff\", () => {",
-                      "    const header = pm.response.headers.get(\"X-Content-Type-Options\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header.toLowerCase()).to.eql(\"nosniff\");",
-                      "});",
-                      "",
-                      "// Cross-Origin-Embedder-Policy",
-                      "pm.test(\"Security - Cross-Origin-Embedder-Policy is present\", () => {",
-                      "    const header = pm.response.headers.get(\"Cross-Origin-Embedder-Policy\");",
-                      "    pm.expect(header).to.exist;",
-                      "    const validValues = [\"require-corp\", \"credentialless\"];",
-                      "    pm.expect(validValues).to.include(header.toLowerCase());",
-                      "});",
-                      "",
-                      "// Cross-Origin-Opener-Policy",
-                      "pm.test(\"Security - Cross-Origin-Opener-Policy is present\", () => {",
-                      "    const header = pm.response.headers.get(\"Cross-Origin-Opener-Policy\");",
-                      "    pm.expect(header).to.exist;",
-                      "    const validValues = [\"same-origin\", \"same-origin-allow-popups\", \"unsafe-none\"];",
-                      "    pm.expect(validValues).to.include(header.toLowerCase());",
-                      "});",
-                      "",
-                      "// Cross-Origin-Resource-Policy",
-                      "pm.test(\"Security - Cross-Origin-Resource-Policy is present\", () => {",
-                      "    const header = pm.response.headers.get(\"Cross-Origin-Resource-Policy\");",
-                      "    pm.expect(header).to.exist;",
-                      "    const validValues = [\"same-origin\", \"same-site\", \"cross-origin\"];",
-                      "    pm.expect(validValues).to.include(header.toLowerCase());",
-                      "});",
-                      "",
-                      "// Origin-Agent-Cluster",
-                      "pm.test(\"Security - Origin-Agent-Cluster is present\", () => {",
-                      "    const header = pm.response.headers.get(\"Origin-Agent-Cluster\");",
-                      "    pm.expect(header).to.exist;",
-                      "    pm.expect(header.toLowerCase()).to.eql(\"?1\");",
-                      "});"
-                    ],
-                    "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
-                  }
-                },
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [],
-                    "type": "text/javascript"
-                  }
-                }
-              ],
-              "request": {
-                "auth": {
-                  "type": "noauth"
-                },
-                "method": "PUT",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{baseUrlCore}}/v2.1/js/upsert-user",
-                  "host": [
-                    "{{baseUrlCore}}"
-                  ],
-                  "path": [
-                    "v2.1",
-                    "js",
-                    "upsert-user"
                   ]
                 }
               },
@@ -6603,142 +6001,6 @@
     {
       "name": "Asynchronous",
       "item": [
-        {
-          "name": "Async - Post Public",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                  "",
-                  "// ========== SECURITY HEADERS ==========",
-                  "",
-                  "// XSS Protection",
-                  "pm.test(\"Security - X-XSS-Protection is enabled\", () => {",
-                  "    const header = pm.response.headers.get(\"X-XSS-Protection\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header).to.include(\"1\");",
-                  "});",
-                  "",
-                  "// Content Security Policy (CSP)",
-                  "pm.test(\"Security - Content-Security-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Content-Security-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.length).to.be.above(0);",
-                  "});",
-                  "",
-                  "// HTTP Strict Transport Security (HSTS)",
-                  "pm.test(\"Security - Strict-Transport-Security (HSTS) is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Strict-Transport-Security\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header).to.include(\"max-age\");",
-                  "});",
-                  "",
-                  "// X-Frame-Options",
-                  "pm.test(\"Security - X-Frame-Options prevents clickjacking\", () => {",
-                  "    const header = pm.response.headers.get(\"X-Frame-Options\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"deny\", \"sameorigin\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Referrer Policy",
-                  "pm.test(\"Security - Referrer-Policy is set\", () => {",
-                  "    const header = pm.response.headers.get(\"Referrer-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"no-referrer\", \"no-referrer-when-downgrade\", \"origin\", \"origin-when-cross-origin\", \"same-origin\", \"strict-origin\", \"strict-origin-when-cross-origin\", \"unsafe-url\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Permissions Policy",
-                  "pm.test(\"Security - Permissions-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Permissions-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.length).to.be.above(0);",
-                  "});",
-                  "",
-                  "// Content Type Options",
-                  "pm.test(\"Security - X-Content-Type-Options is nosniff\", () => {",
-                  "    const header = pm.response.headers.get(\"X-Content-Type-Options\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.toLowerCase()).to.eql(\"nosniff\");",
-                  "});",
-                  "",
-                  "// Cross-Origin-Embedder-Policy",
-                  "pm.test(\"Security - Cross-Origin-Embedder-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Cross-Origin-Embedder-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"require-corp\", \"credentialless\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Cross-Origin-Opener-Policy",
-                  "pm.test(\"Security - Cross-Origin-Opener-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Cross-Origin-Opener-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"same-origin\", \"same-origin-allow-popups\", \"unsafe-none\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Cross-Origin-Resource-Policy",
-                  "pm.test(\"Security - Cross-Origin-Resource-Policy is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Cross-Origin-Resource-Policy\");",
-                  "    pm.expect(header).to.exist;",
-                  "    const validValues = [\"same-origin\", \"same-site\", \"cross-origin\"];",
-                  "    pm.expect(validValues).to.include(header.toLowerCase());",
-                  "});",
-                  "",
-                  "// Origin-Agent-Cluster",
-                  "pm.test(\"Security - Origin-Agent-Cluster is present\", () => {",
-                  "    const header = pm.response.headers.get(\"Origin-Agent-Cluster\");",
-                  "    pm.expect(header).to.exist;",
-                  "    pm.expect(header.toLowerCase()).to.eql(\"?1\");",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"id\": \"53f03aac-3e5f-4c2b-aa84-0f80cbd75d1c\",\r\n  \"payload\": { \"Name\": \"webhook-lawang\" }\r\n}\r\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrlCore}}/v2.1/async/post-webhook",
-              "host": [
-                "{{baseUrlCore}}"
-              ],
-              "path": [
-                "v2.1",
-                "async",
-                "post-webhook"
-              ]
-            }
-          },
-          "response": []
-        },
         {
           "name": "Async - Public Negative case",
           "event": [
@@ -9788,7 +9050,7 @@
             },
             "method": "POST",
             "header": [],
-           "body": {
+            "body": {
               "mode": "graphql",
               "graphql": {
                 "query": "query {\r\n  characters(page: 1) {\r\n    results {\r\n      id\r\n      name\r\n      status\r\n      species\r\n    }\r\n  }\r\n}",
@@ -13782,6 +13044,20 @@
           ""
         ]
       }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrlCore",
+      "value": ""
+    },
+    {
+      "key": "Username",
+      "value": ""
+    },
+    {
+      "key": "Password",
+      "value": ""
     }
   ]
 }
