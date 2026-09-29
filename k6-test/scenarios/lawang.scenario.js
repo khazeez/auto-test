@@ -69,7 +69,7 @@ function executeEndpoint(endpoint, auth = null) {
       r.status >= 200 && r.status < 300,
   });
 
-  sleep(1);
+  // sleep(1);
 
   return res;
 }
