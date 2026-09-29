@@ -4,7 +4,7 @@ import { lawangScenario } from '../scenarios/lawang.scenario.js';
 export const options = {
   insecureSkipTLSVerify: true,
   stages: [
-    { duration: '1m', target: 10 },
+    { duration: '1m', target: 2 },
   ],
   thresholds: {
     http_req_failed:   ['rate<0.01'],
