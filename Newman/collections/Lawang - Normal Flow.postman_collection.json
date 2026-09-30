@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "fcb0e46b-8b22-47ad-9840-93acfefaeb78",
+    "_postman_id": "8d614f4a-9ce2-4e5a-9811-bdc763d0c5d7",
     "name": "Lawang - Normal Flow",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "53603159",
-    "_collection_link": "https://go.postman.co/collection/53603159-fcb0e46b-8b22-47ad-9840-93acfefaeb78?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/53603159-8d614f4a-9ce2-4e5a-9811-bdc763d0c5d7?source=collection_link"
   },
   "item": [
     {
@@ -3547,6 +3547,105 @@
                     "http",
                     "dev",
                     "get"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Follow Redirection",
+          "item": [
+            {
+              "name": "HTTP - Follow Redirection On",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);"
+                    ]
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-WAF-TEST",
+                    "value": "1"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/follow-redirection",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "follow-redirection"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "HTTP - Follow Redirection Off",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 301\", () => pm.response.to.have.status(301));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-WAF-TEST",
+                    "value": "1"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/follow-redirection/off",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "follow-redirection",
+                    "off"
                   ]
                 }
               },

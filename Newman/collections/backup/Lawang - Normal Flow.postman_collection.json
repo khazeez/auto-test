@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "d7a02598-6b09-4218-a859-60aa148b4de7",
+    "_postman_id": "fcb0e46b-8b22-47ad-9840-93acfefaeb78",
     "name": "Lawang - Normal Flow",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "53603159",
-    "_collection_link": "https://go.postman.co/collection/53603159-d7a02598-6b09-4218-a859-60aa148b4de7?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/53603159-fcb0e46b-8b22-47ad-9840-93acfefaeb78?source=collection_link"
   },
   "item": [
     {
@@ -906,6 +906,182 @@
                   "path": [
                     "image",
                     "png"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Balance IDR Available",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is json\", () => {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{user_balance_available}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pass_balance_available}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCore}}/anything/idr-01",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "anything",
+                    "idr-01"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Balance IDR Not Available",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is insufficient balance\", () => {\r\n    pm.expect(pm.response.text()).to.include(\"insufficient balance\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{user_balance_not_available}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pass_balance_not_available}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCore}}/anything/idr-02",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "anything",
+                    "idr-02"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Balance HIT Available",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is image\", () => {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{user_balance_available}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pass_balance_available}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCore}}/anything/hit-01",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "anything",
+                    "hit-01"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Balance HIT Not Available",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 403\", () => pm.response.to.have.status(403));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is insufficient balance\", () => {\r\n    pm.expect(pm.response.text()).to.include(\"insufficient balance\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{user_balance_not_available}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pass_balance_not_available}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrlCore}}/anything/hit-02",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "anything",
+                    "hit-02"
                   ]
                 }
               },
@@ -14805,13 +14981,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrlCore}}/get-user/13",
+              "raw": "{{baseUrlCore}}/get-user/17",
               "host": [
                 "{{baseUrlCore}}"
               ],
               "path": [
                 "get-user",
-                "13"
+                "17"
               ]
             }
           },
@@ -14875,7 +15051,7 @@
               }
             },
             "url": {
-              "raw": "{{baseUrlCore}}/req-body/get-user?age=13",
+              "raw": "{{baseUrlCore}}/req-body/get-user?age=17",
               "host": [
                 "{{baseUrlCore}}"
               ],
@@ -14886,7 +15062,7 @@
               "query": [
                 {
                   "key": "age",
-                  "value": "13"
+                  "value": "17"
                 }
               ]
             }
@@ -20612,6 +20788,22 @@
     },
     {
       "key": "refresh_token",
+      "value": ""
+    },
+    {
+      "key": "user_balance_available",
+      "value": ""
+    },
+    {
+      "key": "pass_balance_available",
+      "value": ""
+    },
+    {
+      "key": "user_balance_not_available",
+      "value": ""
+    },
+    {
+      "key": "pass_balance_not_available",
       "value": ""
     }
   ]
