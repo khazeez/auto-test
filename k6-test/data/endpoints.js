@@ -13,33 +13,33 @@ export const Public = [
     method: 'GET',
     path: '/v2.1/http/ability/2',
   },
-  {
-    name: 'HTTP PUT',
-    method: 'PUT',
-    path: '/products/2',
-    body: {
-      title: "update product",
-      price: 999
-    }
-  },
-  {
-    name: 'HTTP DELETE',
-    method: 'DELETE',
-    path: '/users/2',
-    body: {
-      id: '1',
-      isDeleted: true,
-      deletedOn: '2026-05-13T10:00:00.000Z'
-    }
-  },
-  {
-    name: "HTTP PATCH",
-    method: 'PATCH',
-    path: '/products/2',
-    body: {
-      price: 777
-    }
-  },
+  // {
+  //   name: 'HTTP PUT',
+  //   method: 'PUT',
+  //   path: '/products/2',
+  //   body: {
+  //     title: "update product",
+  //     price: 999
+  //   }
+  // },
+  // {
+  //   name: 'HTTP DELETE',
+  //   method: 'DELETE',
+  //   path: '/users/2',
+  //   body: {
+  //     id: '1',
+  //     isDeleted: true,
+  //     deletedOn: '2026-05-13T10:00:00.000Z'
+  //   }
+  // },
+  // {
+  //   name: "HTTP PATCH",
+  //   method: 'PATCH',
+  //   path: '/products/2',
+  //   body: {
+  //     price: 777
+  //   }
+  // },
   {
     name: 'Javascript GET',
     method: 'GET',
@@ -68,11 +68,11 @@ export const Public = [
     method: 'DELETE',
     path: '/v2.1/js/delete-httpbin'
   },
-  {
-    name: 'Load balancer GET',
-    method: 'GET',
-    path: '/v2.1/lb/api/character'
-  },
+  // {
+  //   name: 'Load balancer GET',
+  //   method: 'GET',
+  //   path: '/v2.1/lb/api/character'
+  // },
   {
     name: 'Asynchronus POST',
     method: 'POST',
@@ -102,32 +102,32 @@ export const Public = [
   method: 'GET',
   path: '/testo/hallo.txt'
   },
-  {
-    name: 'GraphQL POST',
-    method: 'POST',
-    path: '/rick-and-morty',
-    body: {
-      query: `query {
-  characters(page: 1) {
-    results {
-      id
-      name
-      status
-      species
-    }
-  }
-}`
-    }
-  }
+//   {
+//     name: 'GraphQL POST',
+//     method: 'POST',
+//     path: '/rick-and-morty',
+//     body: {
+//       query: `query {
+//   characters(page: 1) {
+//     results {
+//       id
+//       name
+//       status
+//       species
+//     }
+//   }
+// }`
+//     }
+//   }
 
 ];
 
 export const Private = [
-  {
-    name: 'HTTP GET',
-    method: 'GET',
-    path: '/v2.1/lb/api/location',
-  },
+  // {
+  //   name: 'HTTP GET',
+  //   method: 'GET',
+  //   path: '/v2.1/lb/api/location',
+  // },
   {
     name: 'Database GET',
     method: 'GET',
@@ -151,11 +151,11 @@ export const User = [
     method: 'GET',
     path: '/v2.1/js/mock/external-get',
   },
-  {
-    name: 'Episode',
-    method: 'GET',
-    path: '/v2.1/lb/api/episode',
-  },
+  // {
+  //   name: 'Episode',
+  //   method: 'GET',
+  //   path: '/v2.1/lb/api/episode',
+  // },
   {
     name: 'RAG User',
     method: 'GET',
