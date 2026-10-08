@@ -217,6 +217,82 @@ async function runWithScenario(col, folders, folderChoice, envFile, envName) {
 }
 
 
+function runNewmanAuto(collectionPath, envPath, slug, reportDir) {
+  const html = path.join(reportDir, `newman-${slug}.html`);
+  const json = path.join(reportDir, `newman-${slug}.json`);
+  const cmd =
+    `npx newman run "${collectionPath}" -e "${envPath}" --insecure ` +
+    `-r cli,htmlextra,json ` +
+    `--reporter-htmlextra-export "${html}" --reporter-json-export "${json}"`;
+  try {
+    execSync(cmd, { stdio: 'inherit', cwd: __dirname });
+    return 0;
+  } catch (e) {
+    return e.status ?? 1;
+  }
+}
+
+async function runAll(envName, reportDir) {
+  const env = ENVIRONMENTS.find(
+    (e) => e.name.toLowerCase() === envName.toLowerCase()
+  );
+  if (!env) {
+    console.error(`Environment "${envName}" tidak ditemukan.`);
+    process.exit(2);
+  }
+  reportDir = path.resolve(reportDir); // newman jalan di folder Newman/, jadi path relatif harus dijadikan absolut
+  fs.mkdirSync(reportDir, { recursive: true });
+
+  const results = [];
+  let teardownFailed = false;
+
+  for (const col of COLLECTIONS) {
+    const slug = col.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const r = { name: col.name, slug, code: 0, setupOk: true, teardownOk: true };
+
+    console.log(`\n[AUTO] ${col.name}`);
+    try {
+      await col.before();
+    } catch (err) {
+      r.setupOk = false;
+      r.code = 1;
+      console.error(`[SETUP] "${col.name}" gagal: ${err.message}`);
+    }
+
+    if (r.setupOk) {
+      r.code = runNewmanAuto(
+        path.join(DIR.collections, col.file),
+        path.join(DIR.env, env.file),
+        slug,
+        reportDir
+      );
+    }
+
+    // after SELALU jalan supaya config server dikembalikan
+    try {
+      await col.after();
+    } catch (err) {
+      r.teardownOk = false;
+      teardownFailed = true;
+      console.error(`[TEARDOWN] "${col.name}" gagal: ${err.message}`);
+    }
+
+    try {
+      const j = JSON.parse(fs.readFileSync(path.join(reportDir, `newman-${slug}.json`), 'utf8'));
+      r.failed = j.run.stats.assertions.failed;
+      r.total = j.run.stats.assertions.total;
+    } catch {}
+
+    results.push(r);
+  }
+
+  fs.writeFileSync(
+    path.join(reportDir, 'newman-summary.json'),
+    JSON.stringify({ results, teardownFailed }, null, 2)
+  );
+  process.exit(results.some((r) => r.code !== 0) || teardownFailed ? 1 : 0);
+}
+
 async function showEnvMenu() {
   printHeader();
   printMenu(
@@ -324,4 +400,18 @@ async function showFolderMenu(col, folders, selectedEnv) {
 }
 
 
-showEnvMenu();
+const args = process.argv.slice(2);
+const getArg = (name) => {
+  const i = args.indexOf(`--${name}`);
+  return i > -1 ? args[i + 1] : null;
+};
+
+if (args.includes('--auto')) {
+  rl.close();
+  await runAll(
+    getArg('env') || 'Dev',
+    getArg('report-dir') || path.join(__dirname, 'report')
+  );
+} else {
+  showEnvMenu();
+}

@@ -5,7 +5,7 @@ class AfterScenario {
     try {
       await settingService.disableCors();
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -13,7 +13,7 @@ class AfterScenario {
     try {
       await settingService.disableSecurityHeader();
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -21,7 +21,7 @@ class AfterScenario {
     try {
       await settingService.removeIpBlackList();
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 }

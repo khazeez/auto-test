@@ -1,4 +1,5 @@
 import { execSync } from 'child_process';
+import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
 import { fileURLToPath } from 'url';
@@ -224,6 +225,50 @@ async function runWithScenario(scenario, testType) {
 }
 
 
+function runK6Auto(testFile, slug, reportDir) {
+  const command =
+    `k6 run "${testFile}" --env ENV_FILE="${ENV_FILE}" ` +
+    `--env REPORT_DIR="${reportDir}" --env SCENARIO="${slug}"`;
+  try {
+    execSync(command, { stdio: 'inherit', cwd: __dirname });
+    return 0;
+  } catch (e) {
+    return e.status ?? 1; // 99 = threshold terlewati
+  }
+}
+
+async function runAllK6(typesArg, reportDir) {
+  const wanted = (typesArg || 'smoke,load')
+    .split(',')
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
+  const selected = TEST_TYPES.filter((t) => wanted.includes(t.label.toLowerCase()));
+  if (selected.length === 0) {
+    console.error(`Jenis test tidak dikenal: ${typesArg}. Pilih: smoke, load, stress, soak.`);
+    process.exit(2);
+  }
+  reportDir = path.resolve(reportDir); // k6 jalan di folder k6-test/, jadi path relatif harus dijadikan absolut
+  fs.mkdirSync(reportDir, { recursive: true });
+
+  const results = [];
+  for (const t of selected) {
+    const slug = t.label.toLowerCase();
+    console.log(`\n[AUTO] ${t.name} (${t.desc})`);
+    const r = { name: t.name, slug, code: runK6Auto(t.file, slug, reportDir) };
+    try {
+      const j = JSON.parse(fs.readFileSync(path.join(reportDir, `k6-${slug}.json`), 'utf8'));
+      const dur = j.metrics.http_req_duration;
+      const fail = j.metrics.http_req_failed;
+      r.p95 = Math.round(dur.values?.['p(95)'] ?? dur['p(95)']);
+      r.errorRate = Math.round((fail.values?.rate ?? fail.value ?? 0) * 1000) / 10;
+    } catch {}
+    results.push(r);
+  }
+
+  fs.writeFileSync(path.join(reportDir, 'k6-summary.json'), JSON.stringify({ results }, null, 2));
+  process.exit(results.some((r) => r.code !== 0) ? 1 : 0);
+}
+
 async function confirmSoak() {
   console.log(`\n${C.bgYellow}${C.bold}  ⚠  PERHATIAN — SOAK TEST  ${C.reset}`);
   console.log(`${C.yellow}  Test ini akan berjalan selama ±1 jam.${C.reset}`);
@@ -316,7 +361,19 @@ async function showTestTypeMenu(selectedScenario = null) {
 }
 
 
-if (SKIP_SCENARIO_MENU) {
+const args = process.argv.slice(2);
+const getArg = (name) => {
+  const i = args.indexOf(`--${name}`);
+  return i > -1 ? args[i + 1] : null;
+};
+
+if (args.includes('--auto')) {
+  rl.close();
+  await runAllK6(
+    getArg('types') || 'smoke,load',
+    getArg('report-dir') || path.join(__dirname, 'report')
+  );
+} else if (SKIP_SCENARIO_MENU) {
   showTestTypeMenu();
 } else {
   showScenarioMenu();

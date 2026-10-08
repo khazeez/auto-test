@@ -17,5 +17,11 @@ export default function () {
 }
 
 export function handleSummary(data) {
-  return { 'core-report.html': htmlReport(data) };
+  const dir = __ENV.REPORT_DIR;
+  const slug = __ENV.SCENARIO || 'report';
+  if (!dir) return { 'core-report.html': htmlReport(data) };
+  return {
+    [`${dir}/k6-${slug}.html`]: htmlReport(data),
+    [`${dir}/k6-${slug}.json`]: JSON.stringify(data),
+  };
 }

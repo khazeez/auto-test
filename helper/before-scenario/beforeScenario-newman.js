@@ -5,7 +5,7 @@ class BeforeScenario {
     try {
       await settingService.addIpBlackList();
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -13,7 +13,7 @@ class BeforeScenario {
     try {
       await settingService.enableCors();
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -23,7 +23,7 @@ class BeforeScenario {
     try {
       await settingService.enableSecurityHeader();
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 

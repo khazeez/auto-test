@@ -8,7 +8,7 @@ class SettingService {
       console.log('Enabling CORS...');
       await settingModel.updateCors(true);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -17,7 +17,7 @@ class SettingService {
       console.log('Disabling CORS...');
       await settingModel.updateCors(false);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -26,7 +26,7 @@ class SettingService {
       console.log('Enabling Security Header...');
       await settingModel.updateSecurityHeader(true);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -36,7 +36,7 @@ class SettingService {
 
       await settingModel.updateSecurityHeader(false);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -46,7 +46,7 @@ class SettingService {
       console.log('Add IP to Blacklist...');
       await settingModel.addBlacklistIp(ip, 'for testing');
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -55,7 +55,7 @@ class SettingService {
     try {
       await settingModel.removeBlacklistIp(ip);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -63,7 +63,7 @@ class SettingService {
     try {
       await settingModel.updateHttps(true)
     } catch (error) {
-      console.log(error);  
+      throw error;  
     } 
   }
 
@@ -71,7 +71,7 @@ class SettingService {
     try {
       await settingModel.updateHttps(false)
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -79,7 +79,7 @@ class SettingService {
     try {
       await settingModel.updatePrefork(true)
     } catch (error) {
-      console.log(error); 
+      throw error; 
     }
   }
 
@@ -87,7 +87,7 @@ class SettingService {
     try {
       await settingModel.updatePrefork(false)
     } catch (error) {
-      console.log(error); 
+      throw error; 
     }
   }
 
@@ -96,7 +96,7 @@ class SettingService {
     try {
       await settingModel.updateHttp2(true)
     } catch (error) {
-      console.log(error); 
+      throw error; 
     }
   }
 
@@ -104,7 +104,7 @@ class SettingService {
     try {
       await settingModel.updateHttp2(false)
     } catch (error) {
-      console.log();
+      throw error;
     }
   }
 }

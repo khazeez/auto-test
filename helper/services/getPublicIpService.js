@@ -5,6 +5,6 @@ export default async function getPublicIP() {
     const res = await axios.get('https://api.ipify.org?format=json');
     return res.data.ip;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 }

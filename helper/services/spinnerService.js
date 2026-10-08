@@ -1,4 +1,11 @@
 export default function spinner(text) {
+  if (!process.stdout.isTTY) {
+    console.log(text);
+    return {
+      success: (msg) => console.log(`[OK] ${msg}`),
+      fail: (msg) => console.log(`[FAIL] ${msg}`),
+    };
+  }
   const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
   let i = 0;
   const interval = setInterval(() => {

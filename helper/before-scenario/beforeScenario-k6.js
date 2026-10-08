@@ -5,7 +5,7 @@ class BeforeScenario {
   try {
     await settingService.enableHttps()
   } catch (error) {
-    console.log(error);
+    throw error;
   }
  }
 
@@ -13,7 +13,7 @@ class BeforeScenario {
   try {
     await settingService.enablePrefork()
   } catch (error) {
-    console.log(error);
+    throw error;
   }
  }
 
@@ -21,7 +21,7 @@ class BeforeScenario {
   try {
     await settingService.enableHttp2()
   } catch (error) {
-    console.log(error);
+    throw error;
     
   }
  }

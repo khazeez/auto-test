@@ -1,5 +1,6 @@
 import axios from 'axios';
 import spinner from './spinnerService.js'
+import 'dotenv/config';
 
 
 export default async function RestartService() {
@@ -25,9 +26,15 @@ export default async function RestartService() {
     }
   );
 
-  if (response.data.message === 'ok') {
-    restartSpinner.success('Restart server success');
-  } else {
+  if (response.data.message !== 'ok') {
     restartSpinner.fail('Restart server failed');
+    throw new Error('Restart server failed');
   }
+  restartSpinner.success('Restart server success');
+
+  // beri waktu service naik lagi sebelum test dijalankan (atur lewat RESTART_WAIT_SECONDS di .env)
+  const waitSec = Number(process.env.RESTART_WAIT_SECONDS ?? 20);
+  const waitSpinner = spinner(`Menunggu service naik (${waitSec}s)...`);
+  await new Promise((resolve) => setTimeout(resolve, waitSec * 1000));
+  waitSpinner.success('Service siap');
 }
