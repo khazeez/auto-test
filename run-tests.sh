@@ -1,21 +1,16 @@
 #!/bin/bash
 # Jalankan Newman (semua collection) + k6 lewat runner project, simpan report per run,
-# lalu kirim ringkasan berisi LINK ke Telegram.
+# lalu kirim notifikasi Telegram (saat mulai dan saat selesai, berisi LINK report).
 #
 # Contoh cron:
 #   # harian, hari kerja jam 08:00 (Newman + smoke + load)
-#   0 8 * * 1-5 /opt/automation-test/run-tests.sh >> /var/log/automation-test.log 2>&1
+#   0 8 * * 1-5 /opt/automation-test/run-tests.sh >> /home/ubuntu/automation-test.log 2>&1
 #   # mingguan, Sabtu jam 22:00 (stress + soak saja, tanpa Newman)
-#   0 22 * * 6  RUN_NEWMAN=false K6_TYPES=stress,soak /opt/automation-test/run-tests.sh >> /var/log/automation-test.log 2>&1
+#   0 22 * * 6  RUN_NEWMAN=false K6_TYPES=stress,soak /opt/automation-test/run-tests.sh >> /home/ubuntu/automation-test.log 2>&1
 set -u
 
 PROJECT_DIR="${PROJECT_DIR:-/opt/automation-test}"
 cd "$PROJECT_DIR" || exit 1
-
-NEWMAN_ENV="${NEWMAN_ENV:-Dev}"
-K6_TYPES="${K6_TYPES:-smoke,load}"
-RUN_NEWMAN="${RUN_NEWMAN:-true}"
-RUN_K6="${RUN_K6:-true}"
 
 # Ambil hanya variabel yang dibutuhkan dari .env (aman untuk file berformat Windows/CRLF)
 get_env() {
@@ -26,10 +21,43 @@ TG_TOKEN="${TG_TOKEN:-$(get_env TG_TOKEN)}"
 TG_CHAT_ID="${TG_CHAT_ID:-$(get_env TG_CHAT_ID)}"
 REPORT_BASE_URL="${REPORT_BASE_URL:-$(get_env REPORT_BASE_URL)}"
 
+# Pengaturan run. Prioritas: variabel di terminal/cron > isi .env > default.
+NEWMAN_ENV="${NEWMAN_ENV:-$(get_env NEWMAN_ENV)}";   NEWMAN_ENV="${NEWMAN_ENV:-Dev}"
+K6_TYPES="${K6_TYPES:-$(get_env K6_TYPES)}";         K6_TYPES="${K6_TYPES:-smoke,load}"
+RUN_NEWMAN="${RUN_NEWMAN:-$(get_env RUN_NEWMAN)}";   RUN_NEWMAN="${RUN_NEWMAN:-true}"
+RUN_K6="${RUN_K6:-$(get_env RUN_K6)}";               RUN_K6="${RUN_K6:-true}"
+
+# Kirim pesan Telegram (HTML) ke satu atau banyak chat ID (dipisah koma, mis. 123,-100456).
+# Error Telegram dicatat ke log per chat, tidak menghentikan script.
+tg_send() {
+  [ -n "$TG_TOKEN" ] && [ -n "$TG_CHAT_ID" ] || { echo "TG_TOKEN/TG_CHAT_ID kosong, notifikasi dilewati."; return 0; }
+  local resp cid
+  local IFS=','
+  for cid in $TG_CHAT_ID; do
+    cid=$(echo "$cid" | tr -d '[:space:]')
+    [ -z "$cid" ] && continue
+    resp=$(curl -s -m 20 -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+      -d chat_id="$cid" \
+      -d parse_mode=HTML \
+      -d disable_web_page_preview=true \
+      --data-urlencode text="$1")
+    echo "$resp" | grep -q '"ok":true' || echo "Notifikasi Telegram ke $cid gagal: $resp"
+  done
+}
+
+# Format detik -> "1j 05m 30d" / "5m 30d" / "30d"
+fmt_duration() {
+  local s=$1
+  if [ "$s" -ge 3600 ]; then printf '%dj %02dm %02dd' $((s/3600)) $((s%3600/60)) $((s%60))
+  elif [ "$s" -ge 60 ]; then printf '%dm %02dd' $((s/60)) $((s%60))
+  else printf '%dd' "$s"; fi
+}
+
 # Cegah dua run berjalan bersamaan (soak test bisa 1+ jam)
 exec 200>/tmp/run-tests.lock
 flock -n 200 || { echo "Masih ada run berjalan, skip."; exit 1; }
 
+START_TS=$(date +%s)
 RUN_ID=$(date +%Y-%m-%d_%H%M)
 REPORT_DIR="$PROJECT_DIR/reports/$RUN_ID"
 BASE="$REPORT_BASE_URL/$RUN_ID"
@@ -37,6 +65,21 @@ mkdir -p "$REPORT_DIR"
 
 echo "=== Mulai: $(date) | newman=$RUN_NEWMAN k6=$RUN_K6 ($K6_TYPES) env=$NEWMAN_ENV ==="
 git pull --ff-only || echo "git pull gagal, pakai versi lokal."
+COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo "-")
+
+# ---------- 0. Notifikasi mulai ----------
+SCOPE=""
+[ "$RUN_NEWMAN" = "true" ] && SCOPE+="• API test (Newman)"$'\n'
+[ "$RUN_K6" = "true" ]     && SCOPE+="• Load test (k6): ${K6_TYPES//,/, }"$'\n'
+[ -z "$SCOPE" ] && SCOPE="• (tidak ada yang dijalankan)"$'\n'
+
+START_MSG="🚀 <b>Automation test dimulai</b>"$'\n\n'
+START_MSG+="🕐 $(date '+%d %b %Y, %H:%M %Z')"$'\n'
+START_MSG+="🌐 Environment: <b>$NEWMAN_ENV</b>"$'\n'
+START_MSG+="🔖 Versi: <code>$COMMIT</code>"$'\n\n'
+START_MSG+="<b>Yang dijalankan:</b>"$'\n'"${SCOPE}"$'\n'
+START_MSG+="Hasil akan dikirim setelah semua test selesai."
+tg_send "$START_MSG"
 
 FAIL=0
 NEWMAN_LINES=""
@@ -50,15 +93,16 @@ if [ "$RUN_NEWMAN" = "true" ]; then
 
   if [ -f "$SUMMARY" ]; then
     NEWMAN_LINES=$(jq -r --arg base "$BASE" '
+      def esc: gsub("&";"&amp;") | gsub("<";"&lt;") | gsub(">";"&gt;");
       .results[] |
       (if (.code == 0 and .setupOk) then "✅" else "❌" end) as $i |
       if .setupOk then
-        "\($i) <a href=\"\($base)/newman-\(.slug).html\">\(.name)</a> - \(.failed // "?") gagal dari \(.total // "?") assertion"
+        "\($i) <a href=\"\($base)/newman-\(.slug).html\">\(.name | esc)</a>\n      \(.failed // "?") gagal dari \(.total // "?") assertion"
       else
-        "\($i) \(.name) - setup gagal"
+        "\($i) \(.name | esc)\n      setup gagal, test tidak dijalankan"
       end' "$SUMMARY")$'\n'
     if [ "$(jq -r '.teardownFailed' "$SUMMARY")" = "true" ]; then
-      NEWMAN_LINES+="⚠️ Teardown gagal - cek config server (IP blacklist, security header, CORS)"$'\n'
+      NEWMAN_LINES+="⚠️ Teardown gagal, cek config server (IP blacklist, security header, CORS)"$'\n'
     fi
   else
     NEWMAN_LINES="❌ Runner Newman gagal total, summary tidak terbentuk"$'\n'
@@ -66,7 +110,6 @@ if [ "$RUN_NEWMAN" = "true" ]; then
   fi
   [ $NEWMAN_CODE -ne 0 ] && FAIL=1
 fi
-
 
 # ---------- 2. k6 (selalu jalan, walau Newman ada yang gagal) ----------
 if [ "$RUN_K6" = "true" ]; then
@@ -76,9 +119,10 @@ if [ "$RUN_K6" = "true" ]; then
 
   if [ -f "$SUMMARY" ]; then
     K6_LINES=$(jq -r --arg base "$BASE" '
+      def esc: gsub("&";"&amp;") | gsub("<";"&lt;") | gsub(">";"&gt;");
       .results[] |
       (if .code == 0 then "✅" else "❌" end) as $i |
-      "\($i) <a href=\"\($base)/k6-\(.slug).html\">\(.name)</a> - p95 \(.p95 // "?") ms, error \(.errorRate // "?")%"' "$SUMMARY")$'\n'
+      "\($i) <a href=\"\($base)/k6-\(.slug).html\">\(.name | esc)</a>\n      p95 \(.p95 // "?") ms · error \(.errorRate // "?")%"' "$SUMMARY")$'\n'
   else
     K6_LINES="❌ Runner k6 gagal total, summary tidak terbentuk"$'\n'
     K6_CODE=1
@@ -89,23 +133,22 @@ fi
 # ---------- 2b. Dashboard satu halaman (index.html) ----------
 node scripts/generate-report.js "$REPORT_DIR" --env "$NEWMAN_ENV" || echo "Gagal membuat dashboard, report per scenario tetap tersedia."
 
-# ---------- 3. Notifikasi Telegram (link saja) ----------
-if [ $FAIL -eq 0 ]; then HEADER="✅ Semua test lolos"; else HEADER="❌ Ada test gagal"; fi
+# ---------- 3. Notifikasi hasil ----------
+DURATION=$(fmt_duration $(( $(date +%s) - START_TS )))
+if [ $FAIL -eq 0 ]; then HEADER="✅ <b>Semua test lolos</b>"; else HEADER="❌ <b>Ada test yang gagal</b>"; fi
 
-MSG="<b>$HEADER</b> - $(date '+%d %b %Y %H:%M') ($NEWMAN_ENV)"$'\n'
+MSG="$HEADER"$'\n\n'
+MSG+="🕐 Selesai $(date '+%d %b %Y, %H:%M %Z')"$'\n'
+MSG+="⏱ Durasi: $DURATION"$'\n'
+MSG+="🌐 Environment: <b>$NEWMAN_ENV</b> · 🔖 <code>$COMMIT</code>"$'\n'
 [ -n "$NEWMAN_LINES" ] && MSG+=$'\n'"<b>API test (Newman)</b>"$'\n'"${NEWMAN_LINES}"
 [ -n "$K6_LINES" ]     && MSG+=$'\n'"<b>Load test (k6)</b>"$'\n'"${K6_LINES}"
-MSG+=$'\n'"<a href=\"$BASE/\">Buka dashboard report</a>"
-
-curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
-  -d chat_id="${TG_CHAT_ID}" \
-  -d parse_mode=HTML \
-  -d disable_web_page_preview=true \
-  --data-urlencode text="$MSG" > /dev/null
+MSG+=$'\n'"📊 <a href=\"$BASE/\">Buka dashboard report</a>"
+tg_send "$MSG"
 
 # ---------- 4. Housekeeping ----------
 ln -sfn "$RUN_ID" "$PROJECT_DIR/reports/latest"
 find "$PROJECT_DIR/reports" -mindepth 1 -maxdepth 1 -type d -mtime +30 -exec rm -rf {} +
 
-echo "=== Selesai: $(date) | fail=$FAIL ==="
+echo "=== Selesai: $(date) | durasi=$DURATION | fail=$FAIL ==="
 exit $FAIL
