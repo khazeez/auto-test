@@ -11684,26 +11684,25 @@
                 {
                   "listen": "test",
                   "script": {
-                    "exec": [
-                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
-                      "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
-                      "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                      "pm.test(\"Validate response body\", ()=> {\r",
-                      "    const jsonData = pm.response.json();\r",
-                      "    pm.expect(jsonData).to.have.property(\"Umur\");\r",
-                      "    pm.expect(jsonData).to.have.property(\"Nama\");\r",
-                      "})\r",
-                      ""
-                    ],
                     "type": "text/javascript",
-                    "packages": {},
-                    "requests": {}
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Validate response body\", ()=> {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"Umur\");\r\n    pm.expect(jsonData).to.have.property(\"Nama\");\r\n})\r\n"
+                    ]
                   }
                 }
               ],
               "request": {
-                "method": "GET",
+                "method": "POST",
                 "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"Aziz\",\r\n    \"age\": 63\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrlCore}}/transform",
                   "host": [
@@ -11711,6 +11710,230 @@
                   ],
                   "path": [
                     "transform"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Transformation - payload incorrect",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Validate response body\", ()=> {\n    const jsonData = pm.response.json();\n    pm.expect(jsonData).to.have.property(\"Umur\").eq(\"age\");\n    pm.expect(jsonData).to.have.property(\"Nama\").eq(\"name\");\n})"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"nama\": \"Aziz\",\r\n    \"umur\": 63\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/transform",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "transform"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Transformation - with no payload",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Validate response body\", ()=> {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"message\");\r\n    pm.expect(jsonData).to.have.property(\"code\");\r\n})\r\n"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/transform",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "transform"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Transformation - filter request",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Validate response body\", ()=> {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"Umur\");\r\n    pm.expect(jsonData).to.have.property(\"Nama\");\r\n     pm.expect(jsonData).to.not.have.property(\"is_alive\");\r\n    pm.expect(jsonData).to.not.have.property(\"school\");\r\n})\r\n"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{   \r\n    \"name\": \"Aziz\",         \r\n    \"age\": 63,\r\n    \"school\": \"University Of London\",\r\n    \"is_alive\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/transform",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "transform"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Transformation - additional field",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Validate response body\", ()=> {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"Field_1\");\r\n    pm.expect(jsonData).to.have.property(\"field_asli\");\r\n})\r\n"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"message\": \"Hallo dunia!\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/transform/additional-field",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "transform",
+                    "additional-field"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Transformation - Nested",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Validate response body\", ()=> {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property(\"Price\");\r\n    pm.expect(jsonData).to.have.property(\"Stock\");\r\n})\r\n"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n        \"id\": \"1\",\r\n        \"name\": \"Google Pixel 6 Pro\",\r\n        \"data\": {\r\n            \"color\": \"Cloudy White\",\r\n            \"capacity\": \"128 GB\",\r\n            \"price\": 50000\r\n        }\r\n    }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/transform/nested",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "transform",
+                    "nested"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JS - Transformation - Empty Transform",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Validate response body\", ()=> {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.deep.equal({});\r\n})\r\n"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n        \"id\": \"1\",\r\n        \"name\": \"Google Pixel 6 Pro\",\r\n        \"data\": {\r\n            \"color\": \"Cloudy White\",\r\n            \"capacity\": \"128 GB\",\r\n            \"price\": 50000\r\n        }\r\n    }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/empty-transform",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "empty-transform"
                   ]
                 }
               },
@@ -14003,7 +14226,7 @@
           ]
         },
         {
-          "name": "Public Private User",
+          "name": "JS - Public Private User",
           "item": [
             {
               "name": "JS - Public",
@@ -14546,6 +14769,276 @@
                 }
               },
               "response": []
+            }
+          ]
+        },
+        {
+          "name": "JS - Import",
+          "item": [
+            {
+              "name": "Local Import",
+              "item": [
+                {
+                  "name": "JS - Import local",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\r\npm.test(\"Validate response body\", function () {\r\n    let res = pm.response.json();\r\n\r\n    pm.response.to.have.status(200);\r\n\r\n    pm.expect(res).to.have.property(\"pi\");\r\n    pm.expect(res).to.have.property(\"hasil_penjumlahan\");\r\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/math/js",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "math",
+                        "js"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Import path traversal",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\r\npm.test(\"Validate response body\", function () {\r\n    let res = pm.response.json();\r\n\r\n    pm.response.to.have.status(500);\r\n\r\n    pm.expect(res).to.have.property(\"message\").to.eq(\"module path escapes javascript directory\");\r\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/import/path-escape",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "import",
+                        "path-escape"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Import in dir",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\r\npm.test(\"Validate response body\", function () {\r\n    let res = pm.response.json();\r\n\r\n    pm.response.to.have.status(200);\r\n\r\n    pm.expect(res).to.have.property(\"result\");\r\n    pm.expect(res).to.have.property(\"pi\").to.eql(3.14)\r\n});"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          ""
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"a\": 36,\r\n    \"b\": 1000\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/import/js/dir",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "import",
+                        "js",
+                        "dir"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Import file not found",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\r\npm.test(\"Validate response body\", function () {\r\n    let res = pm.response.json();\r\n\r\n    pm.response.to.have.status(500);\r\n\r\n    pm.expect(res).to.have.property(\"message\").to.eq(\"cannot open local javascript module: openat kimia.js: no such file or directory\");\r\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/import/not-found",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "import",
+                        "not-found"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "External import",
+              "item": [
+                {
+                  "name": "JS - Import external Positive",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\r\npm.test(\"Validate response body\", function () {\r\n    let res = pm.response.json();\r\n\r\n    pm.response.to.have.status(200);\r\n\r\n    pm.expect(res).to.have.property(\"message\");\r\n    pm.expect(res).to.have.property(\"HASING\");\r\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/external/import/js",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "external",
+                        "import",
+                        "js"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Import external not found",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\r\npm.test(\"Validate response body\", function () {\r\n    let res = pm.response.json();\r\n\r\n    pm.response.to.have.status(500);\r\n\r\n    pm.expect(res).to.have.property(\"message\").to.eql(\"javascript module download returned HTTP 404\");\r\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/external/import/not-found",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "external",
+                        "import",
+                        "not-found"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
             }
           ]
         }
@@ -18395,19 +18888,10 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "pm.test(\"Status code is 404\", () => pm.response.to.have.status(404));\r",
-                  "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
-                  "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                  "pm.test(\"Response body contains expected error\", () => {\r",
-                  "    const res = pm.response.json();\r",
-                  "    pm.expect(res.message).to.eql(\"open /app/storages/testo/..%2f..%2fdocker-compose.ym: no such file or directory\")\r",
-                  "    pm.expect(res.code).to.eql(404);\r",
-                  "});"
-                ],
                 "type": "text/javascript",
-                "packages": {},
-                "requests": {}
+                "exec": [
+                  "pm.test(\"Status code is 404\", () => pm.response.to.have.status(404));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response body contains expected error\", () => {\r\n    const res = pm.response.json();\r\n    pm.expect(res.message).to.eql(\"invalid path\")\r\n    pm.expect(res.code).to.eql(404);\r\n});"
+                ]
               }
             }
           ],
