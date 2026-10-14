@@ -53,6 +53,59 @@ fmt_duration() {
   else printf '%dd' "$s"; fi
 }
 
+# Sinkronisasi git yang aman untuk server otomasi (tanpa manusia yang resolve konflik):
+#   1. Kalau ada perubahan lokal (mis. file report yang ter-track), commit dulu otomatis.
+#   2. Coba fast-forward (paling bersih).
+#   3. Kalau tidak bisa fast-forward (divergent), coba merge otomatis.
+#   4. Kalau merge bentrok, batalkan merge dan samakan paksa dengan origin
+#      (remote dianggap sumber kebenaran untuk server otomasi).
+# Return 0 kalau berhasil sync (apapun jalurnya), 1 kalau gagal total (mis. tidak ada koneksi).
+git_sync() {
+  local branch
+
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "Bukan git repo, skip sync."
+    return 1
+  fi
+
+  branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+  if [ -z "$branch" ] || [ "$branch" = "HEAD" ]; then
+    echo "HEAD tidak menunjuk ke branch (detached?), skip sync."
+    return 1
+  fi
+
+  if [ -n "$(git status --porcelain)" ]; then
+    git add -A
+    git commit -m "chore: auto-commit sebelum pull ($(date '+%Y-%m-%d %H:%M'))" >/dev/null 2>&1
+    echo "Ada perubahan lokal, sudah di-commit otomatis sebelum pull."
+  fi
+
+  if ! git fetch origin "$branch" 2>&1; then
+    echo "git fetch gagal, pakai versi lokal."
+    return 1
+  fi
+
+  if git merge --ff-only "origin/$branch" >/dev/null 2>&1; then
+    echo "git sync: fast-forward berhasil ($(git rev-parse --short HEAD))."
+    return 0
+  fi
+
+  if git merge --no-edit "origin/$branch" >/dev/null 2>&1; then
+    echo "git sync: merge berhasil ($(git rev-parse --short HEAD))."
+    return 0
+  fi
+
+  echo "git sync: merge konflik, batalkan merge dan samakan paksa dengan origin/$branch."
+  git merge --abort >/dev/null 2>&1
+  if git reset --hard "origin/$branch" >/dev/null 2>&1; then
+    echo "git sync: hard reset ke origin/$branch berhasil ($(git rev-parse --short HEAD))."
+    return 0
+  fi
+
+  echo "git sync gagal total, pakai versi lokal apa adanya."
+  return 1
+}
+
 # Cegah dua run berjalan bersamaan (soak test bisa 1+ jam)
 exec 200>/tmp/run-tests.lock
 flock -n 200 || { echo "Masih ada run berjalan, skip."; exit 1; }
@@ -64,7 +117,7 @@ BASE="$REPORT_BASE_URL/$RUN_ID"
 mkdir -p "$REPORT_DIR"
 
 echo "=== Mulai: $(date) | newman=$RUN_NEWMAN k6=$RUN_K6 ($K6_TYPES) env=$NEWMAN_ENV ==="
-git pull --ff-only || echo "git pull gagal, pakai versi lokal."
+git_sync || echo "git sync gagal, pakai versi lokal."
 COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo "-")
 
 # ---------- 0. Notifikasi mulai ----------
