@@ -2767,42 +2767,10 @@
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
-                          "pm.test(\"Validate response body\", function () {",
-                          "    let res = pm.response.json();",
-                          "",
-                          "    // Status code",
-                          "    pm.response.to.have.status(200);",
-                          "",
-                          "    // Root fields",
-                          "    pm.expect(res).to.have.property(\"change_field_args\");",
-                          "    pm.expect(res).to.have.property(\"change_field_data\");",
-                          "    pm.expect(res).to.have.property(\"change_field_headers\");",
-                          "    pm.expect(res).to.have.property(\"change_field_json\");",
-                          "    pm.expect(res).to.have.property(\"change_field_origin\");",
-                          "    pm.expect(res).to.have.property(\"change_field_url\");",
-                          "",
-                          "});"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
                         "exec": [
-                          ""
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n\n    // Status code\n    pm.response.to.have.status(200);\n\n    // Root fields\n    pm.expect(res).to.have.property(\"change_field_args\");\n    pm.expect(res).to.have.property(\"change_field_data\");\n    pm.expect(res).to.have.property(\"change_field_headers\");\n    pm.expect(res).to.have.property(\"change_field_json\");\n    pm.expect(res).to.have.property(\"change_field_origin\");\n    pm.expect(res).to.have.property(\"change_field_url\");\n\n    // Validate json object\n    pm.expect(res.change_field_json.name).to.eql(\"Aziz\");\n    pm.expect(res.change_field_json.role).to.eql(\"admin\");\n});"
+                        ]
                       }
                     }
                   ],
@@ -2837,42 +2805,10 @@
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
-                          "pm.test(\"Validate response body\", function () {",
-                          "    let res = pm.response.json();",
-                          "",
-                          "    // Status code",
-                          "    pm.response.to.have.status(200);",
-                          "",
-                          "    // Root fields",
-                          "    pm.expect(res).to.have.property(\"args\").to.equal(\"ARGUMENTS EDITED\");",
-                          "    pm.expect(res).to.have.property(\"data\").to.equal(\"DATA EDITED\");",
-                          "    pm.expect(res).to.have.property(\"headers\").to.equal(\"HEADERS EDITED\");",
-                          "    pm.expect(res).to.have.property(\"json\").to.equal(\"JSON EDITED\");",
-                          "    pm.expect(res).to.have.property(\"origin\").to.equal(\"ORIGIN EDITED\");",
-                          "    pm.expect(res).to.have.property(\"url\").to.equal(\"URL EDITED\");",
-                          "",
-                          "});"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
                         "exec": [
-                          ""
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\n\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n\n    // Status code\n    pm.response.to.have.status(200);\n\n    // Root fields\n    pm.expect(res).to.have.property(\"args\");\n    pm.expect(res).to.have.property(\"data\");\n    pm.expect(res).to.have.property(\"headers\");\n    pm.expect(res).to.have.property(\"json\");\n    pm.expect(res).to.have.property(\"origin\");\n    pm.expect(res).to.have.property(\"url\");\n});"
+                        ]
                       }
                     }
                   ],
@@ -2907,36 +2843,10 @@
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
-                          "pm.test(\"Validate response body\", function () {",
-                          "    let res = pm.response.json();",
-                          "",
-                          "    // Status code",
-                          "    pm.response.to.have.status(200);",
-                          "",
-                          "    // Root fields",
-                          "    pm.expect(res).to.have.property(\"ADDITIOANAL_FIELD\");",
-                          "});"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
                         "exec": [
-                          ""
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n\n    // Status code\n    pm.response.to.have.status(200);\n\n    // Root fields\n    pm.expect(res).to.have.property(\"args\");\n    pm.expect(res).to.have.property(\"data\");\n    pm.expect(res).to.have.property(\"headers\");\n    pm.expect(res).to.have.property(\"json\");\n    pm.expect(res).to.have.property(\"origin\");\n    pm.expect(res).to.have.property(\"url\");\n\n    // Validate json object\n    pm.expect(res.json.name).to.eql(\"Aziz\");\n    pm.expect(res.json.role).to.eql(\"admin\");\n    pm.expect(res.json.age).to.eql(30);\n});"
+                        ]
                       }
                     }
                   ],
@@ -2971,27 +2881,10 @@
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
                         "exec": [
-                          ""
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n\n    // Status code\n    pm.response.to.have.status(200);\n\n    // Validate empty object\n    pm.expect(res).to.be.an('object').that.is.empty;\n});"
+                        ]
                       }
                     }
                   ],
@@ -3015,6 +2908,45 @@
                       "path": [
                         "anything",
                         "res-not-set"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "HTTP - Transformer Nested",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\n\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n\n    pm.expect(res).to.have.property(\"AGE\");\n    pm.expect(res).to.have.property(\"NAME\");\n    pm.expect(res).to.have.property(\"ROLE\");\n\n    pm.expect(res.NAME).to.eql(\"Aziz\");\n    pm.expect(res.ROLE).to.eql(\"admin\");\n    pm.expect(res.AGE).to.eql(30);\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"age\": 30\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/post/filter_res/nested",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "post",
+                        "filter_res",
+                        "nested"
                       ]
                     }
                   },
@@ -11993,50 +11925,15 @@
               "name": "JS - GET",
               "item": [
                 {
-                  "name": "JS - Get",
+                  "name": "JS - Param url",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
-                          "\r",
-                          "const response = pm.response.json();\r",
-                          "const body = JSON.parse(response.data.body);\r",
-                          "\r",
-                          "const schema = {\r",
-                          "    type: \"object\",\r",
-                          "    required: [\"message\", \"data\"],\r",
-                          "    properties: {\r",
-                          "        message: { type: \"string\" },\r",
-                          "        data: {\r",
-                          "            type: \"object\",\r",
-                          "            required: [\"headers\", \"body\", \"code\"],\r",
-                          "            properties: {\r",
-                          "                headers: {\r",
-                          "                    type: \"object\"\r",
-                          "                },\r",
-                          "                body: {\r",
-                          "                    type: \"string\"\r",
-                          "                },\r",
-                          "                code: {\r",
-                          "                    type: \"number\"\r",
-                          "                }\r",
-                          "            }\r",
-                          "        }\r",
-                          "    }\r",
-                          "};\r",
-                          "\r",
-                          "pm.test(\"Schema valid\", function () {\r",
-                          "    pm.expect(pm.response.json()).to.have.jsonSchema(schema);\r",
-                          "});"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\n\r\nconst response = pm.response.json();\r\nconst body = JSON.parse(response.data.body);\r\n\r\nconst schema = {\r\n    type: \"object\",\r\n    required: [\"message\", \"data\"],\r\n    properties: {\r\n        message: { type: \"string\" },\r\n        data: {\r\n            type: \"object\",\r\n            required: [\"headers\", \"body\", \"code\"],\r\n            properties: {\r\n                headers: {\r\n                    type: \"object\"\r\n                },\r\n                body: {\r\n                    type: \"string\"\r\n                },\r\n                code: {\r\n                    type: \"number\"\r\n                }\r\n            }\r\n        }\r\n    }\r\n};\r\n\r\npm.test(\"Schema valid\", function () {\r\n    pm.expect(pm.response.json()).to.have.jsonSchema(schema);\r\n});"
+                        ]
                       }
                     }
                   ],
@@ -12057,50 +11954,15 @@
                   "response": []
                 },
                 {
-                  "name": "JS - Get with Headers",
+                  "name": "JS - Param url, headers",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
-                          "\r",
-                          "const response = pm.response.json();\r",
-                          "const body = JSON.parse(response.data.body);\r",
-                          "\r",
-                          "const schema = {\r",
-                          "    type: \"object\",\r",
-                          "    required: [\"message\", \"data\"],\r",
-                          "    properties: {\r",
-                          "        message: { type: \"string\" },\r",
-                          "        data: {\r",
-                          "            type: \"object\",\r",
-                          "            required: [\"headers\", \"body\", \"code\"],\r",
-                          "            properties: {\r",
-                          "                headers: {\r",
-                          "                    type: \"object\"\r",
-                          "                },\r",
-                          "                body: {\r",
-                          "                    type: \"string\"\r",
-                          "                },\r",
-                          "                code: {\r",
-                          "                    type: \"number\"\r",
-                          "                }\r",
-                          "            }\r",
-                          "        }\r",
-                          "    }\r",
-                          "};\r",
-                          "\r",
-                          "pm.test(\"Schema valid\", function () {\r",
-                          "    pm.expect(pm.response.json()).to.have.jsonSchema(schema);\r",
-                          "});"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\n\r\nconst response = pm.response.json();\r\nconst body = JSON.parse(response.data.body);\r\n\r\nconst schema = {\r\n    type: \"object\",\r\n    required: [\"message\", \"data\"],\r\n    properties: {\r\n        message: { type: \"string\" },\r\n        data: {\r\n            type: \"object\",\r\n            required: [\"headers\", \"body\", \"code\"],\r\n            properties: {\r\n                headers: {\r\n                    type: \"object\"\r\n                },\r\n                body: {\r\n                    type: \"string\"\r\n                },\r\n                code: {\r\n                    type: \"number\"\r\n                }\r\n            }\r\n        }\r\n    }\r\n};\r\n\r\npm.test(\"Schema valid\", function () {\r\n    pm.expect(pm.response.json()).to.have.jsonSchema(schema);\r\n});"
+                        ]
                       }
                     }
                   ],
@@ -12121,50 +11983,15 @@
                   "response": []
                 },
                 {
-                  "name": "JS - Get with Timeout",
+                  "name": "JS - Param url, timeout",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
-                          "\r",
-                          "const response = pm.response.json();\r",
-                          "const body = JSON.parse(response.data.body);\r",
-                          "\r",
-                          "const schema = {\r",
-                          "    type: \"object\",\r",
-                          "    required: [\"message\", \"data\"],\r",
-                          "    properties: {\r",
-                          "        message: { type: \"string\" },\r",
-                          "        data: {\r",
-                          "            type: \"object\",\r",
-                          "            required: [\"headers\", \"body\", \"code\"],\r",
-                          "            properties: {\r",
-                          "                headers: {\r",
-                          "                    type: \"object\"\r",
-                          "                },\r",
-                          "                body: {\r",
-                          "                    type: \"string\"\r",
-                          "                },\r",
-                          "                code: {\r",
-                          "                    type: \"number\"\r",
-                          "                }\r",
-                          "            }\r",
-                          "        }\r",
-                          "    }\r",
-                          "};\r",
-                          "\r",
-                          "pm.test(\"Schema valid\", function () {\r",
-                          "    pm.expect(pm.response.json()).to.have.jsonSchema(schema);\r",
-                          "});"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\n\r\nconst response = pm.response.json();\r\nconst body = JSON.parse(response.data.body);\r\n\r\nconst schema = {\r\n    type: \"object\",\r\n    required: [\"message\", \"data\"],\r\n    properties: {\r\n        message: { type: \"string\" },\r\n        data: {\r\n            type: \"object\",\r\n            required: [\"headers\", \"body\", \"code\"],\r\n            properties: {\r\n                headers: {\r\n                    type: \"object\"\r\n                },\r\n                body: {\r\n                    type: \"string\"\r\n                },\r\n                code: {\r\n                    type: \"number\"\r\n                }\r\n            }\r\n        }\r\n    }\r\n};\r\n\r\npm.test(\"Schema valid\", function () {\r\n    pm.expect(pm.response.json()).to.have.jsonSchema(schema);\r\n});"
+                        ]
                       }
                     }
                   ],
@@ -12185,50 +12012,15 @@
                   "response": []
                 },
                 {
-                  "name": "JS - Get With Headres and timeout",
+                  "name": "JS - Param url, headers, timeout",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r",
-                          "\r",
-                          "const response = pm.response.json();\r",
-                          "const body = JSON.parse(response.data.body);\r",
-                          "\r",
-                          "const schema = {\r",
-                          "    type: \"object\",\r",
-                          "    required: [\"message\", \"data\"],\r",
-                          "    properties: {\r",
-                          "        message: { type: \"string\" },\r",
-                          "        data: {\r",
-                          "            type: \"object\",\r",
-                          "            required: [\"headers\", \"body\", \"code\"],\r",
-                          "            properties: {\r",
-                          "                headers: {\r",
-                          "                    type: \"object\"\r",
-                          "                },\r",
-                          "                body: {\r",
-                          "                    type: \"string\"\r",
-                          "                },\r",
-                          "                code: {\r",
-                          "                    type: \"number\"\r",
-                          "                }\r",
-                          "            }\r",
-                          "        }\r",
-                          "    }\r",
-                          "};\r",
-                          "\r",
-                          "pm.test(\"Schema valid\", function () {\r",
-                          "    pm.expect(pm.response.json()).to.have.jsonSchema(schema);\r",
-                          "});"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\n\r\nconst response = pm.response.json();\r\nconst body = JSON.parse(response.data.body);\r\n\r\nconst schema = {\r\n    type: \"object\",\r\n    required: [\"message\", \"data\"],\r\n    properties: {\r\n        message: { type: \"string\" },\r\n        data: {\r\n            type: \"object\",\r\n            required: [\"headers\", \"body\", \"code\"],\r\n            properties: {\r\n                headers: {\r\n                    type: \"object\"\r\n                },\r\n                body: {\r\n                    type: \"string\"\r\n                },\r\n                code: {\r\n                    type: \"number\"\r\n                }\r\n            }\r\n        }\r\n    }\r\n};\r\n\r\npm.test(\"Schema valid\", function () {\r\n    pm.expect(pm.response.json()).to.have.jsonSchema(schema);\r\n});"
+                        ]
                       }
                     }
                   ],
@@ -12247,117 +12039,6 @@
                     }
                   },
                   "response": []
-                },
-                {
-                  "name": "JS - Get  Headers httpbin",
-                  "event": [
-                    {
-                      "listen": "test",
-                      "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                          "pm.test(\"Validate required fields\", function () {",
-                          "",
-                          "    let outer = pm.response.json();",
-                          "    let res = JSON.parse(outer.response.body);",
-                          "",
-                          "    // Validate top level fields",
-                          "    [",
-                          "        \"message\",",
-                          "        \"response\",",
-                          "        \"log\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(outer).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate response wrapper fields",
-                          "    [",
-                          "        \"headers\",",
-                          "        \"body\",",
-                          "        \"code\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(outer.response).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate parsed body fields",
-                          "    [",
-                          "        \"args\",",
-                          "        \"headers\",",
-                          "        \"origin\",",
-                          "        \"url\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate nested headers",
-                          "    [",
-                          "        \"Accept-Encoding\",",
-                          "        \"Content-Type\",",
-                          "        \"Host\",",
-                          "        \"User-Agent\",",
-                          "        \"X-Lawang-Request-Id\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res.headers).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate object types",
-                          "    pm.expect(outer.response)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.args)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.headers)",
-                          "        .to.be.an(\"object\");",
-                          "});"
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "exec": [
-                          ""
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    }
-                  ],
-                  "protocolProfileBehavior": {
-                    "disableBodyPruning": true
-                  },
-                  "request": {
-                    "auth": {
-                      "type": "noauth"
-                    },
-                    "method": "GET",
-                    "header": [],
-                    "body": {
-                      "mode": "raw",
-                      "raw": ""
-                    },
-                    "url": {
-                      "raw": "{{baseUrlCore}}/v2.1/js/get/headers-httpbin",
-                      "host": [
-                        "{{baseUrlCore}}"
-                      ],
-                      "path": [
-                        "v2.1",
-                        "js",
-                        "get",
-                        "headers-httpbin"
-                      ]
-                    }
-                  },
-                  "response": []
                 }
               ]
             },
@@ -12365,132 +12046,15 @@
               "name": "JS - POST",
               "item": [
                 {
-                  "name": "JS - Post with no body",
+                  "name": "JS - Param Url",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    }
-                  ],
-                  "request": {
-                    "method": "POST",
-                    "header": [],
-                    "url": {
-                      "raw": "{{baseUrlCore}}/js-req/post",
-                      "host": [
-                        "{{baseUrlCore}}"
-                      ],
-                      "path": [
-                        "js-req",
-                        "post"
-                      ]
-                    }
-                  },
-                  "response": []
-                },
-                {
-                  "name": "JS - Post httpbin",
-                  "event": [
-                    {
-                      "listen": "test",
-                      "script": {
                         "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                          "pm.test(\"Validate required fields\", function () {",
-                          "",
-                          "    let outer = pm.response.json();",
-                          "    let res = JSON.parse(outer.response.body);",
-                          "",
-                          "    // Validate wrapper response",
-                          "    pm.expect(outer)",
-                          "        .to.have.property(\"response\");",
-                          "",
-                          "    // Validate response wrapper fields",
-                          "    [",
-                          "        \"headers\",",
-                          "        \"body\",",
-                          "        \"code\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(outer.response).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate parsed body fields",
-                          "    [",
-                          "        \"args\",",
-                          "        \"data\",",
-                          "        \"files\",",
-                          "        \"form\",",
-                          "        \"headers\",",
-                          "        \"json\",",
-                          "        \"origin\",",
-                          "        \"url\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate nested headers",
-                          "    [",
-                          "        \"Accept-Encoding\",",
-                          "        \"Content-Type\",",
-                          "        \"Host\",",
-                          "        \"User-Agent\",",
-                          "        \"X-Lawang-Request-Id\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res.headers).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate nested json object",
-                          "    [",
-                          "        \"city\",",
-                          "        \"name\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res.json).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate object types",
-                          "    pm.expect(res.args)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.files)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.form)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.headers)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.json)",
-                          "        .to.be.an(\"object\");",
-                          "});"
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
-                        "exec": [
-                          ""
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n\n    // Status code\n    pm.response.to.have.status(200);\n\n    // Root fields\n    pm.expect(res).to.have.property(\"headers\");\n    pm.expect(res).to.have.property(\"body\");\n    pm.expect(res).to.have.property(\"code\", 200);\n\n    // Validate body content\n    let body = JSON.parse(res.body);\n    pm.expect(body).to.have.property(\"url\");\n    pm.expect(body).to.have.property(\"origin\");\n});"
+                        ]
                       }
                     }
                   ],
@@ -12499,7 +12063,7 @@
                     "header": [],
                     "body": {
                       "mode": "raw",
-                      "raw": "{\r\n    \"Name\": \"Lawang test\"\r\n}",
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/post\"\r\n}",
                       "options": {
                         "raw": {
                           "language": "json"
@@ -12507,119 +12071,165 @@
                       }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/v2.1/js/post-httpbin",
+                      "raw": "{{baseUrlCore}}/js/post",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "v2.1",
                         "js",
-                        "post-httpbin"
+                        "post"
                       ]
                     }
                   },
                   "response": []
                 },
                 {
-                  "name": "JS - Post Timeout httpbin",
+                  "name": "JS - Param Url, Body",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                          "pm.test(\"Validate required fields\", function () {",
-                          "",
-                          "    let outer = pm.response.json();",
-                          "    let res = JSON.parse(outer.response.body);",
-                          "",
-                          "    // Validate top level fields",
-                          "    [",
-                          "        \"response\",",
-                          "    ].forEach(field => {",
-                          "        pm.expect(outer).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate response wrapper fields",
-                          "    [",
-                          "        \"headers\",",
-                          "        \"body\",",
-                          "        \"code\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(outer.response).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate parsed body fields",
-                          "    [",
-                          "        \"args\",",
-                          "        \"headers\",",
-                          "        \"origin\",",
-                          "        \"url\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate nested headers",
-                          "    [",
-                          "        \"Accept-Encoding\",",
-                          "        \"Host\",",
-                          "        \"User-Agent\",",
-                          "        \"X-Lawang-Request-Id\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res.headers).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate object types",
-                          "    pm.expect(outer.response)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.args)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.headers)",
-                          "        .to.be.an(\"object\");",
-                          "});"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
                         "exec": [
-                          ""
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                          "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    var jsonData = pm.response.json();\n    // The response body is a stringified JSON inside the 'body' field\n    var innerBody = JSON.parse(jsonData.body);\n    pm.expect(innerBody).to.have.property('data');\n    pm.expect(innerBody.data).to.equal(\"Hello kalian semua!\");\n});"
+                        ]
                       }
                     }
                   ],
                   "request": {
-                    "auth": {
-                      "type": "noauth"
-                    },
                     "method": "POST",
                     "header": [],
                     "body": {
                       "mode": "raw",
-                      "raw": ""
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/post\",\r\n    \"body\": {\r\n        \"_raw_\": \"Hello kalian semua!\"\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/v2.1/js/post/timeout-httpbin",
+                      "raw": "{{baseUrlCore}}/js/post",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "v2.1",
                         "js",
-                        "post",
-                        "timeout-httpbin"
+                        "post"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Param Url, Timeout",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.response.to.be.not.null;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    var jsonData = JSON.parse(pm.response.json().body);\n    pm.expect(jsonData.data).to.equal(\"undefined\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/post\",\r\n    \"timeout\": 2\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js/post",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js",
+                        "post"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Param Url, Body, Headers",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    var jsonData = pm.response.json();\n    // The response body is a stringified JSON inside the 'body' field\n    var innerBody = JSON.parse(jsonData.body);\n    pm.expect(innerBody).to.have.property('data');\n    pm.expect(innerBody.data).to.equal(\"Hello kalian semua!\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/post\",\r\n    \"body\": {\r\n        \"_raw_\": \"Hello kalian semua!\"\r\n    },\r\n    \"headers\": {\r\n        \"Content-Type\": \"application/json\"\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js/post",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js",
+                        "post"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Param Url, Body, Headers, Timeout",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    var jsonData = pm.response.json();\n    // The response body is a stringified JSON inside the 'body' field\n    var innerBody = JSON.parse(jsonData.body);\n    pm.expect(innerBody).to.have.property('data');\n    pm.expect(innerBody.data).to.equal(\"Hello kalian semua!\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/post\",\r\n    \"body\": {\r\n        \"_raw_\": \"Hello kalian semua!\"\r\n    },\r\n    \"headers\": {\r\n        \"Content-Type\": \"application/json\"\r\n    },\r\n    \"timeout\": 10\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js/post",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js",
+                        "post"
                       ]
                     }
                   },
@@ -12631,118 +12241,24 @@
               "name": "JS - PUT",
               "item": [
                 {
-                  "name": "JS - PUT httpbin",
+                  "name": "JS - Param Url",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Validate required fields\", function () {",
-                          "",
-                          "    let outer = pm.response.json();",
-                          "    let res = JSON.parse(outer.response.body);",
-                          "",
-                          "    // Validate top level fields",
-                          "    [",
-                          "        \"message\",",
-                          "        \"response\",",
-                          "        \"log\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(outer).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate response wrapper fields",
-                          "    [",
-                          "        \"headers\",",
-                          "        \"body\",",
-                          "        \"code\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(outer.response).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate parsed body fields",
-                          "    [",
-                          "        \"args\",",
-                          "        \"data\",",
-                          "        \"files\",",
-                          "        \"form\",",
-                          "        \"headers\",",
-                          "        \"json\",",
-                          "        \"origin\",",
-                          "        \"url\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate nested headers",
-                          "    [",
-                          "        \"Accept-Encoding\",",
-                          "        \"Content-Type\",",
-                          "        \"Host\",",
-                          "        \"User-Agent\",",
-                          "        \"X-Lawang-Request-Id\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res.headers).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate nested json object",
-                          "    [",
-                          "        \"id\",",
-                          "        \"name\",",
-                          "        \"city\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res.json).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate object types",
-                          "    pm.expect(outer.response)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.args)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.files)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.form)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.headers)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.json)",
-                          "        .to.be.an(\"object\");",
-                          "});"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
                         "exec": [
-                          ""
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n\n    // Status code\n    pm.response.to.have.status(200);\n\n    // Root fields\n    pm.expect(res).to.have.property(\"headers\");\n    pm.expect(res).to.have.property(\"body\");\n    pm.expect(res).to.have.property(\"code\", 200);\n\n    // Validate body content\n    let body = JSON.parse(res.body);\n    pm.expect(body).to.have.property(\"url\");\n    pm.expect(body).to.have.property(\"origin\");\n});"
+                        ]
                       }
                     }
                   ],
                   "request": {
-                    "auth": {
-                      "type": "noauth"
-                    },
                     "method": "PUT",
                     "header": [],
                     "body": {
                       "mode": "raw",
-                      "raw": "",
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/put\"\r\n}",
                       "options": {
                         "raw": {
                           "language": "json"
@@ -12750,226 +12266,165 @@
                       }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/v2.1/js/put-httpbin",
+                      "raw": "{{baseUrlCore}}/js/put",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "v2.1",
                         "js",
-                        "put-httpbin"
+                        "put"
                       ]
                     }
                   },
                   "response": []
                 },
                 {
-                  "name": "JS - Put Headers httpbin",
+                  "name": "JS - Param Url, Body",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Validate required fields\", function () {",
-                          "",
-                          "    let outer = pm.response.json();",
-                          "    let res = JSON.parse(outer.response.body);",
-                          "",
-                          "    // Validate top level fields",
-                          "    [",
-                          "        \"message\",",
-                          "        \"response\",",
-                          "        \"log\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(outer).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate response wrapper fields",
-                          "    [",
-                          "        \"headers\",",
-                          "        \"body\",",
-                          "        \"code\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(outer.response).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate parsed body fields",
-                          "    [",
-                          "        \"args\",",
-                          "        \"headers\",",
-                          "        \"origin\",",
-                          "        \"url\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate nested headers",
-                          "    [",
-                          "        \"Accept-Encoding\",",
-                          "        \"Content-Type\",",
-                          "        \"Host\",",
-                          "        \"User-Agent\",",
-                          "        \"X-Lawang-Request-Id\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res.headers).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate object types",
-                          "    pm.expect(outer.response)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.args)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.headers)",
-                          "        .to.be.an(\"object\");",
-                          "});"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
                         "exec": [
-                          ""
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                          "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    var jsonData = pm.response.json();\n    // The response body is a stringified JSON inside the 'body' field\n    var innerBody = JSON.parse(jsonData.body);\n    pm.expect(innerBody).to.have.property('data');\n    pm.expect(innerBody.data).to.equal(\"Hello kalian semua!\");\n});"
+                        ]
                       }
                     }
                   ],
                   "request": {
-                    "auth": {
-                      "type": "noauth"
-                    },
                     "method": "PUT",
                     "header": [],
                     "body": {
                       "mode": "raw",
-                      "raw": ""
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/put\",\r\n    \"body\": {\r\n        \"_raw_\": \"Hello kalian semua!\"\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/v2.1/js/put/headers-httpbin",
+                      "raw": "{{baseUrlCore}}/js/put",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "v2.1",
                         "js",
-                        "put",
-                        "headers-httpbin"
+                        "put"
                       ]
                     }
                   },
                   "response": []
                 },
                 {
-                  "name": "JS - Put Headers body timeout",
+                  "name": "JS - Param Url, Timeout",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Validate required fields\", function () {",
-                          "",
-                          "    let outer = pm.response.json();",
-                          "    let res = JSON.parse(outer.response.body);",
-                          "",
-                          "    // Validate top level fields",
-                          "    [",
-                          "        \"message\",",
-                          "        \"response\",",
-                          "        \"log\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(outer).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate response wrapper fields",
-                          "    [",
-                          "        \"headers\",",
-                          "        \"body\",",
-                          "        \"code\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(outer.response).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate parsed body fields",
-                          "    [",
-                          "        \"args\",",
-                          "        \"headers\",",
-                          "        \"origin\",",
-                          "        \"url\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate nested headers",
-                          "    [",
-                          "        \"Accept-Encoding\",",
-                          "        \"Content-Type\",",
-                          "        \"Host\",",
-                          "        \"User-Agent\",",
-                          "        \"X-Lawang-Request-Id\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res.headers).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate object types",
-                          "    pm.expect(outer.response)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.args)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.headers)",
-                          "        .to.be.an(\"object\");",
-                          "});"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
                         "exec": [
-                          ""
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                          "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.response.to.be.not.null;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    var jsonData = JSON.parse(pm.response.json().body);\n    pm.expect(jsonData.data).to.equal(\"undefined\");\n});"
+                        ]
                       }
                     }
                   ],
                   "request": {
-                    "auth": {
-                      "type": "noauth"
-                    },
                     "method": "PUT",
                     "header": [],
                     "body": {
                       "mode": "raw",
-                      "raw": ""
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/put\",\r\n    \"timeout\": 2\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/js-re/put-body-header-timeout",
+                      "raw": "{{baseUrlCore}}/js/put",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "js-re",
-                        "put-body-header-timeout"
+                        "js",
+                        "put"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Param Url, Body, Headers",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    var jsonData = pm.response.json();\n    // The response body is a stringified JSON inside the 'body' field\n    var innerBody = JSON.parse(jsonData.body);\n    pm.expect(innerBody).to.have.property('data');\n    pm.expect(innerBody.data).to.equal(\"Hello kalian semua!\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/put\",\r\n    \"body\": {\r\n        \"_raw_\": \"Hello kalian semua!\"\r\n    },\r\n    \"headers\": {\r\n        \"Content-Type\": \"application/json\"\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js/put",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js",
+                        "put"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Param Url, Body, Headers, Timeout",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    var jsonData = pm.response.json();\n    // The response body is a stringified JSON inside the 'body' field\n    var innerBody = JSON.parse(jsonData.body);\n    pm.expect(innerBody).to.have.property('data');\n    pm.expect(innerBody.data).to.equal(\"Hello kalian semua!\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/put\",\r\n    \"body\": {\r\n        \"_raw_\": \"Hello kalian semua!\"\r\n    },\r\n    \"headers\": {\r\n        \"Content-Type\": \"application/json\"\r\n    },\r\n    \"timeout\": 10\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js/put",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js",
+                        "put"
                       ]
                     }
                   },
@@ -12981,321 +12436,190 @@
               "name": "JS - PATCH",
               "item": [
                 {
-                  "name": "JS - PATCH httpbin",
+                  "name": "JS - Param Url",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                          "pm.test(\"Validate required fields\", function () {",
-                          "",
-                          "    let outer = pm.response.json();",
-                          "    let res = JSON.parse(outer.response.body);",
-                          "",
-                          "    // Validate top level fields",
-                          "    [",
-                          "        \"message\",",
-                          "        \"response\",",
-                          "        \"log\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(outer).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate response wrapper fields",
-                          "    [",
-                          "        \"headers\",",
-                          "        \"body\",",
-                          "        \"code\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(outer.response).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate parsed body fields",
-                          "    [",
-                          "        \"args\",",
-                          "        \"headers\",",
-                          "        \"origin\",",
-                          "        \"url\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate nested headers",
-                          "    [",
-                          "        \"Accept-Encoding\",",
-                          "        \"Content-Type\",",
-                          "        \"Host\",",
-                          "        \"User-Agent\",",
-                          "        \"X-Lawang-Request-Id\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res.headers).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate object types",
-                          "    pm.expect(outer.response)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.args)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.headers)",
-                          "        .to.be.an(\"object\");",
-                          "});"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
                         "exec": [
-                          ""
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n\n    // Status code\n    pm.response.to.have.status(200);\n\n    // Root fields\n    pm.expect(res).to.have.property(\"headers\");\n    pm.expect(res).to.have.property(\"body\");\n    pm.expect(res).to.have.property(\"code\", 200);\n\n    // Validate body content\n    let body = JSON.parse(res.body);\n    pm.expect(body).to.have.property(\"url\");\n    pm.expect(body).to.have.property(\"origin\");\n});"
+                        ]
                       }
                     }
                   ],
                   "request": {
-                    "auth": {
-                      "type": "noauth"
-                    },
                     "method": "PATCH",
                     "header": [],
                     "body": {
                       "mode": "raw",
-                      "raw": ""
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/patch\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/v2.1/js/patch-httpbin",
+                      "raw": "{{baseUrlCore}}/js/patch",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "v2.1",
                         "js",
-                        "patch-httpbin"
+                        "patch"
                       ]
                     }
                   },
                   "response": []
                 },
                 {
-                  "name": "JS - Patch Timeout httpbin",
+                  "name": "JS - Param Url, Body",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                          "pm.test(\"Validate required fields\", function () {",
-                          "",
-                          "    let outer = pm.response.json();",
-                          "    let res = JSON.parse(outer.response.body);",
-                          "",
-                          "    // Validate top level fields",
-                          "    [",
-                          "        \"message\",",
-                          "        \"response\",",
-                          "        \"log\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(outer).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate response wrapper fields",
-                          "    [",
-                          "        \"headers\",",
-                          "        \"body\",",
-                          "        \"code\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(outer.response).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate parsed body fields",
-                          "    [",
-                          "        \"args\",",
-                          "        \"headers\",",
-                          "        \"origin\",",
-                          "        \"url\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate nested headers",
-                          "    [",
-                          "        \"Accept-Encoding\",",
-                          "        \"Host\",",
-                          "        \"User-Agent\",",
-                          "        \"X-Lawang-Request-Id\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res.headers).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate object types",
-                          "    pm.expect(outer.response)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.args)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.headers)",
-                          "        .to.be.an(\"object\");",
-                          "});",
-                          ""
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
                         "exec": [
-                          ""
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                          "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    var jsonData = pm.response.json();\n    // The response body is a stringified JSON inside the 'body' field\n    var innerBody = JSON.parse(jsonData.body);\n    pm.expect(innerBody).to.have.property('data');\n    pm.expect(innerBody.data).to.equal(\"Hello kalian semua!\");\n});"
+                        ]
                       }
                     }
                   ],
                   "request": {
-                    "auth": {
-                      "type": "noauth"
-                    },
                     "method": "PATCH",
                     "header": [],
                     "body": {
                       "mode": "raw",
-                      "raw": ""
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/patch\",\r\n    \"body\": {\r\n        \"_raw_\": \"Hello kalian semua!\"\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/v2.1/js/patch/timeout-httpbin",
+                      "raw": "{{baseUrlCore}}/js/patch",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "v2.1",
                         "js",
-                        "patch",
-                        "timeout-httpbin"
+                        "patch"
                       ]
                     }
                   },
                   "response": []
                 },
                 {
-                  "name": "JS - Patch Body Headers Timeout",
+                  "name": "JS - Param Url, Timeout",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                          "pm.test(\"Validate required fields\", function () {",
-                          "",
-                          "    let outer = pm.response.json();",
-                          "    let res = JSON.parse(outer.response.body);",
-                          "",
-                          "    // Validate top level fields",
-                          "    [",
-                          "        \"message\",",
-                          "        \"response\",",
-                          "        \"log\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(outer).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate response wrapper fields",
-                          "    [",
-                          "        \"headers\",",
-                          "        \"body\",",
-                          "        \"code\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(outer.response).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate parsed body fields",
-                          "    [",
-                          "        \"args\",",
-                          "        \"headers\",",
-                          "        \"origin\",",
-                          "        \"url\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate nested headers",
-                          "    [",
-                          "        \"Accept-Encoding\",",
-                          "        \"Host\",",
-                          "        \"User-Agent\",",
-                          "        \"X-Lawang-Request-Id\"",
-                          "    ].forEach(field => {",
-                          "        pm.expect(res.headers).to.have.property(field);",
-                          "    });",
-                          "",
-                          "    // Validate object types",
-                          "    pm.expect(outer.response)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.args)",
-                          "        .to.be.an(\"object\");",
-                          "",
-                          "    pm.expect(res.headers)",
-                          "        .to.be.an(\"object\");",
-                          "});",
-                          ""
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
                         "exec": [
-                          ""
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                          "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.response.to.be.not.null;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    var jsonData = JSON.parse(pm.response.json().body);\n    pm.expect(jsonData.data).to.equal(\"undefined\");\n});"
+                        ]
                       }
                     }
                   ],
                   "request": {
-                    "auth": {
-                      "type": "noauth"
-                    },
                     "method": "PATCH",
                     "header": [],
                     "body": {
                       "mode": "raw",
-                      "raw": ""
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/patch\",\r\n    \"timeout\": 2\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/js-req/patch-body-header-timeout",
+                      "raw": "{{baseUrlCore}}/js/patch",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "js-req",
-                        "patch-body-header-timeout"
+                        "js",
+                        "patch"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Param Url, Body, Headers",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    var jsonData = pm.response.json();\n    // The response body is a stringified JSON inside the 'body' field\n    var innerBody = JSON.parse(jsonData.body);\n    pm.expect(innerBody).to.have.property('data');\n    pm.expect(innerBody.data).to.equal(\"Hello kalian semua!\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "PATCH",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/patch\",\r\n    \"body\": {\r\n        \"_raw_\": \"Hello kalian semua!\"\r\n    },\r\n    \"headers\": {\r\n        \"Content-Type\": \"application/json\"\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js/patch",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js",
+                        "patch"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Param Url, Body, Headers, Timeout",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.response.to.be.not.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    // The response is HTML, so we check for the presence of expected text instead of parsing as JSON\n    pm.expect(pm.response.text()).to.include(\"Method Not Allowed\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "PATCH",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/put\",\r\n    \"body\": {\r\n        \"_raw_\": \"Hello kalian semua!\"\r\n    },\r\n    \"headers\": {\r\n        \"Content-Type\": \"application/json\"\r\n    },\r\n    \"timeout\": 10\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js/patch",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js",
+                        "patch"
                       ]
                     }
                   },
@@ -13307,315 +12631,152 @@
               "name": "JS - DELETE",
               "item": [
                 {
-                  "name": "JS - DELETE httpbin",
+                  "name": "JS - Param url",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                          "pm.test(\"Validate required fields\", function () {",
-                          "",
-                          "    // let outer = pm.response.json();",
-                          "    // let res = JSON.parse(outer.response.body);",
-                          "",
-                          "    // Validate top level fields",
-                          "    // [",
-                          "    //     \"response\",",
-                          "    //     \"log\"",
-                          "    // ].forEach(field => {",
-                          "    //     pm.expect(outer).to.have.property(field);",
-                          "    // });",
-                          "",
-                          "    // // Validate response wrapper fields",
-                          "    // [",
-                          "    //     \"headers\",",
-                          "    //     \"code\"",
-                          "    // ].forEach(field => {",
-                          "    //     pm.expect(outer.response).to.have.property(field);",
-                          "    // });",
-                          "",
-                          "    // // Validate parsed body fields",
-                          "    // [",
-                          "    //     \"args\",",
-                          "    //     \"headers\",",
-                          "    //     \"origin\",",
-                          "    //     \"url\"",
-                          "    // ].forEach(field => {",
-                          "    //     pm.expect(res).to.have.property(field);",
-                          "    // });",
-                          "",
-                          "    // // Validate nested headers",
-                          "    // [",
-                          "    //     \"Accept-Encoding\",",
-                          "    //     \"Content-Type\",",
-                          "    //     \"Host\",",
-                          "    //     \"User-Agent\",",
-                          "    //     \"X-Lawang-Request-Id\"",
-                          "    // ].forEach(field => {",
-                          "    //     pm.expect(res.headers).to.have.property(field);",
-                          "    // });",
-                          "",
-                          "    // Validate object types",
-                          "    // pm.expect(outer.response)",
-                          "    //     .to.be.an(\"object\");",
-                          "",
-                          "    // pm.expect(res.args)",
-                          "    //     .to.be.an(\"object\");",
-                          "",
-                          "    // pm.expect(res.headers)",
-                          "    //     .to.be.an(\"object\");",
-                          "});"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
                         "exec": [
-                          ""
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                          "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response body contains expected URL\", function () {\n    const jsonData = JSON.parse(pm.response.json().body);\n    pm.expect(jsonData.url).to.include(\"/delete\");\n});"
+                        ]
                       }
                     }
                   ],
                   "request": {
-                    "auth": {
-                      "type": "noauth"
-                    },
                     "method": "DELETE",
                     "header": [],
                     "body": {
                       "mode": "raw",
-                      "raw": ""
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/delete\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/v2.1/js/delete-httpbin",
+                      "raw": "{{baseUrlCore}}/js/delete",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "v2.1",
                         "js",
-                        "delete-httpbin"
+                        "delete"
                       ]
                     }
                   },
                   "response": []
                 },
                 {
-                  "name": "JS - Delete Headers httpbin",
+                  "name": "JS - Param url, headers",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                          "pm.test(\"Validate required fields\", function () {",
-                          "",
-                          "    // let outer = pm.response.json();",
-                          "    // let res = JSON.parse(outer.response.body);",
-                          "",
-                          "    // Validate top level fields",
-                          "    // [",
-                          "    //     \"response\",",
-                          "    //     \"log\"",
-                          "    // ].forEach(field => {",
-                          "    //     pm.expect(outer).to.have.property(field);",
-                          "    // });",
-                          "",
-                          "    // // Validate response wrapper fields",
-                          "    // [",
-                          "    //     \"headers\",",
-                          "    //     \"code\"",
-                          "    // ].forEach(field => {",
-                          "    //     pm.expect(outer.response).to.have.property(field);",
-                          "    // });",
-                          "",
-                          "    // // Validate parsed body fields",
-                          "    // [",
-                          "    //     \"args\",",
-                          "    //     \"headers\",",
-                          "    //     \"origin\",",
-                          "    //     \"url\"",
-                          "    // ].forEach(field => {",
-                          "    //     pm.expect(res).to.have.property(field);",
-                          "    // });",
-                          "",
-                          "    // // Validate nested headers",
-                          "    // [",
-                          "    //     \"Accept-Encoding\",",
-                          "    //     \"Content-Type\",",
-                          "    //     \"Host\",",
-                          "    //     \"User-Agent\",",
-                          "    //     \"X-Lawang-Request-Id\"",
-                          "    // ].forEach(field => {",
-                          "    //     pm.expect(res.headers).to.have.property(field);",
-                          "    // });",
-                          "",
-                          "    // Validate object types",
-                          "    // pm.expect(outer.response)",
-                          "    //     .to.be.an(\"object\");",
-                          "",
-                          "    // pm.expect(res.args)",
-                          "    //     .to.be.an(\"object\");",
-                          "",
-                          "    // pm.expect(res.headers)",
-                          "    //     .to.be.an(\"object\");",
-                          "});"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
                         "exec": [
-                          ""
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                          "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.response.to.have.body;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response body contains correct URL\", function () {\n    const responseData = JSON.parse(pm.response.json().body);\n    pm.expect(responseData.url).to.eql(\"http://202.72.206.162:7776/delete\");\n});"
+                        ]
                       }
                     }
                   ],
                   "request": {
-                    "auth": {
-                      "type": "noauth"
-                    },
                     "method": "DELETE",
                     "header": [],
                     "body": {
                       "mode": "raw",
-                      "raw": ""
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/delete\",\r\n    \"headers\": {\r\n        \"Content-Type\": \"application/json\"\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/v2.1/js/delete/headers-httpbin",
+                      "raw": "{{baseUrlCore}}/js/delete",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "v2.1",
                         "js",
-                        "delete",
-                        "headers-httpbin"
+                        "delete"
                       ]
                     }
                   },
                   "response": []
                 },
                 {
-                  "name": "JS - Delete Headers Timeout",
+                  "name": "JS - Param url, timeout",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                          "pm.test(\"Validate required fields\", function () {",
-                          "",
-                          "    // let outer = pm.response.json();",
-                          "    // let res = JSON.parse(outer.response.body);",
-                          "",
-                          "    // Validate top level fields",
-                          "    // [",
-                          "    //     \"response\",",
-                          "    //     \"log\"",
-                          "    // ].forEach(field => {",
-                          "    //     pm.expect(outer).to.have.property(field);",
-                          "    // });",
-                          "",
-                          "    // // Validate response wrapper fields",
-                          "    // [",
-                          "    //     \"headers\",",
-                          "    //     \"code\"",
-                          "    // ].forEach(field => {",
-                          "    //     pm.expect(outer.response).to.have.property(field);",
-                          "    // });",
-                          "",
-                          "    // // Validate parsed body fields",
-                          "    // [",
-                          "    //     \"args\",",
-                          "    //     \"headers\",",
-                          "    //     \"origin\",",
-                          "    //     \"url\"",
-                          "    // ].forEach(field => {",
-                          "    //     pm.expect(res).to.have.property(field);",
-                          "    // });",
-                          "",
-                          "    // // Validate nested headers",
-                          "    // [",
-                          "    //     \"Accept-Encoding\",",
-                          "    //     \"Content-Type\",",
-                          "    //     \"Host\",",
-                          "    //     \"User-Agent\",",
-                          "    //     \"X-Lawang-Request-Id\"",
-                          "    // ].forEach(field => {",
-                          "    //     pm.expect(res.headers).to.have.property(field);",
-                          "    // });",
-                          "",
-                          "    // Validate object types",
-                          "    // pm.expect(outer.response)",
-                          "    //     .to.be.an(\"object\");",
-                          "",
-                          "    // pm.expect(res.args)",
-                          "    //     .to.be.an(\"object\");",
-                          "",
-                          "    // pm.expect(res.headers)",
-                          "    //     .to.be.an(\"object\");",
-                          "});"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
                         "exec": [
-                          ""
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                          "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\n// Fix for script error: parse the nested body string\npm.test(\"Response body contains valid nested JSON\", function () {\n    const jsonData = pm.response.json();\n    pm.expect(jsonData).to.have.property('body');\n    const innerBody = JSON.parse(jsonData.body);\n    pm.expect(innerBody).to.be.an('object');\n    pm.expect(innerBody).to.have.property('url');\n});"
+                        ]
                       }
                     }
                   ],
                   "request": {
-                    "auth": {
-                      "type": "noauth"
-                    },
                     "method": "DELETE",
                     "header": [],
                     "body": {
                       "mode": "raw",
-                      "raw": ""
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/delete\",\r\n    \"timeout\": 10\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
                     },
                     "url": {
-                      "raw": "{{baseUrlCore}}/js-req/delete-header-timeout",
+                      "raw": "{{baseUrlCore}}/js/delete",
                       "host": [
                         "{{baseUrlCore}}"
                       ],
                       "path": [
-                        "js-req",
-                        "delete-header-timeout"
+                        "js",
+                        "delete"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "JS - Param url, headers, timeout",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response body contains expected fields\", function () {\n    const jsonData = pm.response.json();\n    pm.expect(jsonData).to.have.property(\"headers\");\n    pm.expect(jsonData).to.have.property(\"body\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"url\": \"http://202.72.206.162:7776/delete\",\r\n    \"headers\": {\r\n        \"Content-Type\": \"application/json\"\r\n    },\r\n    \"timeout\": 10\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/js/delete",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "js",
+                        "delete"
                       ]
                     }
                   },
@@ -15039,6 +14200,359 @@
                   "response": []
                 }
               ]
+            }
+          ]
+        },
+        {
+          "name": "JS - Response",
+          "item": [
+            {
+              "name": "Response Status 200",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n\n    // Status code\n    pm.response.to.have.status(200);\n\n    // Validate message\n    pm.expect(res.message).to.eql(\"Response Success\");\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"body\": {\r\n        \"message\": \"Response Success\"\r\n    },\r\n    \"code\": 200,\r\n    \"contentType\": \"application/json\",\r\n    \"headers\": {\r\n        \"Content-Type\": \"application/json\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/js/response",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "js",
+                    "response"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Response Status 302",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 302\", () => pm.response.to.have.status(302));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n\n    // Status code\n    pm.response.to.have.status(302);\n\n    // Validate message\n    pm.expect(res.message).to.eql(\"Redirect Link\");\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"body\": {\r\n        \"message\": \"Redirect Link\"\r\n    },\r\n    \"code\": 302,\r\n    \"contentType\": \"application/json\",\r\n    \"headers\": {\r\n        \"Content-Type\": \"application/json\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/js/response",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "js",
+                    "response"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Response Status 400",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n\n    // Status code\n    pm.response.to.have.status(400);\n\n    // Validate message\n    pm.expect(res.message).to.eql(\"Bad Request\");\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"body\": {\r\n        \"message\": \"Bad Request\"\r\n    },\r\n    \"code\": 400,\r\n    \"contentType\": \"application/json\",\r\n    \"headers\": {\r\n        \"Content-Type\": \"application/json\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/js/response",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "js",
+                    "response"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Response Status 403",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 403\", function () {\n    pm.response.to.have.status(403);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.response.to.be.not.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    pm.response.to.have.status(403);\n    const jsonData = pm.response.json();\n    pm.expect(jsonData).to.have.property(\"message\", \"Forbidden\");\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"body\": {\r\n        \"message\": \"Forbidden\"\r\n    },\r\n    \"code\": 403,\r\n    \"contentType\": \"application/json\",\r\n    \"headers\": {\r\n        \"Content-Type\": \"application/json\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/js/response",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "js",
+                    "response"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Response Status 404",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 404\", function () {\n    pm.response.to.have.status(404);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    pm.response.to.have.status(404);\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.message).to.eql(\"Not Found\");\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"body\": {\r\n        \"message\": \"Not Found\"\r\n    },\r\n    \"code\": 404,\r\n    \"contentType\": \"application/json\",\r\n    \"headers\": {\r\n        \"Content-Type\": \"application/json\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/js/response",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "js",
+                    "response"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Response Status 500",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 500\", function () {\n    pm.response.to.have.status(500);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.response.to.be.not.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    pm.response.to.have.status(500);\n    const jsonData = pm.response.json();\n    pm.expect(jsonData).to.have.property(\"message\", \"Internal Server Error\");\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"body\": {\r\n        \"message\": \"Internal Server Error\"\r\n    },\r\n    \"code\": 500,\r\n    \"contentType\": \"application/json\",\r\n    \"headers\": {\r\n        \"Content-Type\": \"application/json\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/js/response",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "js",
+                    "response"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Response Type HTML",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Response contains expected title\", function () {\n    pm.expect(pm.response.text()).to.include(\"Herman Melville - Moby-Dick\");\n});\n\npm.test(\"Response is HTML\", function () {\n    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/html\");\n});"
+                    ]
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/response/html",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "response",
+                    "html"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Response Type XML",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.response.to.be.not.empty;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Response is XML\", function () {\n    pm.response.to.have.header(\"Content-Type\", \"text/xml; charset=utf-8\");\n});\n"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<soap:Envelope\r\n    xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"\r\n    xmlns:s=\"https://sondahub.com/soap/store\">\r\n    <soap:Header/>\r\n    <soap:Body>\r\n        <s:GetProduct>\r\n            <s:id>1</s:id>\r\n        </s:GetProduct>\r\n    </soap:Body>\r\n</soap:Envelope>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/response/soap",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "response",
+                    "soap"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Response Type Image",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.response.to.have.body();\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Response is an image\", function () {\n    pm.response.to.have.header(\"Content-Type\", \"image/jpeg\");\n});"
+                    ]
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<soap:Envelope\r\n    xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"\r\n    xmlns:s=\"https://sondahub.com/soap/store\">\r\n    <soap:Header/>\r\n    <soap:Body>\r\n        <s:GetProduct>\r\n            <s:id>1</s:id>\r\n        </s:GetProduct>\r\n    </soap:Body>\r\n</soap:Envelope>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/response/image",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "response",
+                    "image"
+                  ]
+                }
+              },
+              "response": []
             }
           ]
         }
@@ -18902,13 +18416,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrlCore}}/testo/..%2f..%2fdocker-compose.ym",
+              "raw": "{{baseUrlCore}}/testo/..%2f..%2fdocker-compose.yml",
               "host": [
                 "{{baseUrlCore}}"
               ],
               "path": [
                 "testo",
-                "..%2f..%2fdocker-compose.ym"
+                "..%2f..%2fdocker-compose.yml"
               ]
             }
           },
