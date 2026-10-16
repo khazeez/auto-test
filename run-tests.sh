@@ -37,6 +37,9 @@ K6_TYPES="${K6_TYPES:-$(get_env K6_TYPES)}";         K6_TYPES="${K6_TYPES:-smoke
 RUN_NEWMAN="${RUN_NEWMAN:-$(get_env RUN_NEWMAN)}";   RUN_NEWMAN="${RUN_NEWMAN:-true}"
 RUN_K6="${RUN_K6:-$(get_env RUN_K6)}";               RUN_K6="${RUN_K6:-true}"
 
+# Garis pemisah untuk pesan notifikasi
+SEP="━━━━━━━━━━━━━━━━━━"
+
 # Channel notifikasi: telegram, whatsapp, atau keduanya (pisah koma). "none" = matikan.
 NOTIFY_CHANNELS="${NOTIFY_CHANNELS:-$(get_env NOTIFY_CHANNELS)}"; NOTIFY_CHANNELS="${NOTIFY_CHANNELS:-telegram}"
 
@@ -146,12 +149,12 @@ notify() {
   done
 }
 
-# Format detik -> "1j 05m 30d" / "5m 30d" / "30d"
+# Format detik -> "1h 05m 30s" / "5m 30s" / "30s"
 fmt_duration() {
   local s=$1
-  if [ "$s" -ge 3600 ]; then printf '%dj %02dm %02dd' $((s/3600)) $((s%3600/60)) $((s%60))
-  elif [ "$s" -ge 60 ]; then printf '%dm %02dd' $((s/60)) $((s%60))
-  else printf '%dd' "$s"; fi
+  if [ "$s" -ge 3600 ]; then printf '%dh %02dm %02ds' $((s/3600)) $((s%3600/60)) $((s%60))
+  elif [ "$s" -ge 60 ]; then printf '%dm %02ds' $((s/60)) $((s%60))
+  else printf '%ds' "$s"; fi
 }
 
 # Sinkronisasi git yang aman untuk server otomasi (tanpa manusia yang resolve konflik):
@@ -223,16 +226,18 @@ COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo "-")
 
 # ---------- 0. Notifikasi mulai ----------
 SCOPE=""
-[ "$RUN_NEWMAN" = "true" ] && SCOPE+="• API test (Newman)"$'\n'
-[ "$RUN_K6" = "true" ]     && SCOPE+="• Load test (k6): ${K6_TYPES//,/, }"$'\n'
-[ -z "$SCOPE" ] && SCOPE="• (tidak ada yang dijalankan)"$'\n'
+[ "$RUN_NEWMAN" = "true" ] && SCOPE+="▫️ API test (Newman)"$'\n'
+[ "$RUN_K6" = "true" ]     && SCOPE+="▫️ Load test (k6): ${K6_TYPES//,/, }"$'\n'
+[ -z "$SCOPE" ] && SCOPE="▫️ Nothing selected to run"$'\n'
 
-START_MSG="🚀 <b>Automation test dimulai</b>"$'\n\n'
-START_MSG+="🕐 $(date '+%d %b %Y, %H:%M %Z')"$'\n'
+START_MSG="🚀 <b>Automation test is starting......</b>"$'\n'
+START_MSG+="$SEP"$'\n'
+START_MSG+="🕐 Started: $(date '+%d %b %Y, %H:%M %Z')"$'\n'
 START_MSG+="🌐 Environment: <b>$NEWMAN_ENV</b>"$'\n'
-START_MSG+="🔖 Versi: <code>$COMMIT</code>"$'\n\n'
-START_MSG+="<b>Yang dijalankan:</b>"$'\n'"${SCOPE}"$'\n'
-START_MSG+="Hasil akan dikirim setelah semua test selesai."
+START_MSG+="🔖 Version: <code>$COMMIT</code>"$'\n\n'
+START_MSG+="<b>Scope</b>"$'\n'"${SCOPE}"
+START_MSG+="$SEP"$'\n'
+START_MSG+="Results will be sent once all tests are complete."
 notify "$START_MSG"
 
 FAIL=0
@@ -251,15 +256,15 @@ if [ "$RUN_NEWMAN" = "true" ]; then
       .results[] |
       (if (.code == 0 and .setupOk) then "✅" else "❌" end) as $i |
       if .setupOk then
-        "\($i) <a href=\"\($base)/newman-\(.slug).html\">\(.name | esc)</a>\n      \(.failed // "?") gagal dari \(.total // "?") assertion"
+        "\($i) <a href=\"\($base)/newman-\(.slug).html\">\(.name | esc)</a>\n   └ \(.failed // "?") failed of \(.total // "?") assertions"
       else
-        "\($i) \(.name | esc)\n      setup gagal, test tidak dijalankan"
+        "\($i) \(.name | esc)\n   └ Setup failed, tests were not run"
       end' "$SUMMARY")$'\n'
     if [ "$(jq -r '.teardownFailed' "$SUMMARY")" = "true" ]; then
-      NEWMAN_LINES+="⚠️ Teardown gagal, cek config server (IP blacklist, security header, CORS)"$'\n'
+      NEWMAN_LINES+="⚠️ Teardown failed, check server config (IP blacklist, security headers, CORS)"$'\n'
     fi
   else
-    NEWMAN_LINES="❌ Runner Newman gagal total, summary tidak terbentuk"$'\n'
+    NEWMAN_LINES="❌ Newman runner crashed, no summary was produced"$'\n'
     NEWMAN_CODE=1
   fi
   [ $NEWMAN_CODE -ne 0 ] && FAIL=1
@@ -276,9 +281,9 @@ if [ "$RUN_K6" = "true" ]; then
       def esc: gsub("&";"&amp;") | gsub("<";"&lt;") | gsub(">";"&gt;");
       .results[] |
       (if .code == 0 then "✅" else "❌" end) as $i |
-      "\($i) <a href=\"\($base)/k6-\(.slug).html\">\(.name | esc)</a>\n      p95 \(.p95 // "?") ms · error \(.errorRate // "?")%"' "$SUMMARY")$'\n'
+      "\($i) <a href=\"\($base)/k6-\(.slug).html\">\(.name | esc)</a>\n   └ p95 \(.p95 // "?") ms · error rate \(.errorRate // "?")%"' "$SUMMARY")$'\n'
   else
-    K6_LINES="❌ Runner k6 gagal total, summary tidak terbentuk"$'\n'
+    K6_LINES="❌ k6 runner crashed, no summary was produced"$'\n'
     K6_CODE=1
   fi
   [ $K6_CODE -ne 0 ] && FAIL=1
@@ -289,15 +294,18 @@ node scripts/generate-report.js "$REPORT_DIR" --env "$NEWMAN_ENV" || echo "Gagal
 
 # ---------- 3. Notifikasi hasil ----------
 DURATION=$(fmt_duration $(( $(date +%s) - START_TS )))
-if [ $FAIL -eq 0 ]; then HEADER="✅ <b>Semua test lolos</b>"; else HEADER="❌ <b>Ada test yang gagal</b>"; fi
+if [ $FAIL -eq 0 ]; then HEADER="✅ <b>All tests passed</b>"; else HEADER="❌ <b>Some tests failed</b>"; fi
 
-MSG="$HEADER"$'\n\n'
-MSG+="🕐 Selesai $(date '+%d %b %Y, %H:%M %Z')"$'\n'
-MSG+="⏱ Durasi: $DURATION"$'\n'
-MSG+="🌐 Environment: <b>$NEWMAN_ENV</b> · 🔖 <code>$COMMIT</code>"$'\n'
-[ -n "$NEWMAN_LINES" ] && MSG+=$'\n'"<b>API test (Newman)</b>"$'\n'"${NEWMAN_LINES}"
-[ -n "$K6_LINES" ]     && MSG+=$'\n'"<b>Load test (k6)</b>"$'\n'"${K6_LINES}"
-MSG+=$'\n'"📊 <a href=\"$BASE/\">Buka dashboard report</a>"
+MSG="$HEADER"$'\n'
+MSG+="$SEP"$'\n'
+MSG+="🕐 Finished: $(date '+%d %b %Y, %H:%M %Z')"$'\n'
+MSG+="⏱ Duration: $DURATION"$'\n'
+MSG+="🌐 Environment: <b>$NEWMAN_ENV</b>"$'\n'
+MSG+="🔖 Version: <code>$COMMIT</code>"$'\n'
+[ -n "$NEWMAN_LINES" ] && MSG+=$'\n'"<b>API TEST · NEWMAN</b>"$'\n'"${NEWMAN_LINES}"
+[ -n "$K6_LINES" ]     && MSG+=$'\n'"<b>LOAD TEST · K6</b>"$'\n'"${K6_LINES}"
+MSG+="$SEP"$'\n'
+MSG+="📊 <a href=\"$BASE/\">View full report</a>"
 PREVIEW_TITLE="Automation Test Report · $NEWMAN_ENV"
 PREVIEW_DESC="$(printf '%s' "$HEADER" | sed -E 's/<[^>]*>//g') · $DURATION · $COMMIT"
 notify "$MSG" "$BASE/" "$PREVIEW_TITLE" "$PREVIEW_DESC"
