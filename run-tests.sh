@@ -28,6 +28,8 @@ WAHA_URL="${WAHA_URL:-$(get_env WAHA_URL)}"
 WAHA_API_KEY="${WAHA_API_KEY:-$(get_env WAHA_API_KEY)}"
 WAHA_SESSION="${WAHA_SESSION:-$(get_env WAHA_SESSION)}"; WAHA_SESSION="${WAHA_SESSION:-default}"
 WA_CHAT_ID="${WA_CHAT_ID:-$(get_env WA_CHAT_ID)}"
+# Gambar untuk kartu preview WA (opsional, URL publik yang bisa diakses server WAHA)
+WA_PREVIEW_IMAGE_URL="${WA_PREVIEW_IMAGE_URL:-$(get_env WA_PREVIEW_IMAGE_URL)}"
 
 # Pengaturan run. Prioritas: variabel di terminal/cron > isi .env > default.
 NEWMAN_ENV="${NEWMAN_ENV:-$(get_env NEWMAN_ENV)}";   NEWMAN_ENV="${NEWMAN_ENV:-Dev}"
@@ -60,34 +62,62 @@ tg_send() {
   done
 }
 
-# Konversi HTML Telegram -> format WhatsApp (*bold*, `code`, link jadi "Nama: URL")
+# Konversi HTML Telegram -> format WhatsApp.
+# Link <a href> dibuang URL-nya, tinggal nama tebal (*Nama*): link report dikirim lewat
+# kartu preview, bukan URL mentah per baris. Indentasi awal baris dibuang supaya rapi.
 html_to_wa() {
   printf '%s' "$1" | sed -E \
+    -e 's/^[[:space:]]+//' \
+    -e 's#<a href="[^"]*">([^<]*)</a>#*\1*#g' \
     -e 's#<b>([^<]*)</b>#*\1*#g' \
     -e 's#<code>([^<]*)</code>#`\1`#g' \
-    -e 's#<a href="([^"]*)">([^<]*)</a>#\2: \1#g' \
     -e 's/&lt;/</g' -e 's/&gt;/>/g' -e 's/&amp;/\&/g'
 }
 
 # Kirim pesan WhatsApp lewat WAHA ke satu atau banyak chat/grup (pisah koma).
-# Error dicatat ke log per chat, tidak menghentikan script.
+# Argumen: $1 = pesan (HTML Telegram), $2 = URL preview (opsional),
+#          $3 = judul kartu, $4 = deskripsi kartu.
+# Kalau $2 diisi, dikirim sebagai kartu link preview (/api/send/link-custom-preview).
+# Kalau endpoint itu gagal (mis. versi WAHA tidak mendukung), otomatis fallback ke
+# /api/sendText dengan URL di teks. Error dicatat ke log, tidak menghentikan script.
 wa_send() {
   if [ -z "$WAHA_URL" ] || [ -z "$WA_CHAT_ID" ]; then
     echo "WAHA_URL/WA_CHAT_ID kosong, notifikasi WA dilewati."
     return 0
   fi
+  local url="${2:-}" title="${3:-}" desc="${4:-}"
   local text payload resp code body cid
   local -a ids hdr
   hdr=(-H 'Content-Type: application/json')
   [ -n "$WAHA_API_KEY" ] && hdr+=(-H "X-Api-Key: $WAHA_API_KEY")
 
   text=$(html_to_wa "$1")
+  [ -n "$url" ] && text+=$'\n'"$url"
+
   IFS=',' read -ra ids <<< "$WA_CHAT_ID"
   for cid in "${ids[@]}"; do
     cid=$(echo "$cid" | tr -d '[:space:]')
     [ -z "$cid" ] && continue
+    code=""
+
+    if [ -n "$url" ]; then
+      payload=$(jq -n --arg chatId "$cid" --arg text "$text" --arg session "$WAHA_SESSION" \
+        --arg url "$url" --arg title "$title" --arg desc "$desc" --arg img "$WA_PREVIEW_IMAGE_URL" '
+        {chatId:$chatId, text:$text, session:$session, linkPreviewHighQuality:false,
+         preview: ({url:$url, title:$title, description:$desc}
+                   + (if $img != "" then {image:{url:$img}} else {} end))}')
+      resp=$(curl -s -m 30 -w $'\n%{http_code}' -X POST "${WAHA_URL%/}/api/send/link-custom-preview" \
+        "${hdr[@]}" -d "$payload")
+      code="${resp##*$'\n'}"
+      body="${resp%$'\n'*}"
+      case "$code" in
+        2??) continue ;;
+        *)   echo "Kartu preview WA ke $cid gagal (HTTP $code): $body. Fallback ke teks biasa." ;;
+      esac
+    fi
+
     payload=$(jq -n --arg chatId "$cid" --arg text "$text" --arg session "$WAHA_SESSION" \
-      '{chatId:$chatId, text:$text, session:$session, linkPreview:false}')
+      '{chatId:$chatId, text:$text, session:$session, linkPreview:true}')
     resp=$(curl -s -m 30 -w $'\n%{http_code}' -X POST "${WAHA_URL%/}/api/sendText" \
       "${hdr[@]}" -d "$payload")
     code="${resp##*$'\n'}"
@@ -99,7 +129,8 @@ wa_send() {
   done
 }
 
-# Kirim ke channel yang dipilih lewat NOTIFY_CHANNELS
+# Kirim ke channel yang dipilih lewat NOTIFY_CHANNELS.
+# Argumen: $1 = pesan, $2-$4 = URL/judul/deskripsi kartu preview (hanya dipakai WA).
 notify() {
   local ch
   local -a chans
@@ -108,7 +139,7 @@ notify() {
     ch=$(echo "$ch" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')
     case "$ch" in
       telegram|tg) tg_send "$1" ;;
-      whatsapp|wa) wa_send "$1" ;;
+      whatsapp|wa) wa_send "$1" "${2:-}" "${3:-}" "${4:-}" ;;
       none|"")     ;;
       *)           echo "Channel notifikasi tidak dikenal: $ch (pakai telegram / whatsapp / none)" ;;
     esac
@@ -267,7 +298,9 @@ MSG+="🌐 Environment: <b>$NEWMAN_ENV</b> · 🔖 <code>$COMMIT</code>"$'\n'
 [ -n "$NEWMAN_LINES" ] && MSG+=$'\n'"<b>API test (Newman)</b>"$'\n'"${NEWMAN_LINES}"
 [ -n "$K6_LINES" ]     && MSG+=$'\n'"<b>Load test (k6)</b>"$'\n'"${K6_LINES}"
 MSG+=$'\n'"📊 <a href=\"$BASE/\">Buka dashboard report</a>"
-notify "$MSG"
+PREVIEW_TITLE="Automation Test Report · $NEWMAN_ENV"
+PREVIEW_DESC="$(printf '%s' "$HEADER" | sed -E 's/<[^>]*>//g') · $DURATION · $COMMIT"
+notify "$MSG" "$BASE/" "$PREVIEW_TITLE" "$PREVIEW_DESC"
 
 # ---------- 4. Housekeeping ----------
 ln -sfn "$RUN_ID" "$PROJECT_DIR/reports/latest"
