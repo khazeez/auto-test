@@ -211,9 +211,10 @@ SCOPE=""
 [ -z "$SCOPE" ] && SCOPE="- Nggak ada yang dipilih"$'\n'
 
 START_MSG="<b>Automation test is starting...</b>"$'\n'
-START_MSG+="Mulai: $(date '+%d %b %Y, %H:%M %Z')"$'\n'
-START_MSG+="Env: <b>$NEWMAN_ENV</b>"$'\n'
-START_MSG+="Versi: <code>$COMMIT</code>"$'\n\n'
+START_MSG+="$SEP"$'\n'
+START_MSG+="- Mulai: $(date '+%d %b %Y, %H:%M %Z')"$'\n'
+START_MSG+="- Env: <b>$NEWMAN_ENV</b>"$'\n'
+START_MSG+="- Versi: <code>$COMMIT</code>"$'\n\n'
 START_MSG+="<b>Yang dijalanin</b>"$'\n'"${SCOPE}"$'\n'
 START_MSG+="Hasilnya dikirim kalau semua sudah kelar."
 notify "$START_MSG"
@@ -276,10 +277,10 @@ if [ $FAIL -eq 0 ]; then HEADER="✅ <b>Semua test berhasil :)</b>"; else HEADER
 
 MSG="$HEADER"$'\n'
 MSG+="$SEP"$'\n'
-MSG+="Selesai: $(date '+%d %b %Y, %H:%M %Z')"$'\n'
-MSG+="Durasi: $DURATION"$'\n'
-MSG+="Env: <b>$NEWMAN_ENV</b>"$'\n'
-MSG+="Versi: <code>$COMMIT</code>"$'\n'
+MSG+="- Selesai: $(date '+%d %b %Y, %H:%M %Z')"$'\n'
+MSG+="- Durasi: $DURATION"$'\n'
+MSG+="- Env: <b>$NEWMAN_ENV</b>"$'\n'
+MSG+="- Versi: <code>$COMMIT</code>"$'\n'
 [ -n "$NEWMAN_LINES" ] && MSG+=$'\n'"<b>API TEST · NEWMAN</b>"$'\n'"${NEWMAN_LINES}"
 [ -n "$K6_LINES" ]     && MSG+=$'\n'"<b>LOAD TEST · K6</b>"$'\n'"${K6_LINES}"
 MSG+="$SEP"$'\n'
