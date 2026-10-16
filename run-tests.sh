@@ -210,8 +210,7 @@ SCOPE=""
 [ "$RUN_K6" = "true" ]     && SCOPE+="- Load test (k6): ${K6_TYPES//,/, }"$'\n'
 [ -z "$SCOPE" ] && SCOPE="- Nggak ada yang dipilih"$'\n'
 
-START_MSG="<b>Test mulai jalan</b>"$'\n'
-START_MSG+="$SEP"$'\n'
+START_MSG="<b>Automation test is starting...</b>"$'\n'
 START_MSG+="Mulai: $(date '+%d %b %Y, %H:%M %Z')"$'\n'
 START_MSG+="Env: <b>$NEWMAN_ENV</b>"$'\n'
 START_MSG+="Versi: <code>$COMMIT</code>"$'\n\n'
