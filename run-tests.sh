@@ -28,7 +28,8 @@ WAHA_URL="${WAHA_URL:-$(get_env WAHA_URL)}"
 WAHA_API_KEY="${WAHA_API_KEY:-$(get_env WAHA_API_KEY)}"
 WAHA_SESSION="${WAHA_SESSION:-$(get_env WAHA_SESSION)}"; WAHA_SESSION="${WAHA_SESSION:-default}"
 WA_CHAT_ID="${WA_CHAT_ID:-$(get_env WA_CHAT_ID)}"
-# Gambar untuk kartu preview WA (opsional, URL publik yang bisa diakses server WAHA)
+# Gambar untuk kartu preview WA (opsional). Kosong = otomatis pakai assets/report-preview.png.
+# Kalau diisi, harus URL publik yang bisa diakses server WAHA.
 WA_PREVIEW_IMAGE_URL="${WA_PREVIEW_IMAGE_URL:-$(get_env WA_PREVIEW_IMAGE_URL)}"
 
 # Pengaturan run. Prioritas: variabel di terminal/cron > isi .env > default.
@@ -219,6 +220,14 @@ RUN_ID=$(date +%Y-%m-%d_%H%M)
 REPORT_DIR="$PROJECT_DIR/reports/$RUN_ID"
 BASE="$REPORT_BASE_URL/$RUN_ID"
 mkdir -p "$REPORT_DIR"
+
+# Gambar kartu preview WA: kalau WA_PREVIEW_IMAGE_URL tidak diisi, pakai assets/report-preview.png
+# dari project. File disalin ke root reports/ (bukan folder, jadi tidak kena housekeeping 30 hari)
+# supaya otomatis ikut dilayani web server report di $REPORT_BASE_URL/report-preview.png
+if [ -z "$WA_PREVIEW_IMAGE_URL" ] && [ -n "$REPORT_BASE_URL" ] && [ -f "$PROJECT_DIR/assets/report-preview.png" ]; then
+  cp -f "$PROJECT_DIR/assets/report-preview.png" "$PROJECT_DIR/reports/report-preview.png" \
+    && WA_PREVIEW_IMAGE_URL="${REPORT_BASE_URL%/}/report-preview.png"
+fi
 
 echo "=== Mulai: $(date) | newman=$RUN_NEWMAN k6=$RUN_K6 ($K6_TYPES) env=$NEWMAN_ENV notify=$NOTIFY_CHANNELS ==="
 git_sync || echo "git sync gagal, pakai versi lokal."
