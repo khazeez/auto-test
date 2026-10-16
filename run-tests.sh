@@ -1,13 +1,3 @@
-#!/bin/bash
-# Jalankan Newman (semua collection) + k6 lewat runner project, simpan report per run,
-# lalu kirim notifikasi (saat mulai dan saat selesai, berisi LINK report) ke
-# Telegram dan/atau WhatsApp (WAHA), sesuai NOTIFY_CHANNELS.
-#
-# Contoh cron:
-#   # harian, hari kerja jam 08:00 (Newman + smoke + load), notif Telegram saja
-#   0 8 * * 1-5 /opt/automation-test/run-tests.sh >> /home/ubuntu/automation-test.log 2>&1
-#   # mingguan, Sabtu jam 22:00 (stress + soak saja, tanpa Newman), notif Telegram + WA
-#   0 22 * * 6  RUN_NEWMAN=false K6_TYPES=stress,soak NOTIFY_CHANNELS=telegram,whatsapp /opt/automation-test/run-tests.sh >> /home/ubuntu/automation-test.log 2>&1
 set -u
 
 PROJECT_DIR="${PROJECT_DIR:-/opt/automation-test}"
@@ -66,9 +56,7 @@ tg_send() {
   done
 }
 
-# Konversi HTML Telegram -> format WhatsApp.
-# Link <a href> dibuang URL-nya, tinggal nama tebal (*Nama*): link report dikirim lewat
-# kartu preview, bukan URL mentah per baris. Indentasi awal baris dibuang supaya rapi.
+
 html_to_wa() {
   printf '%s' "$1" | sed -E \
     -e 's/^[[:space:]]+//' \
@@ -78,12 +66,6 @@ html_to_wa() {
     -e 's/&lt;/</g' -e 's/&gt;/>/g' -e 's/&amp;/\&/g'
 }
 
-# Kirim pesan WhatsApp lewat WAHA ke satu atau banyak chat/grup (pisah koma).
-# Argumen: $1 = pesan (HTML Telegram), $2 = URL preview (opsional),
-#          $3 = judul kartu, $4 = deskripsi kartu.
-# Kalau $2 diisi, dikirim sebagai kartu link preview (/api/send/link-custom-preview).
-# Kalau endpoint itu gagal (mis. versi WAHA tidak mendukung), otomatis fallback ke
-# /api/sendText dengan URL di teks. Error dicatat ke log, tidak menghentikan script.
 wa_send() {
   if [ -z "$WAHA_URL" ] || [ -z "$WA_CHAT_ID" ]; then
     echo "WAHA_URL/WA_CHAT_ID kosong, notifikasi WA dilewati."
@@ -133,8 +115,7 @@ wa_send() {
   done
 }
 
-# Kirim ke channel yang dipilih lewat NOTIFY_CHANNELS.
-# Argumen: $1 = pesan, $2-$4 = URL/judul/deskripsi kartu preview (hanya dipakai WA).
+
 notify() {
   local ch
   local -a chans
@@ -150,7 +131,6 @@ notify() {
   done
 }
 
-# Format detik -> "1h 05m 30s" / "5m 30s" / "30s"
 fmt_duration() {
   local s=$1
   if [ "$s" -ge 3600 ]; then printf '%dh %02dm %02ds' $((s/3600)) $((s%3600/60)) $((s%60))
@@ -158,13 +138,6 @@ fmt_duration() {
   else printf '%ds' "$s"; fi
 }
 
-# Sinkronisasi git yang aman untuk server otomasi (tanpa manusia yang resolve konflik):
-#   1. Kalau ada perubahan lokal (mis. file report yang ter-track), commit dulu otomatis.
-#   2. Coba fast-forward (paling bersih).
-#   3. Kalau tidak bisa fast-forward (divergent), coba merge otomatis.
-#   4. Kalau merge bentrok, batalkan merge dan samakan paksa dengan origin
-#      (remote dianggap sumber kebenaran untuk server otomasi).
-# Return 0 kalau berhasil sync (apapun jalurnya), 1 kalau gagal total (mis. tidak ada koneksi).
 git_sync() {
   local branch
 
@@ -221,9 +194,7 @@ REPORT_DIR="$PROJECT_DIR/reports/$RUN_ID"
 BASE="$REPORT_BASE_URL/$RUN_ID"
 mkdir -p "$REPORT_DIR"
 
-# Gambar kartu preview WA: kalau WA_PREVIEW_IMAGE_URL tidak diisi, pakai assets/report-preview.png
-# dari project. File disalin ke root reports/ (bukan folder, jadi tidak kena housekeeping 30 hari)
-# supaya otomatis ikut dilayani web server report di $REPORT_BASE_URL/report-preview.png
+
 if [ -z "$WA_PREVIEW_IMAGE_URL" ] && [ -n "$REPORT_BASE_URL" ] && [ -f "$PROJECT_DIR/assets/report-preview.png" ]; then
   cp -f "$PROJECT_DIR/assets/report-preview.png" "$PROJECT_DIR/reports/report-preview.png" \
     && WA_PREVIEW_IMAGE_URL="${REPORT_BASE_URL%/}/report-preview.png"
@@ -235,18 +206,17 @@ COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo "-")
 
 # ---------- 0. Notifikasi mulai ----------
 SCOPE=""
-[ "$RUN_NEWMAN" = "true" ] && SCOPE+="▫️ API test (Newman)"$'\n'
-[ "$RUN_K6" = "true" ]     && SCOPE+="▫️ Load test (k6): ${K6_TYPES//,/, }"$'\n'
-[ -z "$SCOPE" ] && SCOPE="▫️ Nothing selected to run"$'\n'
+[ "$RUN_NEWMAN" = "true" ] && SCOPE+="- API test (Newman)"$'\n'
+[ "$RUN_K6" = "true" ]     && SCOPE+="- Load test (k6): ${K6_TYPES//,/, }"$'\n'
+[ -z "$SCOPE" ] && SCOPE="- Nggak ada yang dipilih"$'\n'
 
-START_MSG="🚀 <b>Automation test is starting......</b>"$'\n'
+START_MSG="<b>Test mulai jalan</b>"$'\n'
 START_MSG+="$SEP"$'\n'
-START_MSG+="🕐 Started: $(date '+%d %b %Y, %H:%M %Z')"$'\n'
-START_MSG+="🌐 Environment: <b>$NEWMAN_ENV</b>"$'\n'
-START_MSG+="🔖 Version: <code>$COMMIT</code>"$'\n\n'
-START_MSG+="<b>Scope</b>"$'\n'"${SCOPE}"
-START_MSG+="$SEP"$'\n'
-START_MSG+="Results will be sent once all tests are complete."
+START_MSG+="Mulai: $(date '+%d %b %Y, %H:%M %Z')"$'\n'
+START_MSG+="Env: <b>$NEWMAN_ENV</b>"$'\n'
+START_MSG+="Versi: <code>$COMMIT</code>"$'\n\n'
+START_MSG+="<b>Yang dijalanin</b>"$'\n'"${SCOPE}"$'\n'
+START_MSG+="Hasilnya dikirim kalau semua sudah kelar."
 notify "$START_MSG"
 
 FAIL=0
@@ -265,15 +235,15 @@ if [ "$RUN_NEWMAN" = "true" ]; then
       .results[] |
       (if (.code == 0 and .setupOk) then "✅" else "❌" end) as $i |
       if .setupOk then
-        "\($i) <a href=\"\($base)/newman-\(.slug).html\">\(.name | esc)</a>\n   └ \(.failed // "?") failed of \(.total // "?") assertions"
+        "\($i) <a href=\"\($base)/newman-\(.slug).html\">\(.name | esc)</a>\n   └ \(.failed // "?") gagal dari \(.total // "?") assertion"
       else
-        "\($i) \(.name | esc)\n   └ Setup failed, tests were not run"
+        "\($i) \(.name | esc)\n   └ Setup gagal, test nggak dijalanin"
       end' "$SUMMARY")$'\n'
     if [ "$(jq -r '.teardownFailed' "$SUMMARY")" = "true" ]; then
-      NEWMAN_LINES+="⚠️ Teardown failed, check server config (IP blacklist, security headers, CORS)"$'\n'
+      NEWMAN_LINES+="Catatan: teardown gagal, cek config server (IP blacklist, security header, CORS)"$'\n'
     fi
   else
-    NEWMAN_LINES="❌ Newman runner crashed, no summary was produced"$'\n'
+    NEWMAN_LINES="❌ Runner Newman crash, summary nggak terbentuk"$'\n'
     NEWMAN_CODE=1
   fi
   [ $NEWMAN_CODE -ne 0 ] && FAIL=1
@@ -292,7 +262,7 @@ if [ "$RUN_K6" = "true" ]; then
       (if .code == 0 then "✅" else "❌" end) as $i |
       "\($i) <a href=\"\($base)/k6-\(.slug).html\">\(.name | esc)</a>\n   └ p95 \(.p95 // "?") ms · error rate \(.errorRate // "?")%"' "$SUMMARY")$'\n'
   else
-    K6_LINES="❌ k6 runner crashed, no summary was produced"$'\n'
+    K6_LINES="❌ Runner k6 crash, summary nggak terbentuk"$'\n'
     K6_CODE=1
   fi
   [ $K6_CODE -ne 0 ] && FAIL=1
@@ -303,19 +273,19 @@ node scripts/generate-report.js "$REPORT_DIR" --env "$NEWMAN_ENV" || echo "Gagal
 
 # ---------- 3. Notifikasi hasil ----------
 DURATION=$(fmt_duration $(( $(date +%s) - START_TS )))
-if [ $FAIL -eq 0 ]; then HEADER="✅ <b>All tests passed</b>"; else HEADER="❌ <b>Some tests failed</b>"; fi
+if [ $FAIL -eq 0 ]; then HEADER="✅ <b>Semua test berhasil :)</b>"; else HEADER="❌ <b>Ada test yang gagal :(</b>"; fi
 
 MSG="$HEADER"$'\n'
 MSG+="$SEP"$'\n'
-MSG+="🕐 Finished: $(date '+%d %b %Y, %H:%M %Z')"$'\n'
-MSG+="⏱ Duration: $DURATION"$'\n'
-MSG+="🌐 Environment: <b>$NEWMAN_ENV</b>"$'\n'
-MSG+="🔖 Version: <code>$COMMIT</code>"$'\n'
+MSG+="Selesai: $(date '+%d %b %Y, %H:%M %Z')"$'\n'
+MSG+="Durasi: $DURATION"$'\n'
+MSG+="Env: <b>$NEWMAN_ENV</b>"$'\n'
+MSG+="Versi: <code>$COMMIT</code>"$'\n'
 [ -n "$NEWMAN_LINES" ] && MSG+=$'\n'"<b>API TEST · NEWMAN</b>"$'\n'"${NEWMAN_LINES}"
 [ -n "$K6_LINES" ]     && MSG+=$'\n'"<b>LOAD TEST · K6</b>"$'\n'"${K6_LINES}"
 MSG+="$SEP"$'\n'
-MSG+="📊 <a href=\"$BASE/\">View full report</a>"
-PREVIEW_TITLE="Automation Test Report · $NEWMAN_ENV"
+MSG+="<a href=\"$BASE/\">Lihat report lengkap</a>"
+PREVIEW_TITLE="Report Automation Test · $NEWMAN_ENV"
 PREVIEW_DESC="$(printf '%s' "$HEADER" | sed -E 's/<[^>]*>//g') · $DURATION · $COMMIT"
 notify "$MSG" "$BASE/" "$PREVIEW_TITLE" "$PREVIEW_DESC"
 
