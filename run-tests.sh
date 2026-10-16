@@ -1,12 +1,13 @@
 #!/bin/bash
 # Jalankan Newman (semua collection) + k6 lewat runner project, simpan report per run,
-# lalu kirim notifikasi Telegram (saat mulai dan saat selesai, berisi LINK report).
+# lalu kirim notifikasi (saat mulai dan saat selesai, berisi LINK report) ke
+# Telegram dan/atau WhatsApp (WAHA), sesuai NOTIFY_CHANNELS.
 #
 # Contoh cron:
-#   # harian, hari kerja jam 08:00 (Newman + smoke + load)
+#   # harian, hari kerja jam 08:00 (Newman + smoke + load), notif Telegram saja
 #   0 8 * * 1-5 /opt/automation-test/run-tests.sh >> /home/ubuntu/automation-test.log 2>&1
-#   # mingguan, Sabtu jam 22:00 (stress + soak saja, tanpa Newman)
-#   0 22 * * 6  RUN_NEWMAN=false K6_TYPES=stress,soak /opt/automation-test/run-tests.sh >> /home/ubuntu/automation-test.log 2>&1
+#   # mingguan, Sabtu jam 22:00 (stress + soak saja, tanpa Newman), notif Telegram + WA
+#   0 22 * * 6  RUN_NEWMAN=false K6_TYPES=stress,soak NOTIFY_CHANNELS=telegram,whatsapp /opt/automation-test/run-tests.sh >> /home/ubuntu/automation-test.log 2>&1
 set -u
 
 PROJECT_DIR="${PROJECT_DIR:-/opt/automation-test}"
@@ -17,9 +18,16 @@ get_env() {
   [ -f .env ] || return 0
   grep -E "^$1=" .env | head -1 | cut -d= -f2- | tr -d '\r' | sed -e 's/^"//' -e 's/"$//' -e "s/^'//" -e "s/'$//"
 }
+
+# Kredensial. Prioritas: variabel di terminal/cron > isi .env
 TG_TOKEN="${TG_TOKEN:-$(get_env TG_TOKEN)}"
 TG_CHAT_ID="${TG_CHAT_ID:-$(get_env TG_CHAT_ID)}"
 REPORT_BASE_URL="${REPORT_BASE_URL:-$(get_env REPORT_BASE_URL)}"
+
+WAHA_URL="${WAHA_URL:-$(get_env WAHA_URL)}"
+WAHA_API_KEY="${WAHA_API_KEY:-$(get_env WAHA_API_KEY)}"
+WAHA_SESSION="${WAHA_SESSION:-$(get_env WAHA_SESSION)}"; WAHA_SESSION="${WAHA_SESSION:-default}"
+WA_CHAT_ID="${WA_CHAT_ID:-$(get_env WA_CHAT_ID)}"
 
 # Pengaturan run. Prioritas: variabel di terminal/cron > isi .env > default.
 NEWMAN_ENV="${NEWMAN_ENV:-$(get_env NEWMAN_ENV)}";   NEWMAN_ENV="${NEWMAN_ENV:-Dev}"
@@ -27,13 +35,20 @@ K6_TYPES="${K6_TYPES:-$(get_env K6_TYPES)}";         K6_TYPES="${K6_TYPES:-smoke
 RUN_NEWMAN="${RUN_NEWMAN:-$(get_env RUN_NEWMAN)}";   RUN_NEWMAN="${RUN_NEWMAN:-true}"
 RUN_K6="${RUN_K6:-$(get_env RUN_K6)}";               RUN_K6="${RUN_K6:-true}"
 
+# Channel notifikasi: telegram, whatsapp, atau keduanya (pisah koma). "none" = matikan.
+NOTIFY_CHANNELS="${NOTIFY_CHANNELS:-$(get_env NOTIFY_CHANNELS)}"; NOTIFY_CHANNELS="${NOTIFY_CHANNELS:-telegram}"
+
 # Kirim pesan Telegram (HTML) ke satu atau banyak chat ID (dipisah koma, mis. 123,-100456).
 # Error Telegram dicatat ke log per chat, tidak menghentikan script.
 tg_send() {
-  [ -n "$TG_TOKEN" ] && [ -n "$TG_CHAT_ID" ] || { echo "TG_TOKEN/TG_CHAT_ID kosong, notifikasi dilewati."; return 0; }
+  if [ -z "$TG_TOKEN" ] || [ -z "$TG_CHAT_ID" ]; then
+    echo "TG_TOKEN/TG_CHAT_ID kosong, notifikasi Telegram dilewati."
+    return 0
+  fi
   local resp cid
-  local IFS=','
-  for cid in $TG_CHAT_ID; do
+  local -a ids
+  IFS=',' read -ra ids <<< "$TG_CHAT_ID"
+  for cid in "${ids[@]}"; do
     cid=$(echo "$cid" | tr -d '[:space:]')
     [ -z "$cid" ] && continue
     resp=$(curl -s -m 20 -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
@@ -42,6 +57,61 @@ tg_send() {
       -d disable_web_page_preview=true \
       --data-urlencode text="$1")
     echo "$resp" | grep -q '"ok":true' || echo "Notifikasi Telegram ke $cid gagal: $resp"
+  done
+}
+
+# Konversi HTML Telegram -> format WhatsApp (*bold*, `code`, link jadi "Nama: URL")
+html_to_wa() {
+  printf '%s' "$1" | sed -E \
+    -e 's#<b>([^<]*)</b>#*\1*#g' \
+    -e 's#<code>([^<]*)</code>#`\1`#g' \
+    -e 's#<a href="([^"]*)">([^<]*)</a>#\2: \1#g' \
+    -e 's/&lt;/</g' -e 's/&gt;/>/g' -e 's/&amp;/\&/g'
+}
+
+# Kirim pesan WhatsApp lewat WAHA ke satu atau banyak chat/grup (pisah koma).
+# Error dicatat ke log per chat, tidak menghentikan script.
+wa_send() {
+  if [ -z "$WAHA_URL" ] || [ -z "$WA_CHAT_ID" ]; then
+    echo "WAHA_URL/WA_CHAT_ID kosong, notifikasi WA dilewati."
+    return 0
+  fi
+  local text payload resp code body cid
+  local -a ids hdr
+  hdr=(-H 'Content-Type: application/json')
+  [ -n "$WAHA_API_KEY" ] && hdr+=(-H "X-Api-Key: $WAHA_API_KEY")
+
+  text=$(html_to_wa "$1")
+  IFS=',' read -ra ids <<< "$WA_CHAT_ID"
+  for cid in "${ids[@]}"; do
+    cid=$(echo "$cid" | tr -d '[:space:]')
+    [ -z "$cid" ] && continue
+    payload=$(jq -n --arg chatId "$cid" --arg text "$text" --arg session "$WAHA_SESSION" \
+      '{chatId:$chatId, text:$text, session:$session, linkPreview:false}')
+    resp=$(curl -s -m 30 -w $'\n%{http_code}' -X POST "${WAHA_URL%/}/api/sendText" \
+      "${hdr[@]}" -d "$payload")
+    code="${resp##*$'\n'}"
+    body="${resp%$'\n'*}"
+    case "$code" in
+      2??) ;;
+      *) echo "Notifikasi WA ke $cid gagal (HTTP $code): $body" ;;
+    esac
+  done
+}
+
+# Kirim ke channel yang dipilih lewat NOTIFY_CHANNELS
+notify() {
+  local ch
+  local -a chans
+  IFS=',' read -ra chans <<< "$NOTIFY_CHANNELS"
+  for ch in "${chans[@]}"; do
+    ch=$(echo "$ch" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')
+    case "$ch" in
+      telegram|tg) tg_send "$1" ;;
+      whatsapp|wa) wa_send "$1" ;;
+      none|"")     ;;
+      *)           echo "Channel notifikasi tidak dikenal: $ch (pakai telegram / whatsapp / none)" ;;
+    esac
   done
 }
 
@@ -116,7 +186,7 @@ REPORT_DIR="$PROJECT_DIR/reports/$RUN_ID"
 BASE="$REPORT_BASE_URL/$RUN_ID"
 mkdir -p "$REPORT_DIR"
 
-echo "=== Mulai: $(date) | newman=$RUN_NEWMAN k6=$RUN_K6 ($K6_TYPES) env=$NEWMAN_ENV ==="
+echo "=== Mulai: $(date) | newman=$RUN_NEWMAN k6=$RUN_K6 ($K6_TYPES) env=$NEWMAN_ENV notify=$NOTIFY_CHANNELS ==="
 git_sync || echo "git sync gagal, pakai versi lokal."
 COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo "-")
 
@@ -132,7 +202,7 @@ START_MSG+="🌐 Environment: <b>$NEWMAN_ENV</b>"$'\n'
 START_MSG+="🔖 Versi: <code>$COMMIT</code>"$'\n\n'
 START_MSG+="<b>Yang dijalankan:</b>"$'\n'"${SCOPE}"$'\n'
 START_MSG+="Hasil akan dikirim setelah semua test selesai."
-tg_send "$START_MSG"
+notify "$START_MSG"
 
 FAIL=0
 NEWMAN_LINES=""
@@ -197,7 +267,7 @@ MSG+="🌐 Environment: <b>$NEWMAN_ENV</b> · 🔖 <code>$COMMIT</code>"$'\n'
 [ -n "$NEWMAN_LINES" ] && MSG+=$'\n'"<b>API test (Newman)</b>"$'\n'"${NEWMAN_LINES}"
 [ -n "$K6_LINES" ]     && MSG+=$'\n'"<b>Load test (k6)</b>"$'\n'"${K6_LINES}"
 MSG+=$'\n'"📊 <a href=\"$BASE/\">Buka dashboard report</a>"
-tg_send "$MSG"
+notify "$MSG"
 
 # ---------- 4. Housekeeping ----------
 ln -sfn "$RUN_ID" "$PROJECT_DIR/reports/latest"
