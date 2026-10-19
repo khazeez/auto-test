@@ -1,4 +1,11 @@
+#!/bin/bash
+# Wajib dijalankan dengan bash (script ini memakai array, <<<, +=, $'..', ${var//a/b}).
 set -u
+
+# Cron hanya punya PATH minimal. Tambahkan lokasi umum node/k6/jq/git.
+# Kalau node dipasang lewat nvm, tambahkan foldernya di sini, mis:
+# export PATH="$HOME/.nvm/versions/node/vXX.X.X/bin:$PATH"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:${PATH:-}"
 
 PROJECT_DIR="${PROJECT_DIR:-/opt/automation-test}"
 cd "$PROJECT_DIR" || exit 1
@@ -55,7 +62,6 @@ tg_send() {
     echo "$resp" | grep -q '"ok":true' || echo "Notifikasi Telegram ke $cid gagal: $resp"
   done
 }
-
 
 html_to_wa() {
   printf '%s' "$1" | sed -E \
@@ -114,7 +120,6 @@ wa_send() {
     esac
   done
 }
-
 
 notify() {
   local ch
@@ -194,7 +199,6 @@ REPORT_DIR="$PROJECT_DIR/reports/$RUN_ID"
 BASE="$REPORT_BASE_URL/$RUN_ID"
 mkdir -p "$REPORT_DIR"
 
-
 if [ -z "$WA_PREVIEW_IMAGE_URL" ] && [ -n "$REPORT_BASE_URL" ] && [ -f "$PROJECT_DIR/assets/report-preview.png" ]; then
   cp -f "$PROJECT_DIR/assets/report-preview.png" "$PROJECT_DIR/reports/report-preview.png" \
     && WA_PREVIEW_IMAGE_URL="${REPORT_BASE_URL%/}/report-preview.png"
@@ -222,6 +226,8 @@ notify "$START_MSG"
 FAIL=0
 NEWMAN_LINES=""
 K6_LINES=""
+NEWMAN_CODE=0
+K6_CODE=0
 
 # ---------- 1. Newman (4 collection, berurutan, lengkap dengan before/after) ----------
 if [ "$RUN_NEWMAN" = "true" ]; then
@@ -246,7 +252,7 @@ if [ "$RUN_NEWMAN" = "true" ]; then
     NEWMAN_LINES="❌ Runner Newman crash, summary nggak terbentuk"$'\n'
     NEWMAN_CODE=1
   fi
-  [ $NEWMAN_CODE -ne 0 ] && FAIL=1
+  [ "$NEWMAN_CODE" -ne 0 ] && FAIL=1
 fi
 
 # ---------- 2. k6 (selalu jalan, walau Newman ada yang gagal) ----------
@@ -265,7 +271,7 @@ if [ "$RUN_K6" = "true" ]; then
     K6_LINES="❌ Runner k6 crash, summary nggak terbentuk"$'\n'
     K6_CODE=1
   fi
-  [ $K6_CODE -ne 0 ] && FAIL=1
+  [ "$K6_CODE" -ne 0 ] && FAIL=1
 fi
 
 # ---------- 2b. Dashboard satu halaman (index.html) ----------
@@ -273,7 +279,11 @@ node scripts/generate-report.js "$REPORT_DIR" --env "$NEWMAN_ENV" || echo "Gagal
 
 # ---------- 3. Notifikasi hasil ----------
 DURATION=$(fmt_duration $(( $(date +%s) - START_TS )))
-# if [ $FAIL -eq 0 ]; then HEADER="✅ <b>Semua test berhasil :)</b>"; else HEADER="❌ <b>Ada test yang gagal :(</b>"; fi
+if [ "$FAIL" -eq 0 ]; then
+  HEADER="✅ <b>Semua test berhasil :)</b>"
+else
+  HEADER="❌ <b>Ada test yang gagal :(</b>"
+fi
 
 MSG="$HEADER"$'\n'
 MSG+="$SEP"$'\n'
@@ -294,4 +304,4 @@ ln -sfn "$RUN_ID" "$PROJECT_DIR/reports/latest"
 find "$PROJECT_DIR/reports" -mindepth 1 -maxdepth 1 -type d -mtime +30 -exec rm -rf {} +
 
 echo "=== Selesai: $(date) | durasi=$DURATION | fail=$FAIL ==="
-exit $FAIL
+exit "$FAIL"
