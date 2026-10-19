@@ -220,7 +220,7 @@ START_MSG+="- Mulai: $(date '+%d %b %Y, %H:%M %Z')"$'\n'
 START_MSG+="- Env: <b>$NEWMAN_ENV</b>"$'\n'
 START_MSG+="- Versi: <code>$COMMIT</code>"$'\n\n'
 START_MSG+="<b>Yang dijalanin</b>"$'\n'"${SCOPE}"$'\n'
-START_MSG+="Hasilnya dikirim kalau semua sudah kelar."
+START_MSG+="Hasilnya akan dikirim setelah semua sudah selesai."
 notify "$START_MSG"
 
 FAIL=0
