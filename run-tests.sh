@@ -273,7 +273,7 @@ node scripts/generate-report.js "$REPORT_DIR" --env "$NEWMAN_ENV" || echo "Gagal
 
 # ---------- 3. Notifikasi hasil ----------
 DURATION=$(fmt_duration $(( $(date +%s) - START_TS )))
-if [ $FAIL -eq 0 ]; then HEADER="✅ <b>Semua test berhasil :)</b>"; else HEADER="❌ <b>Ada test yang gagal :(</b>"; fi
+# if [ $FAIL -eq 0 ]; then HEADER="✅ <b>Semua test berhasil :)</b>"; else HEADER="❌ <b>Ada test yang gagal :(</b>"; fi
 
 MSG="$HEADER"$'\n'
 MSG+="$SEP"$'\n'
