@@ -2755,6 +2755,44 @@
                     }
                   },
                   "response": []
+                },
+                {
+                  "name": "HTTP - Transform Nested",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.response.to.be.not.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    const jsonData = pm.response.json();\n    pm.expect(jsonData.json).to.have.property(\"Name\", \"Aziz\");\n    pm.expect(jsonData.json).to.have.property(\"Role\", \"admin\");\n    pm.expect(jsonData.json).to.have.property(\"Age\", 30);\n    pm.expect(jsonData.json).to.have.property(\"Kota\", \"Jakarta Timur\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"name\": \"Aziz\",\r\n  \"role\": \"admin\",\r\n  \"age\": 30,\r\n  \"domisili\": {\r\n    \"provinsi\": \"DKI Jakarta\",\r\n    \"kota\": \"Jakarta Timur\",\r\n    \"kecamatan\": \"Cakung\"\r\n  }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/anything/filter_req",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "anything",
+                        "filter_req"
+                      ]
+                    }
+                  },
+                  "response": []
                 }
               ]
             },
@@ -2958,47 +2996,15 @@
               "name": "Log Transformer",
               "item": [
                 {
-                  "name": "HTTP - Transformer",
+                  "name": "HTTP - Transformer req and response",
                   "event": [
                     {
                       "listen": "test",
                       "script": {
-                        "exec": [
-                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
-                          "pm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);",
-                          "pm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);",
-                          "pm.test(\"Response is valid JSON\", () => pm.response.to.be.json);",
-                          "pm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));",
-                          "pm.test(\"Validate response body\", function () {",
-                          "    let res = pm.response.json();",
-                          "",
-                          "    // Status code",
-                          "    pm.response.to.have.status(200);",
-                          "",
-                          "    // Root fields",
-                          "    pm.expect(res).to.have.property(\"args\");",
-                          "    pm.expect(res).to.have.property(\"data\");",
-                          "    pm.expect(res).to.have.property(\"headers\");",
-                          "    pm.expect(res).to.have.property(\"json\");",
-                          "    pm.expect(res).to.have.property(\"origin\");",
-                          "    pm.expect(res).to.have.property(\"url\");",
-                          "",
-                          "});"
-                        ],
                         "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
-                      }
-                    },
-                    {
-                      "listen": "prerequest",
-                      "script": {
                         "exec": [
-                          ""
-                        ],
-                        "type": "text/javascript",
-                        "packages": {},
-                        "requests": {}
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n\n    // Status code\n    pm.response.to.have.status(200);\n\n    // Root fields\n    pm.expect(res).to.have.property(\"args\");\n    pm.expect(res).to.have.property(\"data\");\n    pm.expect(res).to.have.property(\"headers\");\n    pm.expect(res).to.have.property(\"json\");\n    pm.expect(res).to.have.property(\"origin\");\n    pm.expect(res).to.have.property(\"url\");\n\n});"
+                        ]
                       }
                     }
                   ],
@@ -15568,6 +15574,53 @@
               "response": []
             },
             {
+              "name": "DB - Get With Req param integer minus",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.response.to.not.be.null;\n});\n\npm.test(\"result field exists\", function () {\n    pm.expect(pm.response.json()).to.have.property(\"result\");\n});\n\npm.test(\"result is an array\", function () {\n    pm.expect(pm.response.json().result).to.be.an(\"array\");\n});\n\npm.test(\"result array is empty\", function () {\n    pm.expect(pm.response.json().result).to.have.lengthOf(0);\n});"
+                    ]
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/req-body/get-user?age=-17",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "req-body",
+                    "get-user"
+                  ],
+                  "query": [
+                    {
+                      "key": "age",
+                      "value": "-17"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
               "name": "DB - Get With Req param string",
               "event": [
                 {
@@ -15921,6 +15974,198 @@
                     {
                       "key": "active",
                       "value": "0"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DB - Get With Req param float",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\n\r\nconst response = pm.response.json();\r\n\r\npm.test(\"result field exists\", () => {\r\n    pm.expect(response).to.have.property(\"result\");\r\n});\r\n\r\npm.test(\"result is an array\", () => {\r\n    pm.expect(response.result).to.be.an(\"array\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/sql/float/test?test_float=85.5",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "sql",
+                    "float",
+                    "test"
+                  ],
+                  "query": [
+                    {
+                      "key": "test_float",
+                      "value": "85.5"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DB - Get With Req param Wrong float",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 500\", function () {\n    pm.response.to.have.status(500);\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.expect(pm.response.text()).to.not.be.empty;\n});\n\npm.test(\"Error message exists\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData).to.have.property('message');\n});\n\npm.test(\"Error code is 500\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.code).to.eql(500);\n});"
+                    ]
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/sql/float/test?test_float=makan",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "sql",
+                    "float",
+                    "test"
+                  ],
+                  "query": [
+                    {
+                      "key": "test_float",
+                      "value": "makan"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DB - Get With Req param uint",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\n\r\nconst response = pm.response.json();\r\n\r\npm.test(\"result field exists\", () => {\r\n    pm.expect(response).to.have.property(\"result\");\r\n});\r\n\r\npm.test(\"result is an array\", () => {\r\n    pm.expect(response.result).to.be.an(\"array\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/sql/uint/test?age=25",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "sql",
+                    "uint",
+                    "test"
+                  ],
+                  "query": [
+                    {
+                      "key": "age",
+                      "value": "25"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DB - Get With Req param Wrong uint",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 500\", function () {\n    pm.response.to.have.status(500);\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.response.to.not.be.empty;\n});\n\npm.test(\"error message is correct\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.message).to.eql(\"invalid uint\");\n});\n\npm.test(\"error code is 500\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.code).to.eql(500);\n});"
+                    ]
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrlCore}}/sql/uint/test?age=-25",
+                  "host": [
+                    "{{baseUrlCore}}"
+                  ],
+                  "path": [
+                    "sql",
+                    "uint",
+                    "test"
+                  ],
+                  "query": [
+                    {
+                      "key": "age",
+                      "value": "-25"
                     }
                   ]
                 }
