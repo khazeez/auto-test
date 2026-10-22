@@ -14115,6 +14115,70 @@
                     }
                   },
                   "response": []
+                },
+                {
+                  "name": "JS import and use method and variable",
+                  "event": [
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// trx_id_KL unik + expired_date (WIB) = sekarang + 1 hari\nvar wib = new Date(Date.now() + (24 + 7) * 3600 * 1000);\npm.collectionVariables.set('trx_id_kl', 'TRX' + Date.now());\npm.collectionVariables.set('expired_date', wib.toISOString().replace('T', ' ').substring(0, 19));"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"HTTP 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"method = billingcode_v5\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.method).to.eql(\"billingcode_v5\");\n});\n\npm.test(\"response.code = ID (expired)\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.response.code).to.eql(\"ID\");\n});\n\npm.test(\"response.data is empty\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.response.data).to.be.an('array').that.is.empty;\n});\n\npm.test(\"password tidak dikembalikan apa adanya\", function () {\n    var responseBody = pm.response.text();\n    pm.expect(responseBody).to.not.contain(\"password\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "X-Lawang-Key",
+                        "value": "{{lawang_key_user}}"
+                      },
+                      {
+                        "key": "X-Lawang-Token",
+                        "value": "{{lawang_token_user}}"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"simponi_req\": {\n    \"method\": \"billingcode_v5\",\n    \"data\": {\n      \"header\": [\n        \"TRX1792152042707\",\n        \"0000001\",\n        \"dummypass1\",\n        \"2026-10-17 19:00:42\",\n        \"013\",\n        \"06\",\n        \"409272\",\n        \"F\",\n        \"1\",\n        120000000,\n        \"PT Contoh Abadi\",\n        \"{{kode_satker}}\",\n        \"999999999999999\",\n        \"3671111612850003\"\n      ],\n      \"detail\": [\n        [\n          \"PT Contoh Abadi\",\n          \"001687\",\n          \"2009006\",\n          \"423141\",\n          120000000,\n          1,\n          \"per Dokumen\",\n          120000000,\n          \"01\",\n          \"51\",\n          \"Keterangan\"\n        ]\n      ]\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/api/kl/v1/simponi/billing",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "api",
+                        "kl",
+                        "v1",
+                        "simponi",
+                        "billing"
+                      ]
+                    },
+                    "description": "Sukses. Menyimpan kode billing ke {{kode_billing}} untuk request inquiry."
+                  },
+                  "response": []
                 }
               ]
             },
@@ -14171,7 +14235,7 @@
                       "script": {
                         "type": "text/javascript",
                         "exec": [
-                          "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\r\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\r\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\r\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\r\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\r\npm.test(\"Validate response body\", function () {\r\n    let res = pm.response.json();\r\n\r\n    pm.response.to.have.status(500);\r\n\r\n    pm.expect(res).to.have.property(\"message\").to.eql(\"javascript module download returned HTTP 404\");\r\n});"
+                          "pm.test(\"Status code is 500\", function () {\n    pm.response.to.have.status(500);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.response.to.be.not.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.message).to.eql(\"cannot download HTTPS javascript module\");\n    pm.expect(jsonData.code).to.eql(500);\n});"
                         ]
                       }
                     }
@@ -14559,6 +14623,537 @@
                 }
               },
               "response": []
+            }
+          ]
+        },
+        {
+          "name": "JS -Async Await and Bucket Test",
+          "item": [
+            {
+              "name": "Verifikasi Izin Tinggal",
+              "item": [
+                {
+                  "name": "MATCH",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\n\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n    pm.expect(res).to.have.property(\"responseCode\");\n    pm.expect(res).to.have.property(\"responseMessage\");\n});\n\npm.test(\"responseMessage = MATCH\", function () {\n    let res = pm.response.json();\n    pm.expect(res.responseMessage).to.eql(\"MATCH\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "X-Lawang-Key",
+                        "value": "{{lawang_key}}"
+                      },
+                      {
+                        "key": "X-Lawang-Token",
+                        "value": "{{lawang_token}}"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"NO_PASPOR\": \"DM1000001\",\n  \"KEWARGANEGARAAN\": \"JEPANG\",\n  \"TGL_LAHIR\": \"19900115\",\n  \"NO_INTAL\": \"DUMMY-INTAL-0001\",\n  \"NAMA_LENGKAP\": \"TARO SAKAMOTO\",\n  \"TEMPAT_LAHIR\": \"OSAKA\",\n  \"TGL_KADALUARSA_INTAL\": \"2027-06-30\",\n  \"TGL_KADALUARSA_PASPOR\": \"2032-05-10\",\n  \"JENIS_KELAMIN\": \"LAKI-LAKI\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/lvdk/verif_intal",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "lvdk",
+                        "verif_intal"
+                      ]
+                    },
+                    "description": "Data dummy baris 1 di lvdk_verif_intal.js."
+                  },
+                  "response": []
+                },
+                {
+                  "name": "NOT MATCH",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\n\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n    pm.expect(res).to.have.property(\"responseCode\");\n    pm.expect(res).to.have.property(\"responseMessage\");\n});\n\npm.test(\"responseMessage = NOT MATCH\", function () {\n    let res = pm.response.json();\n    pm.expect(res.responseMessage).to.eql(\"NOT MATCH\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "X-Lawang-Key",
+                        "value": "{{lawang_key}}"
+                      },
+                      {
+                        "key": "X-Lawang-Token",
+                        "value": "{{lawang_token}}"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"NO_PASPOR\": \"DM1000001\",\n  \"KEWARGANEGARAAN\": \"JEPANG\",\n  \"TGL_LAHIR\": \"19900115\",\n  \"NO_INTAL\": \"DUMMY-INTAL-0001\",\n  \"NAMA_LENGKAP\": \"TARO PALSU\",\n  \"TEMPAT_LAHIR\": \"OSAKA\",\n  \"TGL_KADALUARSA_INTAL\": \"2027-06-30\",\n  \"TGL_KADALUARSA_PASPOR\": \"2032-05-10\",\n  \"JENIS_KELAMIN\": \"LAKI-LAKI\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/lvdk/verif_intal",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "lvdk",
+                        "verif_intal"
+                      ]
+                    },
+                    "description": "Satu parameter berbeda saja sudah NOT MATCH."
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Data Tidak Ditemukan",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\n\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n    pm.expect(res).to.have.property(\"responseCode\");\n    pm.expect(res).to.have.property(\"responseMessage\");\n});\n\npm.test(\"responseMessage = DATA TIDAK DITEMUKAN\", function () {\n    let res = pm.response.json();\n    pm.expect(res.responseMessage).to.eql(\"DATA TIDAK DITEMUKAN\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "X-Lawang-Key",
+                        "value": "{{lawang_key}}"
+                      },
+                      {
+                        "key": "X-Lawang-Token",
+                        "value": "{{lawang_token}}"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"NO_PASPOR\": \"DM10000pp\",\n  \"KEWARGANEGARAAN\": \"JEPANG\",\n  \"TGL_LAHIR\": \"19900115\",\n  \"NO_INTAL\": \"DUMMY-INTAL-0001\",\n  \"NAMA_LENGKAP\": \"TARO PALSU\",\n  \"TEMPAT_LAHIR\": \"OSAKA\",\n  \"TGL_KADALUARSA_INTAL\": \"2027-06-30\",\n  \"TGL_KADALUARSA_PASPOR\": \"2032-05-10\",\n  \"JENIS_KELAMIN\": \"LAKI-LAKI\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/lvdk/verif_intal",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "lvdk",
+                        "verif_intal"
+                      ]
+                    },
+                    "description": "Satu parameter berbeda saja sudah NOT MATCH."
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Parameter Required",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\n\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n    pm.expect(res).to.have.property(\"responseCode\");\n    pm.expect(res).to.have.property(\"responseMessage\");\n});\n\npm.test(\"responseMessage indicates missing parameters\", function () {\n    let res = pm.response.json();\n    pm.expect(res.responseMessage).to.include(\"REQUIRED\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "X-Lawang-Key",
+                        "value": "{{lawang_key}}"
+                      },
+                      {
+                        "key": "X-Lawang-Token",
+                        "value": "{{lawang_token}}"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/lvdk/verif_intal",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "lvdk",
+                        "verif_intal"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Error 500",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\n\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n    pm.expect(res).to.have.property(\"responseCode\");\n    pm.expect(res).to.have.property(\"responseMessage\");\n});\n\npm.test(\"responseMessage is correct for 500 error\", function () {\n    let res = pm.response.json();\n    pm.expect(res.responseMessage).to.eql(\"Something Wrong!! Server is dead\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "X-Lawang-Key",
+                        "value": "{{lawang_key}}"
+                      },
+                      {
+                        "key": "X-Lawang-Token",
+                        "value": "{{lawang_token}}"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"NO_PASPOR\": \"ERROR500\",\n  \"KEWARGANEGARAAN\": \"JEPANG\",\n  \"TGL_LAHIR\": \"19900115\",\n  \"NO_INTAL\": \"DUMMY-INTAL-0001\",\n  \"NAMA_LENGKAP\": \"TARO DUMMY\",\n  \"TEMPAT_LAHIR\": \"OSAKA\",\n  \"TGL_KADALUARSA_INTAL\": \"2027-06-30\",\n  \"TGL_KADALUARSA_PASPOR\": \"2032-05-10\",\n  \"JENIS_KELAMIN\": \"LAKI-LAKI\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/lvdk/verif_intal",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "lvdk",
+                        "verif_intal"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Verifikasi Paspor WNA",
+              "item": [
+                {
+                  "name": "MATCH",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\n\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n    pm.expect(res).to.have.property(\"responseCode\");\n    pm.expect(res).to.have.property(\"responseMessage\");\n});\n\npm.test(\"responseMessage = MATCH\", function () {\n    let res = pm.response.json();\n    pm.expect(res.responseMessage).to.eql(\"MATCH\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "X-Lawang-Key",
+                        "value": "{{lawang_key}}"
+                      },
+                      {
+                        "key": "X-Lawang-Token",
+                        "value": "{{lawang_token}}"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"NO_PASPOR\": \"WD2000001\",\n  \"KEWARGANEGARAAN\": \"THAILAND\",\n  \"TGL_LAHIR\": \"19700505\",\n  \"NAMA_LENGKAP\": \"CHANATIP SONGKRASIN\",\n  \"JENIS_KELAMIN\": \"LAKI-LAKI\",\n  \"TGL_KADALUARSA_INTAL\": \"2027-03-31\",\n  \"TGL_KADALUARSA_PASPOR\": \"2027-03-31\",\n  \"SATKER_PENERBIT\": \"KANIM DUMMY KELAS I A\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/lvdk/verif_pasporwna",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "lvdk",
+                        "verif_pasporwna"
+                      ]
+                    },
+                    "description": "Data dummy baris 1 di lvdk_verif_pasporwna.js."
+                  },
+                  "response": []
+                },
+                {
+                  "name": "NOT MATCH",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\n\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n    pm.expect(res).to.have.property(\"responseCode\");\n    pm.expect(res).to.have.property(\"responseMessage\");\n});\n\npm.test(\"responseMessage = NOT MATCH\", function () {\n    let res = pm.response.json();\n    pm.expect(res.responseMessage).to.eql(\"NOT MATCH\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "X-Lawang-Key",
+                        "value": "{{lawang_key}}"
+                      },
+                      {
+                        "key": "X-Lawang-Token",
+                        "value": "{{lawang_token}}"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"NO_PASPOR\": \"WD2000002\",\n  \"KEWARGANEGARAAN\": \"KOREA SELATAN\",\n  \"TGL_LAHIR\": \"19930303\",\n  \"NAMA_LENGKAP\": \"MINHO LEE\",\n  \"JENIS_KELAMIN\": \"LAKI-LAKI\",\n  \"TGL_KADALUARSA_INTAL\": \"2026-12-01\",\n  \"TGL_KADALUARSA_PASPOR\": \"2026-12-01\",\n  \"SATKER_PENERBIT\": \"KANIM DUMMY KELAS I A\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/lvdk/verif_pasporwna",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "lvdk",
+                        "verif_pasporwna"
+                      ]
+                    },
+                    "description": "Kriteria 10: jenis != 'ITK'."
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Data Tidak Ditemukan",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\n\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n    pm.expect(res).to.have.property(\"responseCode\");\n    pm.expect(res).to.have.property(\"responseMessage\");\n});\n\npm.test(\"responseMessage = NOT MATCH\", function () {\n    let res = pm.response.json();\n    pm.expect(res.responseMessage).to.eql(\"NOT MATCH\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "X-Lawang-Key",
+                        "value": "{{lawang_key}}"
+                      },
+                      {
+                        "key": "X-Lawang-Token",
+                        "value": "{{lawang_token}}"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"NO_PASPOR\": \"WD2000003\",\n  \"KEWARGANEGARAAN\": \"KOREA SELATAN\",\n  \"TGL_LAHIR\": \"19930303\",\n  \"NAMA_LENGKAP\": \"MINHO DUMMY\",\n  \"JENIS_KELAMIN\": \"LAKI-LAKI\",\n  \"TGL_KADALUARSA_INTAL\": \"2026-12-01\",\n  \"TGL_KADALUARSA_PASPOR\": \"2026-12-01\",\n  \"SATKER_PENERBIT\": \"KANIM DUMMY KELAS I A\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/lvdk/verif_pasporwna",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "lvdk",
+                        "verif_pasporwna"
+                      ]
+                    },
+                    "description": "Kriteria 10: jenis != 'ITK'."
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Parameter Required",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 400\", () => pm.response.to.have.status(400));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\n\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n    pm.expect(res).to.have.property(\"responseCode\");\n    pm.expect(res).to.have.property(\"responseMessage\");\n});\n\npm.test(\"responseCode is 400\", function () {\n    let res = pm.response.json();\n    pm.expect(res.responseCode).to.eql(400);\n});\n\npm.test(\"responseMessage contains REQUIRED\", function () {\n    let res = pm.response.json();\n    pm.expect(res.responseMessage).to.include(\"REQUIRED\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "X-Lawang-Key",
+                        "value": "{{lawang_key}}"
+                      },
+                      {
+                        "key": "X-Lawang-Token",
+                        "value": "{{lawang_token}}"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/lvdk/verif_pasporwna",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "lvdk",
+                        "verif_pasporwna"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Error 500",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 500\", () => pm.response.to.have.status(500));\npm.test(\"Content-Type header is present\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist);\npm.test(\"Response body is not empty\", () => pm.expect(pm.response.text()).to.not.be.empty);\npm.test(\"Response is valid JSON\", () => pm.response.to.be.json);\npm.test(\"Response time is less than 8000ms\", () => pm.expect(pm.response.responseTime).to.be.below(8000));\n\npm.test(\"Validate response body\", function () {\n    let res = pm.response.json();\n    pm.expect(res).to.have.property(\"responseCode\");\n    pm.expect(res).to.have.property(\"responseMessage\");\n});\n\npm.test(\"responseMessage is correct for 500 error\", function () {\n    let res = pm.response.json();\n    pm.expect(res.responseMessage).to.eql(\"Something Wrong!! Server is dead\");\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "X-Lawang-Key",
+                        "value": "{{lawang_key}}"
+                      },
+                      {
+                        "key": "X-Lawang-Token",
+                        "value": "{{lawang_token}}"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"NO_PASPOR\": \"ERROR500\",\n  \"KEWARGANEGARAAN\": \"THAILAND\",\n  \"TGL_LAHIR\": \"19700505\",\n  \"NAMA_LENGKAP\": \"SOMSAK DUMMY\",\n  \"JENIS_KELAMIN\": \"LAKI-LAKI\",\n  \"TGL_KADALUARSA_INTAL\": \"2027-03-31\",\n  \"TGL_KADALUARSA_PASPOR\": \"2027-03-31\",\n  \"SATKER_PENERBIT\": \"KANIM DUMMY KELAS I A\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrlCore}}/lvdk/verif_pasporwna",
+                      "host": [
+                        "{{baseUrlCore}}"
+                      ],
+                      "path": [
+                        "lvdk",
+                        "verif_pasporwna"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
             }
           ]
         }
@@ -21556,6 +22151,34 @@
     },
     {
       "key": "pass2",
+      "value": ""
+    },
+    {
+      "key": "trx_id_kl",
+      "value": ""
+    },
+    {
+      "key": "expired_date",
+      "value": ""
+    },
+    {
+      "key": "lawang_key_user",
+      "value": ""
+    },
+    {
+      "key": "lawang_token_user",
+      "value": ""
+    },
+    {
+      "key": "kode_billing",
+      "value": ""
+    },
+    {
+      "key": "lawang_key",
+      "value": ""
+    },
+    {
+      "key": "lawang_token",
       "value": ""
     }
   ]
