@@ -14235,7 +14235,7 @@
                       "script": {
                         "type": "text/javascript",
                         "exec": [
-                          "pm.test(\"Status code is 500\", function () {\n    pm.response.to.have.status(500);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.response.to.be.not.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.message).to.eql(\"cannot download HTTPS javascript module\");\n    pm.expect(jsonData.code).to.eql(500);\n});"
+                          "pm.test(\"Status code is 500\", function () {\n    pm.response.to.have.status(500);\n});\n\npm.test(\"Content-Type header is present\", function () {\n    pm.response.to.have.header(\"Content-Type\");\n});\n\npm.test(\"Response body is not empty\", function () {\n    pm.response.to.be.not.empty;\n});\n\npm.test(\"Response is valid JSON\", function () {\n    pm.response.to.be.json;\n});\n\npm.test(\"Response time is less than 8000ms\", function () {\n    pm.expect(pm.response.responseTime).to.be.below(8000);\n});\n\npm.test(\"Validate response body\", function () {\n    var jsonData = pm.response.json();\n    pm.expect(jsonData.message).to.eql(\"javascript module download returned HTTP 404\");\n    pm.expect(jsonData.code).to.eql(500);\n});"
                         ]
                       }
                     }
