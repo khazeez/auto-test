@@ -1,22 +1,16 @@
 #!/bin/bash
-# Wajib dijalankan dengan bash (script ini memakai array, <<<, +=, $'..', ${var//a/b}).
 set -u
 
-# Cron hanya punya PATH minimal. Tambahkan lokasi umum node/k6/jq/git.
-# Kalau node dipasang lewat nvm, tambahkan foldernya di sini, mis:
-# export PATH="$HOME/.nvm/versions/node/vXX.X.X/bin:$PATH"
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:${PATH:-}"
 
 PROJECT_DIR="${PROJECT_DIR:-/opt/automation-test}"
 cd "$PROJECT_DIR" || exit 1
 
-# Ambil hanya variabel yang dibutuhkan dari .env (aman untuk file berformat Windows/CRLF)
 get_env() {
   [ -f .env ] || return 0
   grep -E "^$1=" .env | head -1 | cut -d= -f2- | tr -d '\r' | sed -e 's/^"//' -e 's/"$//' -e "s/^'//" -e "s/'$//"
 }
 
-# Kredensial. Prioritas: variabel di terminal/cron > isi .env
 TG_TOKEN="${TG_TOKEN:-$(get_env TG_TOKEN)}"
 TG_CHAT_ID="${TG_CHAT_ID:-$(get_env TG_CHAT_ID)}"
 REPORT_BASE_URL="${REPORT_BASE_URL:-$(get_env REPORT_BASE_URL)}"
@@ -25,17 +19,16 @@ WAHA_URL="${WAHA_URL:-$(get_env WAHA_URL)}"
 WAHA_API_KEY="${WAHA_API_KEY:-$(get_env WAHA_API_KEY)}"
 WAHA_SESSION="${WAHA_SESSION:-$(get_env WAHA_SESSION)}"; WAHA_SESSION="${WAHA_SESSION:-default}"
 WA_CHAT_ID="${WA_CHAT_ID:-$(get_env WA_CHAT_ID)}"
-# Gambar untuk kartu preview WA (opsional). Kosong = otomatis pakai assets/report-preview.png.
-# Kalau diisi, harus URL publik yang bisa diakses server WAHA.
 WA_PREVIEW_IMAGE_URL="${WA_PREVIEW_IMAGE_URL:-$(get_env WA_PREVIEW_IMAGE_URL)}"
 
-# Pengaturan run. Prioritas: variabel di terminal/cron > isi .env > default.
+WA_USE_PREVIEW_CARD="${WA_USE_PREVIEW_CARD:-$(get_env WA_USE_PREVIEW_CARD)}"; WA_USE_PREVIEW_CARD="${WA_USE_PREVIEW_CARD:-false}"
+WA_LINK_PREVIEW="${WA_LINK_PREVIEW:-$(get_env WA_LINK_PREVIEW)}"; WA_LINK_PREVIEW="${WA_LINK_PREVIEW:-false}"
+
 NEWMAN_ENV="${NEWMAN_ENV:-$(get_env NEWMAN_ENV)}";   NEWMAN_ENV="${NEWMAN_ENV:-Dev}"
 K6_TYPES="${K6_TYPES:-$(get_env K6_TYPES)}";         K6_TYPES="${K6_TYPES:-smoke,load}"
 RUN_NEWMAN="${RUN_NEWMAN:-$(get_env RUN_NEWMAN)}";   RUN_NEWMAN="${RUN_NEWMAN:-true}"
 RUN_K6="${RUN_K6:-$(get_env RUN_K6)}";               RUN_K6="${RUN_K6:-true}"
 
-# Garis pemisah untuk pesan notifikasi
 SEP="━━━━━━━━━━━━━━━━━━"
 
 # Channel notifikasi: telegram, whatsapp, atau keduanya (pisah koma). "none" = matikan.
@@ -66,7 +59,7 @@ tg_send() {
 html_to_wa() {
   printf '%s' "$1" | sed -E \
     -e 's/^[[:space:]]+//' \
-    -e 's#<a href="[^"]*">([^<]*)</a>#*\1*#g' \
+    -e 's#<a href="([^"]*)">([^<]*)</a>#\2: \1#g' \
     -e 's#<b>([^<]*)</b>#*\1*#g' \
     -e 's#<code>([^<]*)</code>#`\1`#g' \
     -e 's/&lt;/</g' -e 's/&gt;/>/g' -e 's/&amp;/\&/g'
@@ -78,13 +71,15 @@ wa_send() {
     return 0
   fi
   local url="${2:-}" title="${3:-}" desc="${4:-}"
-  local text payload resp code body cid
+  local text payload resp code body cid attempt
   local -a ids hdr
   hdr=(-H 'Content-Type: application/json')
   [ -n "$WAHA_API_KEY" ] && hdr+=(-H "X-Api-Key: $WAHA_API_KEY")
 
   text=$(html_to_wa "$1")
-  [ -n "$url" ] && text+=$'\n'"$url"
+  if [ -n "$url" ]; then
+    case "$text" in *"$url"*) ;; *) text+=$'\n'"$url" ;; esac
+  fi
 
   IFS=',' read -ra ids <<< "$WA_CHAT_ID"
   for cid in "${ids[@]}"; do
@@ -92,13 +87,13 @@ wa_send() {
     [ -z "$cid" ] && continue
     code=""
 
-    if [ -n "$url" ]; then
+    if [ -n "$url" ] && [ "$WA_USE_PREVIEW_CARD" = "true" ]; then
       payload=$(jq -n --arg chatId "$cid" --arg text "$text" --arg session "$WAHA_SESSION" \
         --arg url "$url" --arg title "$title" --arg desc "$desc" --arg img "$WA_PREVIEW_IMAGE_URL" '
         {chatId:$chatId, text:$text, session:$session, linkPreviewHighQuality:false,
          preview: ({url:$url, title:$title, description:$desc}
                    + (if $img != "" then {image:{url:$img}} else {} end))}')
-      resp=$(curl -s -m 30 -w $'\n%{http_code}' -X POST "${WAHA_URL%/}/api/send/link-custom-preview" \
+      resp=$(curl -s --connect-timeout 10 -m 90 -w $'\n%{http_code}' -X POST "${WAHA_URL%/}/api/send/link-custom-preview" \
         "${hdr[@]}" -d "$payload")
       code="${resp##*$'\n'}"
       body="${resp%$'\n'*}"
@@ -109,15 +104,17 @@ wa_send() {
     fi
 
     payload=$(jq -n --arg chatId "$cid" --arg text "$text" --arg session "$WAHA_SESSION" \
-      '{chatId:$chatId, text:$text, session:$session, linkPreview:true}')
-    resp=$(curl -s -m 30 -w $'\n%{http_code}' -X POST "${WAHA_URL%/}/api/sendText" \
-      "${hdr[@]}" -d "$payload")
-    code="${resp##*$'\n'}"
-    body="${resp%$'\n'*}"
-    case "$code" in
-      2??) ;;
-      *) echo "Notifikasi WA ke $cid gagal (HTTP $code): $body" ;;
-    esac
+      --argjson lp "$WA_LINK_PREVIEW" \
+      '{chatId:$chatId, text:$text, session:$session, linkPreview:$lp}')
+    for attempt in 1 2 3; do
+      resp=$(curl -s --connect-timeout 10 -m 90 -w $'\n%{http_code}' -X POST "${WAHA_URL%/}/api/sendText" \
+        "${hdr[@]}" -d "$payload")
+      code="${resp##*$'\n'}"
+      body="${resp%$'\n'*}"
+      case "$code" in 2??) break ;; esac
+      echo "Notifikasi WA ke $cid gagal (HTTP $code, percobaan $attempt/3): $body"
+      [ "$attempt" -lt 3 ] && sleep 10
+    done
   done
 }
 
