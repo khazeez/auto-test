@@ -1,16 +1,22 @@
 #!/bin/bash
+# Wajib dijalankan dengan bash (script ini memakai array, <<<, +=, $'..', ${var//a/b}).
 set -u
 
+# Cron hanya punya PATH minimal. Tambahkan lokasi umum node/k6/jq/git.
+# Kalau node dipasang lewat nvm, tambahkan foldernya di sini, mis:
+# export PATH="$HOME/.nvm/versions/node/vXX.X.X/bin:$PATH"
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:${PATH:-}"
 
 PROJECT_DIR="${PROJECT_DIR:-/opt/automation-test}"
 cd "$PROJECT_DIR" || exit 1
 
+# Ambil hanya variabel yang dibutuhkan dari .env (aman untuk file berformat Windows/CRLF)
 get_env() {
   [ -f .env ] || return 0
   grep -E "^$1=" .env | head -1 | cut -d= -f2- | tr -d '\r' | sed -e 's/^"//' -e 's/"$//' -e "s/^'//" -e "s/'$//"
 }
 
+# Kredensial. Prioritas: variabel di terminal/cron > isi .env
 TG_TOKEN="${TG_TOKEN:-$(get_env TG_TOKEN)}"
 TG_CHAT_ID="${TG_CHAT_ID:-$(get_env TG_CHAT_ID)}"
 REPORT_BASE_URL="${REPORT_BASE_URL:-$(get_env REPORT_BASE_URL)}"
@@ -19,16 +25,22 @@ WAHA_URL="${WAHA_URL:-$(get_env WAHA_URL)}"
 WAHA_API_KEY="${WAHA_API_KEY:-$(get_env WAHA_API_KEY)}"
 WAHA_SESSION="${WAHA_SESSION:-$(get_env WAHA_SESSION)}"; WAHA_SESSION="${WAHA_SESSION:-default}"
 WA_CHAT_ID="${WA_CHAT_ID:-$(get_env WA_CHAT_ID)}"
+# Gambar untuk kartu preview WA (opsional). Kosong = otomatis pakai assets/report-preview.png.
+# Kalau diisi, harus URL publik yang bisa diakses server WAHA.
 WA_PREVIEW_IMAGE_URL="${WA_PREVIEW_IMAGE_URL:-$(get_env WA_PREVIEW_IMAGE_URL)}"
 
+# Opsi WA. WEBJS tidak mendukung kartu preview custom (HTTP 501), jadi default-nya mati.
 WA_USE_PREVIEW_CARD="${WA_USE_PREVIEW_CARD:-$(get_env WA_USE_PREVIEW_CARD)}"; WA_USE_PREVIEW_CARD="${WA_USE_PREVIEW_CARD:-false}"
+# linkPreview:true membuat WAHA mengambil preview URL dan bisa membuat request menggantung. Default mati.
 WA_LINK_PREVIEW="${WA_LINK_PREVIEW:-$(get_env WA_LINK_PREVIEW)}"; WA_LINK_PREVIEW="${WA_LINK_PREVIEW:-false}"
 
+# Pengaturan run. Prioritas: variabel di terminal/cron > isi .env > default.
 NEWMAN_ENV="${NEWMAN_ENV:-$(get_env NEWMAN_ENV)}";   NEWMAN_ENV="${NEWMAN_ENV:-Dev}"
 K6_TYPES="${K6_TYPES:-$(get_env K6_TYPES)}";         K6_TYPES="${K6_TYPES:-smoke,load}"
 RUN_NEWMAN="${RUN_NEWMAN:-$(get_env RUN_NEWMAN)}";   RUN_NEWMAN="${RUN_NEWMAN:-true}"
 RUN_K6="${RUN_K6:-$(get_env RUN_K6)}";               RUN_K6="${RUN_K6:-true}"
 
+# Garis pemisah untuk pesan notifikasi
 SEP="━━━━━━━━━━━━━━━━━━"
 
 # Channel notifikasi: telegram, whatsapp, atau keduanya (pisah koma). "none" = matikan.
@@ -59,7 +71,7 @@ tg_send() {
 html_to_wa() {
   printf '%s' "$1" | sed -E \
     -e 's/^[[:space:]]+//' \
-    -e 's#<a href="([^"]*)">([^<]*)</a>#\2: \1#g' \
+    -e 's#<a href="[^"]*">([^<]*)</a>#*\1*#g' \
     -e 's#<b>([^<]*)</b>#*\1*#g' \
     -e 's#<code>([^<]*)</code>#`\1`#g' \
     -e 's/&lt;/</g' -e 's/&gt;/>/g' -e 's/&amp;/\&/g'
