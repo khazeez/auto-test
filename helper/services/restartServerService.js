@@ -6,7 +6,7 @@ import 'dotenv/config';
 export default async function RestartService() {
 
   const loginSpinner = spinner('Login...');
-  const responseAuth = await axios.post('http://202.72.206.162:3737/auth', {
+  const responseAuth = await axios.post('https://console.moklaar.cloud/auth', {
     username: 'adminlawang',
     password: 'admin@1234567',
   });
@@ -16,7 +16,7 @@ export default async function RestartService() {
 
   const restartSpinner = spinner('Restarting server...');
   const response = await axios.post(
-    'http://202.72.206.162:3737/servers/e15dd283-e9f1-4c06-93cc-c5b5b2796d8e/restart',
+    'https://console.moklaar.cloud/servers/e8f2533c-2a4f-4a2b-b87d-6a403883aadb/restart',
     {},
     {
       headers: {
