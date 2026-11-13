@@ -7,7 +7,7 @@ set -u
 # export PATH="$HOME/.nvm/versions/node/vXX.X.X/bin:$PATH"
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:${PATH:-}"
 
-PROJECT_DIR="${PROJECT_DIR:-/opt/automation-test}"
+PROJECT_DIR="${PROJECT_DIR:-/opt/core-autobot}"
 cd "$PROJECT_DIR" || exit 1
 
 # Ambil hanya variabel yang dibutuhkan dari .env (aman untuk file berformat Windows/CRLF)
