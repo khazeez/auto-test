@@ -35,7 +35,7 @@ export default async function RestartService() {
   restartSpinner.success('Restart server success');
 
 
-  const waitSec = Number(process.env.RESTART_WAIT_SECONDS ?? 20);
+  const waitSec = Number(env.RESTART_WAIT_SECONDS ?? 20);
   const waitSpinner = spinner(`Menunggu service naik (${waitSec}s)...`);
   await new Promise((resolve) => setTimeout(resolve, waitSec * 1000));
   waitSpinner.success('Service siap');
