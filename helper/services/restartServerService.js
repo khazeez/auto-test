@@ -5,8 +5,10 @@ import 'dotenv/config';
 
 export default async function RestartService() {
 
+  let env = process.env
+
   const loginSpinner = spinner('Login...');
-  const responseAuth = await axios.post('https://console.moklaar.cloud/auth', {
+  const responseAuth = await axios.post(`${env.CONSOLE_URL}/auth`, {
     username: 'adminlawang',
     password: 'admin@1234567',
   });
@@ -16,7 +18,7 @@ export default async function RestartService() {
 
   const restartSpinner = spinner('Restarting server...');
   const response = await axios.post(
-    'https://console.moklaar.cloud/servers/e8f2533c-2a4f-4a2b-b87d-6a403883aadb/restart',
+    `${env.CONSOLE_URL}/servers/${env.SERVER_CORE_ID}/restart`,
     {},
     {
       headers: {
@@ -32,7 +34,7 @@ export default async function RestartService() {
   }
   restartSpinner.success('Restart server success');
 
-  // beri waktu service naik lagi sebelum test dijalankan (atur lewat RESTART_WAIT_SECONDS di .env)
+
   const waitSec = Number(process.env.RESTART_WAIT_SECONDS ?? 20);
   const waitSpinner = spinner(`Menunggu service naik (${waitSec}s)...`);
   await new Promise((resolve) => setTimeout(resolve, waitSec * 1000));
